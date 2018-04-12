@@ -9,5 +9,5 @@
 package com.coachingeleven.coachingsoftware.persistence.enumeration;
 
 public enum Position {
-	LW, RW, G, //ETC TODO: RIGHT NAMES AND COMPLETE
+	FW, MF, DEF, GK
 }

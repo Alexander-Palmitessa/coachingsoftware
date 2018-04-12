@@ -13,6 +13,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Set;
 
@@ -26,8 +29,12 @@ public class Team {
 	private int ID;
 	@Column(name = "TEAM_NAME")
 	private String name;
+	@Column(name = "CLUB")
+	@ManyToOne
+	private Club club;
 	//TODO: ANNOTATE
 	private Set<Player> players;
+	private Set<Game> games;
 
 
 

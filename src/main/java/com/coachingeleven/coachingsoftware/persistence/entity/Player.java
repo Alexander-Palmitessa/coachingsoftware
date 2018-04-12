@@ -15,9 +15,14 @@ import com.coachingeleven.coachingsoftware.persistence.enumeration.Type;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Calendar;
 import java.util.Set;
@@ -30,9 +35,9 @@ public class Player {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PLAYER_ID")
 	private int ID;
-	@Column(name = "FIRST_NAME")
+	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
-	@Column(name = "LAST_NAME")
+	@Column(name = "LAST_NAME", nullable = false)
 	private String lastName;
 	@Embedded
 	private Address address;
@@ -41,30 +46,52 @@ public class Player {
 	@Column(name = "SECOND_EMAIL", unique = true)
 	private EmailAddress secondEmail;
 	@Column(name = "CLUB")
+	@ManyToOne
 	private Club club;
 	@Column(name = "TYPE")
+	@Enumerated(EnumType.STRING)
 	private Type type;
 	@Column(name = "DARFT")
+	@Enumerated(EnumType.STRING)
 	private Draft draft;
 	@Column(name = "POSITION")
+	@Enumerated(EnumType.STRING)
 	private Position position;
 	@Column(name = "PRIVATE_NUMBER")
-	private Phonenumber privateNumber;
+	private PhoneNumber privateNumber;
 	@Column(name = "WORKING_NUMBER")
-	private Phonenumber workingNumber;
+	private PhoneNumber workingNumber;
 	@Column(name = "MOBILE_NUMBER")
-	private Phonenumber mobileNumber;
+	private PhoneNumber mobileNumber;
 	@Column(name = "BIRTHDATE")
 	private Calendar birthdate;
 
 
-	//TODO: ANNOTATE
+	/*
+	Müssen die wirklich da sein oder reicht es diese bei den anderen
+	Klassen mit @JoinColumn(name = "") zu annotieren?
+	 */
+
+	@Column(name = "TEAMS")
+	@ManyToMany
 	private Set<Team> teams;
+	@Column(name = "GAMES")
+	@ManyToMany
 	private Set<Game> games;
+	@Column(name = "GAMESTATS")
+	@OneToMany
 	private Set<PlayerGameStats> gameStats;
+	@Column(name = "LINEUPS")
+	@ManyToMany
 	private Set<LineUp> lineUps;
+	@Column(name = "PERFORMANCE_DIAGNASOTICS")
+	@OneToMany
 	private Set<PerformanceDiagnostics> performanceDiagnostics;
+	@Column(name = "SCOUTING_REPORTS")
+	@OneToMany
 	private Set<ScoutingReport> scoutingReports;
+	@Column(name = "EVALUATION_TALKS")
+	@OneToMany
 	private Set<EvaluationTalk> evaluationTalks;
 
 	/*

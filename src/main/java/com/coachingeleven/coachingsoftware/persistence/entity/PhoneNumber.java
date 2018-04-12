@@ -11,7 +11,7 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Phonenumber {
+public class PhoneNumber {
 
 
 	//TODO: Validate etc.

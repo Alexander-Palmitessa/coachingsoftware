@@ -9,7 +9,5 @@
 package com.coachingeleven.coachingsoftware.persistence.enumeration;
 
 public enum Draft {
-	AUFGEBOT, ABRUF, TEST
-
-	//TODO:ENGLISH NAMES
+	TEAM, ONCALL, TEST
 }
