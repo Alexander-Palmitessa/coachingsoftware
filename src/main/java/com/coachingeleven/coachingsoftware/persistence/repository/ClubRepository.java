@@ -6,9 +6,7 @@
  * Distributable under GPL license. See terms of license at gnu.org.
  */
 
-package com.coachingeleven.coachingsoftware.persistence.enumeration;
+package com.coachingeleven.coachingsoftware.persistence.repository;
 
-public enum Type {
-	FUNCTIONARY, DOCTOR, ASSISTANT, GK_TRAINER, TRAINER, FW_TRAINER,
-	PHYSIOTHERAPIST, TEAMMANAGER, SQUAD_PLAYER, SIGHTING
+public class ClubRepository {
 }

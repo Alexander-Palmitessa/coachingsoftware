@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.Calendar;
@@ -25,10 +26,10 @@ public class Game {
 	@Column(name = "GAME ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int ID;
-	@Column(name = "TEAM_HOME")
+	@JoinColumn(name = "TEAM_HOME_ID")
 	@ManyToOne
 	private Team teamHome;
-	@Column(name = "TEAM_AWAY")
+	@JoinColumn(name = "TEAM_AWAY_ID")
 	@ManyToOne
 	private Team teamAway;
 	@Column(name = "DATE")
