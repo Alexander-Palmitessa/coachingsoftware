@@ -50,9 +50,9 @@ public class Game {
 	@ManyToMany(mappedBy = "games")
 	private Set<Player> players;
 	@Column(name = "GOALS_HOME")
-	private int goalsHome;
+	private Set<Goal> goalsHome;
 	@Column(name = "GOALS_AWAY")
-	private int goalsAway;
+	private Set<Goal> goalsAway;
 	@OneToMany(mappedBy = "GAME")
 	private Set<Objective> objectives;
 	@OneToOne(mappedBy = "GAME")

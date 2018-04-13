@@ -23,7 +23,7 @@ public class Arena {
 	@Column(name = "ARENA_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
-	@Column(name = "ARENA_NAME")
+	@Column(name = "ARENA_NAME", nullable = false)
 	private String name;
 	@Embedded
 	private Address address;

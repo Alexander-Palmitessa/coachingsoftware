@@ -9,6 +9,7 @@
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,8 +29,53 @@ public class PlayerGameStats {
 	@JoinColumn(name = "PLAYER")
 	@ManyToOne
 	private Player player;
+	@Column(name = "MINUTES_PLAYED")
+	private int minutesPlayed;
+	@Column(name = "TOTAL_DISTANCE")
+	private int totalDistance;
+	@Column(name = "SPRINTS")
+	private int sprints;
+	@Column(name = "ACCELERATIONS")
+	private int accelerations;
+	@Column(name = "DECELERATIONS")
+	private int decelerations;
+	@Column(name = "MAX_SPEED")
+	private int maxSpeed;
+	@Column(name = "AVG_SPEED")
+	private int avgSpeed;
+	@Column(name = "SPRINT_DISTANCE")
+	private int sprintDistance;
+	@Column(name = "BALL_CONTACTS")
+	private int ballContacts;
+	@Column(name = "PASSES")
+	private int passes;
+	@Column(name = "PASSES_PERCENTAGE")
+	private int passesPercentage;
+	@Column(name = "DUELS")
+	private int duels;
+	@Column(name = "DUELS_PERCENTAGE")
+	private int duelPercentage;
+	@Column(name = "OFF_DUELS")
+	private int offensiveDuels;
+	@Column(name = "OFF_DUELS_PERCENTAGE")
+	private int offensiveDuelsPercentage;
+	@Column(name = "DEF_DUELS")
+	private int defensiveDuels;
+	@Column(name = "DEF_DUELS_PERCENTAGE")
+	private int defensiveDuelsPercentage;
+	@Column(name = "GOALS")
+	private int goals;
+	@Column(name = "ASSIST")
+	private int assist;
+	@Column(name = "LOAD_INDICATOR")
+	private int loadIndicator; //TODO: ENTITY? (Borgskala 1-10)
+	@Embedded
+	private ChangeIn changeIn;
+	@Embedded
+	private ChangeOut changeOut;
 
-	//TODO:UNCMPLETE
+	//TODO: UNCOMPLETE AUSWECHSLUNG(TYP DER AUSWECHSLUNG (Rot, Doppelgelb, normale Auswechslung))
+	//TODO: WEITERES?
 
 	/**
 	 * JPA required default constructor

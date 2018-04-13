@@ -29,7 +29,7 @@ public class PerformanceDiagnostics {
 	@JoinColumn(name = "PLAYER_ID")
 	private Player player;
 
-	//TODO: UNCOMPLETE
+	
 
 	/**
 	 * JPA required default constructor

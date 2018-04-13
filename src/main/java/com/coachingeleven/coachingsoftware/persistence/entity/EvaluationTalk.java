@@ -29,16 +29,16 @@ public class EvaluationTalk {
 	@Column(name = "EVALUATION_TALK_ID")
 	private int ID;
 	@ManyToOne
-	@JoinColumn(name = "PLAYER_ID")
+	@JoinColumn(name = "PLAYER_ID", nullable = false)
 	private Player player;
-	@Column(name = "DATE")
+	@Column(name = "DATE", nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Calendar date;
-	@Column(name = "SIT_ANALYSIS")
+	@Column(name = "SIT_ANALYSIS", nullable = false)
 	private String situationalAnalysis;
-	@Column(name = "GOALS")
+	@Column(name = "GOALS", nullable = false)
 	private String goals;
-	@Column(name = "TIME_HORIZON")
+	@Column(name = "TIME_HORIZON", nullable = false)
 	private String timeHorizon;
 
 	/**

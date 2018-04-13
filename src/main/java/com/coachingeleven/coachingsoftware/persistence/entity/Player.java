@@ -94,8 +94,6 @@ public class Player {
 	private Set<PlayerGameStats> gameStats;
 	@OneToMany(mappedBy = "PERF_DIAG")
 	private Set<PerformanceDiagnostics> performanceDiagnostics;
-	@OneToMany(mappedBy = "SCOUTING_REPORT")
-	private Set<ScoutingReport> scoutingReports;
 	@OneToMany(mappedBy = "EVALUATION_TALK")
 	private Set<EvaluationTalk> evaluationTalks;
 

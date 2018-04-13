@@ -26,7 +26,7 @@ public class Country {
 	@Column(name = "COUNTRY_ID")
 	private int ID;
 
-	@Column(name = "COUNTRY_NAME")
+	@Column(name = "COUNTRY_NAME", nullable = false)
 	private String name;
 
 	@OneToMany(mappedBy = "COUNTRY")
