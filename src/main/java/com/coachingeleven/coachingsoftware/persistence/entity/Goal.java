@@ -40,7 +40,9 @@ public class Goal {
 	@JoinColumn(name = "GAME_ID", nullable = false)
 	@ManyToOne
 	private Game game;
-
+	@JoinColumn(name = "TEAM_ID")
+	@ManyToOne
+	private Team team;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "ZONE_SCORE", nullable = false)
 	private Zone scoreZone;
@@ -53,47 +55,60 @@ public class Goal {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "STANDARD", nullable = false)
 	private Standard standard;
+	@Column(name = "MINUTE_SCORED")
+	private int minuteScored;
 
 	/**
 	 * Class constructor for goals without assistant
-	 * @param scorer the goal scorer
-	 * @param game the game which the goal was scored in
-	 * @param scoreZone the zone where the goal was scored from
-	 * @param foot the foot or head the goal was scored with
-	 * @param standard NO if the goal wasn't scored from a standard else the standard
+	 *
+	 * @param scorer       the goal scorer
+	 * @param game         the game which the goal was scored in
+	 * @param team         the team who scored the goal
+	 * @param scoreZone    the zone where the goal was scored from
+	 * @param foot         the foot or head the goal was scored with
+	 * @param standard     NO if the goal wasn't scored from a standard else the standard
+	 * @param minuteScored the minute the goal was scored
 	 */
-	public Goal(Player scorer, Game game, Zone scoreZone, Foot foot, Standard standard) {
+	public Goal(Player scorer, Game game, Team team, Zone scoreZone, Foot foot, Standard standard, int minuteScored) {
 		this.scorer = scorer;
 		this.game = game;
+		this.team = team;
 		this.scoreZone = scoreZone;
 		this.foot = foot;
 		this.standard = standard;
+		this.minuteScored = minuteScored;
 	}
 
 	/**
 	 * Class constructor for goals with assistant
-	 * @param scorer the goals scorer
-	 * @param assistant the goals assistant
-	 * @param game he game which the goal was scored in
-	 * @param scoreZone the zone where the goal was scored from
-	 * @param assistZone the zone where the goal was assisted from
-	 * @param foot the foot or head the goal was scored with
-	 * @param standard NO if the goal wasn't scored from a standard else the standard
+	 *
+	 * @param scorer       the goals scorer
+	 * @param assistant    the goals assistant
+	 * @param game         he game which the goal was scored in
+	 * @param team         the team who scored the goal
+	 * @param scoreZone    the zone where the goal was scored from
+	 * @param assistZone   the zone where the goal was assisted from
+	 * @param foot         the foot or head the goal was scored with
+	 * @param standard     NO if the goal wasn't scored from a standard else the standard
+	 * @param minuteScored the minute the goal was scored
 	 */
-	public Goal(Player scorer, Player assistant, Game game, Zone scoreZone, Zone assistZone, Foot foot, Standard standard) {
+	public Goal(Player scorer, Player assistant, Game game, Team team, Zone scoreZone, Zone assistZone, Foot foot,
+				Standard standard, int minuteScored) {
 		this.scorer = scorer;
 		this.assistant = assistant;
 		this.game = game;
+		this.team = team;
 		this.scoreZone = scoreZone;
 		this.assistZone = assistZone;
 		this.foot = foot;
 		this.standard = standard;
+		this.minuteScored = minuteScored;
 	}
 
 	/**
 	 * JPA required default constructor
 	 */
-	public Goal(){
+	public Goal() {
 
 	}
 
@@ -123,6 +138,14 @@ public class Goal {
 
 	public void setGame(Game game) {
 		this.game = game;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 
 	public Zone getScoreZone() {

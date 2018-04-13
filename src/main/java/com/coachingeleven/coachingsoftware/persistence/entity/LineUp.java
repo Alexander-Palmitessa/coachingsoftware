@@ -8,8 +8,12 @@
 
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
+import com.coachingeleven.coachingsoftware.persistence.enumeration.System;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +30,14 @@ public class LineUp {
 	@Column(name = "LINEUP_ID")
 	private int ID;
 	@ManyToMany(mappedBy = "lineUps")
-	private Set<Player> players;
+	@Column(name = "STARTING_PLAYER")
+	private Set<Player> startingPlayers;
+	@ManyToMany(mappedBy = "lineUps")
+	@Column(name = "BENCHED_PLAYER")
+	private Set<Player> benchedPlayers;
+	@Column(name = "SYSTEM")
+	@Enumerated(EnumType.STRING)
+	private System system;
 
 	//TODO: UNCOMPLETE
 

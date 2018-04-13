@@ -26,6 +26,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -66,7 +68,14 @@ public class Player {
 	@Column(name = "MOBILE_NUMBER")
 	private String mobileNumber;
 	@Column(name = "BIRTHDATE")
+	@Temporal(TemporalType.DATE)
 	private Calendar birthdate;
+	@Column(name = "SIZE")
+	private int size;
+	@Column(name = "WEIGHT")
+	private int weight;
+	@Embedded
+	private Contract contract;
 	@JoinColumn(name = "COUNTRY")
 	@ManyToOne
 	private Country country;
