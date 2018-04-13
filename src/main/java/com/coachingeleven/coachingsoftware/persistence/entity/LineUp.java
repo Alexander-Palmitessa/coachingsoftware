@@ -13,7 +13,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Entity
 @Table(name = "LINEUP")
@@ -23,6 +25,10 @@ public class LineUp {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "LINEUP_ID")
 	private int ID;
+	@ManyToMany(mappedBy = "lineUps")
+	private Set<Player> players;
+
+	//TODO: UNCOMPLETE
 
 	/**
 	 * JPA required default constructor

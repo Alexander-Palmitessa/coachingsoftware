@@ -10,6 +10,7 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
 
 @Embeddable
 class Address {
@@ -22,18 +23,31 @@ class Address {
 	private String streetNr;
 	@Column(name = "ZIP")
 	private int zip;
+	@ManyToOne
+	@Column(name = "COUNTRY")
+	private Country country;
 
-	public Address(String city, String street, String streetNr, int zip) {
+	/**
+	 * Class constructor
+	 *
+	 * @param city     the name of the city
+	 * @param street   the name of the street
+	 * @param streetNr the street number
+	 * @param zip      the zip/postal code
+	 * @param country  the country
+	 */
+	public Address(String city, String street, String streetNr, int zip, Country country) {
 		this.city = city;
 		this.street = street;
 		this.streetNr = streetNr;
 		this.zip = zip;
+		this.country = country;
 	}
 
 	/**
 	 * JPA required default constructor
 	 */
-	public Address(){
+	public Address() {
 
 	}
 
@@ -67,5 +81,13 @@ class Address {
 
 	public void setZip(int zip) {
 		this.zip = zip;
+	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
 	}
 }

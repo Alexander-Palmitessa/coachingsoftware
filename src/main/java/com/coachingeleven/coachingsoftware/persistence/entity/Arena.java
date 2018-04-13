@@ -9,42 +9,39 @@
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.util.Set;
 
 @Entity
-@Table(name = "TEAM")
-public class Team {
-
+@Table(name = "ARENA")
+public class Arena {
 	@Id
+	@Column(name = "ARENA_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "TEAM_ID")
 	private int ID;
-	@Column(name = "TEAM_NAME")
+	@Column(name = "ARENA_NAME")
 	private String name;
-	@Column(name = "CLUB")
-	@ManyToOne
-	private Club club;
-	@ManyToMany(mappedBy = "teams")
-	private Set<Player> players;
-	@ManyToMany
-	private Set<Game> games;
+	@Embedded
+	private Address address;
 
-	public Team(String name, Club club) {
+	/**
+	 * Class construcor
+	 * @param name the name of the arena
+	 * @param address the Address of the arena
+	 */
+	public Arena(String name, Address address) {
 		this.name = name;
-		this.club = club;
+		this.address = address;
 	}
 
 	/**
 	 * JPA required default constructor
 	 */
-	public Team(){
+	public Arena(){
 
 	}
 
@@ -60,27 +57,11 @@ public class Team {
 		this.name = name;
 	}
 
-	public Club getClub() {
-		return club;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setClub(Club club) {
-		this.club = club;
-	}
-
-	public Set<Player> getPlayers() {
-		return players;
-	}
-
-	public void setPlayers(Set<Player> players) {
-		this.players = players;
-	}
-
-	public Set<Game> getGames() {
-		return games;
-	}
-
-	public void setGames(Set<Game> games) {
-		this.games = games;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 }

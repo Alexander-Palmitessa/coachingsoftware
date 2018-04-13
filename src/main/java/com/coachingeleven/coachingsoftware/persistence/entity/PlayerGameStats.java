@@ -29,8 +29,7 @@ public class PlayerGameStats {
 	@ManyToOne
 	private Player player;
 
-
-
+	//TODO:UNCMPLETE
 
 	/**
 	 * JPA required default constructor

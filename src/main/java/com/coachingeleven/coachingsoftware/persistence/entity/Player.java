@@ -21,10 +21,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.Calendar;
 import java.util.Set;
@@ -70,29 +70,34 @@ public class Player {
 	@JoinColumn(name = "COUNTRY")
 	@ManyToOne
 	private Country country;
-
-
 	@ManyToMany
+	@JoinTable(
+			name = "PLAYER_TEAM",
+			joinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"),
+			inverseJoinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID"))
 	private Set<Team> teams;
-
 	@ManyToMany
+	@JoinTable(
+			name = "PLAYER_GAME",
+			joinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"),
+			inverseJoinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID")
+	)
 	private Set<Game> games;
-
 	@ManyToMany
+	@JoinTable(
+			name = "PLAYER_LINEUP",
+			joinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"),
+			inverseJoinColumns = @JoinColumn(name = "LINEUP_ID", referencedColumnName = "LINEUP_ID")
+	)
 	private Set<LineUp> lineUps;
-
 	@OneToMany
 	private Set<PlayerGameStats> gameStats;
-
 	@OneToMany(mappedBy = "PERF_DIAG")
 	private Set<PerformanceDiagnostics> performanceDiagnostics;
-
 	@OneToMany(mappedBy = "SCOUTING_REPORT")
 	private Set<ScoutingReport> scoutingReports;
-
 	@OneToMany(mappedBy = "EVALUATION_TALK")
 	private Set<EvaluationTalk> evaluationTalks;
-
 
 
 	/**
