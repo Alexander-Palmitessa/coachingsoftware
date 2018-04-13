@@ -6,14 +6,7 @@
  * Distributable under GPL license. See terms of license at gnu.org.
  */
 
-package com.coachingeleven.coachingsoftware.persistence.entity;
+package com.coachingeleven.coachingsoftware.persistence.repository;
 
-import javax.persistence.Embeddable;
-
-@Embeddable
-public class EmailAddress {
-
-	private String emailAddress;
-
-	//TODO: Validate Email Address
+public class GameRepository {
 }

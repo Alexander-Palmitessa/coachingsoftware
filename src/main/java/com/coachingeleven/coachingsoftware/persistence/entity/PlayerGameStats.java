@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -24,9 +25,10 @@ public class PlayerGameStats {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PLAYER_GAMESTATS_ID")
 	int ID;
-	@Column(name = "PLAYER")
+	@JoinColumn(name = "PLAYER")
 	@ManyToOne
 	private Player player;
+
 
 
 

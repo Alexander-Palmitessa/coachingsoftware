@@ -10,7 +10,7 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Draft;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
-import com.coachingeleven.coachingsoftware.persistence.enumeration.Type;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.Role;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -20,9 +20,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.Calendar;
 import java.util.Set;
@@ -42,61 +44,55 @@ public class Player {
 	@Embedded
 	private Address address;
 	@Column(name = "FIRST_EMAIL", unique = true)
-	private EmailAddress firstEmail;
+	private String firstEmail;
 	@Column(name = "SECOND_EMAIL", unique = true)
-	private EmailAddress secondEmail;
+	private String secondEmail;
 	@Column(name = "CLUB")
 	@ManyToOne
 	private Club club;
 	@Column(name = "TYPE")
 	@Enumerated(EnumType.STRING)
-	private Type type;
-	@Column(name = "DARFT")
+	private Role type;
+	@Column(name = "DRAFT")
 	@Enumerated(EnumType.STRING)
 	private Draft draft;
 	@Column(name = "POSITION")
 	@Enumerated(EnumType.STRING)
 	private Position position;
 	@Column(name = "PRIVATE_NUMBER")
-	private PhoneNumber privateNumber;
+	private String privateNumber;
 	@Column(name = "WORKING_NUMBER")
-	private PhoneNumber workingNumber;
+	private String workingNumber;
 	@Column(name = "MOBILE_NUMBER")
-	private PhoneNumber mobileNumber;
+	private String mobileNumber;
 	@Column(name = "BIRTHDATE")
 	private Calendar birthdate;
+	@JoinColumn(name = "COUNTRY")
+	@ManyToOne
+	private Country country;
 
 
-	/*
-	Müssen die wirklich da sein oder reicht es diese bei den anderen
-	Klassen mit @JoinColumn(name = "") zu annotieren?
-	 */
-
-	@Column(name = "TEAMS")
 	@ManyToMany
 	private Set<Team> teams;
-	@Column(name = "GAMES")
+
 	@ManyToMany
 	private Set<Game> games;
-	@Column(name = "GAMESTATS")
-	@OneToMany
-	private Set<PlayerGameStats> gameStats;
-	@Column(name = "LINEUPS")
+
 	@ManyToMany
 	private Set<LineUp> lineUps;
-	@Column(name = "PERFORMANCE_DIAGNASOTICS")
+
 	@OneToMany
+	private Set<PlayerGameStats> gameStats;
+
+	@OneToMany(mappedBy = "PERF_DIAG")
 	private Set<PerformanceDiagnostics> performanceDiagnostics;
-	@Column(name = "SCOUTING_REPORTS")
-	@OneToMany
+
+	@OneToMany(mappedBy = "SCOUTING_REPORT")
 	private Set<ScoutingReport> scoutingReports;
-	@Column(name = "EVALUATION_TALKS")
-	@OneToMany
+
+	@OneToMany(mappedBy = "EVALUATION_TALK")
 	private Set<EvaluationTalk> evaluationTalks;
 
-	/*
-	TODO: ZUGRIFFSRECHTE, SPIELBERECHTIGUNG(LAND)
-	*/
 
 
 	/**

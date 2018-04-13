@@ -26,7 +26,7 @@ public class PerformanceDiagnostics {
 	@Column(name = "PERF_DIAG_ID")
 	private int ID;
 	@ManyToOne
-	@Column(name = "PLAYER")
+	@JoinColumn(name = "PLAYER_ID")
 	private Player player;
 
 	/**

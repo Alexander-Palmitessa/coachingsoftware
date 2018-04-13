@@ -6,14 +6,9 @@
  * Distributable under GPL license. See terms of license at gnu.org.
  */
 
-package com.coachingeleven.coachingsoftware.persistence.entity;
+package com.coachingeleven.coachingsoftware.persistence.enumeration;
 
-import javax.persistence.Embeddable;
-
-@Embeddable
-public class PhoneNumber {
-
-
-	//TODO: Validate etc.
-
+public enum Role {
+	FUNCTIONARY, DOCTOR, ASSISTANT, GK_TRAINER, TRAINER, FW_TRAINER,
+	PHYSIOTHERAPIST, TEAMMANAGER, SQUAD_PLAYER, SIGHTING
 }
