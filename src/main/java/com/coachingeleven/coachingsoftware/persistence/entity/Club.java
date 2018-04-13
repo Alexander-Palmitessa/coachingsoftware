@@ -11,6 +11,8 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Set;
 
@@ -20,6 +22,7 @@ public class Club {
 	@Id
 	@Column(name = "CLUB_NAME")
 	private String name;
-
+	@OneToMany
+	@Column(name = "TEAMS")
 	private Set<Team> teams;
 }

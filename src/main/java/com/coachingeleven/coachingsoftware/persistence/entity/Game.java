@@ -34,6 +34,7 @@ public class Game {
 	@Column(name = "DATE")
 	private Calendar date;
 
+	//TODO: TIME, STATS
 
 	/**
 	 * JPA required defualt constructor
