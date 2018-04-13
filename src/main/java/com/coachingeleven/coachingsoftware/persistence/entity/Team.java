@@ -39,7 +39,6 @@ public class Team {
 	private Set<Game> games;
 
 
-
 	public Team(){
 
 	}

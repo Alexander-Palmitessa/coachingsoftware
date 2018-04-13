@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +24,11 @@ public class PlayerGameStats {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PLAYER_GAMESTATS_ID")
 	int ID;
+	@Column(name = "PLAYER")
+	@ManyToOne
+	private Player player;
+
+
 
 	/**
 	 * JPA required default constructor
