@@ -39,7 +39,7 @@ public class LineUp {
 	@Enumerated(EnumType.STRING)
 	private System system;
 
-	//TODO: UNCOMPLETE
+	//TODO: INCOMPLETE
 
 	/**
 	 * JPA required default constructor

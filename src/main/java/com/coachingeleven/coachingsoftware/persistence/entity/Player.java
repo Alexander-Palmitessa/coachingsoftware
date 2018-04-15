@@ -113,4 +113,6 @@ public class Player {
 	public Player() {
 
 	}
+
+	//TODO: IF COMPLETE: CONSTRUCTOR + GETTER AND SETTER
 }

@@ -50,8 +50,10 @@ public class Game {
 	@ManyToMany(mappedBy = "games")
 	private Set<Player> players;
 	@Column(name = "GOALS_HOME")
+	@OneToMany
 	private Set<Goal> goalsHome;
 	@Column(name = "GOALS_AWAY")
+	@OneToMany
 	private Set<Goal> goalsAway;
 	@OneToMany(mappedBy = "GAME")
 	private Set<Objective> objectives;
@@ -59,7 +61,7 @@ public class Game {
 	private GameReport gameReport;
 
 
-	//TODO: STATS etc. = UNCOMPLETE
+	//TODO: STATS etc. = INCOMPLETE
 
 	/**
 	 * JPA required defualt constructor

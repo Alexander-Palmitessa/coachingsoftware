@@ -74,7 +74,7 @@ public class PlayerGameStats {
 	@Embedded
 	private ChangeOut changeOut;
 
-	//TODO: UNCOMPLETE AUSWECHSLUNG(TYP DER AUSWECHSLUNG (Rot, Doppelgelb, normale Auswechslung))
+	//TODO: INCOMPLETE AUSWECHSLUNG(TYP DER AUSWECHSLUNG (Rot, Doppelgelb, normale Auswechslung))
 	//TODO: WEITERES?
 
 	/**
