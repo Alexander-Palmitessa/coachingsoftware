@@ -15,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,7 +27,7 @@ public class Objective {
 	@ManyToOne
 	@JoinColumn(name = "GAME_ID")
 	private Game game;
-	@Column(name = "OBJECTIVEL_NAME")
+	@Column(name = "NAME")
 	private String name;
 	@Column(name = "GOALS")
 	private String goals;

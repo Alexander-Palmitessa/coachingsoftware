@@ -26,7 +26,7 @@ public class Club {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CLUB_ID")
 	private int ID;
-	@Column(name = "CLUB_NAME", nullable = false)
+	@Column(name = "NAME", nullable = false)
 	private String name;
 	@OneToMany
 	@JoinColumn(name = "TEAM_ID")

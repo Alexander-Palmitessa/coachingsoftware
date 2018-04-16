@@ -11,4 +11,9 @@ package com.coachingeleven.coachingsoftware.persistence.repository;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 
 public class CountryRepository extends Repository<Country>{
+
+	public Country find(String name) {
+		return entityManager.createQuery("select c from Country c where c.name = " +
+				":name", Country.class).setParameter("name", name).getSingleResult();
+	}
 }

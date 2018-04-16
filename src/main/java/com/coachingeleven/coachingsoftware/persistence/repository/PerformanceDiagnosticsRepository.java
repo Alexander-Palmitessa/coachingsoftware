@@ -8,12 +8,7 @@
 
 package com.coachingeleven.coachingsoftware.persistence.repository;
 
-import com.coachingeleven.coachingsoftware.persistence.entity.Club;
+import com.coachingeleven.coachingsoftware.persistence.entity.PerformanceDiagnostics;
 
-public class ClubRepository extends Repository<Club> {
-
-	public Club find(String name) {
-		return entityManager.createQuery("select c from Club c where c.name = " +
-				":name", Club.class).setParameter("name", name).getSingleResult();
-	}
+public class PerformanceDiagnosticsRepository extends Repository<PerformanceDiagnostics> {
 }
