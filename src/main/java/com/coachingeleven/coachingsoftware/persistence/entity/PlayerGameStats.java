@@ -9,13 +9,13 @@
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -69,9 +69,11 @@ public class PlayerGameStats {
 	private int assist;
 	@Column(name = "LOAD_INDICATOR")
 	private int loadIndicator; //TODO: ENTITY? (Borgskala 1-10)
-	@Embedded
+	@OneToOne
+	@JoinColumn(name = "CHANGEIN_ID")
 	private ChangeIn changeIn;
-	@Embedded
+	@OneToOne
+	@JoinColumn(name = "CHANGEOUT_ID")
 	private ChangeOut changeOut;
 
 	//TODO: INCOMPLETE AUSWECHSLUNG(TYP DER AUSWECHSLUNG (Rot, Doppelgelb, normale Auswechslung))
