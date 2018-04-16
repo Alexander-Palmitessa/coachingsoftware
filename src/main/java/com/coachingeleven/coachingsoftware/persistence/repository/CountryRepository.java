@@ -8,7 +8,7 @@
 
 package com.coachingeleven.coachingsoftware.persistence.repository;
 
-import com.coachingeleven.coachingsoftware.persistence.entity.Club;
+import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 
-public class ClubRepository extends Repository<Club> {
+public class CountryRepository extends Repository<Country>{
 }

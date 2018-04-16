@@ -13,6 +13,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +25,9 @@ public class Objective {
 	@Column(name = "OBJECTIVE ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
+	@ManyToOne
+	@JoinColumn(name = "GAME_ID")
+	private Game game;
 	@Column(name = "OBJECTIVEL_NAME")
 	private String name;
 	@Column(name = "GOALS")
@@ -29,11 +35,12 @@ public class Objective {
 
 	/**
 	 * Class construcor
-	 *
+	 * @param game the game this objective belongs to
 	 * @param name  the name of the objective
 	 * @param goals the goals of the objecitve
 	 */
-	public Objective(String name, String goals) {
+	public Objective(Game game, String name, String goals) {
+		this.game = game;
 		this.name = name;
 		this.goals = goals;
 	}

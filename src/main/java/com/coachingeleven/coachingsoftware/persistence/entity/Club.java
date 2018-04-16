@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,7 +29,7 @@ public class Club {
 	@Column(name = "CLUB_NAME", nullable = false)
 	private String name;
 	@OneToMany
-	@Column(name = "TEAMS")
+	@JoinColumn(name = "TEAM_ID")
 	private Set<Team> teams;
 
 	/**

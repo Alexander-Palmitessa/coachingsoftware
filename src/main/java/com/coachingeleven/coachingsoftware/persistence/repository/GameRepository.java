@@ -8,5 +8,7 @@
 
 package com.coachingeleven.coachingsoftware.persistence.repository;
 
-public class GameRepository {
+import com.coachingeleven.coachingsoftware.persistence.entity.Game;
+
+public class GameRepository extends Repository<Game> {
 }

@@ -7,7 +7,28 @@
 
 	<persistence-unit name="coachingeleven" transaction-type="JTA">
 		<jta-data-source>jdbc/coachingeleven</jta-data-source>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.Arena</class>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.ChangeIn</class>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.ChangeOut</class>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.Club</class>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.Contract</class>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.Country</class>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.EvaluationTalk</class>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.Game</class>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.GameReport</class>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.Goal</class>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.LineUp</class>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.Objective</class>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.PerformanceDiagnostics</class>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.Player</class>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.PlayerGameStats</class>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.Team</class>
 		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/coachingeleven"/>
+			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+			<property name="javax.persistence.jdbc.user" value="app"/>
+			<property name="javax.persistence.jdbc.password" value="app"/>
+
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
 			<property name="eclipselink.logging.level" value="FINE"/>
 			<property name="eclipselink.logging.parameters" value="true"/>

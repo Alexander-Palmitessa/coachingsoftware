@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +25,9 @@ public class GameReport {
 	@Column(name = "GAME_REPORT ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
+	@OneToOne
+	@JoinColumn(name = "GAME_ID")
+	private Game game;
 	@Column(name = "POS_W_BALL")
 	private String positiveWithBall;
 	@Column(name = "NEG_W_BALL")
@@ -42,18 +47,21 @@ public class GameReport {
 
 	/**
 	 * Class constructor
-	 * @param positiveWithBall positives in the game with the ball
-	 * @param negativeWithBall negatives in the game wit the ball
+	 *
+	 * @param game                the game of the gamereport
+	 * @param positiveWithBall    positives in the game with the ball
+	 * @param negativeWithBall    negatives in the game wit the ball
 	 * @param positiveWithoutBall positives in the game without the ball
 	 * @param negativeWithoutBall negatives in the game without the ball
-	 * @param positiveLoseBall positives in the game losing the ball
-	 * @param negativeLoseBall negatives in the game losing the ball
-	 * @param positiveTakeBall positives in the game taking the ball away
-	 * @param negativeTakeBall negativess in the game taking the ball away
+	 * @param positiveLoseBall    positives in the game losing the ball
+	 * @param negativeLoseBall    negatives in the game losing the ball
+	 * @param positiveTakeBall    positives in the game taking the ball away
+	 * @param negativeTakeBall    negativess in the game taking the ball away
 	 */
-	public GameReport(String positiveWithBall, String negativeWithBall, String positiveWithoutBall,
+	public GameReport(Game game, String positiveWithBall, String negativeWithBall, String positiveWithoutBall,
 					  String negativeWithoutBall, String positiveLoseBall, String negativeLoseBall,
 					  String positiveTakeBall, String negativeTakeBall) {
+		this.game = game;
 		this.positiveWithBall = positiveWithBall;
 		this.negativeWithBall = negativeWithBall;
 		this.positiveWithoutBall = positiveWithoutBall;
@@ -67,12 +75,20 @@ public class GameReport {
 	/**
 	 * JPA required default constructor
 	 */
-	public GameReport(){
+	public GameReport() {
 
 	}
 
 	public int getID() {
 		return ID;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
 	}
 
 	public String getPositiveWithBall() {

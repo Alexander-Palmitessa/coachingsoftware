@@ -49,7 +49,7 @@ public class Player {
 	private String firstEmail;
 	@Column(name = "SECOND_EMAIL", unique = true)
 	private String secondEmail;
-	@Column(name = "CLUB")
+	@JoinColumn(name = "CLUB_ID")
 	@ManyToOne
 	private Club club;
 	@Column(name = "TYPE")
@@ -76,9 +76,9 @@ public class Player {
 	private int weight;
 	@Embedded
 	private Contract contract;
-	@JoinColumn(name = "COUNTRY")
+	@JoinColumn(name = "COUNTRY_PERMISSION_ID")
 	@ManyToOne
-	private Country country;
+	private Country countryPermission;
 	@ManyToMany
 	@JoinTable(
 			name = "PLAYER_TEAM",
@@ -101,9 +101,9 @@ public class Player {
 	private Set<LineUp> lineUps;
 	@OneToMany
 	private Set<PlayerGameStats> gameStats;
-	@OneToMany(mappedBy = "PERF_DIAG")
+	@OneToMany(mappedBy = "player")
 	private Set<PerformanceDiagnostics> performanceDiagnostics;
-	@OneToMany(mappedBy = "EVALUATION_TALK")
+	@OneToMany(mappedBy = "player")
 	private Set<EvaluationTalk> evaluationTalks;
 
 

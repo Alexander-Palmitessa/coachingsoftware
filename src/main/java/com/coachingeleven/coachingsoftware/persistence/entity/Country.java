@@ -29,7 +29,7 @@ public class Country {
 	@Column(name = "COUNTRY_NAME", nullable = false)
 	private String name;
 
-	@OneToMany(mappedBy = "COUNTRY")
+	@OneToMany(mappedBy = "countryPermission")
 	private Set<Player> players;
 
 	/**

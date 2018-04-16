@@ -39,7 +39,7 @@ public class Game {
 	@Temporal(TemporalType.TIME)
 	private Calendar time;
 	@ManyToOne
-	@Column(name = "ARENA")
+	@JoinColumn(name = "ARENA_ID")
 	private Arena arena;
 	@JoinColumn(name = "TEAM_HOME_ID")
 	@ManyToOne
@@ -49,15 +49,15 @@ public class Game {
 	private Team teamAway;
 	@ManyToMany(mappedBy = "games")
 	private Set<Player> players;
-	@Column(name = "GOALS_HOME")
+	@JoinColumn(name = "GOALS_HOME_ID")
 	@OneToMany
 	private Set<Goal> goalsHome;
-	@Column(name = "GOALS_AWAY")
+	@JoinColumn(name = "GOALS_AWAY_ID")
 	@OneToMany
 	private Set<Goal> goalsAway;
-	@OneToMany(mappedBy = "GAME")
+	@OneToMany(mappedBy = "game")
 	private Set<Objective> objectives;
-	@OneToOne(mappedBy = "GAME")
+	@OneToOne(mappedBy = "game")
 	private GameReport gameReport;
 
 

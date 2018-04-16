@@ -17,6 +17,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.Set;
@@ -30,10 +31,10 @@ public class LineUp {
 	@Column(name = "LINEUP_ID")
 	private int ID;
 	@ManyToMany(mappedBy = "lineUps")
-	@Column(name = "STARTING_PLAYER")
+	@JoinColumn(name = "STARTING_PLAYER_ID")
 	private Set<Player> startingPlayers;
 	@ManyToMany(mappedBy = "lineUps")
-	@Column(name = "BENCHED_PLAYER")
+	@JoinColumn(name = "BENCHED_PLAYER_ID")
 	private Set<Player> benchedPlayers;
 	@Column(name = "SYSTEM")
 	@Enumerated(EnumType.STRING)

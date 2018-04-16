@@ -10,10 +10,11 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Embeddable
-class Address {
+public class Address {
 
 	@Column(name = "CITY")
 	private String city;
@@ -24,7 +25,7 @@ class Address {
 	@Column(name = "ZIP")
 	private int zip;
 	@ManyToOne
-	@Column(name = "COUNTRY")
+	@JoinColumn(name = "COUNTRY")
 	private Country country;
 
 	/**
