@@ -8,12 +8,8 @@
 
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
-import com.coachingeleven.coachingsoftware.persistence.enumeration.ChangeOutType;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,9 +24,6 @@ public class ChangeOut {
 	@Column(name = "CHANGEOUT_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
-	@Column(name = "CHANGEOUT_TYPE")
-	@Enumerated(EnumType.STRING)
-	private ChangeOutType changeOutType;
 	@Column(name = "MINUTE_OUT")
 	private int minuteOut;
 	@ManyToOne
@@ -41,6 +34,9 @@ public class ChangeOut {
 	private Game game;
 	@Column(name = "COMMENT")
 	private String comment;
+	@ManyToOne
+	@JoinColumn(name = "CARD_ID")
+	private Card causeCard;
 
 	/**
 	 * Class constructor
@@ -51,8 +47,8 @@ public class ChangeOut {
 	 * @param game          the game which the change out happened
 	 * @param comment       additional comment
 	 */
-	public ChangeOut(ChangeOutType changeOutType, int minuteOut, Player player, Game game, String comment) {
-		this.changeOutType = changeOutType;
+	public ChangeOut(Card causeCard, int minuteOut, Player player, Game game, String comment) {
+		this.causeCard = causeCard;
 		this.minuteOut = minuteOut;
 		this.player = player;
 		this.game = game;
@@ -68,14 +64,6 @@ public class ChangeOut {
 
 	public int getID() {
 		return ID;
-	}
-
-	public ChangeOutType getChangeOutType() {
-		return changeOutType;
-	}
-
-	public void setChangeOutType(ChangeOutType changeOutType) {
-		this.changeOutType = changeOutType;
 	}
 
 	public int getMinuteOut() {
@@ -108,5 +96,13 @@ public class ChangeOut {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public Card getCauseCard() {
+		return causeCard;
+	}
+
+	public void setCauseCard(Card causeCard) {
+		this.causeCard = causeCard;
 	}
 }
