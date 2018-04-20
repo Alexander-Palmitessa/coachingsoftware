@@ -1,9 +1,13 @@
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
+import com.coachingeleven.coachingsoftware.persistence.enumeration.CardType;
+
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,8 +23,9 @@ public class Card {
 	@Column(name = "CARD_ID")
 	private int ID;
 	
-	@Column(name = "TYPE")
-	private String type;
+	@Column(name = "CARD_TYPE")
+	@Enumerated(EnumType.STRING)
+	private CardType type;
 	
 	@Column(name = "DESCRIPTION")
 	private String description;
@@ -30,8 +35,12 @@ public class Card {
 	
 	public Card() {}
 
-	public Card(int ID, String type, String description) {
-		this.ID  = ID;
+	/**
+	 * Class constructor
+	 * @param type The type of the card, either yellow or red
+	 * @param description
+	 */
+	public Card(CardType type, String description) {
 		this.type = type;
 		this.description = description;
 	}
@@ -42,12 +51,12 @@ public class Card {
 	}
 
 
-	public String getType() {
+	public CardType getType() {
 		return type;
 	}
 
 
-	public void setType(String type) {
+	public void setType(CardType type) {
 		this.type = type;
 	}
 
