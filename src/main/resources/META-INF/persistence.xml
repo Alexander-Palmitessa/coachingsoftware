@@ -23,6 +23,7 @@
 		<class>com.coachingeleven.coachingsoftware.persistence.entity.Player</class>
 		<class>com.coachingeleven.coachingsoftware.persistence.entity.PlayerGameStats</class>
 		<class>com.coachingeleven.coachingsoftware.persistence.entity.Team</class>
+		<class>com.coachingeleven.coachingsoftware.persistence.entity.Card</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/coachingeleven"/>
 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>

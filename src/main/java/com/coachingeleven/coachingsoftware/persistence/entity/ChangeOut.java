@@ -41,11 +41,11 @@ public class ChangeOut {
 	/**
 	 * Class constructor
 	 *
-	 * @param changeOutType the enumerated type of the change out of the game i.e. RED, DOUBLEYELLOW, EXCHANGE
-	 * @param minuteOut     the minute the player was taken from the game
-	 * @param player        the player who was taken from the game
-	 * @param game          the game which the change out happened
-	 * @param comment       additional comment
+	 * @param causeCard the card who caused the change
+	 * @param minuteOut the minute the player was taken from the game
+	 * @param player    the player who was taken from the game
+	 * @param game      the game which the change out happened
+	 * @param comment   additional comment
 	 */
 	public ChangeOut(Card causeCard, int minuteOut, Player player, Game game, String comment) {
 		this.causeCard = causeCard;
