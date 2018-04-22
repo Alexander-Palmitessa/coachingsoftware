@@ -18,11 +18,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.io.Serializable;
 import java.util.Calendar;
 
 @Entity
 @Table(name = "EVALUATION_TALK")
-public class EvaluationTalk {
+public class EvaluationTalk implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,11 +44,12 @@ public class EvaluationTalk {
 
 	/**
 	 * Class constructor
-	 * @param player the Player this EvaluationTalk belongs to
-	 * @param date the date which the EvaluationTalk was held
+	 *
+	 * @param player              the Player this EvaluationTalk belongs to
+	 * @param date                the date which the EvaluationTalk was held
 	 * @param situationalAnalysis the situational analysis
-	 * @param goals the goals which were set during the talk
-	 * @param timeHorizon the time horizon which the goals should be reached
+	 * @param goals               the goals which were set during the talk
+	 * @param timeHorizon         the time horizon which the goals should be reached
 	 */
 	public EvaluationTalk(Player player, Calendar date, String situationalAnalysis, String goals, String timeHorizon) {
 		this.player = player;
@@ -60,7 +62,7 @@ public class EvaluationTalk {
 	/**
 	 * JPA required default constructor
 	 */
-	public EvaluationTalk(){
+	public EvaluationTalk() {
 
 	}
 

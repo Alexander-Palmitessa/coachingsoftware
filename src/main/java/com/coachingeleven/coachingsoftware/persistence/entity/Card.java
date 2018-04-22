@@ -2,6 +2,7 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import com.coachingeleven.coachingsoftware.persistence.enumeration.CardType;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "CARD")
-public class Card {
+public class Card implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

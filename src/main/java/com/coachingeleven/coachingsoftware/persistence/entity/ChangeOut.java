@@ -16,10 +16,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "CHANGEOUT")
-public class ChangeOut {
+public class ChangeOut implements Serializable {
 	@Id
 	@Column(name = "CHANGEOUT_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
