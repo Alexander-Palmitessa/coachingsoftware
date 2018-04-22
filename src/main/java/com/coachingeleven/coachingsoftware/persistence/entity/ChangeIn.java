@@ -17,10 +17,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "CHANGEIN")
-public class ChangeIn {
+public class ChangeIn implements Serializable {
 	@Id
 	@Column(name = "CHANGEIN_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

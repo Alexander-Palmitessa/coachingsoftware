@@ -16,10 +16,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "GAME_REPORT")
-public class GameReport {
+public class GameReport implements Serializable {
 
 	@Id
 	@Column(name = "GAME_REPORT ID")

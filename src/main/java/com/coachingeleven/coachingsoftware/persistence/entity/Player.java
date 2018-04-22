@@ -28,12 +28,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Set;
 
 @Entity
 @Table(name = "PLAYER")
-public class Player {
+public class Player implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -114,5 +115,14 @@ public class Player {
 
 	}
 
-	//TODO: IF COMPLETE: CONSTRUCTOR + GETTER AND SETTER
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int ID) {
+		this.ID = ID;
+	}
+
+
+//TODO: IF COMPLETE: CONSTRUCTOR + GETTER AND SETTER
 }

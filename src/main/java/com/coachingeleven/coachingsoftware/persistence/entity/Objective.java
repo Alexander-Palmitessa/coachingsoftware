@@ -16,10 +16,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "OBJECTIVE")
-public class Objective {
+public class Objective implements Serializable {
 	@Id
 	@Column(name = "OBJECTIVE ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

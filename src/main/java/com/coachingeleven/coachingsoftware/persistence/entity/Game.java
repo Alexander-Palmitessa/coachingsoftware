@@ -21,12 +21,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Set;
 
 @Entity
 @Table(name = "GAME")
-public class Game {
+public class Game implements Serializable {
 
 	@Id
 	@Column(name = "GAME_ID")

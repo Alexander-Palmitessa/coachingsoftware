@@ -12,10 +12,11 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.io.Serializable;
 import java.util.Calendar;
 
 @Embeddable
-public class Contract {
+public class Contract implements Serializable {
 	@Column(name = "CONTRACT_START")
 	@Temporal(TemporalType.DATE)
 	private Calendar start;

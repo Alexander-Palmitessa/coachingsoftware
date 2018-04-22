@@ -15,10 +15,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "ARENA")
-public class Arena {
+public class Arena implements Serializable {
 	@Id
 	@Column(name = "ARENA_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
