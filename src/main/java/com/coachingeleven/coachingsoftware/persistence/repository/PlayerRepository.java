@@ -8,7 +8,25 @@
 
 package com.coachingeleven.coachingsoftware.persistence.repository;
 
+import static javax.ejb.TransactionAttributeType.SUPPORTS;
+
+import javax.ejb.TransactionAttribute;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
+
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 
-public class PlayerRepository extends Repository<Player>{
+public class PlayerRepository extends Repository<Player> {
+	
+	@TransactionAttribute(SUPPORTS)
+	public Player find(String email) {
+		try {
+			TypedQuery<Player> query = entityManager.createNamedQuery("findPlayer", Player.class);
+			query.setParameter("email", email);
+			return query.getSingleResult();
+		} catch (NoResultException ex) {
+			return null;
+		}
+	}
+	
 }
