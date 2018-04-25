@@ -30,7 +30,7 @@ public class Arena implements Serializable {
 	private Address address;
 
 	/**
-	 * Class construcor
+	 * Class constructor
 	 * @param name the name of the arena
 	 * @param address the Address of the arena
 	 */

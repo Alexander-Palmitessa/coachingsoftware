@@ -1,9 +1,12 @@
-package com.coachingeleven.coachingsoftware.persistence.repository;
+package java.com.coachingeleven.coachingsoftware.persistence.repository;
 
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Arena;
 import com.coachingeleven.coachingsoftware.persistence.entity.Club;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
+import com.coachingeleven.coachingsoftware.persistence.repository.ArenaRepository;
+import com.coachingeleven.coachingsoftware.persistence.repository.ClubRepository;
+import com.coachingeleven.coachingsoftware.persistence.repository.CountryRepository;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -44,6 +47,7 @@ public class RepositoryTest {
 	@Test(dependsOnMethods = "persistArena")
 	public void searchArena() {
 		assertFalse(arenaRepository.search("Bob").isEmpty());
+		assertFalse(arenaRepository.search("Alice").isEmpty());
 	}
 
 	@Test
