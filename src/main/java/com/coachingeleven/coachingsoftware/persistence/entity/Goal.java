@@ -27,11 +27,11 @@ import java.io.Serializable;
 @Entity
 @Table(name = "GOAL")
 public class Goal implements Serializable {
+	
 	@Id
 	@Column(name = "GOAL_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
-
 	@JoinColumn(name = "SCORER_ID", nullable = false)
 	@ManyToOne
 	private Player scorer;

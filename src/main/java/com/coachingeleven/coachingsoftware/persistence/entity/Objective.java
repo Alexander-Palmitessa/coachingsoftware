@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Table(name = "OBJECTIVE")
 public class Objective implements Serializable {
 	@Id
-	@Column(name = "OBJECTIVE ID")
+	@Column(name = "OBJECTIVE_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 	@ManyToOne
