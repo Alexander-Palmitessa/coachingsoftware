@@ -14,25 +14,26 @@ import java.math.BigDecimal;
 
 @Embeddable
 public class SpeedDiagnostic {
-	@Column(name = "10M_1", precision = 7, scale = 2)
+	
+	@Column(precision = 7, scale = 2)
 	private BigDecimal time10m_1;
-	@Column(name = "10M_2", precision = 7, scale = 2)
+	@Column(precision = 7, scale = 2)
 	private BigDecimal time10m_2;
-	@Column(name = "20M_1", precision = 7, scale = 2)
+	@Column(precision = 7, scale = 2)
 	private BigDecimal time20m_1;
-	@Column(name = "20M_2", precision = 7, scale = 2)
+	@Column(precision = 7, scale = 2)
 	private BigDecimal time20m_2;
-	@Column(name = "AGILITY_1", precision = 7, scale = 2)
+	@Column(precision = 7, scale = 2)
 	private BigDecimal timeAgility_1;
-	@Column(name = "AGILITY_2", precision = 7, scale = 2)
+	@Column(precision = 7, scale = 2)
 	private BigDecimal timeAgility_2;
-	@Column(name = "DRIBBLING_1", precision = 7, scale = 2)
+	@Column(precision = 7, scale = 2)
 	private BigDecimal timeDribbling_1;
-	@Column(name = "DRIBBLING_2", precision = 7, scale = 2)
+	@Column(precision = 7, scale = 2)
 	private BigDecimal timeDribbling_2;
-	@Column(name = "BALL_CNTRL_1", precision = 7, scale = 2)
+	@Column(precision = 7, scale = 2)
 	private BigDecimal timeBallCntrl_1;
-	@Column(name = "BALL_CNTRL_2", precision = 7, scale = 2)
+	@Column(precision = 7, scale = 2)
 	private BigDecimal timeBallCntrl_2;
 
 	/**
