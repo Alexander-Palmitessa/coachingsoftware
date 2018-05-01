@@ -23,7 +23,7 @@ import java.io.Serializable;
 public class GameReport implements Serializable {
 
 	@Id
-	@Column(name = "GAME_REPORT ID")
+	@Column(name = "GAME_REPORT_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 	@OneToOne

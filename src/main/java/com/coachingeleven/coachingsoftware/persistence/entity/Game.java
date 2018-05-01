@@ -65,7 +65,7 @@ public class Game implements Serializable {
 	//TODO: STATS etc. = INCOMPLETE
 
 	/**
-	 * JPA required defualt constructor
+	 * JPA required default constructor
 	 */
 	public Game() {
 

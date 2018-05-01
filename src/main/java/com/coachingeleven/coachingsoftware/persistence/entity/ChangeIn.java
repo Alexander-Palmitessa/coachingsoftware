@@ -32,7 +32,7 @@ public class ChangeIn implements Serializable {
 	@JoinColumn(name = "PLAYER_ID")
 	private Player player;
 	@ManyToOne
-	@JoinColumn(name = "GAME ID")
+	@JoinColumn(name = "GAME_ID")
 	private Game game;
 	@Column(name = "COMMENT")
 	private String comment;

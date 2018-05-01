@@ -24,6 +24,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -34,6 +36,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "PLAYER")
+@NamedQueries({
+	@NamedQuery(name = "findPlayer",
+			query = "SELECT c FROM Player c WHERE LOWER(c.firstEmail) = LOWER(:email) OR LOWER(c.secondEmail) = LOWER(:email)")
+})
 public class Player implements Serializable {
 
 	@Id
@@ -114,15 +120,194 @@ public class Player implements Serializable {
 	public Player() {
 
 	}
+	
+	// TODO: Player constructor with parameters equals to input form (tbd)
 
 	public int getID() {
 		return ID;
 	}
 
-	public void setID(int ID) {
-		this.ID = ID;
+	public String getSecondEmail() {
+		return secondEmail;
 	}
 
+	public String getFirstEmail() {
+		return firstEmail;
+	}
 
-//TODO: IF COMPLETE: CONSTRUCTOR + GETTER AND SETTER
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Club getClub() {
+		return club;
+	}
+
+	public void setClub(Club club) {
+		this.club = club;
+	}
+
+	public Role getType() {
+		return type;
+	}
+
+	public void setType(Role type) {
+		this.type = type;
+	}
+
+	public Draft getDraft() {
+		return draft;
+	}
+
+	public void setDraft(Draft draft) {
+		this.draft = draft;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
+	public String getPrivateNumber() {
+		return privateNumber;
+	}
+
+	public void setPrivateNumber(String privateNumber) {
+		this.privateNumber = privateNumber;
+	}
+
+	public String getWorkingNumber() {
+		return workingNumber;
+	}
+
+	public void setWorkingNumber(String workingNumber) {
+		this.workingNumber = workingNumber;
+	}
+
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
+	public Calendar getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(Calendar birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
+	public Contract getContract() {
+		return contract;
+	}
+
+	public void setContract(Contract contract) {
+		this.contract = contract;
+	}
+
+	public Country getCountryPermission() {
+		return countryPermission;
+	}
+
+	public void setCountryPermission(Country countryPermission) {
+		this.countryPermission = countryPermission;
+	}
+
+	public Set<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Set<Team> teams) {
+		this.teams = teams;
+	}
+
+	public Set<Game> getGames() {
+		return games;
+	}
+
+	public void setGames(Set<Game> games) {
+		this.games = games;
+	}
+
+	public Set<LineUp> getLineUps() {
+		return lineUps;
+	}
+
+	public void setLineUps(Set<LineUp> lineUps) {
+		this.lineUps = lineUps;
+	}
+
+	public Set<PlayerGameStats> getGameStats() {
+		return gameStats;
+	}
+
+	public void setGameStats(Set<PlayerGameStats> gameStats) {
+		this.gameStats = gameStats;
+	}
+
+	public Set<PerformanceDiagnostics> getPerformanceDiagnostics() {
+		return performanceDiagnostics;
+	}
+
+	public void setPerformanceDiagnostics(Set<PerformanceDiagnostics> performanceDiagnostics) {
+		this.performanceDiagnostics = performanceDiagnostics;
+	}
+
+	public Set<EvaluationTalk> getEvaluationTalks() {
+		return evaluationTalks;
+	}
+
+	public void setEvaluationTalks(Set<EvaluationTalk> evaluationTalks) {
+		this.evaluationTalks = evaluationTalks;
+	}
+
+	public void setFirstEmail(String firstEmail) {
+		this.firstEmail = firstEmail;
+	}
+
+	public void setSecondEmail(String secondEmail) {
+		this.secondEmail = secondEmail;
+	}
 }
