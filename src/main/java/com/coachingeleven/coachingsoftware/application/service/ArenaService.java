@@ -28,7 +28,7 @@ import static javax.ejb.TransactionAttributeType.REQUIRED;
 @TransactionAttribute(REQUIRED)
 public class ArenaService implements ArenaServiceRemote {
 
-	private static final Logger logger = Logger.getLogger(PlayerEvaluationService.class.getName());
+	private static final Logger logger = Logger.getLogger(ArenaService.class.getName());
 
 	@EJB
 	private ArenaRepository arenaRepository;

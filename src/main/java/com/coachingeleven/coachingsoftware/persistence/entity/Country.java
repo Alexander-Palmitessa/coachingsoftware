@@ -47,6 +47,10 @@ public class Country implements Serializable {
 	public Country(){
 	}
 
+	public int getID() {
+		return ID;
+	}
+
 	public String getName() {
 		return name;
 	}

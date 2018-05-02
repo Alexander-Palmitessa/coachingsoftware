@@ -8,13 +8,11 @@
 
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Embeddable
-public class Address {
+public class Address implements Serializable {
 
 	@Column(name = "CITY")
 	private String city;
@@ -24,7 +22,7 @@ public class Address {
 	private String streetNr;
 	@Column(name = "ZIP")
 	private int zip;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "COUNTRY")
 	private Country country;
 
