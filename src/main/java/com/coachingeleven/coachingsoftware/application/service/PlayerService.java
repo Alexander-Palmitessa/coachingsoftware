@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 
 import com.coachingeleven.coachingsoftware.application.exception.PlayerAlreadyExistsException;
+import com.coachingeleven.coachingsoftware.application.exception.PlayerNotFoundException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Club;
 import com.coachingeleven.coachingsoftware.persistence.entity.Contract;
@@ -25,7 +26,7 @@ import com.coachingeleven.coachingsoftware.persistence.repository.PlayerReposito
 
 @LocalBean
 @TransactionAttribute(REQUIRED)
-@Stateless(name = "CreatePlayerService")
+@Stateless(name = "PlayerService")
 public class PlayerService implements PlayerServiceRemote {
 
 	private static final Logger logger = Logger.getLogger(PlayerService.class.getName());
@@ -34,30 +35,45 @@ public class PlayerService implements PlayerServiceRemote {
 	private PlayerRepository playerRepository;
 	
 	@Override
-	public void createPlayer(Player player) throws PlayerAlreadyExistsException {
+	public Player createPlayer(Player player) throws PlayerAlreadyExistsException {
 		logger.log(Level.INFO, "Creating player with id ''{0}''", player.getID());
 		if (playerRepository.find(Player.class, player.getID()) != null) {
 			logger.log(Level.INFO, "Player with same id already exists");
 			throw new PlayerAlreadyExistsException();
-		} else if(playerRepository.find(player.getFirstEmail()) != null || playerRepository.find(player.getSecondEmail()) != null) {
+		} else if(playerRepository.find(player.getFirstEmail()) != null) {
 			logger.log(Level.INFO, "Player with same email already exists");
 			throw new PlayerAlreadyExistsException();
 		}
-		playerRepository.persist(player);
+		return playerRepository.persist(player);
 	}
 	
 	// TODO: Create player method with all the parameters (firstname, lastname, email etc.) in this bean or with JSF?
 
 	@Override
-	public Player findPlayer(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Player findPlayer(int id) throws PlayerNotFoundException {
+		logger.log(Level.INFO, "Finding player with ID ''{0}''", id);
+		Player player = playerRepository.find(id);
+		if (player == null) {
+			logger.log(Level.INFO, "Player not found");
+			throw new PlayerNotFoundException();
+		}
+		return player;
 	}
 
 	@Override
-	public Player findPlayer(String email) {
-		// TODO Auto-generated method stub
-		return null;
+	public Player findPlayer(String email) throws PlayerNotFoundException {
+		logger.log(Level.INFO, "Finding player with email ''{0}''", email);
+		Player player = playerRepository.find(email);
+		if (player == null) {
+			logger.log(Level.INFO, "Player not found");
+			throw new PlayerNotFoundException();
+		}
+		return player;
+	}
+	
+	@Override
+	public void deletePlayer(Player player) {
+		playerRepository.delete(Player.class, player.getID());
 	}
 
 	@Override
