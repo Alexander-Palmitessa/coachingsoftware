@@ -21,6 +21,11 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 public class PlayerRepository extends Repository<Player> {
 	
 	@TransactionAttribute(SUPPORTS)
+	public Player find(int id) {
+		return super.find(Player.class, id);
+	}
+	
+	@TransactionAttribute(SUPPORTS)
 	public Player find(String email) {
 		try {
 			TypedQuery<Player> query = entityManager.createNamedQuery("findPlayer", Player.class);

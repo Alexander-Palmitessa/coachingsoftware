@@ -38,7 +38,7 @@ import java.util.Set;
 @Table(name = "PLAYER")
 @NamedQueries({
 	@NamedQuery(name = "findPlayer",
-			query = "SELECT c FROM Player c WHERE LOWER(c.firstEmail) = LOWER(:email) OR LOWER(c.secondEmail) = LOWER(:email)")
+			query = "SELECT c FROM Player c WHERE LOWER(c.firstEmail) = LOWER(:email)")
 })
 public class Player implements Serializable {
 
@@ -54,8 +54,6 @@ public class Player implements Serializable {
 	private Address address;
 	@Column(name = "FIRST_EMAIL", unique = true)
 	private String firstEmail;
-	@Column(name = "SECOND_EMAIL", unique = true)
-	private String secondEmail;
 	@JoinColumn(name = "CLUB_ID")
 	@ManyToOne
 	private Club club;
@@ -121,14 +119,21 @@ public class Player implements Serializable {
 
 	}
 	
-	// TODO: Player constructor with parameters equals to input form (tbd)
+	/**
+	 * @param firstName first name of player
+	 * @param lastName last name of player
+	 * @param firstEmail email of player
+	 * */
+	public Player(String firstName, String lastName, String firstEmail) {
+		this.firstName = firstEmail;
+		this.lastName = lastName;
+		this.firstEmail = firstEmail;
+	}
+	
+	// TODO: Player constructors with parameters equals to input form (tbd)
 
 	public int getID() {
 		return ID;
-	}
-
-	public String getSecondEmail() {
-		return secondEmail;
 	}
 
 	public String getFirstEmail() {
@@ -305,9 +310,5 @@ public class Player implements Serializable {
 
 	public void setFirstEmail(String firstEmail) {
 		this.firstEmail = firstEmail;
-	}
-
-	public void setSecondEmail(String secondEmail) {
-		this.secondEmail = secondEmail;
 	}
 }
