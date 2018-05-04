@@ -1,13 +1,13 @@
 package com.coachingeleven.coachingsoftware.persistence.repository;
 
 import com.coachingeleven.coachingsoftware.application.exception.ArenaNotFoundException;
+import com.coachingeleven.coachingsoftware.application.exception.ClubNotFoundException;
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
+import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.ArenaServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
-import com.coachingeleven.coachingsoftware.persistence.entity.Address;
-import com.coachingeleven.coachingsoftware.persistence.entity.Arena;
-import com.coachingeleven.coachingsoftware.persistence.entity.Club;
-import com.coachingeleven.coachingsoftware.persistence.entity.Country;
+import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
+import com.coachingeleven.coachingsoftware.persistence.entity.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -22,10 +22,12 @@ public class RepositoryTest {
 
 	private ArenaServiceRemote arenaService;
 	private CountryServiceRemote countryService;
+	private TeamClubServiceRemote teamClubService;
 
 	private Country country;
 	private Arena arena;
 	private Club club;
+	private Team team;
 
 	@BeforeClass
 	public void lookupServices() throws Exception {
@@ -34,6 +36,9 @@ public class RepositoryTest {
 				JNDI_BASE_NAME + "ArenaService!" + ArenaServiceRemote.class.getName());
 		countryService = (CountryServiceRemote) jndiContext.lookup(
 				JNDI_BASE_NAME + "CountryService!" + CountryServiceRemote.class.getName());
+		teamClubService = (TeamClubServiceRemote) jndiContext.lookup(
+				JNDI_BASE_NAME + "TeamClubService!" + TeamClubServiceRemote.class.getName());
+
 	}
 
 
@@ -44,26 +49,41 @@ public class RepositoryTest {
 	}
 
 	@Test
-	public void addCountry() throws CountryNotFounException {
+	public void createCountry() throws CountryNotFounException {
 			country = countryService.createCountry(country);
 			assertNotNull(countryService.findCountry(country.getName()));
 	}
 
-	@Test(dependsOnMethods = "addCountry")
-	public void addArena() throws ArenaNotFoundException {
+	@Test(dependsOnMethods = "createCountry")
+	public void createArena() throws ArenaNotFoundException {
 		arena = new Arena("Bobs Arena", new Address("Biel", "Alicestreet", "12a", 1234, country));
 		arena = arenaService.createArena(arena);
 		assertNotNull(arenaService.findArena(arena.getName()));
 	}
 
-	@Test(dependsOnMethods = "addArena")
+	@Test(dependsOnMethods = "createArena")
 	public void searchArena() throws ArenaNotFoundException{
 		assertNotNull(arenaService.searchArena("Bob"));
+	}
+
+	@Test
+	public void createClub() throws ClubNotFoundException {
+		club = teamClubService.createClub(club);
+		assertNotNull(teamClubService.findClub(club.getName()));
+	}
+
+	@Test(dependsOnMethods = "createClub")
+	public void createTeam() throws TeamNotFoundException {
+		team = new Team("FC Biel Junioren", club);
+		team = teamClubService.createTeam(team);
+		assertNotNull(teamClubService.findTeam(team.getName()));
 	}
 
 	@AfterClass
 	public void clean(){
 		arenaService.deleteArena(arena);
 		countryService.deleteCountry(country);
+		teamClubService.deleteTeam(team);
+		teamClubService.deleteClub(club);
 	}
 }
