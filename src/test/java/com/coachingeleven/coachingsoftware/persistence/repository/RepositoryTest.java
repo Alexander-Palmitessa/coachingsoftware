@@ -10,10 +10,13 @@ import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRe
 import com.coachingeleven.coachingsoftware.persistence.entity.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 
 public class RepositoryTest {
@@ -77,6 +80,13 @@ public class RepositoryTest {
 		team = new Team("FC Biel Junioren", club);
 		team = teamClubService.createTeam(team);
 		assertNotNull(teamClubService.findTeam(team.getName()));
+	}
+
+	@Test
+	@Ignore
+	public void addTeamToClub(){
+		club = teamClubService.addTeamToClub(club, team);
+		assertFalse(club.getTeams().isEmpty());
 	}
 
 	@AfterClass

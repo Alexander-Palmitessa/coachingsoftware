@@ -12,6 +12,8 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +22,7 @@ import static javax.ejb.TransactionAttributeType.REQUIRED;
 @LocalBean
 @Stateless(name = "TeamClubService")
 @TransactionAttribute(REQUIRED)
-public class TeamClubService implements TeamClubServiceRemote{
+public class TeamClubService implements TeamClubServiceRemote {
 
     private static final Logger logger = Logger.getLogger(TeamClubService.class.getName());
 
@@ -31,7 +33,7 @@ public class TeamClubService implements TeamClubServiceRemote{
 
 
     @Override
-    public Team createTeam(Team team){
+    public Team createTeam(Team team) {
         return teamRepository.persist(team);
     }
 
@@ -41,7 +43,7 @@ public class TeamClubService implements TeamClubServiceRemote{
     }
 
     @Override
-    public Team findTeam(String name) throws TeamNotFoundException{
+    public Team findTeam(String name) throws TeamNotFoundException {
         logger.log(Level.INFO, "Finding team with name " + name);
         Team team = teamRepository.find(name);
         if (team == null) {
@@ -52,7 +54,7 @@ public class TeamClubService implements TeamClubServiceRemote{
     }
 
     @Override
-    public Club findClub(String name) throws ClubNotFoundException{
+    public Club findClub(String name) throws ClubNotFoundException {
         logger.log(Level.INFO, "Finding club with name " + name);
         Club club = clubRepository.find(name);
         if (club == null) {
@@ -70,5 +72,14 @@ public class TeamClubService implements TeamClubServiceRemote{
     @Override
     public boolean deleteClub(Club club) {
         return clubRepository.delete(Club.class, club.getID());
+    }
+
+    @Override
+    public Club addTeamToClub(Club club, Team team) {
+        if(!club.getTeams().contains(team)){
+            club.getTeams().add(team);
+            clubRepository.update(club);
+        }
+        return club;
     }
 }

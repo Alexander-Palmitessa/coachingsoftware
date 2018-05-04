@@ -15,4 +15,5 @@ public interface TeamClubServiceRemote {
     Club findClub(String name) throws ClubNotFoundException;
     boolean deleteTeam(Team team);
     boolean deleteClub(Club club);
+    Club addTeamToClub(Club club, Team team);
 }
