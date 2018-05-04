@@ -10,7 +10,6 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Club;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import javax.naming.Context;
@@ -58,7 +57,6 @@ public class RepositoryTest {
 	}
 
 	@Test(dependsOnMethods = "addArena")
-	@Ignore
 	public void searchArena() throws ArenaNotFoundException{
 		assertNotNull(arenaService.searchArena("Bob"));
 	}

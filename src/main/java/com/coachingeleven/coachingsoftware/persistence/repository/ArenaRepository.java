@@ -40,10 +40,11 @@ public class ArenaRepository extends Repository<Arena> {
 		for (int i = 0; i < tokens.length; i++) {
 			String pattern = "%" + tokens[i] + "%";
 			predicates[i] = builder.or(
-					builder.like(builder.lower(arena.<String>get("name")), pattern),
-					builder.like(builder.lower(arena.<String>get("address").<String>get("street")), pattern),
-					builder.like(builder.lower(arena.<String>get("address").<String>get("country")), pattern),
-					builder.like(builder.lower(arena.<String>get("address").<String>get("city")), pattern));
+					builder.like(builder.lower(arena.<String>get("name")), pattern));
+			//TODO: Embedded search:
+					//builder.like(builder.lower(arena.<String>get("address").<String>get("street")), pattern),
+					//builder.like(builder.lower(arena.<String>get("address").<String>get("country")), pattern),
+					//builder.like(builder.lower(arena.<String>get("address").<String>get("city")), pattern));
 		}
 		query.where(builder.and(predicates));
 		return entityManager.createQuery(query).getResultList();
