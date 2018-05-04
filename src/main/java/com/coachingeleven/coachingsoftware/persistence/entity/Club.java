@@ -22,8 +22,7 @@ public class Club implements Serializable {
 	private int ID;
 	@Column(name = "NAME", nullable = false)
 	private String name;
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "TEAM_ID")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "club")
 	private Set<Team> teams;
 
 	/**

@@ -73,13 +73,4 @@ public class TeamClubService implements TeamClubServiceRemote {
     public boolean deleteClub(Club club) {
         return clubRepository.delete(Club.class, club.getID());
     }
-
-    @Override
-    public Club addTeamToClub(Club club, Team team) {
-        if(!club.getTeams().contains(team)){
-            club.getTeams().add(team);
-            clubRepository.update(club);
-        }
-        return club;
-    }
 }

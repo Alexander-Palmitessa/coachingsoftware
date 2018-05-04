@@ -82,13 +82,6 @@ public class RepositoryTest {
 		assertNotNull(teamClubService.findTeam(team.getName()));
 	}
 
-	@Test
-	@Ignore
-	public void addTeamToClub(){
-		club = teamClubService.addTeamToClub(club, team);
-		assertFalse(club.getTeams().isEmpty());
-	}
-
 	@AfterClass
 	public void clean(){
 		arenaService.deleteArena(arena);
