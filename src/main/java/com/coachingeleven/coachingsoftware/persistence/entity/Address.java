@@ -22,7 +22,7 @@ public class Address implements Serializable {
 	private String streetNr;
 	@Column(name = "ZIP")
 	private int zip;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "COUNTRY")
 	private Country country;
 

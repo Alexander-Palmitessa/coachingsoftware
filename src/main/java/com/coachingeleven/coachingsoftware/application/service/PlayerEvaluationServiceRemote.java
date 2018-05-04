@@ -17,7 +17,7 @@ import java.util.List;
 
 @Remote
 public interface PlayerEvaluationServiceRemote {
-	void createEvaluationTalk(EvaluationTalk evaluationTalk) throws EvaluationTalkAlreadyExistsException;
+	EvaluationTalk createEvaluationTalk(EvaluationTalk evaluationTalk) throws EvaluationTalkAlreadyExistsException;
 	EvaluationTalk findEvaluationTalk(int evaluationTalkID) throws EvaluationTalkNotFoundException;
 	List<EvaluationTalk> searchPlayerEvaluationTalks(int playerID);
 }

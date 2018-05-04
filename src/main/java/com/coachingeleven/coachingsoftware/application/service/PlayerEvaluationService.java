@@ -36,13 +36,13 @@ public class PlayerEvaluationService implements PlayerEvaluationServiceRemote {
 
 
 	@Override
-	public void createEvaluationTalk(EvaluationTalk evaluationTalk) throws EvaluationTalkAlreadyExistsException {
+	public EvaluationTalk createEvaluationTalk(EvaluationTalk evaluationTalk) throws EvaluationTalkAlreadyExistsException {
 		logger.log(Level.INFO, "Adding evluation talk for player with id ''{0}''", evaluationTalk.getPlayer().getID());
 		if (evaluationTalkRepository.find(evaluationTalk.getID()) != null) {
 			logger.log(Level.INFO, "Evaluation talk with same id already exists");
 			throw new EvaluationTalkAlreadyExistsException();
 		}
-		evaluationTalkRepository.persist(evaluationTalk);
+		return evaluationTalkRepository.persist(evaluationTalk);
 	}
 
 	@Override

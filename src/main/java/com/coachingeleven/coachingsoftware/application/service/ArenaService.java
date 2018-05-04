@@ -34,9 +34,7 @@ public class ArenaService implements ArenaServiceRemote {
 	private ArenaRepository arenaRepository;
 
 	@Override
-	public void createArena(Arena arena) {
-		arenaRepository.persist(arena);
-		//TODO: check if already in db, by id makes no sense. maybe by name?
+	public Arena createArena(Arena arena) { return arenaRepository.persist(arena);
 	}
 
 	@Override
@@ -70,5 +68,10 @@ public class ArenaService implements ArenaServiceRemote {
 			throw new ArenaNotFoundException();
 		}
 		return arenas;
+	}
+
+	@Override
+	public void deleteArena(Arena arena) {
+		arenaRepository.delete(Arena.class, arena.getID());
 	}
 }

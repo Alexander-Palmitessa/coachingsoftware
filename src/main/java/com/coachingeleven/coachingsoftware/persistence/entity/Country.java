@@ -27,7 +27,7 @@ public class Country implements Serializable {
 	@Column(name = "COUNTRY_ID")
 	private int ID;
 
-	@Column(name = "COUNTRY_NAME", nullable = false)
+	@Column(name = "COUNTRY_NAME", nullable = false, unique = true)
 	private String name;
 
 	@OneToMany(mappedBy = "countryPermission")
@@ -49,6 +49,10 @@ public class Country implements Serializable {
 
 	public int getID() {
 		return ID;
+	}
+
+	public void setID(int ID) {
+		this.ID = ID;
 	}
 
 	public String getName() {

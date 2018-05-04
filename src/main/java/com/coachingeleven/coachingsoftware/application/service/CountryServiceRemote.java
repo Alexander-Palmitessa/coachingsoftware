@@ -7,6 +7,7 @@ import javax.ejb.Remote;
 
 @Remote
 public interface CountryServiceRemote {
-    void createCountry(Country country);
+    Country createCountry(Country country);
     Country findCountry(String name) throws CountryNotFounException;
+    boolean deleteCountry(Country country);
 }

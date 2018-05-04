@@ -16,8 +16,9 @@ import java.util.List;
 
 @Remote
 public interface ArenaServiceRemote {
-	void createArena(Arena arena);
+	Arena createArena(Arena arena);
 	Arena findArena(int ID) throws ArenaNotFoundException;
 	Arena findArena(String name) throws ArenaNotFoundException;
 	List<Arena> searchArena(String keywords) throws ArenaNotFoundException;
+	void deleteArena(Arena arena);
 }

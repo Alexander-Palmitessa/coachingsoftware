@@ -25,8 +25,8 @@ public class CountryService implements CountryServiceRemote{
     private CountryRepository countryRepository;
 
     @Override
-    public void createCountry(Country country) {
-        countryRepository.persist(country);
+    public Country createCountry(Country country) {
+        return countryRepository.persist(country);
     }
 
     @Override
@@ -38,5 +38,10 @@ public class CountryService implements CountryServiceRemote{
             throw new CountryNotFounException();
         }
         return country;
+    }
+
+    @Override
+    public boolean deleteCountry(Country country) {
+        return countryRepository.delete(Country.class, country.getID());
     }
 }

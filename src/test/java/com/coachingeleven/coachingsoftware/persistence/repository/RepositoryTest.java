@@ -15,10 +15,10 @@ import org.testng.annotations.Test;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-
 import static org.testng.Assert.assertNotNull;
 
 public class RepositoryTest {
+
 	private static final String JNDI_BASE_NAME = "java:global/coachingsoftware-ejb/";
 
 	private ArenaServiceRemote arenaService;
@@ -41,34 +41,31 @@ public class RepositoryTest {
 	@BeforeClass
 	public void initData() {
 		country = new Country("SWITZERLAND");
-		arena = new Arena("Bobs Arena", new Address("Biel", "Alicestreet", "12a", 1234, country));
 		club = new Club("FC Biel");
 	}
 
 	@Test
 	public void addCountry() throws CountryNotFounException {
-		countryService.createCountry(country);
-		assertNotNull(countryService.findCountry(country.getName()));
+			country = countryService.createCountry(country);
+			assertNotNull(countryService.findCountry(country.getName()));
 	}
 
 	@Test(dependsOnMethods = "addCountry")
 	public void addArena() throws ArenaNotFoundException {
-		arenaService.createArena(arena);
+		arena = new Arena("Bobs Arena", new Address("Biel", "Alicestreet", "12a", 1234, country));
+		arena = arenaService.createArena(arena);
 		assertNotNull(arenaService.findArena(arena.getName()));
 	}
 
-	@Test
+	@Test(dependsOnMethods = "addArena")
 	@Ignore
 	public void searchArena() throws ArenaNotFoundException{
 		assertNotNull(arenaService.searchArena("Bob"));
 	}
 
 	@AfterClass
-	public void cleanUp(){
-		ArenaRepository arenaRepository = new ArenaRepository();
-		arenaRepository.delete(Arena.class, arena.getID());
-		CountryRepository countryRepository = new CountryRepository();
-		countryRepository.delete(Country.class, country.getID());
-		System.out.println("Cleaned up");
+	public void clean(){
+		arenaService.deleteArena(arena);
+		countryService.deleteCountry(country);
 	}
 }
