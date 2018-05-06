@@ -15,12 +15,16 @@ import java.util.Set;
 
 @Entity
 @Table(name = "CLUB")
+@NamedQueries({
+	@NamedQuery(name = "findClub",
+			query = "SELECT c FROM Club c WHERE LOWER(c.name) = LOWER(:clubname)")
+})
 public class Club implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CLUB_ID")
 	private int ID;
-	@Column(name = "NAME", nullable = false, unique = true)
+	@Column(name = "CLUB_NAME", nullable = false, unique = true)
 	private String name;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "club")
 	private Set<Team> teams;
