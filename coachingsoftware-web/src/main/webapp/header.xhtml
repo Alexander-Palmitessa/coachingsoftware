@@ -1,0 +1,36 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <div class="title-bar" data-responsive-toggle="coachingeleven-animated-menu" data-hide-for="medium">
+	  <button class="menu-icon" type="button" data-toggle="coachingeleven-animated-menu"></button>
+	  <div class="title-bar-title">Menu</div>
+	</div>
+	
+	<div class="top-bar" id="coachingeleven-animated-menu" data-animate="hinge-in-from-top hinge-out-from-top">
+	  <div class="top-bar-left">
+	    <ul class="dropdown menu" data-dropdown-menu="">
+	      <li class="menu-text">Coaching Eleven</li>
+	      <li>
+	        <a href="#">One</a>
+	        <ul class="menu vertical">
+	          <li><a href="#">One</a></li>
+	          <li><a href="#">Two</a></li>
+	          <li><a href="#">Three</a></li>
+	        </ul>
+	      </li>
+	      <li><a href="#">Two</a></li>
+	      <li><a href="#">Three</a></li>
+	    </ul>
+	  </div>
+	  <div class="top-bar-right">
+	    <ul class="menu">
+	      <li><input type="search" placeholder="Search"></input></li>
+	      <li><button type="button" class="button">Search</button></li>
+	    </ul>
+	  </div>
+	</div>
+    
+</ui:composition>
