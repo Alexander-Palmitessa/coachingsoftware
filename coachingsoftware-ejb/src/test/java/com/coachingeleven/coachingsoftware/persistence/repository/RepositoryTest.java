@@ -16,7 +16,7 @@ import static org.testng.Assert.assertNotNull;
 
 public class RepositoryTest {
 
-	private static final String JNDI_BASE_NAME = "java:global/coachingsoftware-ejb/";
+	private static final String JNDI_BASE_NAME = "java:global/coachingsoftware-app/coachingsoftware-ejb/";
 
 	private ArenaServiceRemote arenaService;
 	private CountryServiceRemote countryService;
