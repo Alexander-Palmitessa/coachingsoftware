@@ -16,7 +16,7 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 
 public class PlayerServiceTest {
 
-	private static final String JNDI_BASE_NAME = "java:global/coachingsoftware-ejb/";
+	private static final String JNDI_BASE_NAME = "java:global/coachingsoftware-app/coachingsoftware-ejb/";
 	
 	private PlayerServiceRemote playerService;
 	
