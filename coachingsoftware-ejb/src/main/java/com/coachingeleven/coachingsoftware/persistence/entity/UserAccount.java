@@ -7,8 +7,8 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "USER")
-public class User implements Serializable {
+@Table(name = "USERACCOUNT")
+public class UserAccount implements Serializable {
 
     @Id
     @Column(name = "USERNAME")
@@ -18,11 +18,11 @@ public class User implements Serializable {
     @Column(name = "USER_EMAIL", nullable = false, unique = true)
     String email;
 
-    public User(){
+    public UserAccount(){
 
     }
 
-    public User(String username, String password, String email) {
+    public UserAccount(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
