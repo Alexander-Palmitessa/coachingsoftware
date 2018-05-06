@@ -14,6 +14,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "TEAM")
+@NamedQueries({
+	@NamedQuery(name = "findTeam",
+			query = "SELECT c FROM Team c WHERE LOWER(c.name) = LOWER(:teamname)")
+})
 public class Team implements Serializable {
 
 	@Id

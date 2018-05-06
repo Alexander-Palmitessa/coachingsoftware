@@ -12,6 +12,8 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Club;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 
 import static javax.ejb.TransactionAttributeType.SUPPORTS;
 
@@ -20,7 +22,12 @@ public class ClubRepository extends Repository<Club> {
 
 	@TransactionAttribute(SUPPORTS)
 	public Club find(String name) {
-		return entityManager.createQuery("select c from Club c where c.name = " +
-				":name", Club.class).setParameter("name", name).getSingleResult();
+		try {
+			TypedQuery<Club> query = entityManager.createNamedQuery("findClub", Club.class);
+			query.setParameter("clubname", name);
+			return query.getSingleResult();
+		} catch (NoResultException ex) {
+			return null;
+		}
 	}
 }

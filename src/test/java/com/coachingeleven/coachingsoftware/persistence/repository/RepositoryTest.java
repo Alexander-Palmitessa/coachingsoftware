@@ -7,13 +7,11 @@ import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRe
 import com.coachingeleven.coachingsoftware.persistence.entity.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
-import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 
 public class RepositoryTest {
@@ -49,31 +47,31 @@ public class RepositoryTest {
 	}
 
 	@Test
-	public void createCountry() throws CountryNotFounException, CountryAlreadyExistsException {
+	public void createCountryTest() throws CountryNotFounException, CountryAlreadyExistsException {
 			country = countryService.createCountry(country);
 			assertNotNull(countryService.findCountry(country.getName()));
 	}
 
-	@Test(dependsOnMethods = "createCountry")
-	public void createArena() throws ArenaNotFoundException {
+	@Test(dependsOnMethods = "createCountryTest")
+	public void createArenaTest() throws ArenaNotFoundException {
 		arena = new Arena("Bobs Arena", new Address("Biel", "Alicestreet", "12a", 1234, country));
 		arena = arenaService.createArena(arena);
 		assertNotNull(arenaService.findArena(arena.getName()));
 	}
 
-	@Test(dependsOnMethods = "createArena")
-	public void searchArena() throws ArenaNotFoundException{
+	@Test(dependsOnMethods = "createArenaTest")
+	public void searchArenaTest() throws ArenaNotFoundException{
 		assertNotNull(arenaService.searchArena("Bob"));
 	}
 
 	@Test
-	public void createClub() throws ClubNotFoundException, ClubAlreadyExistsException {
+	public void createClubTest() throws ClubNotFoundException, ClubAlreadyExistsException {
 		club = teamClubService.createClub(club);
 		assertNotNull(teamClubService.findClub(club.getName()));
 	}
 
-	@Test(dependsOnMethods = "createClub")
-	public void createTeam() throws TeamNotFoundException, TeamAlreadyExistsException {
+	@Test(dependsOnMethods = "createClubTest")
+	public void createTeamTest() throws TeamNotFoundException, TeamAlreadyExistsException {
 		team = new Team("FC Biel Junioren", club);
 		team = teamClubService.createTeam(team);
 		assertNotNull(teamClubService.findTeam(team.getName()));

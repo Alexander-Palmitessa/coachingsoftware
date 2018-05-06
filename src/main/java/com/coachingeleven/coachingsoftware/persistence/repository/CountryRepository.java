@@ -12,6 +12,8 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 
 import static javax.ejb.TransactionAttributeType.SUPPORTS;
 
@@ -20,8 +22,13 @@ public class CountryRepository extends Repository<Country>{
 
 	@TransactionAttribute(SUPPORTS)
 	public Country find(String name) {
-		return entityManager.createQuery("select c from Country c where c.name = " +
-				":name", Country.class).setParameter("name", name).getSingleResult();
+		try {
+			TypedQuery<Country> query = entityManager.createNamedQuery("findCountry", Country.class);
+			query.setParameter("countryname", name);
+			return query.getSingleResult();
+		} catch (NoResultException ex) {
+			return null;
+		}
 	}
 
 }

@@ -70,4 +70,115 @@ public class Game implements Serializable {
 	public Game() {
 
 	}
+
+	public int getID() {
+		return ID;
+	}
+
+
+	public void setID(int iD) {
+		ID = iD;
+	}
+
+
+	public Calendar getDate() {
+		return date;
+	}
+
+
+	public void setDate(Calendar date) {
+		this.date = date;
+	}
+
+
+	public Calendar getTime() {
+		return time;
+	}
+
+
+	public void setTime(Calendar time) {
+		this.time = time;
+	}
+
+
+	public Arena getArena() {
+		return arena;
+	}
+
+
+	public void setArena(Arena arena) {
+		this.arena = arena;
+	}
+
+
+	public Team getTeamHome() {
+		return teamHome;
+	}
+
+
+	public void setTeamHome(Team teamHome) {
+		this.teamHome = teamHome;
+	}
+
+
+	public Team getTeamAway() {
+		return teamAway;
+	}
+
+
+	public void setTeamAway(Team teamAway) {
+		this.teamAway = teamAway;
+	}
+
+
+	public Set<Player> getPlayers() {
+		return players;
+	}
+
+
+	public void setPlayers(Set<Player> players) {
+		this.players = players;
+	}
+
+
+	public Set<Goal> getGoalsHome() {
+		return goalsHome;
+	}
+
+
+	public void setGoalsHome(Set<Goal> goalsHome) {
+		this.goalsHome = goalsHome;
+	}
+
+
+	public Set<Goal> getGoalsAway() {
+		return goalsAway;
+	}
+
+
+	public void setGoalsAway(Set<Goal> goalsAway) {
+		this.goalsAway = goalsAway;
+	}
+
+
+	public Set<Objective> getObjectives() {
+		return objectives;
+	}
+
+
+	public void setObjectives(Set<Objective> objectives) {
+		this.objectives = objectives;
+	}
+
+
+	public GameReport getGameReport() {
+		return gameReport;
+	}
+
+
+	public void setGameReport(GameReport gameReport) {
+		this.gameReport = gameReport;
+	}
+	
+	
 }
