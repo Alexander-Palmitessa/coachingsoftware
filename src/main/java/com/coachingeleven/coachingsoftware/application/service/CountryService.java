@@ -1,5 +1,6 @@
 package com.coachingeleven.coachingsoftware.application.service;
 
+import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.repository.CountryRepository;
@@ -25,7 +26,16 @@ public class CountryService implements CountryServiceRemote{
     private CountryRepository countryRepository;
 
     @Override
-    public Country createCountry(Country country) {
+    public Country createCountry(Country country) throws CountryAlreadyExistsException {
+        logger.log(Level.INFO, "Creating country with name " + country.getName() + " and id ''{0}''", country.getID());
+        if(countryRepository.find(Country.class, country.getID()) != null){
+            logger.log(Level.INFO, "Country with id " + country.getID()+ " already exists");
+            throw new CountryAlreadyExistsException();
+        }
+        if(countryRepository.find(country.getName()) != null){
+            logger.log(Level.INFO, "Country with name " + country.getName() + " already exists");
+            throw new CountryAlreadyExistsException();
+        }
         return countryRepository.persist(country);
     }
 

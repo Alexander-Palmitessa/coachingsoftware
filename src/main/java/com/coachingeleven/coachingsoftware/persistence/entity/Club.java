@@ -20,7 +20,7 @@ public class Club implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CLUB_ID")
 	private int ID;
-	@Column(name = "NAME", nullable = false)
+	@Column(name = "NAME", nullable = false, unique = true)
 	private String name;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "club")
 	private Set<Team> teams;

@@ -1,6 +1,8 @@
 package com.coachingeleven.coachingsoftware.application.service;
 
+import com.coachingeleven.coachingsoftware.application.exception.ClubAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.ClubNotFoundException;
+import com.coachingeleven.coachingsoftware.application.exception.TeamAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Club;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
@@ -12,8 +14,6 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,12 +33,26 @@ public class TeamClubService implements TeamClubServiceRemote {
 
 
     @Override
-    public Team createTeam(Team team) {
+    public Team createTeam(Team team) throws TeamAlreadyExistsException {
+        logger.log(Level.INFO, "Creating team with id ''{0}''", team.getID());
+        if(teamRepository.find(Team.class, team.getID()) != null){
+            logger.log(Level.INFO, "Team with id " + team.getID()+ " already exists");
+            throw new TeamAlreadyExistsException();
+        }
         return teamRepository.persist(team);
     }
 
     @Override
-    public Club createClub(Club club) {
+    public Club createClub(Club club) throws ClubAlreadyExistsException {
+        logger.log(Level.INFO, "Creating club with name " + club.getName() + " and id ''{0}''", club.getID());
+        if(clubRepository.find(Club.class, club.getID()) != null){
+            logger.log(Level.INFO, "Club with id " + club.getID()+ " already exists");
+            throw new ClubAlreadyExistsException();
+        }
+        if(clubRepository.find(club.getName()) != null){
+            logger.log(Level.INFO, "Club with name " + club.getName() + " already exists");
+            throw new ClubAlreadyExistsException();
+        }
         return clubRepository.persist(club);
     }
 

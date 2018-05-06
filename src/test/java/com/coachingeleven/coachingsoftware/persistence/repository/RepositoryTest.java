@@ -1,9 +1,6 @@
 package com.coachingeleven.coachingsoftware.persistence.repository;
 
-import com.coachingeleven.coachingsoftware.application.exception.ArenaNotFoundException;
-import com.coachingeleven.coachingsoftware.application.exception.ClubNotFoundException;
-import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
-import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
+import com.coachingeleven.coachingsoftware.application.exception.*;
 import com.coachingeleven.coachingsoftware.application.service.ArenaServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
@@ -52,7 +49,7 @@ public class RepositoryTest {
 	}
 
 	@Test
-	public void createCountry() throws CountryNotFounException {
+	public void createCountry() throws CountryNotFounException, CountryAlreadyExistsException {
 			country = countryService.createCountry(country);
 			assertNotNull(countryService.findCountry(country.getName()));
 	}
@@ -70,13 +67,13 @@ public class RepositoryTest {
 	}
 
 	@Test
-	public void createClub() throws ClubNotFoundException {
+	public void createClub() throws ClubNotFoundException, ClubAlreadyExistsException {
 		club = teamClubService.createClub(club);
 		assertNotNull(teamClubService.findClub(club.getName()));
 	}
 
 	@Test(dependsOnMethods = "createClub")
-	public void createTeam() throws TeamNotFoundException {
+	public void createTeam() throws TeamNotFoundException, TeamAlreadyExistsException {
 		team = new Team("FC Biel Junioren", club);
 		team = teamClubService.createTeam(team);
 		assertNotNull(teamClubService.findTeam(team.getName()));
