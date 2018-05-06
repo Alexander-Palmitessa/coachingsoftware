@@ -8,15 +8,9 @@
 
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -26,10 +20,9 @@ public class Club implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CLUB_ID")
 	private int ID;
-	@Column(name = "NAME", nullable = false)
+	@Column(name = "NAME", nullable = false, unique = true)
 	private String name;
-	@OneToMany
-	@JoinColumn(name = "TEAM_ID")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "club")
 	private Set<Team> teams;
 
 	/**
@@ -39,6 +32,7 @@ public class Club implements Serializable {
 	 */
 	public Club(String name) {
 		this.name = name;
+		teams = new HashSet<>();
 	}
 
 	/**
@@ -46,6 +40,10 @@ public class Club implements Serializable {
 	 */
 	public Club() {
 
+	}
+
+	public int getID() {
+		return ID;
 	}
 
 	public void setName(String name) {
