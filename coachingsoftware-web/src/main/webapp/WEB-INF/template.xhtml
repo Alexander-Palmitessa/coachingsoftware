@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <h:head>
+        <title><ui:insert name="title">Default - Coaching Eleven</ui:insert></title>
+	    <link href="css/foundation.min.css" rel="stylesheet"/>
+	    <script type="text/javascript" src="js/vendor/jquery.js" />
+	    <script type="text/javascript" src="js/vendor/what-input.js" />
+	    <script type="text/javascript" src="js/vendor/foundation.min.js" />
+	    <script type="text/javascript" src="js/app.js" />
+    </h:head>
+    
+    <h:body>
+    	<div id="header"><ui:include src="/header.xhtml" /></div>
+        <div id="content"><ui:insert name="content">Default content</ui:insert></div>
+        <div id="footer"><ui:include src="/footer.xhtml" /></div>
+    </h:body>
+    
+</html>
