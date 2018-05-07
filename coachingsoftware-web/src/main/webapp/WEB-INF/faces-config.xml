@@ -10,6 +10,10 @@
 			<default-locale>en</default-locale>
 			<supported-locale>de</supported-locale>
 		</locale-config>
+        <resource-bundle>
+            <base-name>/messages</base-name>
+            <var>msg</var>
+        </resource-bundle>
 	</application>
 
 </faces-config>
