@@ -1,15 +1,15 @@
 <ui:composition template="/WEB-INF/template.xhtml"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:define name="title">
         Home - Coaching Eleven
     </ui:define>
 
     <ui:define name="content">
-        <h1>Home content</h1>
+        <h1><h:outputText value="#{msg['homeContent']}"/></h1>
     </ui:define>
-    
+
 </ui:composition>
