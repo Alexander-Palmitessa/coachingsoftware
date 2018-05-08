@@ -6,8 +6,13 @@
 			  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
 	<managed-bean>
-		<managed-bean-name>countryBean</managed-bean-name>
-		<managed-bean-class>org.example.CountryBean</managed-bean-class>
+		<managed-bean-name>addressBean</managed-bean-name>
+		<managed-bean-class>org.example.AddressBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>arenaBean</managed-bean-name>
+		<managed-bean-class>org.example.ArenaBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 

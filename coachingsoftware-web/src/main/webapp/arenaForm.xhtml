@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:form="http://www.springframework.org/tags/form"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:form>
+    <h:outputLabel value="#{msg['arenaName']}"/>
+    <h:inputText value="#{arenaBean.arenaName}"/>
+    <br/>
+    <h:outputLabel value="#{msg['street']}"/>
+    <h:inputText value="#{addressBean.street}"/>
+    <br/>
+    <h:outputLabel value="#{msg['streetNr']}"/>
+    <h:inputText value="#{addressBean.streetNr}"/>
+    <br/>
+    <h:outputLabel value="#{msg['city']}"/>
+    <h:inputText value="#{addressBean.city}"/>
+    <br/>
+    <h:outputLabel value="#{msg['zip']}"/>
+    <h:inputText value="#{addressBean.zip}"/>
+    <br/>
+    <h:outputLabel value="#{msg['country']}"/>
+    <h:selectOneMenu value="#{addressBean.selectedCountry}">
+        <f:selectItems value="#{addressBean.countryValue}" var="c" itemValue="#{c.countryValue}"
+                       itemLabel="#{c.countryLabel}"/>
+    </h:selectOneMenu>
+    <h:commandButton action="#{arenaBean.createArena(addressBean.createAddress())}" value="Submit"/>
+</h:form>
+</html>
