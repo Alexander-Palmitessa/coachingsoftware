@@ -7,7 +7,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Locale;
 
@@ -20,7 +19,6 @@ public class AddressBean implements Serializable {
 
     private Address address;
 
-    private Country[] countryList;
     private com.coachingeleven.coachingsoftware.persistence.entity.Country country;
 
     @PostConstruct
@@ -39,7 +37,7 @@ public class AddressBean implements Serializable {
 
     public Country[] getCountryValue() {
         String[] isoCountries = Locale.getISOCountries();
-        countryList = new Country[isoCountries.length];
+        Country[] countryList = new Country[isoCountries.length];
         for (int i = 0; i < isoCountries.length; i++) {
             countryList[i] = new Country(isoCountries[i], isoCountries[i]);
         }
@@ -51,7 +49,7 @@ public class AddressBean implements Serializable {
             country = countryService.createCountry(country);
         }
         catch (Exception e){
-            //country = countryService.findCountry(country.getName());
+            country = countryService.findCountry(country.getName());
         }
         address.setCountry(country);
         return address;
