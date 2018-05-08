@@ -6,26 +6,26 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
 <h:form>
-    <h:outputLabel value="#{msg['arenaName']}"/>
-    <h:inputText value="#{arenaBean.arenaName}"/>
+    <h:outputText value="#{msg['arenaName']}"/>
+    <h:inputText value="#{arenaBean.arena.name}"/>
     <br/>
-    <h:outputLabel value="#{msg['street']}"/>
-    <h:inputText value="#{addressBean.street}"/>
+    <h:outputText value="#{msg['street']}"/>
+    <h:inputText value="#{addressBean.address.street}"/>
     <br/>
-    <h:outputLabel value="#{msg['streetNr']}"/>
-    <h:inputText value="#{addressBean.streetNr}"/>
+    <h:outputText value="#{msg['streetNr']}"/>
+    <h:inputText value="#{addressBean.address.streetNr}"/>
     <br/>
-    <h:outputLabel value="#{msg['city']}"/>
-    <h:inputText value="#{addressBean.city}"/>
+    <h:outputText value="#{msg['city']}"/>
+    <h:inputText value="#{addressBean.address.city}"/>
     <br/>
-    <h:outputLabel value="#{msg['zip']}"/>
-    <h:inputText value="#{addressBean.zip}"/>
+    <h:outputText value="#{msg['zip']}"/>
+    <h:inputText value="#{addressBean.address.zip}"/>
     <br/>
-    <h:outputLabel value="#{msg['country']}"/>
-    <h:selectOneMenu value="#{addressBean.selectedCountry}">
+    <h:outputText value="#{msg['country']}"/>
+    <h:selectOneMenu value="#{addressBean.country.name}">
         <f:selectItems value="#{addressBean.countryValue}" var="c" itemValue="#{c.countryValue}"
                        itemLabel="#{c.countryLabel}"/>
     </h:selectOneMenu>
-    <h:commandButton action="#{arenaBean.createArena(addressBean.createAddress())}" value="Submit"/>
+    <h:commandButton action="#{arenaBean.createArena(addressBean.createAddress())}" value="submit"/>
 </h:form>
 </html>

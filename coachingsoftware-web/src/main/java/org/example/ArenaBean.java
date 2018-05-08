@@ -4,35 +4,35 @@ import com.coachingeleven.coachingsoftware.application.service.ArenaServiceRemot
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Arena;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.inject.Named;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 
-@Named("arenaBean")
-@SessionScoped
-public class ArenaBean {
+@ManagedBean(name = "arenaBean")
+@RequestScoped
+public class ArenaBean implements Serializable {
 
-    @Pattern(regexp = "^[A-Za-z0-9]")
-    @NotNull
-    private String arenaName;
+    private Arena arena;
 
     @EJB
     private ArenaServiceRemote arenaService;
 
 
-    public Arena createArena(Address address){
-        Arena arena = new Arena(arenaName, address);
-        arena = arenaService.createArena(arena);
+    @PostConstruct
+    public void init() {
+        arena = new Arena();
+    }
+
+    public Arena getArena() {
         return arena;
     }
 
-    public String getArenaName() {
-        return arenaName;
-    }
-
-    public void setArenaName(String arenaName) {
-        this.arenaName = arenaName;
+    public Arena createArena(Address address) {
+        arena.setAddress(address);
+        arena = arenaService.createArena(arena);
+        return arena;
     }
 }

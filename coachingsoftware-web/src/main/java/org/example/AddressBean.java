@@ -1,97 +1,60 @@
 package org.example;
 
-import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
-import com.coachingeleven.coachingsoftware.persistence.entity.Country;
-
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.inject.Named;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Locale;
 
-@Named("addressBean")
-@SessionScoped
+@ManagedBean(name = "addressBean")
+@RequestScoped
 public class AddressBean implements Serializable {
 
     @EJB
-    private CountryServiceRemote countryService; //Maybe wrong
+    private CountryServiceRemote countryService;
 
-    @Pattern(regexp = "[A-Za-z]")
-    @NotNull
-    private String street;
-    @Pattern(regexp = "^[A-Za-z0-9]")
-    @NotNull
-    private String streetNr;
-    @Pattern(regexp = "[A-Za-z]")
-    @NotNull
-    private String city;
-    private int zip;
+    private Address address;
 
-    private String country;
     private Country[] countryList;
-    private String selectedCountry;
+    private com.coachingeleven.coachingsoftware.persistence.entity.Country country;
 
-
-    public String getStreet() {
-        return street;
+    @PostConstruct
+    public void init(){
+        address = new Address();
+        country = new com.coachingeleven.coachingsoftware.persistence.entity.Country();
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public Address getAddress() {
+        return address;
     }
 
-    public String getStreetNr() {
-        return streetNr;
-    }
-
-    public void setStreetNr(String streetNr) {
-        this.streetNr = streetNr;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public int getZip() {
-        return zip;
-    }
-
-    public void setZip(int zip) {
-        this.zip = zip;
-    }
-
-    public String getCountry() {
+    public com.coachingeleven.coachingsoftware.persistence.entity.Country getCountry() {
         return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public Country[] getCountryValue() {
         String[] isoCountries = Locale.getISOCountries();
         countryList = new Country[isoCountries.length];
-        for(int i = 0; i < isoCountries.length; i++){
+        for (int i = 0; i < isoCountries.length; i++) {
             countryList[i] = new Country(isoCountries[i], isoCountries[i]);
         }
         return countryList;
     }
 
-    public String getSelectedCountry() {
-        return selectedCountry;
-    }
-
-    public void setSelectedCountry(String selectedCountry) {
-        this.selectedCountry = selectedCountry;
+    public Address createAddress() throws CountryNotFounException {
+        try {
+            country = countryService.createCountry(country);
+        }
+        catch (Exception e){
+            //country = countryService.findCountry(country.getName());
+        }
+        address.setCountry(country);
+        return address;
     }
 
     public static class Country {
@@ -118,14 +81,5 @@ public class AddressBean implements Serializable {
         public void setCountryLabel(String countryLabel) {
             this.countryLabel = countryLabel;
         }
-    }
-
-    public Address createAddress() throws CountryNotFounException, CountryAlreadyExistsException {
-        com.coachingeleven.coachingsoftware.persistence.entity.Country country =
-                countryService.findCountry(selectedCountry);
-        if(country == null){
-            country = countryService.createCountry(new com.coachingeleven.coachingsoftware.persistence.entity.Country(selectedCountry));
-        }
-        return new Address(city, street, streetNr, zip, country);
     }
 }
