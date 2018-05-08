@@ -8,6 +8,7 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Club;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
 import javax.ejb.Remote;
+import java.util.List;
 
 @Remote
 public interface TeamClubServiceRemote {
@@ -17,4 +18,5 @@ public interface TeamClubServiceRemote {
     Club findClub(String name) throws ClubNotFoundException;
     boolean deleteTeam(Team team);
     boolean deleteClub(Club club);
+    List<Club> findAllClubs();
 }

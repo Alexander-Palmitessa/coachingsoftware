@@ -14,6 +14,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,7 +50,7 @@ public class TeamClubService implements TeamClubServiceRemote {
             logger.log(Level.INFO, "Club with id " + club.getID()+ " already exists");
             throw new ClubAlreadyExistsException();
         }
-        if(clubRepository.find(club.getName()) != null){
+        else if(clubRepository.find(club.getName()) != null){
             logger.log(Level.INFO, "Club with name " + club.getName() + " already exists");
             throw new ClubAlreadyExistsException();
         }
@@ -86,5 +87,10 @@ public class TeamClubService implements TeamClubServiceRemote {
     @Override
     public boolean deleteClub(Club club) {
         return clubRepository.delete(Club.class, club.getID());
+    }
+
+    @Override
+    public List<Club> findAllClubs() {
+        return clubRepository.findAll();
     }
 }

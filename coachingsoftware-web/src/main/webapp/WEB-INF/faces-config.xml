@@ -8,12 +8,17 @@
 	<managed-bean>
 		<managed-bean-name>addressBean</managed-bean-name>
 		<managed-bean-class>org.example.AddressBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
+		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>arenaBean</managed-bean-name>
 		<managed-bean-class>org.example.ArenaBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>teamClubBean</managed-bean-name>
+		<managed-bean-class>org.example.TeamClubBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 
 	<application>
