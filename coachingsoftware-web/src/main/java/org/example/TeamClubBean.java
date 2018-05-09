@@ -23,32 +23,28 @@ public class TeamClubBean {
     private Team team;
     private Club club;
     private List<Club> clubs;
+    private String selectedClubName;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         team = new Team();
         club = new Club();
         clubs = teamClubService.findAllClubs();
     }
 
     public Club createClub() throws ClubNotFoundException {
-        try{
+        try {
             club = teamClubService.createClub(club);
-        }
-        catch (ClubAlreadyExistsException e){
+        } catch (ClubAlreadyExistsException e) {
             club = teamClubService.findClub(club.getName());
         }
         return club;
     }
 
-    public Team createTeam(){
-        try {
-            team = teamClubService.createTeam(team);
-        }
-        catch (TeamAlreadyExistsException e) {
-            e.printStackTrace();
-        }
-        return team;
+    public Team createTeam() throws ClubNotFoundException, TeamAlreadyExistsException {
+        club = teamClubService.findClub(selectedClubName);
+        team.setClub(club);
+        return teamClubService.createTeam(team);
     }
 
     public Team getTeam() {
@@ -69,5 +65,13 @@ public class TeamClubBean {
 
     public List<Club> getClubs() {
         return clubs;
+    }
+
+    public String getSelectedClubName() {
+        return selectedClubName;
+    }
+
+    public void setSelectedClubName(String selectedClubName) {
+        this.selectedClubName = selectedClubName;
     }
 }

@@ -19,4 +19,5 @@ public interface TeamClubServiceRemote {
     boolean deleteTeam(Team team);
     boolean deleteClub(Club club);
     List<Club> findAllClubs();
+    Club updateClub(Club club);
 }
