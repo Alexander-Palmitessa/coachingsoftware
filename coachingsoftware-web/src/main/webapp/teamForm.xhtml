@@ -10,8 +10,8 @@
     <h:inputText value="#{teamClubBean.team.name}"/>
     <br/>
     <h:outputText value="#{msg['club']}"/>
-    <h:selectOneMenu value="#{teamClubBean.team.club}">
-        <f:selectItems value="#{teamClubBean.clubs}" var="c" itemValue="#{c}"
+    <h:selectOneMenu value="#{teamClubBean.selectedClubName}">
+        <f:selectItems value="#{teamClubBean.clubs}" var="c" itemValue="#{c.name}"
                        itemLabel="#{c.name}"/>
     </h:selectOneMenu>
     <h:commandButton action="#{teamClubBean.createTeam()}" value="submit"/>

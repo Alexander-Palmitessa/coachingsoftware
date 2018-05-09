@@ -16,55 +16,59 @@ import java.util.Set;
 @Entity
 @Table(name = "CLUB")
 @NamedQueries({
-	@NamedQuery(name = "findClub",
-			query = "SELECT c FROM Club c WHERE LOWER(c.name) = LOWER(:clubname)"),
-		@NamedQuery(name = "findAllClubs", query = "SELECT c FROM Club c")
+        @NamedQuery(name = "findClub",
+                query = "SELECT c FROM Club c WHERE LOWER(c.name) = LOWER(:clubname)"),
+        @NamedQuery(name = "findAllClubs", query = "SELECT c FROM Club c")
 })
 public class Club implements Serializable {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "CLUB_ID")
-	private int ID;
-	@Column(name = "CLUB_NAME", nullable = false, unique = true)
-	private String name;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "club")
-	private Set<Team> teams;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CLUB_ID")
+    private int ID;
+    @Column(name = "CLUB_NAME", nullable = false, unique = true)
+    private String name;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "club", orphanRemoval = true)
+    private Set<Team> teams;
 
-	/**
-	 * Class constructor
-	 *
-	 * @param name the name of the team
-	 */
-	public Club(String name) {
-		this.name = name;
-		teams = new HashSet<>();
-	}
+    /**
+     * Class constructor
+     *
+     * @param name the name of the team
+     */
+    public Club(String name) {
+        this.name = name;
+        teams = new HashSet<>();
+    }
 
-	/**
-	 * JPA required default constructor
-	 */
-	public Club() {
+    /**
+     * JPA required default constructor
+     */
+    public Club() {
 
-	}
+    }
 
-	public int getID() {
-		return ID;
-	}
+    public int getID() {
+        return ID;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Set<Team> getTeams() {
-		return teams;
-	}
+    public Set<Team> getTeams() {
+        return teams;
+    }
 
-	public void setTeams(Set<Team> teams) {
-		this.teams = teams;
-	}
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
+    }
 
+    public void addTeam(Team team) {
+        teams.add(team);
+        team.setClub(this);
+    }
 }
