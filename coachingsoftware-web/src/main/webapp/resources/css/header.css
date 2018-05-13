@@ -1,0 +1,32 @@
+#header, .top-bar, .top-bar ul {
+	background-color: #5D82A7;
+	color: white;
+}
+
+.top-bar {
+	padding: 0;
+}
+
+.top-bar .menu li {
+	padding-bottom: 0.5rem;
+	padding-top: 0.5rem;
+}
+
+.top-bar .menu li.menu-text, .top-bar .menu li.menu-text > a {
+	padding-left: 0;
+}
+
+.top-bar a,
+.top-bar a:after,
+.top-bar a:before {
+	color: white;
+}
+
+#header .dropdown.menu > li.is-dropdown-submenu-parent > a::after {
+	border-color: white transparent transparent;
+}
+
+#header .dropdown.menu .is-active > a, .top-bar li:not(.menu-text) a:hover {
+	opacity: 0.6;
+	color: white;
+}

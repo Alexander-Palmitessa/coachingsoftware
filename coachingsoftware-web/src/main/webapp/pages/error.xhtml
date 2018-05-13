@@ -1,0 +1,21 @@
+<ui:composition template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="title">
+        Error - Coaching Eleven
+    </ui:define>
+
+    <ui:define name="content">
+        <h2>Invalid userAccount name or password.</h2>
+	
+	    <p>Please enter a userAccount name or password that is authorized to access this
+	        application. For this application, this means a userAccount that has been
+	        created in the <code>file</code> realm and has been assigned to the
+	        <em>group</em> of <code>TutorialUser</code>.</p>
+	    <h:link outcome="login">Return to login page</h:link>
+    </ui:define>
+
+</ui:composition>
