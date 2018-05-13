@@ -8,6 +8,8 @@
     <h:head>
         <title><ui:insert name="title">Default - Coaching Eleven</ui:insert></title>
         <h:outputStylesheet name="css/foundation.min.css" />
+        <h:outputStylesheet name="css/app.css" />
+        <h:outputStylesheet name="css/header.css" />
         <h:outputScript name="js/vendor/jquery.js" />
         <h:outputScript name="js/vendor/what-input.js" />
         <h:outputScript name="js/vendor/foundation.min.js" />
@@ -16,7 +18,13 @@
     
     <h:body>
     	<div id="header"><ui:include src="header.xhtml" /></div>
-        <div id="content"><ui:insert name="content">Default content</ui:insert></div>
+        <div id="content">
+	        <div class="row">
+	        	<div class="small-12 column">
+	        		<ui:insert name="content">Default content</ui:insert>
+	        	</div>
+	        </div>
+        </div>
         <div id="footer"><ui:include src="footer.xhtml" /></div>
     </h:body>
     

@@ -5,32 +5,31 @@
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     
     <div class="title-bar" data-responsive-toggle="coachingeleven-animated-menu" data-hide-for="medium">
-	  <button class="menu-icon" type="button" data-toggle="coachingeleven-animated-menu"></button>
-	  <div class="title-bar-title">Menu</div>
+		<button class="menu-icon" type="button" data-toggle="coachingeleven-animated-menu"></button>
+		<div class="title-bar-title">Menu</div>
 	</div>
-	
-	<div class="top-bar" id="coachingeleven-animated-menu" data-animate="hinge-in-from-top hinge-out-from-top">
-	  <div class="top-bar-left">
-	    <ul class="dropdown menu" data-dropdown-menu="">
-	      <li class="menu-text">Coaching Eleven</li>
-	      <li>
-	        <a href="#">TestingForms</a>
-	        <ul class="menu vertical">
-	          <li><a href="#{request.contextPath}/pages/arenaForm.xhtml">ArenaForm</a></li>
-	          <li><a href="#{request.contextPath}/pages/clubForm.xhtml">ClubForm</a></li>
-	          <li><a href="#{request.contextPath}/pages/teamForm.xhtml">TeamForm</a></li>
-	        </ul>
-	      </li>
-	      <li><a href="#">Two</a></li>
-	      <li><a href="#">Three</a></li>
-	    </ul>
-	  </div>
-	  <div class="top-bar-right">
-	    <ul class="menu">
-	      <li><input type="search" placeholder="Search"></input></li>
-	      <li><button type="button" class="button">Search</button></li>
-	    </ul>
-	  </div>
+   
+   	<div class="top-bar row" id="coachingeleven-animated-menu" data-animate="hinge-in-from-top hinge-out-from-top">
+		<div class="top-bar-left small-8 column">
+			<ul class="dropdown menu" data-dropdown-menu="">
+				<li class="menu-text"><a href="#{request.contextPath}/pages/home.xhtml">Coaching Eleven</a></li>
+				<li>
+					<a href="#">TestingForms</a>
+					<ul class="menu vertical">
+						<li><a href="#{request.contextPath}/pages/arenaForm.xhtml">ArenaForm</a></li>
+						<li><a href="#{request.contextPath}/pages/clubForm.xhtml">ClubForm</a></li>
+						<li><a href="#{request.contextPath}/pages/teamForm.xhtml">TeamForm</a></li>
+					</ul>
+				</li>
+				<li><a href="#">Two</a></li>
+				<li><a href="#">Three</a></li>
+			</ul>
+		</div>
+		<div class="top-bar-right small-4 column">
+			<ul class="menu">
+				<li><input type="search" placeholder="Search"></input></li>
+				<li><button type="button" class="button">Search</button></li>
+			</ul>
+		</div>
 	</div>
-    
 </ui:composition>
