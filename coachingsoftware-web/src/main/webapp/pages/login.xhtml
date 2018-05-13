@@ -9,14 +9,13 @@
 	</ui:define>
 	
 	<ui:define name="content">
-        <h2>Hello, please log in:</h2>
 	    <form name="loginForm" action="j_security_check">
-	        <strong>Please type your userAccount name: </strong>
-	            <input type="text" name="j_username" size="25"></input>
-	        <strong>Please type your password: </strong>
-	            <input type="password" size="15" name="j_password"></input>
+	        <label><h:outputText value="#{msg['username']}"/></label>
+	        <input type="text" name="j_username" size="25"></input>
+	        <label><h:outputText value="#{msg['password']}"/></label>
+	        <input type="password" size="15" name="j_password"></input>
 	        <input type="submit" value="Submit"/>
-	            <input type="reset" value="Reset"/>
+	        <input type="reset" value="Reset"/>
 	    </form>
     </ui:define>
 

@@ -10,15 +10,22 @@
 
     <ui:define name="content">
         <h:form>
-		    <h:outputText value="#{msg['name']}"/>
-		    <h:inputText value="#{teamClubBean.team.name}"/>
-		    <br/>
-		    <h:outputText value="#{msg['club']}"/>
-		    <h:selectOneMenu value="#{teamClubBean.selectedClubName}">
-		        <f:selectItems value="#{teamClubBean.clubs}" var="c" itemValue="#{c.name}"
-		                       itemLabel="#{c.name}"/>
-		    </h:selectOneMenu>
-		    <h:commandButton action="#{teamClubBean.createTeam()}" value="submit"/>
+        	<div class="row">
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['name']}"/></label>
+				    <h:inputText value="#{teamClubBean.team.name}"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['club']}"/></label>
+				    <h:selectOneMenu value="#{teamClubBean.selectedClubName}">
+				        <f:selectItems value="#{teamClubBean.clubs}" var="c" itemValue="#{c.name}"
+				                       itemLabel="#{c.name}"/>
+				    </h:selectOneMenu>
+		        </div>
+		        <div class="small-12 column text-center">
+		        	<h:commandButton action="#{teamClubBean.createTeam()}" value="submit"/>
+		        </div>
+	        </div>
 		</h:form>
     </ui:define>
                 
