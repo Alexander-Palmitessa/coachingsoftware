@@ -10,10 +10,15 @@
 
     <ui:define name="content">
         <h:form>
-		    <h:outputText value="#{msg['name']}"/>
-		    <h:inputText value="#{teamClubBean.club.name}"/>
-		    <br/>
-		    <h:commandButton action="#{teamClubBean.createClub()}" value="submit"/>
+	        <div class="row">
+		        <div class="small-12 column">
+		        	<label><h:outputText value="#{msg['name']}"/></label>
+				    <h:inputText value="#{teamClubBean.club.name}"/>
+		        </div>
+		        <div class="small-12 column text-center">
+		        	<h:commandButton action="#{teamClubBean.createClub()}" value="submit"/>
+		        </div>
+	        </div>
 		</h:form>
     </ui:define>
                 
