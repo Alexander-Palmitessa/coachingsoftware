@@ -11,27 +11,27 @@
     <ui:define name="content">
         <h:form>
 	        <div class="row">
-	        	<div class="small-6 column">
+	        	<div class="small-12 medium-6 column">
 	        		<label><h:outputText value="#{msg['arenaName']}"/></label>
 			    	<h:inputText value="#{arenaBean.arena.name}"/>
 	        	</div>
-	        	<div class="small-6 column">
+	        	<div class="small-12 medium-6 column">
 	        		<label><h:outputText value="#{msg['street']}"/></label>
 			    	<h:inputText value="#{addressBean.address.street}"/>
 	        	</div>
-	        	<div class="small-6 column">
+	        	<div class="small-12 medium-6 column">
 		        	<label><h:outputText value="#{msg['streetNr']}"/></label>
 				    <h:inputText value="#{addressBean.address.streetNr}"/>
 			    </div>
-			    <div class="small-6 column">
+			    <div class="small-12 medium-6 column">
 			    	<label><h:outputText value="#{msg['city']}"/></label>
 			    	<h:inputText value="#{addressBean.address.city}"/>
 			    </div>
-			    <div class="small-6 column">
+			    <div class="small-12 medium-6 column">
 			    	<label><h:outputText value="#{msg['zip']}"/></label>
 			   		<h:inputText value="#{addressBean.address.zip}"/>
 			    </div>
-			    <div class="small-6 column">
+			    <div class="small-12 medium-6 column">
 			    	<label><h:outputText value="#{msg['country']}"/></label>
 				    <h:selectOneMenu value="#{addressBean.country.name}">
 				        <f:selectItems value="#{addressBean.countryValue}" var="c" itemValue="#{c.countryValue}"

@@ -10,25 +10,50 @@
 	</div>
    
    	<div class="top-bar row" id="coachingeleven-animated-menu" data-animate="hinge-in-from-top hinge-out-from-top">
-		<div class="top-bar-left small-8 column">
+		<div class="top-bar-left small-12 medium-8 column">
 			<ul class="dropdown menu" data-dropdown-menu="">
 				<li class="menu-text"><a href="#{request.contextPath}/pages/home.xhtml">Coaching Eleven</a></li>
 				<li>
-					<a href="#">TestingForms</a>
+					<h:outputLink value="#"><h:outputText value="#{msg['overview']}"/></h:outputLink>
 					<ul class="menu vertical">
-						<li><a href="#{request.contextPath}/pages/arenaForm.xhtml">ArenaForm</a></li>
-						<li><a href="#{request.contextPath}/pages/clubForm.xhtml">ClubForm</a></li>
-						<li><a href="#{request.contextPath}/pages/teamForm.xhtml">TeamForm</a></li>
+						<li><h:outputLink value="#"><h:outputText value="#{msg['players']}"/></h:outputLink></li>
+						<li><h:outputLink value="#"><h:outputText value="#{msg['games']}"/></h:outputLink></li>
 					</ul>
 				</li>
-				<li><a href="#">Two</a></li>
-				<li><a href="#">Three</a></li>
+				<li>
+					<h:outputLink value="#"><h:outputText value="#{msg['myTeam']}"/></h:outputLink>
+					<ul class="menu vertical">
+						<li><h:outputLink value="#"><h:outputText value="#{msg['players']}"/></h:outputLink></li>
+						<li><h:outputLink value="#"><h:outputText value="#{msg['games']}"/></h:outputLink></li>
+					</ul>
+				</li>
+				<li>
+					<h:outputLink value="#"><h:outputText value="#{msg['admin']}"/></h:outputLink>
+					<ul class="menu vertical">
+						<li><h:outputLink value="#{request.contextPath}/pages/teamForm.xhtml"><h:outputText value="#{msg['createTeam']}"/></h:outputLink></li>
+						<li><h:outputLink value="#{request.contextPath}/pages/arenaForm.xhtml"><h:outputText value="#{msg['createArena']}"/></h:outputLink></li>
+						<li><h:outputLink value="#{request.contextPath}/pages/clubForm.xhtml"><h:outputText value="#{msg['createClub']}"/></h:outputLink></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
-		<div class="top-bar-right small-4 column">
-			<ul class="menu">
-				<li><input type="search" placeholder="Search"></input></li>
-				<li><button type="button" class="button">Search</button></li>
+		<div class="top-bar-right small-12 medium-4 column">
+			<ul class="dropdown menu" data-dropdown-menu="">
+				<li>
+					<h:outputLink value="#"><h:outputText value="#{msg['language']}"/></h:outputLink>
+					<ul class="menu vertical">
+						<li>
+							<h:form>
+								<h:commandLink value="#{msg['english']}" action="#{languageBean.changeLanguage('en')}"></h:commandLink>
+							</h:form>
+						</li>
+						<li>
+							<h:form>
+								<h:commandLink value="#{msg['german']}" action="#{languageBean.changeLanguage('de')}"></h:commandLink>
+							</h:form>
+						</li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</div>
