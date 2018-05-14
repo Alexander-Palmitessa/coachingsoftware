@@ -21,4 +21,5 @@ public interface ArenaServiceRemote {
 	Arena findArena(String name) throws ArenaNotFoundException;
 	List<Arena> searchArena(String keywords) throws ArenaNotFoundException;
 	void deleteArena(Arena arena);
+	List<Arena> findAll();
 }

@@ -6,12 +6,11 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Arena;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 
-@ManagedBean(name = "arenaBean")
+@Named("arenaBean")
 @RequestScoped
 public class ArenaBean implements Serializable {
 

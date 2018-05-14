@@ -12,6 +12,8 @@ import javax.ejb.TransactionAttribute;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import java.util.List;
+
 import static javax.ejb.TransactionAttributeType.MANDATORY;
 import static javax.ejb.TransactionAttributeType.SUPPORTS;
 
@@ -47,4 +49,9 @@ public class Repository<T> {
 		entityManager.flush();
 		return true;
 	}
+
+	@TransactionAttribute(SUPPORTS)
+    public List<T> findAll(Class<T> type) {
+		return entityManager.createQuery("Select t from " + type.getSimpleName() + " t").getResultList();
+    }
 }
