@@ -1,11 +1,9 @@
 package org.example;
 
-import com.coachingeleven.coachingsoftware.application.exception.ArenaNotFoundException;
-import com.coachingeleven.coachingsoftware.application.exception.GameAlreadyExistsException;
-import com.coachingeleven.coachingsoftware.application.exception.GameNotFoundException;
-import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
+import com.coachingeleven.coachingsoftware.application.exception.*;
 import com.coachingeleven.coachingsoftware.application.service.ArenaServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.GameServiceRemote;
+import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.*;
 
@@ -26,10 +24,11 @@ public class GameBean {
     private TeamClubServiceRemote teamClubService;
     @EJB
     private ArenaServiceRemote arenaService;
+    @EJB
+    private PlayerServiceRemote playerService;
 
     private Game game;
-    private Calendar dateCalendar;
-    private Calendar timeCalendar;
+    private Calendar calendar;
     private String teamAway;
     private String teamHome;
     private String selectedArena;
@@ -41,29 +40,48 @@ public class GameBean {
     private int minute;
     private int hour;
 
+    private ChangeIn changeIn;
+    private ChangeOut changeOut;
+    private List<Player> players;
+    private int selectedPlayerOutID;
+    private int selectedPlayerInID;
+
     @PostConstruct
     public void init(){
         game = new Game();
         teams = teamClubService.findAllTeams();
         arenas = arenaService.findAll();
-        dateCalendar = Calendar.getInstance();
-        timeCalendar = Calendar.getInstance();
+        calendar = Calendar.getInstance();
+        changeOut = new ChangeOut();
+        changeIn = new ChangeIn();
+        players = playerService.findAllPlayers();
     }
 
     public Game createGame() throws GameNotFoundException, ArenaNotFoundException, TeamNotFoundException {
         game.setArena(arenaService.findArena(selectedArena));
         game.setTeamHome(teamClubService.findTeam(teamHome));
         game.setTeamAway(teamClubService.findTeam(teamAway));
-        dateCalendar.set(year, month, day);
-        timeCalendar.set(0, 0, 0, hour, minute);
-        game.setDate(dateCalendar);
-        game.setTime(timeCalendar);
+        calendar.set(year, month, day, hour, minute, 0);
+        game.setDate(calendar);
+        game.setTime(calendar);
         try {
             game = gameService.createGame(game);
         } catch (GameAlreadyExistsException e) {
             game = gameService.findGame(game.getID());
         }
         return game;
+    }
+
+    public ChangeOut createChangeOut() throws GameNotFoundException, PlayerNotFoundException {
+        changeOut.setPlayer(playerService.findPlayer(selectedPlayerOutID));
+        changeOut.setGame(gameService.findGame(game.getID()));
+        return gameService.createChangeOut(changeOut);
+    }
+
+    public ChangeIn createChangeIn() throws GameNotFoundException, PlayerNotFoundException {
+        changeIn.setPlayer(playerService.findPlayer(selectedPlayerInID));
+        changeIn.setGame(gameService.findGame(game.getID()));
+        return gameService.createChangeIn(changeIn);
     }
 
     public Game getGame() {
@@ -74,20 +92,12 @@ public class GameBean {
         this.game = game;
     }
 
-    public Calendar getDateCalendar() {
-        return dateCalendar;
+    public Calendar getCalendar() {
+        return calendar;
     }
 
-    public void setDateCalendar(Calendar dateCalendar) {
-        this.dateCalendar = dateCalendar;
-    }
-
-    public Calendar getTimeCalendar() {
-        return timeCalendar;
-    }
-
-    public void setTimeCalendar(Calendar timeCalendar) {
-        this.timeCalendar = timeCalendar;
+    public void setCalendar(Calendar calendar) {
+        this.calendar = calendar;
     }
 
     public String getTeamAway() {
@@ -168,5 +178,45 @@ public class GameBean {
 
     public void setHour(int hour) {
         this.hour = hour;
+    }
+
+    public ChangeIn getChangeIn() {
+        return changeIn;
+    }
+
+    public void setChangeIn(ChangeIn changeIn) {
+        this.changeIn = changeIn;
+    }
+
+    public ChangeOut getChangeOut() {
+        return changeOut;
+    }
+
+    public void setChangeOut(ChangeOut changeOut) {
+        this.changeOut = changeOut;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
+    public int getSelectedPlayerOutID() {
+        return selectedPlayerOutID;
+    }
+
+    public void setSelectedPlayerOutID(int selectedPlayerOutID) {
+        this.selectedPlayerOutID = selectedPlayerOutID;
+    }
+
+    public int getSelectedPlayerInID() {
+        return selectedPlayerInID;
+    }
+
+    public void setSelectedPlayerInID(int selectedPlayerInID) {
+        this.selectedPlayerInID = selectedPlayerInID;
     }
 }

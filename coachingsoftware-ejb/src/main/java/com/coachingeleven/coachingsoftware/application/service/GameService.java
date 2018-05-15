@@ -12,7 +12,11 @@ import javax.ejb.TransactionAttribute;
 
 import com.coachingeleven.coachingsoftware.application.exception.GameAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.GameNotFoundException;
+import com.coachingeleven.coachingsoftware.persistence.entity.ChangeIn;
+import com.coachingeleven.coachingsoftware.persistence.entity.ChangeOut;
 import com.coachingeleven.coachingsoftware.persistence.entity.Game;
+import com.coachingeleven.coachingsoftware.persistence.repository.ChangeInRepository;
+import com.coachingeleven.coachingsoftware.persistence.repository.ChangeOutRepository;
 import com.coachingeleven.coachingsoftware.persistence.repository.GameRepository;
 
 @LocalBean
@@ -24,6 +28,10 @@ public class GameService implements GameServiceRemote {
 	
 	@EJB
 	private GameRepository gameRepository;
+	@EJB
+	private ChangeInRepository changeInRepository;
+	@EJB
+	private ChangeOutRepository changeOutRepository;
 	
 	@Override
 	public Game createGame(Game game) throws GameAlreadyExistsException {
@@ -49,6 +57,16 @@ public class GameService implements GameServiceRemote {
 	@Override
 	public void deleteGame(Game game) {
 		gameRepository.delete(Game.class, game.getID());
+	}
+
+	@Override
+	public ChangeOut createChangeOut(ChangeOut changeOut) {
+		return changeOutRepository.persist(changeOut);
+	}
+
+	@Override
+	public ChangeIn createChangeIn(ChangeIn changeIn) {
+		return changeInRepository.persist(changeIn);
 	}
 
 }
