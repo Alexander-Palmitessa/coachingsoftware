@@ -12,22 +12,18 @@
         <h:form>
             <div class="row">
                 <div class="small-12 medium-6 column">
-                    <label><h:outputText value="#{msg['minute']}"/></label>
-                    <h:inputText value="#{gameBean.changeOut.minuteOut}"/>
+                    <label><h:outputText value="#{msg['cardType']}"/></label>
+                    <h:selectOneMenu value="#{gameBean.card.type}">
+                        <f:selectItems value="#{gameBean.cardTypes}" var="ct" itemValue="#{ct}"
+                                       itemLabel="#{msg['cardType.'.concat(ct)]}"/>
+                    </h:selectOneMenu>
                 </div>
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['comment']}"/></label>
-                    <h:inputText value="#{gameBean.changeOut.comment}"/>
-                </div>
-                <div class="small-12 medium-6 column">
-                    <label><h:outputText value="#{msg['player']}"/></label>
-                    <h:selectOneMenu value="#{gameBean.selectedPlayerOutID}">
-                        <f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
-                                       itemLabel="#{p.lastName}"/>
-                    </h:selectOneMenu>
+                    <h:inputText value="#{gameBean.card.description}"/>
                 </div>
                 <div class="small-12 column text-center">
-                    <h:commandButton action="#{gameBean.createChangeOut()}" value="submit"/>
+                    <h:commandButton action="#{gameBean.createCard()}" value="submit"/>
                 </div>
             </div>
         </h:form>

@@ -6,6 +6,7 @@ import com.coachingeleven.coachingsoftware.application.service.GameServiceRemote
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.*;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.CardType;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -45,9 +46,12 @@ public class GameBean {
     private List<Player> players;
     private int selectedPlayerOutID;
     private int selectedPlayerInID;
+    private Card card;
+    private CardType[] cardTypes;
 
     @PostConstruct
-    public void init(){
+    public void init() {
+        card = new Card();
         game = new Game();
         teams = teamClubService.findAllTeams();
         arenas = arenaService.findAll();
@@ -55,6 +59,7 @@ public class GameBean {
         changeOut = new ChangeOut();
         changeIn = new ChangeIn();
         players = playerService.findAllPlayers();
+        cardTypes = CardType.values();
     }
 
     public Game createGame() throws GameNotFoundException, ArenaNotFoundException, TeamNotFoundException {
@@ -82,6 +87,10 @@ public class GameBean {
         changeIn.setPlayer(playerService.findPlayer(selectedPlayerInID));
         changeIn.setGame(gameService.findGame(game.getID()));
         return gameService.createChangeIn(changeIn);
+    }
+
+    public Card createCard() {
+        return gameService.createCard(card);
     }
 
     public Game getGame() {
@@ -219,4 +228,21 @@ public class GameBean {
     public void setSelectedPlayerInID(int selectedPlayerInID) {
         this.selectedPlayerInID = selectedPlayerInID;
     }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
+    }
+
+    public CardType[] getCardTypes() {
+        return cardTypes;
+    }
+
+    public void setCardTypes(CardType[] cardTypes) {
+        this.cardTypes = cardTypes;
+    }
+
 }

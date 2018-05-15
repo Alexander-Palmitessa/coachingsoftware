@@ -4,10 +4,7 @@ import javax.ejb.Remote;
 
 import com.coachingeleven.coachingsoftware.application.exception.GameAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.GameNotFoundException;
-import com.coachingeleven.coachingsoftware.persistence.entity.ChangeIn;
-import com.coachingeleven.coachingsoftware.persistence.entity.ChangeOut;
-import com.coachingeleven.coachingsoftware.persistence.entity.Game;
-import com.coachingeleven.coachingsoftware.persistence.entity.Player;
+import com.coachingeleven.coachingsoftware.persistence.entity.*;
 
 import java.util.List;
 
@@ -18,4 +15,5 @@ public interface GameServiceRemote {
 	void deleteGame(Game game);
 	ChangeOut createChangeOut(ChangeOut changeOut);
 	ChangeIn createChangeIn(ChangeIn changeIn);
+	Card createCard(Card card);
 }
