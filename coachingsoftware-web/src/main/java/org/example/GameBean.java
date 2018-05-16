@@ -11,7 +11,11 @@ import com.coachingeleven.coachingsoftware.persistence.enumeration.CardType;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedProperty;
 import javax.inject.Named;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import java.util.Calendar;
 import java.util.List;
 
@@ -55,9 +59,15 @@ public class GameBean {
 
     private GameReport gameReport;
 
+    private int pathGameID;
+
     @PostConstruct
     public void init() {
-        game = new Game();
+        try{
+            game = gameService.findGame(pathGameID);
+        } catch (GameNotFoundException e){
+            game = new Game();
+        }
         card = new Card();
         teams = teamClubService.findAllTeams();
         arenas = arenaService.findAll();
@@ -296,5 +306,13 @@ public class GameBean {
 
     public void setGameReport(GameReport gameReport) {
         this.gameReport = gameReport;
+    }
+
+    public int getPathGameID() {
+        return pathGameID;
+    }
+
+    public void setPathGameID(int pathGameID) {
+        this.pathGameID = pathGameID;
     }
 }
