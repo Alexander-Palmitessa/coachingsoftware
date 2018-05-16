@@ -22,6 +22,16 @@
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>
+	
+	<filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>org.example.filter.LoginFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/secured/*</url-pattern>
+	</filter-mapping>
 
 	<security-constraint>
 		<display-name>Constraint1</display-name>

@@ -13,7 +13,7 @@ import javax.inject.Named;
 @SessionScoped
 public class LanguageBean implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5321640953026718663L;
 	
 	private static Map<String,Object> countries;
 	

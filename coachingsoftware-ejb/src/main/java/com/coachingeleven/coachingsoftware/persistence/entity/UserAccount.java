@@ -2,12 +2,21 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "USERACCOUNT")
+@NamedQueries({
+	@NamedQuery(name = "findUser",
+			query = "SELECT c FROM UserAccount c WHERE LOWER(c.username) = LOWER(:username)")
+})
 public class UserAccount implements Serializable {
 
     @Id
@@ -17,6 +26,9 @@ public class UserAccount implements Serializable {
     String password;
     @Column(name = "USER_EMAIL", nullable = false, unique = true)
     String email;
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="TEAM_ID")
+    private Team team;
 
     public UserAccount(){
 

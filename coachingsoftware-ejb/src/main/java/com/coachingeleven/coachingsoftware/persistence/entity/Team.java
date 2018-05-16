@@ -33,6 +33,8 @@ public class Team implements Serializable {
 	private Set<Player> players;
 	@ManyToMany
 	private Set<Game> games;
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="team")
+	private UserAccount user;
 
 	public Team(String name, Club club) {
 		this.name = name;
