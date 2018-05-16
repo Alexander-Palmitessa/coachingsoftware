@@ -91,7 +91,12 @@ public class TeamClubService implements TeamClubServiceRemote {
 
     @Override
     public List<Club> findAllClubs() {
-        return clubRepository.findAll();
+        return clubRepository.findAll(Club.class);
+    }
+
+    @Override
+    public List<Team> findAllTeams() {
+        return teamRepository.findAll(Team.class);
     }
 
     @Override

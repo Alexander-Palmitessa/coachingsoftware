@@ -74,4 +74,9 @@ public class ArenaService implements ArenaServiceRemote {
 	public void deleteArena(Arena arena) {
 		arenaRepository.delete(Arena.class, arena.getID());
 	}
+
+	@Override
+	public List<Arena> findAll() {
+		return arenaRepository.findAll(Arena.class);
+	}
 }

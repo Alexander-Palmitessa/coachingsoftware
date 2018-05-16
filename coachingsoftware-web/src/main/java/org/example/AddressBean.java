@@ -5,12 +5,12 @@ import com.coachingeleven.coachingsoftware.application.service.CountryServiceRem
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Locale;
 
-@ManagedBean(name = "addressBean")
+@Named("addressBean")
 @RequestScoped
 public class AddressBean implements Serializable {
 

@@ -24,7 +24,7 @@
 					<h:outputLink value="#"><h:outputText value="#{msg['myTeam']}"/></h:outputLink>
 					<ul class="menu vertical">
 						<li><h:outputLink value="#"><h:outputText value="#{msg['players']}"/></h:outputLink></li>
-						<li><h:outputLink value="#"><h:outputText value="#{msg['games']}"/></h:outputLink></li>
+						<li><h:outputLink value="#{request.contextPath}/pages/gameList.xhtml"><h:outputText value="#{msg['games']}"/></h:outputLink></li>
 					</ul>
 				</li>
 				<li>
@@ -33,6 +33,8 @@
 						<li><h:outputLink value="#{request.contextPath}/pages/teamForm.xhtml"><h:outputText value="#{msg['createTeam']}"/></h:outputLink></li>
 						<li><h:outputLink value="#{request.contextPath}/pages/arenaForm.xhtml"><h:outputText value="#{msg['createArena']}"/></h:outputLink></li>
 						<li><h:outputLink value="#{request.contextPath}/pages/clubForm.xhtml"><h:outputText value="#{msg['createClub']}"/></h:outputLink></li>
+						<li><h:outputLink value="#{request.contextPath}/pages/gameForm.xhtml"><h:outputText value="#{msg['createGame']}"/></h:outputLink></li>
+						<li><h:outputLink value="#{request.contextPath}/pages/cardForm.xhtml"><h:outputText value="#{msg['createCard']}"/></h:outputLink></li>
 					</ul>
 				</li>
 			</ul>
