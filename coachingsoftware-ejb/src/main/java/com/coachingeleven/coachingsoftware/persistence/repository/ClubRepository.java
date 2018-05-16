@@ -33,14 +33,4 @@ public class ClubRepository extends Repository<Club> {
 			return null;
 		}
 	}
-
-	@TransactionAttribute(SUPPORTS)
-	public List<Club> findAll(){
-		try {
-			TypedQuery<Club> query = entityManager.createNamedQuery("findAllClubs", Club.class);
-			return query.getResultList();
-		} catch (NoResultException ex) {
-			return null;
-		}
-	}
 }

@@ -9,11 +9,11 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import java.util.List;
 
-@ManagedBean(name = "teamClubBean")
+@Named("teamClubBean")
 @RequestScoped
 public class TeamClubBean {
 

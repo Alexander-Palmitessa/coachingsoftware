@@ -142,4 +142,9 @@ public class PlayerService implements PlayerServiceRemote {
 		return null;
 	}
 
+	@Override
+	public List<Player> findAllPlayers() {
+		return playerRepository.findAll(Player.class);
+	}
+
 }

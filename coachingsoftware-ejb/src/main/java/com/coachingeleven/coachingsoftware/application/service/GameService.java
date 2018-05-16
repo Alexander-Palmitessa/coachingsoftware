@@ -2,6 +2,7 @@ package com.coachingeleven.coachingsoftware.application.service;
 
 import static javax.ejb.TransactionAttributeType.REQUIRED;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,8 +13,8 @@ import javax.ejb.TransactionAttribute;
 
 import com.coachingeleven.coachingsoftware.application.exception.GameAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.GameNotFoundException;
-import com.coachingeleven.coachingsoftware.persistence.entity.Game;
-import com.coachingeleven.coachingsoftware.persistence.repository.GameRepository;
+import com.coachingeleven.coachingsoftware.persistence.entity.*;
+import com.coachingeleven.coachingsoftware.persistence.repository.*;
 
 @LocalBean
 @TransactionAttribute(REQUIRED)
@@ -24,6 +25,16 @@ public class GameService implements GameServiceRemote {
 	
 	@EJB
 	private GameRepository gameRepository;
+	@EJB
+	private ChangeInRepository changeInRepository;
+	@EJB
+	private ChangeOutRepository changeOutRepository;
+	@EJB
+	private CardRepository cardRepository;
+	@EJB
+    private ObjectiveRepository objectiveRepository;
+	@EJB
+	private GameReportRepository gameReportRepository;
 	
 	@Override
 	public Game createGame(Game game) throws GameAlreadyExistsException {
@@ -47,8 +58,38 @@ public class GameService implements GameServiceRemote {
 	}
 
 	@Override
+	public List<Game> findAllGames() {
+		return gameRepository.findAll(Game.class);
+	}
+
+	@Override
 	public void deleteGame(Game game) {
 		gameRepository.delete(Game.class, game.getID());
 	}
+
+	@Override
+	public ChangeOut createChangeOut(ChangeOut changeOut) {
+		return changeOutRepository.persist(changeOut);
+	}
+
+	@Override
+	public ChangeIn createChangeIn(ChangeIn changeIn) {
+		return changeInRepository.persist(changeIn);
+	}
+
+	@Override
+	public Card createCard(Card card) {
+		return cardRepository.persist(card);
+	}
+
+    @Override
+    public Objective createObjective(Objective objective) {
+        return objectiveRepository.persist(objective);
+    }
+
+    @Override
+    public GameReport createGameReport(GameReport gameReport) {
+        return gameReportRepository.persist(gameReport);
+    }
 
 }
