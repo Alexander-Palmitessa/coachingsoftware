@@ -11,21 +11,59 @@
     <ui:define name="content">
         <h:form>
             <div class="row">
+
+                <!-- First ChangeIn -->
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['minute']}"/></label>
-                    <h:inputText value="#{gameBean.changeIn.minuteIn}"/>
+                    <h:inputText value="#{gameBean.changeIn[0].minuteIn}"/>
                 </div>
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['comment']}"/></label>
-                    <h:inputText value="#{gameBean.changeIn.comment}"/>
+                    <h:inputText value="#{gameBean.changeIn[0].comment}"/>
                 </div>
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['player']}"/></label>
-                    <h:selectOneMenu value="#{gameBean.selectedPlayerInID}">
+                    <h:selectOneMenu value="#{gameBean.selectedPlayerInID[0]}">
                         <f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
                                        itemLabel="#{p.lastName}"/>
                     </h:selectOneMenu>
                 </div>
+
+                <!-- Second ChangeIn -->
+                <div class="small-12 medium-6 column">
+                    <label><h:outputText value="#{msg['minute']}"/></label>
+                    <h:inputText value="#{gameBean.changeIn[1].minuteIn}"/>
+                </div>
+                <div class="small-12 medium-6 column">
+                    <label><h:outputText value="#{msg['comment']}"/></label>
+                    <h:inputText value="#{gameBean.changeIn[1].comment}"/>
+                </div>
+                <div class="small-12 medium-6 column">
+                    <label><h:outputText value="#{msg['player']}"/></label>
+                    <h:selectOneMenu value="#{gameBean.selectedPlayerInID[1]}">
+                        <f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
+                                       itemLabel="#{p.lastName}"/>
+                    </h:selectOneMenu>
+                </div>
+
+                <!-- Third ChangeIn -->
+                <div class="small-12 medium-6 column">
+                    <label><h:outputText value="#{msg['minute']}"/></label>
+                    <h:inputText value="#{gameBean.changeIn[2].minuteIn}"/>
+                </div>
+                <div class="small-12 medium-6 column">
+                    <label><h:outputText value="#{msg['comment']}"/></label>
+                    <h:inputText value="#{gameBean.changeIn[2].comment}"/>
+                </div>
+                <div class="small-12 medium-6 column">
+                    <label><h:outputText value="#{msg['player']}"/></label>
+                    <h:selectOneMenu value="#{gameBean.selectedPlayerInID[2]}">
+                        <f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
+                                       itemLabel="#{p.lastName}"/>
+                    </h:selectOneMenu>
+                </div>
+
+
                 <div class="small-12 column text-center">
                     <h:commandButton action="#{gameBean.createChangeIn()}" value="submit"/>
                 </div>

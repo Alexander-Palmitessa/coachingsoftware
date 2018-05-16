@@ -41,11 +41,11 @@ public class GameBean {
     private int minute;
     private int hour;
 
-    private ChangeIn changeIn;
+    private ChangeIn[] changeIn;
     private ChangeOut changeOut;
     private List<Player> players;
     private int selectedPlayerOutID;
-    private int selectedPlayerInID;
+    private int[] selectedPlayerInID;
     private Card card;
     private CardType[] cardTypes;
 
@@ -57,7 +57,8 @@ public class GameBean {
         arenas = arenaService.findAll();
         calendar = Calendar.getInstance();
         changeOut = new ChangeOut();
-        changeIn = new ChangeIn();
+        changeIn = new ChangeIn[3];
+        selectedPlayerInID = new int[3];
         players = playerService.findAllPlayers();
         cardTypes = CardType.values();
     }
@@ -83,10 +84,14 @@ public class GameBean {
         return gameService.createChangeOut(changeOut);
     }
 
-    public ChangeIn createChangeIn() throws GameNotFoundException, PlayerNotFoundException {
-        changeIn.setPlayer(playerService.findPlayer(selectedPlayerInID));
-        changeIn.setGame(gameService.findGame(game.getID()));
-        return gameService.createChangeIn(changeIn);
+    public void createChangeIn() throws GameNotFoundException, PlayerNotFoundException {
+        for (int i = 0; i < changeIn.length; i++) {
+            if (changeIn[i] != null) {
+                changeIn[i].setPlayer(playerService.findPlayer(selectedPlayerInID[i]));
+                changeIn[i].setGame(gameService.findGame(game.getID()));
+                gameService.createChangeIn(changeIn[i]);
+            }
+        }
     }
 
     public Card createCard() {
@@ -189,11 +194,11 @@ public class GameBean {
         this.hour = hour;
     }
 
-    public ChangeIn getChangeIn() {
+    public ChangeIn[] getChangeIn() {
         return changeIn;
     }
 
-    public void setChangeIn(ChangeIn changeIn) {
+    public void setChangeIn(ChangeIn[] changeIn) {
         this.changeIn = changeIn;
     }
 
@@ -221,11 +226,11 @@ public class GameBean {
         this.selectedPlayerOutID = selectedPlayerOutID;
     }
 
-    public int getSelectedPlayerInID() {
+    public int[] getSelectedPlayerInID() {
         return selectedPlayerInID;
     }
 
-    public void setSelectedPlayerInID(int selectedPlayerInID) {
+    public void setSelectedPlayerInID(int[] selectedPlayerInID) {
         this.selectedPlayerInID = selectedPlayerInID;
     }
 
