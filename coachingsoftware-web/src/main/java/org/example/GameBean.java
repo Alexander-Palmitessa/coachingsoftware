@@ -49,10 +49,16 @@ public class GameBean {
     private Card card;
     private CardType[] cardTypes;
 
+    private List<Game> allGames;
+
+    private Objective[] gameObjectives;
+
+    private GameReport gameReport;
+
     @PostConstruct
     public void init() {
-        card = new Card();
         game = new Game();
+        card = new Card();
         teams = teamClubService.findAllTeams();
         arenas = arenaService.findAll();
         calendar = Calendar.getInstance();
@@ -61,7 +67,11 @@ public class GameBean {
         selectedPlayerInID = new int[3];
         players = playerService.findAllPlayers();
         cardTypes = CardType.values();
+        allGames = gameService.findAllGames();
+        gameObjectives = new Objective[2];
+        gameReport = new GameReport();
     }
+
 
     public Game createGame() throws GameNotFoundException, ArenaNotFoundException, TeamNotFoundException {
         game.setArena(arenaService.findArena(selectedArena));
@@ -92,6 +102,20 @@ public class GameBean {
                 gameService.createChangeIn(changeIn[i]);
             }
         }
+    }
+
+    public void createObjectives() throws GameNotFoundException {
+        for (Objective gameObjective : gameObjectives) {
+            if (gameObjective != null) {
+                gameObjective.setGame(gameService.findGame(game.getID()));
+                gameService.createObjective(gameObjective);
+            }
+        }
+    }
+
+    public void createGameReport() throws GameNotFoundException {
+        gameReport.setGame(gameService.findGame(game.getID()));
+        gameService.createGameReport(gameReport);
     }
 
     public Card createCard() {
@@ -250,4 +274,27 @@ public class GameBean {
         this.cardTypes = cardTypes;
     }
 
+    public List<Game> getAllGames() {
+        return allGames;
+    }
+
+    public void setAllGames(List<Game> allGames) {
+        this.allGames = allGames;
+    }
+
+    public Objective[] getGameObjectives() {
+        return gameObjectives;
+    }
+
+    public void setGameObjectives(Objective[] gameObjectives) {
+        this.gameObjectives = gameObjectives;
+    }
+
+    public GameReport getGameReport() {
+        return gameReport;
+    }
+
+    public void setGameReport(GameReport gameReport) {
+        this.gameReport = gameReport;
+    }
 }

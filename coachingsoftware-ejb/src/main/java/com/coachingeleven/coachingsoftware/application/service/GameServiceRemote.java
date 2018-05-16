@@ -12,8 +12,11 @@ import java.util.List;
 public interface GameServiceRemote {
 	Game createGame(Game game) throws GameAlreadyExistsException;
 	Game findGame(int id) throws GameNotFoundException;
+	List<Game> findAllGames();
 	void deleteGame(Game game);
 	ChangeOut createChangeOut(ChangeOut changeOut);
 	ChangeIn createChangeIn(ChangeIn changeIn);
 	Card createCard(Card card);
+    Objective createObjective(Objective objective);
+    GameReport createGameReport(GameReport gameReport);
 }
