@@ -14,8 +14,6 @@ import javax.inject.Named;
 public class LanguageBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-
-	private String localeCode = "blabla";
 	
 	private static Map<String,Object> countries;
 	
@@ -27,16 +25,6 @@ public class LanguageBean implements Serializable {
 
 	public Map<String, Object> getCountriesInMap() {
 		return countries;
-	}
-
-	
-	public String getLocaleCode() {
-		return localeCode;
-	}
-
-
-	public void setLocaleCode(String localeCode) {
-		this.localeCode = localeCode;
 	}
 
 	public void changeLanguage(String localeCode){
