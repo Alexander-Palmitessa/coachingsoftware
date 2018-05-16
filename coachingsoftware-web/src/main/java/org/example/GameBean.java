@@ -11,11 +11,8 @@ import com.coachingeleven.coachingsoftware.persistence.enumeration.CardType;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import java.util.Calendar;
 import java.util.List;
 
@@ -61,13 +58,22 @@ public class GameBean {
 
     private int pathGameID;
 
+    private void setID(){
+        String id = FacesContext.getCurrentInstance().getExternalContext()
+                .getRequestParameterMap()
+                .get("id");
+        if(id != null) pathGameID = Integer.parseInt(id);
+    }
+
     @PostConstruct
     public void init() {
+        setID();
         try{
             game = gameService.findGame(pathGameID);
-        } catch (GameNotFoundException e){
+        }catch (GameNotFoundException e){
             game = new Game();
         }
+        game = new Game();
         card = new Card();
         teams = teamClubService.findAllTeams();
         arenas = arenaService.findAll();
