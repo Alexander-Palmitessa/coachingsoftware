@@ -11,7 +11,6 @@ import com.coachingeleven.coachingsoftware.persistence.enumeration.CardType;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.util.Calendar;
 import java.util.List;
@@ -62,7 +61,7 @@ public class GameBean {
         try {
             game = gameService.findGame(pathGameID);
             year = game.getDate().get(Calendar.YEAR);
-            month = game.getDate().get(Calendar.MONTH);
+            month = game.getDate().get(Calendar.MONTH)+1;
             day = game.getDate().get(Calendar.DATE);
             minute = game.getTime().get(Calendar.MINUTE);
             hour = game.getTime().get(Calendar.HOUR);
@@ -97,7 +96,7 @@ public class GameBean {
         game.setArena(arenaService.findArena(selectedArena));
         game.setTeamHome(teamClubService.findTeam(teamHome));
         game.setTeamAway(teamClubService.findTeam(teamAway));
-        calendar.set(year, month, day, hour, minute, 0);
+        calendar.set(year, month-1, day, hour, minute, 0);
         game.setDate(calendar);
         game.setTime(calendar);
         try {
