@@ -13,4 +13,5 @@ public interface UserServiceRemote {
     boolean checkPassword(String username, String password);
     UserAccount changePassword(String username, String oldPassword, String newPassword);
     String hashPassword(String plainPassword);
+    public void updateUser(UserAccount user);
 }

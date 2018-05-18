@@ -67,6 +67,17 @@ public class TeamClubService implements TeamClubServiceRemote {
         }
         return team;
     }
+    
+    @Override
+    public Team findTeam(int id) throws TeamNotFoundException {
+        logger.log(Level.INFO, "Finding team with ID " + id);
+        Team team = teamRepository.find(Team.class, id);
+        if (team == null) {
+            logger.log(Level.INFO, "Team not found");
+            throw new TeamNotFoundException();
+        }
+        return team;
+    }
 
     @Override
     public Club findClub(String name) throws ClubNotFoundException {

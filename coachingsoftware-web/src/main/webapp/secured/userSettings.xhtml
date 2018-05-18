@@ -1,0 +1,26 @@
+<ui:composition template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="title">User Settings - Coaching Eleven</ui:define>
+
+    <ui:define name="content">
+        <h:form>
+	    	<div class="row">
+	    		<div class="small-12 column">
+			    	<label><h:outputText value="#{msg['setUserTeam']}"/></label>
+			    	<h:selectOneMenu value="#{userSettingsBean.selectedTeamID}">
+			   			<f:selectItems value="#{userSettingsBean.teams}" var="team"
+			   				itemLabel="#{team.name}" itemValue="#{team.ID}" />
+			   		</h:selectOneMenu>
+		    	</div>
+		    	<div class="small-12 column">
+			    	<h:commandButton class="primary-button" action="#{userSettingsBean.persistUserTeam}" value="#{msg['save']}" />
+			    </div>
+	    	</div>
+	    </h:form>
+    </ui:define>
+
+</ui:composition>

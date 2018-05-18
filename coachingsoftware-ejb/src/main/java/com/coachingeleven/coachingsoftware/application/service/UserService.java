@@ -63,4 +63,9 @@ public class UserService implements UserServiceRemote {
     public String hashPassword(String plainPassword) {
         return null;
     }
+
+	@Override
+	public void updateUser(UserAccount user) {
+		userRepository.update(user);
+	}
 }
