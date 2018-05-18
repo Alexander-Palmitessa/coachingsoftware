@@ -20,13 +20,15 @@
 						<li><h:outputLink value="#"><h:outputText value="#{msg['games']}"/></h:outputLink></li>
 					</ul>
 				</li>
-				<li rendered="#{loginBean.loggedIn}">
-					<h:outputLink value="#"><h:outputText value="#{msg['myTeam']}"/></h:outputLink>
-					<ul class="menu vertical">
-						<li><h:outputLink value="#{request.contextPath}/secured/playerOverview.xhtml"><h:outputText value="#{msg['players']}"/></h:outputLink></li>
-						<li><h:outputLink value="#{request.contextPath}/pages/gameList.xhtml"><h:outputText value="#{msg['games']}"/></h:outputLink></li>
-					</ul>
-				</li>
+				<h:panelGroup rendered="#{loginBean.hasUserAssignedTeam}">
+					<li>
+						<h:outputLink value="#"><h:outputText value="#{loginBean.currentUser.team.name}"/></h:outputLink>
+						<ul class="menu vertical">
+							<li><h:outputLink value="#{request.contextPath}/secured/playerOverview.xhtml"><h:outputText value="#{msg['players']}"/></h:outputLink></li>
+							<li><h:outputLink value="#{request.contextPath}/pages/gameList.xhtml"><h:outputText value="#{msg['games']}"/></h:outputLink></li>
+						</ul>
+					</li>
+				</h:panelGroup>
 				<li>
 					<h:outputLink value="#"><h:outputText value="#{msg['admin']}"/></h:outputLink>
 					<ul class="menu vertical">
@@ -37,11 +39,16 @@
 						<li><h:outputLink value="#{request.contextPath}/pages/cardForm.xhtml"><h:outputText value="#{msg['createCard']}"/></h:outputLink></li>
 					</ul>
 				</li>
-				<li><h:outputLink value="#{request.contextPath}/pages/userLogin.xhtml"><h:outputText value="#{msg['login']}"/></h:outputLink></li>
 			</ul>
 		</div>
 		<div class="top-bar-right small-12 medium-4 column">
 			<ul class="dropdown menu" data-dropdown-menu="">
+				<h:panelGroup rendered="#{!loginBean.loggedIn}">
+					<li><h:outputLink value="#{request.contextPath}/pages/userLogin.xhtml"><h:outputText value="#{msg['login']}"/></h:outputLink></li>
+				</h:panelGroup>
+				<h:panelGroup rendered="#{loginBean.loggedIn}">
+					<li><h:outputLink value="#{request.contextPath}/secured/userSettings.xhtml"><h:outputText value="#{loginBean.username}"/></h:outputLink></li>
+				</h:panelGroup>
 				<li>
 					<h:outputLink value="#"><h:outputText value="#{msg['language']}"/></h:outputLink>
 					<ul class="menu vertical">

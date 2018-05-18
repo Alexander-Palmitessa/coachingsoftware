@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.coachingeleven.coachingsoftware.application.exception.UserNotFoundException;
+import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
 
@@ -22,17 +23,24 @@ public class LoginBean implements Serializable {
 	
 	private boolean loggedIn;
 	
+	private UserAccount currentUser;
+	
+	private boolean hasUserAssignedTeam;
+	
 	@Inject
 	private NavigationBean navigationBean;
 	
 	@EJB
 	private UserServiceRemote userService;
+	@EJB
+	private TeamClubServiceRemote teamClubService;
 	
 	public String doLogin() {
 		try {
-			UserAccount currentUserAccount = userService.findUser(username);
-			if(currentUserAccount.getPassword().equals(password)) {
+			currentUser = userService.findUser(username);
+			if(currentUser.getPassword().equals(password)) {
 				loggedIn = true;
+				if(currentUser.getTeam() != null) hasUserAssignedTeam = true;
 				return navigationBean.redirectToPlayerOverview();
 			}
 		} catch (UserNotFoundException e) {
@@ -40,6 +48,12 @@ public class LoginBean implements Serializable {
 		}
 		
 		return navigationBean.redirectToLogin();
+	}
+	
+	public void updateUser() {
+		if(currentUser != null) {
+			userService.updateUser(currentUser);
+		}
 	}
 	
 	public String doLogout() {
@@ -65,6 +79,22 @@ public class LoginBean implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public UserAccount getCurrentUser() {
+		return currentUser;
+	}
+
+	public void setCurrentUser(UserAccount currentUser) {
+		this.currentUser = currentUser;
+	}
+
+	public boolean isHasUserAssignedTeam() {
+		return hasUserAssignedTeam;
+	}
+
+	public void setHasUserAssignedTeam(boolean hasUserAssignedTeam) {
+		this.hasUserAssignedTeam = hasUserAssignedTeam;
 	}
 
 }

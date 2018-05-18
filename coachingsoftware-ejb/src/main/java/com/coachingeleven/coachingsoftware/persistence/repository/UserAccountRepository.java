@@ -1,5 +1,6 @@
 package com.coachingeleven.coachingsoftware.persistence.repository;
 
+import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
 
 import javax.ejb.Stateless;

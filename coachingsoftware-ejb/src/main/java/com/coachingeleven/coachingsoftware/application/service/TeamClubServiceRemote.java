@@ -15,6 +15,7 @@ public interface TeamClubServiceRemote {
     Team createTeam(Team team) throws TeamAlreadyExistsException;
     Club createClub(Club club) throws ClubAlreadyExistsException;
     Team findTeam(String name) throws TeamNotFoundException;
+    public Team findTeam(int id) throws TeamNotFoundException;
     Club findClub(String name) throws ClubNotFoundException;
     boolean deleteTeam(Team team);
     boolean deleteClub(Club club);
