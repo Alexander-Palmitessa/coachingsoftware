@@ -58,36 +58,40 @@ public class GameBean {
 
     private int pathGameID;
 
-    private void setID(){
-        String id = FacesContext.getCurrentInstance().getExternalContext()
-                .getRequestParameterMap()
-                .get("id");
-        if(id != null) pathGameID = Integer.parseInt(id);
+    public void viewActionInit(){
+        try {
+            game = gameService.findGame(pathGameID);
+            year = game.getDate().get(Calendar.YEAR);
+            month = game.getDate().get(Calendar.MONTH);
+            day = game.getDate().get(Calendar.DATE);
+            minute = game.getTime().get(Calendar.MINUTE);
+            hour = game.getTime().get(Calendar.HOUR);
+            teamAway = game.getTeamAway().getName();
+            teamHome = game.getTeamHome().getName();
+            selectedArena = game.getArena().getName();
+
+        } catch (GameNotFoundException e) {
+            game = new Game();
+        }
+        calendar = Calendar.getInstance();
     }
+
 
     @PostConstruct
     public void init() {
-        setID();
-        try{
-            game = gameService.findGame(pathGameID);
-        }catch (GameNotFoundException e){
-            game = new Game();
-        }
-        game = new Game();
         card = new Card();
         teams = teamClubService.findAllTeams();
         arenas = arenaService.findAll();
         calendar = Calendar.getInstance();
         changeOut = new ChangeOut();
-        changeIn = new ChangeIn[3];
-        selectedPlayerInID = new int[3];
         players = playerService.findAllPlayers();
         cardTypes = CardType.values();
         allGames = gameService.findAllGames();
-        gameObjectives = new Objective[2];
         gameReport = new GameReport();
+        changeIn = new ChangeIn[3];
+        gameObjectives = new Objective[2];
+        selectedPlayerInID = new int[3];
     }
-
 
     public Game createGame() throws GameNotFoundException, ArenaNotFoundException, TeamNotFoundException {
         game.setArena(arenaService.findArena(selectedArena));
