@@ -22,7 +22,7 @@
 				</li>
 				<h:panelGroup rendered="#{loginBean.hasUserAssignedTeam}">
 					<li>
-						<h:outputLink value="#"><h:outputText value="#{loginBean.currentUser.team.name}"/></h:outputLink>
+						<h:outputLink value="#"><h:outputText value="#{loginBean.userTeam}"/></h:outputLink>
 						<ul class="menu vertical">
 							<li><h:outputLink value="#{request.contextPath}/secured/playerOverview.xhtml"><h:outputText value="#{msg['players']}"/></h:outputLink></li>
 							<li><h:outputLink value="#{request.contextPath}/pages/gameList.xhtml"><h:outputText value="#{msg['games']}"/></h:outputLink></li>

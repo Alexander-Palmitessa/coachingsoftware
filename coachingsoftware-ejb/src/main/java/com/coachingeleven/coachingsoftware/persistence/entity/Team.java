@@ -33,11 +33,19 @@ public class Team implements Serializable {
 	@JoinColumn(name = "CLUB_ID")
 	@ManyToOne
 	private Club club;
-	@ManyToMany(mappedBy = "teams")
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(
+			name = "TEAM_PLAYER",
+			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID"),
+			inverseJoinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"))
 	private Set<Player> players;
 	@ManyToMany
+	@JoinTable(
+			name = "TEAM_GAME",
+			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID"),
+			inverseJoinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID"))
 	private Set<Game> games;
-	@OneToOne(fetch=FetchType.LAZY, mappedBy="team")
+	@OneToOne(mappedBy="team")
 	private UserAccount user;
 
 	public Team(String name, Club club) {
@@ -86,5 +94,13 @@ public class Team implements Serializable {
 
 	public void setGames(Set<Game> games) {
 		this.games = games;
+	}
+
+	public UserAccount getUser() {
+		return user;
+	}
+
+	public void setUser(UserAccount user) {
+		this.user = user;
 	}
 }

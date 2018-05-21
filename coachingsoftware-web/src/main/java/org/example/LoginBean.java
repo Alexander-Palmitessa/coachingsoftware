@@ -3,6 +3,7 @@ package org.example;
 import java.io.Serializable;
 import java.util.HashSet;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -11,6 +12,7 @@ import javax.inject.Named;
 import com.coachingeleven.coachingsoftware.application.exception.ClubAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.PlayerAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.TeamAlreadyExistsException;
+import com.coachingeleven.coachingsoftware.application.exception.UserAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.UserNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
@@ -28,10 +30,9 @@ public class LoginBean implements Serializable {
 	
 	private String username;
 	private String password;
+	private String userTeam;
 	
 	private boolean loggedIn;
-	
-	private UserAccount currentUser;
 	
 	private boolean hasUserAssignedTeam;
 	
@@ -45,10 +46,19 @@ public class LoginBean implements Serializable {
 	@EJB
 	private PlayerServiceRemote playerService;
 	
+	@PostConstruct
+    public void init() {
+		try {
+			userService.createUser(new UserAccount("elias","elias","elias.schildknecht@students.bfh.ch"));
+		} catch (UserAlreadyExistsException e) {
+			// TODO 
+		}
+    }
+	
 	public String doLogin() {
 		try {
-			currentUser = userService.findUser(username);
-			if(currentUser.getPassword().equals(password)) {
+			UserAccount currentUser = userService.findUser(username);
+			if(userService.authenticate(password, currentUser.getPassword())) {
 				loggedIn = true;
 				
 				try {
@@ -60,9 +70,12 @@ public class LoginBean implements Serializable {
 					players.add(player1);
 					players.add(player2);
 					team.setPlayers(players);
+					teamClubService.updateTeam(team);
 					club.addTeam(team);
+					teamClubService.updateClub(club);
 					currentUser.setTeam(team);
 					userService.updateUser(currentUser);
+					userTeam = team.getName();
 				} catch (PlayerAlreadyExistsException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -73,7 +86,6 @@ public class LoginBean implements Serializable {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
 				
 				if(currentUser.getTeam() != null) {
 					hasUserAssignedTeam = true;
@@ -87,12 +99,6 @@ public class LoginBean implements Serializable {
 		}
 		
 		return navigationBean.redirectToLogin();
-	}
-	
-	public void updateUser() {
-		if(currentUser != null) {
-			userService.updateUser(currentUser);
-		}
 	}
 	
 	public String doLogout() {
@@ -120,20 +126,20 @@ public class LoginBean implements Serializable {
 		this.password = password;
 	}
 
-	public UserAccount getCurrentUser() {
-		return currentUser;
-	}
-
-	public void setCurrentUser(UserAccount currentUser) {
-		this.currentUser = currentUser;
-	}
-
 	public boolean isHasUserAssignedTeam() {
 		return hasUserAssignedTeam;
 	}
 
 	public void setHasUserAssignedTeam(boolean hasUserAssignedTeam) {
 		this.hasUserAssignedTeam = hasUserAssignedTeam;
+	}
+
+	public String getUserTeam() {
+		return userTeam;
+	}
+
+	public void setUserTeam(String userTeam) {
+		this.userTeam = userTeam;
 	}
 
 }

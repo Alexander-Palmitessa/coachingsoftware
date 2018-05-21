@@ -9,9 +9,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
+import com.coachingeleven.coachingsoftware.application.exception.UserNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
+import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
 
 @Named("userSettingsBean")
 @RequestScoped
@@ -27,28 +29,36 @@ public class UserSettingsBean {
     
     @Inject
 	private LoginBean loginBean;
-    @Inject
-	private PlayerBean playerBean;
     
     @PostConstruct
     public void init() {
         teams = teamClubService.findAllTeams();
-        if(loginBean.getCurrentUser().getTeam() != null) {
-        	selectedTeamID = loginBean.getCurrentUser().getTeam().getID();
-        }
+		try {
+			UserAccount currentUser = userService.findUser(loginBean.getUsername());
+			if(currentUser.getTeam() != null) {
+	        	selectedTeamID = currentUser.getTeam().getID();
+	        }
+		} catch (UserNotFoundException e) {
+			// TODO
+		}
     }
     
     public void persistUserTeam() {
     	try {
 			Team team = teamClubService.findTeam(selectedTeamID);
 			if(team != null) {
-				loginBean.getCurrentUser().setTeam(team);
-				loginBean.setHasUserAssignedTeam(true);
-				loginBean.updateUser();
+				try {
+					UserAccount currentUser = userService.findUser(loginBean.getUsername());
+					currentUser.setTeam(team);
+					loginBean.setUserTeam(team.getName());
+					loginBean.setHasUserAssignedTeam(true);
+					userService.updateUser(currentUser);
+				} catch (UserNotFoundException e) {
+					// TODO
+				}
 			}
 		} catch (TeamNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// TODO
 		}
     }
     
