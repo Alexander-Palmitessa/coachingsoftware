@@ -27,7 +27,7 @@ public class GameReport implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 	@OneToOne
-	@JoinColumn(name = "GAME_ID")
+	@JoinColumn(name = "GAME_ID", nullable = false)
 	private Game game;
 	@Column(name = "POS_W_BALL")
 	private String positiveWithBall;

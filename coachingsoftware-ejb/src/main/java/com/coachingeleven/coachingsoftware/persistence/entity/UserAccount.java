@@ -8,6 +8,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 @Entity
@@ -20,10 +21,12 @@ public class UserAccount implements Serializable {
 
     @Id
     @Column(name = "USERNAME")
+    @Pattern(regexp = "^[a-zA-Z0-9_\\s]+$")
     String username;
     @Column(name = "PASSWORD", nullable = false)
     String password;
     @Column(name = "USER_EMAIL", nullable = false, unique = true)
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")
     String email;
     @OneToOne
     @JoinColumn(name="TEAM_ID")

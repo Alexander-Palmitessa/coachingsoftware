@@ -9,6 +9,7 @@
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -25,6 +26,7 @@ public class Team implements Serializable {
 	@Column(name = "TEAM_ID")
 	private int ID;
 	@Column(name = "TEAM_NAME")
+	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$")
 	private String name;
 	@JoinColumn(name = "CLUB_ID")
 	@ManyToOne

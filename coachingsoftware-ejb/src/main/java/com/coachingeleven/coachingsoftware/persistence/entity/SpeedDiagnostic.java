@@ -10,30 +10,41 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 
 @Embeddable
 public class SpeedDiagnostic {
 	
 	@Column(precision = 7, scale = 2)
+	@Min(value = 0)
 	private BigDecimal time10m_1;
 	@Column(precision = 7, scale = 2)
+	@Min(value = 0)
 	private BigDecimal time10m_2;
 	@Column(precision = 7, scale = 2)
+	@Min(value = 0)
 	private BigDecimal time20m_1;
 	@Column(precision = 7, scale = 2)
+	@Min(value = 0)
 	private BigDecimal time20m_2;
 	@Column(precision = 7, scale = 2)
+	@Min(value = 0)
 	private BigDecimal timeAgility_1;
 	@Column(precision = 7, scale = 2)
+	@Min(value = 0)
 	private BigDecimal timeAgility_2;
 	@Column(precision = 7, scale = 2)
+	@Min(value = 0)
 	private BigDecimal timeDribbling_1;
 	@Column(precision = 7, scale = 2)
+	@Min(value = 0)
 	private BigDecimal timeDribbling_2;
 	@Column(precision = 7, scale = 2)
+	@Min(value = 0)
 	private BigDecimal timeBallCntrl_1;
 	@Column(precision = 7, scale = 2)
+	@Min(value = 0)
 	private BigDecimal timeBallCntrl_2;
 
 	/**

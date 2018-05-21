@@ -34,7 +34,7 @@ public class PerformanceDiagnostics implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Calendar date;
 	@ManyToOne
-	@JoinColumn(name = "PLAYER_ID")
+	@JoinColumn(name = "PLAYER_ID", nullable = false)
 	private Player player;
 	@Embedded
 	private SpeedDiagnostic speedDiagnostic;

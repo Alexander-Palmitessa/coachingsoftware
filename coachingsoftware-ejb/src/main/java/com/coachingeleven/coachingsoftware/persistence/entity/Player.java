@@ -30,6 +30,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Set;
@@ -47,12 +50,15 @@ public class Player implements Serializable {
 	@Column(name = "PLAYER_ID")
 	private int ID;
 	@Column(name = "FIRST_NAME", nullable = false)
+	@Pattern(regexp = "^[a-zA-Z\\s]+$")
 	private String firstName;
 	@Column(name = "LAST_NAME", nullable = false)
+	@Pattern(regexp = "^[a-zA-Z\\s]+$")
 	private String lastName;
 	@Embedded
 	private Address address;
 	@Column(name = "FIRST_EMAIL", unique = true)
+	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")
 	private String firstEmail;
 	@JoinColumn(name = "CLUB_ID")
 	@ManyToOne
@@ -67,17 +73,24 @@ public class Player implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Position position;
 	@Column(name = "PRIVATE_NUMBER")
+	@Pattern(regexp = "^[0-9\\s]+$")
 	private String privateNumber;
 	@Column(name = "WORKING_NUMBER")
+	@Pattern(regexp = "^[0-9\\s]+$")
 	private String workingNumber;
 	@Column(name = "MOBILE_NUMBER")
+	@Pattern(regexp = "^[0-9\\s]+$")
 	private String mobileNumber;
 	@Column(name = "BIRTHDATE")
 	@Temporal(TemporalType.DATE)
 	private Calendar birthdate;
-	@Column(name = "SIZE")
+	@Column(name = "SIZE_CM")
+	@Min(value = 0)
+	@Max(value = 300)
 	private int size;
-	@Column(name = "WEIGHT")
+	@Column(name = "WEIGHT_KG")
+	@Min(value = 0)
+	@Max(value = 500)
 	private int weight;
 	@Embedded
 	private Contract contract;

@@ -9,16 +9,20 @@
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 @Embeddable
 public class Address implements Serializable {
 
 	@Column(name = "CITY")
+	@Pattern(regexp = "[a-zA-Z\\s]+$")
 	private String city;
 	@Column(name = "STREET")
+	@Pattern(regexp = "^[a-zA-Z\\s]+$")
 	private String street;
 	@Column(name = "STREET_NR")
+	@Pattern(regexp = "^[\\w\\s]+$")
 	private String streetNr;
 	@Column(name = "ZIP")
 	private int zip;
