@@ -9,6 +9,8 @@
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +27,8 @@ public class Club implements Serializable {
     @Column(name = "CLUB_ID")
     private int ID;
     @Column(name = "CLUB_NAME", nullable = false, unique = true)
+    @Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "{pattern.letter.number.space}")
+    @NotNull(message = "{not.null}")
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "club", orphanRemoval = true)
     private Set<Team> teams;

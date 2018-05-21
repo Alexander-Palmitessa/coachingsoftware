@@ -8,28 +8,34 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "USERACCOUNT")
 @NamedQueries({
-	@NamedQuery(name = "findUser",
-		query = "SELECT c FROM UserAccount c WHERE LOWER(c.username) = LOWER(:username)")
+        @NamedQuery(name = "findUser",
+                query = "SELECT c FROM UserAccount c WHERE LOWER(c.username) = LOWER(:username)")
 })
 public class UserAccount implements Serializable {
 
     @Id
     @Column(name = "USERNAME")
+    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "{pattern.letter.number.underscore}")
     String username;
     @Column(name = "PASSWORD", nullable = false)
+    @NotNull(message = "{not.null}")
     String password;
     @Column(name = "USER_EMAIL", nullable = false, unique = true)
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "{pattern.email}")
+    @NotNull(message = "{not.null}")
     String email;
     @OneToOne
-    @JoinColumn(name="TEAM_ID")
+    @JoinColumn(name = "TEAM_ID")
     private Team team;
 
-    public UserAccount(){
+    public UserAccount() {
 
     }
 
@@ -63,11 +69,11 @@ public class UserAccount implements Serializable {
         this.email = email;
     }
 
-	public Team getTeam() {
-		return team;
-	}
+    public Team getTeam() {
+        return team;
+    }
 
-	public void setTeam(Team team) {
-		this.team = team;
-	}
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 }

@@ -22,6 +22,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 @Entity
@@ -45,18 +46,19 @@ public class Goal implements Serializable {
 	@ManyToOne
 	private Team team;
 	@Enumerated(EnumType.STRING)
-	@Column(name = "ZONE_SCORE", nullable = false)
+	@Column(name = "ZONE_SCORE")
 	private Zone scoreZone;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "ZONE_ASSIST")
 	private Zone assistZone;
 	@Enumerated(EnumType.STRING)
-	@Column(name = "FOOT", nullable = false)
+	@Column(name = "FOOT")
 	private Foot foot;
 	@Enumerated(EnumType.STRING)
-	@Column(name = "STANDARD", nullable = false)
+	@Column(name = "STANDARD")
 	private Standard standard;
 	@Column(name = "MINUTE_SCORED")
+	@Min(value = 0, message = "{min.zero}")
 	private int minuteScored;
 
 	/**

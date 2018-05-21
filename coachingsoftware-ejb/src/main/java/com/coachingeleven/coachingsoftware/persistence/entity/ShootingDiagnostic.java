@@ -10,25 +10,34 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.Min;
 
 @Embeddable
 public class ShootingDiagnostic {
 
 	@Column(name = "SHOT_LS_RF_1")
+	@Min(value = 0, message = "{min.zero}")
 	private int shotLsRf_1;
 	@Column(name = "SHOT_LS_RF_2")
+	@Min(value = 0, message = "{min.zero}")
 	private int shotLsRf_2;
 	@Column(name = "SHOT_LS_LF_1")
+	@Min(value = 0, message = "{min.zero}")
 	private int shotLsLf_1;
 	@Column(name = "SHOT_LS_LF_2")
+	@Min(value = 0, message = "{min.zero}")
 	private int shotLsLf_2;
 	@Column(name = "SHOT_RS_RF_1")
+	@Min(value = 0, message = "{min.zero}")
 	private int shotRsRf_1;
 	@Column(name = "SHOT_RS_RF_2")
+	@Min(value = 0, message = "{min.zero}")
 	private int shotRsRf_2;
 	@Column(name = "SHOT_RS_LF_1")
+	@Min(value = 0, message = "{min.zero}")
 	private int shotRsLf_1;
 	@Column(name = "SHOT_RS_LF_2")
+	@Min(value = 0, message = "{min.zero}")
 	private int shotRsLf_2;
 
 	/**

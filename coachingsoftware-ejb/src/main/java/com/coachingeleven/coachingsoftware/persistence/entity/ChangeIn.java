@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 @Entity
@@ -27,6 +28,7 @@ public class ChangeIn implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 	@Column(name = "MINUTE_IN")
+	@Min(value = 0, message = "{min.zero}")
 	private int minuteIn;
 	@ManyToOne
 	@JoinColumn(name = "PLAYER_ID")

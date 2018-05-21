@@ -32,14 +32,14 @@ public class EvaluationTalk implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "PLAYER_ID", nullable = false)
 	private Player player;
-	@Column(name = "DATE", nullable = false)
+	@Column(name = "DATE")
 	@Temporal(TemporalType.DATE)
 	private Calendar date;
-	@Column(name = "SIT_ANALYSIS", nullable = false)
+	@Column(name = "SIT_ANALYSIS")
 	private String situationalAnalysis;
-	@Column(name = "GOALS", nullable = false)
+	@Column(name = "GOALS")
 	private String goals;
-	@Column(name = "TIME_HORIZON", nullable = false)
+	@Column(name = "TIME_HORIZON")
 	private String timeHorizon;
 
 	/**
