@@ -10,16 +10,7 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import com.coachingeleven.coachingsoftware.persistence.enumeration.System;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -40,8 +31,9 @@ public class LineUp implements Serializable {
 	@Column(name = "SYSTEM")
 	@Enumerated(EnumType.STRING)
 	private System system;
-
-	//TODO: INCOMPLETE
+	@OneToOne
+	@JoinColumn(name = "GAME_ID", nullable = false)
+	private Game game;
 
 	/**
 	 * JPA required default constructor

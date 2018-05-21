@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 @Entity
@@ -25,6 +26,7 @@ public class Arena implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 	@Column(name = "NAME", nullable = false)
+	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$")
 	private String name;
 	@Embedded
 	private Address address;

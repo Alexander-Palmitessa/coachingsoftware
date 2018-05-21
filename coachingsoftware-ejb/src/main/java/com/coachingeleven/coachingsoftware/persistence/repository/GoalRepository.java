@@ -10,5 +10,8 @@ package com.coachingeleven.coachingsoftware.persistence.repository;
 
 import com.coachingeleven.coachingsoftware.persistence.entity.Game;
 
+import javax.ejb.Stateless;
+
+@Stateless
 public class GoalRepository extends Repository<Game> {
 }
