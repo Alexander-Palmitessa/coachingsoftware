@@ -9,6 +9,7 @@
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
@@ -44,13 +45,13 @@ public class PlayerGameStats implements Serializable {
     @Min(value = 0)
     private int decelerations;
     @Column(name = "MAX_SPEED", precision = 7, scale = 2)
-    @Min(value = 0)
+    @DecimalMin(value = "0.00")
     private BigDecimal maxSpeed;
     @Column(name = "AVG_SPEED", precision = 7, scale = 2)
-    @Min(value = 0)
+    @DecimalMin(value = "0.00")
     private BigDecimal avgSpeed;
     @Column(name = "SPRINT_DISTANCE", precision = 7, scale = 2)
-    @Min(value = 0)
+    @DecimalMin(value = "0.00")
     private BigDecimal sprintDistance;
     @Column(name = "BALL_CONTACTS")
     @Min(value = 0)
@@ -65,19 +66,19 @@ public class PlayerGameStats implements Serializable {
     @Min(value = 0)
     private int duels;
     @Column(name = "DUELS_PERCENTAGE", precision = 7, scale = 2)
-    @Min(value = 0)
+    @DecimalMin(value = "0.00")
     private BigDecimal duelPercentage;
     @Column(name = "OFF_DUELS")
     @Min(value = 0)
     private int offensiveDuels;
     @Column(name = "OFF_DUELS_PERCENTAGE", precision = 7, scale = 2)
-    @Min(value = 0)
+    @DecimalMin(value = "0.00")
     private BigDecimal offensiveDuelsPercentage;
     @Column(name = "DEF_DUELS")
     @Min(value = 0)
     private int defensiveDuels;
     @Column(name = "DEF_DUELS_PERCENTAGE", precision = 7, scale = 2)
-    @Min(value = 0)
+    @DecimalMin(value = "0.00")
     private BigDecimal defensiveDuelsPercentage;
     @Column(name = "GOALS")
     @Min(value = 0)

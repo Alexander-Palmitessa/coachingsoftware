@@ -10,18 +10,23 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
 
 @Embeddable
 public class JumpDiagnostic {
 
 	@Column(name = "SQUAT_JUMP", precision = 7, scale = 2)
+	@DecimalMin(value = "0.00")
 	private BigDecimal squatJump;
 	@Column(name = "COUNTER_MOVEMENT_JUMP", precision = 7, scale = 2)
+	@DecimalMin(value = "0.00")
 	private BigDecimal counterMovementJump;
 	@Column(name = "STANDING_LONG_JUMP", precision = 7, scale = 2)
+	@DecimalMin(value = "0.00")
 	private BigDecimal standingLongJump;
 	@Column(name = "DROP_JUMP", precision = 7, scale = 2)
+	@DecimalMin(value = "0.00")
 	private BigDecimal dropJump;
 
 	/**
