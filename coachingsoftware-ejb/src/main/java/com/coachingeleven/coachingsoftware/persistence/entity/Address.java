@@ -9,6 +9,8 @@
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
@@ -16,15 +18,16 @@ import java.io.Serializable;
 public class Address implements Serializable {
 
 	@Column(name = "CITY")
-	@Pattern(regexp = "[a-zA-Z\\s]+$")
+	@Pattern(regexp = "[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
 	private String city;
 	@Column(name = "STREET")
-	@Pattern(regexp = "^[a-zA-Z\\s]+$")
+	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
 	private String street;
 	@Column(name = "STREET_NR")
-	@Pattern(regexp = "^[\\w\\s]+$")
+	@Pattern(regexp = "^[\\w\\s]+$", message = "{pattern.letter.number.space}")
 	private String streetNr;
 	@Column(name = "ZIP")
+	@Min(value = 0, message = "{min.zero}")
 	private int zip;
 	@ManyToOne
 	@JoinColumn(name = "COUNTRY")

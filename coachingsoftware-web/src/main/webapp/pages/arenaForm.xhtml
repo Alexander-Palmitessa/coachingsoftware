@@ -13,19 +13,23 @@
 	        <div class="row">
 	        	<div class="small-12 medium-6 column">
 	        		<label><h:outputText value="#{msg['arenaName']}"/></label>
-			    	<h:inputText value="#{arenaBean.arena.name}"/>
+			    	<h:inputText id="arena_name" value="#{arenaBean.arena.name}"/>
+					<h:message for="arena_name" style="color: red"/>
 	        	</div>
 	        	<div class="small-12 medium-6 column">
 	        		<label><h:outputText value="#{msg['street']}"/></label>
-			    	<h:inputText value="#{addressBean.address.street}"/>
+			    	<h:inputText id="addr_street" value="#{addressBean.address.street}"/>
+					<h:message for="addr_street" style="color: red"/>
 	        	</div>
 	        	<div class="small-12 medium-6 column">
 		        	<label><h:outputText value="#{msg['streetNr']}"/></label>
-				    <h:inputText value="#{addressBean.address.streetNr}"/>
+				    <h:inputText id="addr_streetnr" value="#{addressBean.address.streetNr}"/>
+					<h:message for="addr_streetnr" style="color: red"/>
 			    </div>
 			    <div class="small-12 medium-6 column">
 			    	<label><h:outputText value="#{msg['city']}"/></label>
-			    	<h:inputText value="#{addressBean.address.city}"/>
+			    	<h:inputText id="addr_city" value="#{addressBean.address.city}"/>
+					<h:message for="addr_city" style="color: red"/>
 			    </div>
 			    <div class="small-12 medium-6 column">
 			    	<label><h:outputText value="#{msg['zip']}"/></label>

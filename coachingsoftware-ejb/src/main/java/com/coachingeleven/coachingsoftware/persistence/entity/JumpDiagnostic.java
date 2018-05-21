@@ -17,16 +17,16 @@ import java.math.BigDecimal;
 public class JumpDiagnostic {
 
 	@Column(name = "SQUAT_JUMP", precision = 7, scale = 2)
-	@DecimalMin(value = "0.00")
+	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal squatJump;
 	@Column(name = "COUNTER_MOVEMENT_JUMP", precision = 7, scale = 2)
-	@DecimalMin(value = "0.00")
+	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal counterMovementJump;
 	@Column(name = "STANDING_LONG_JUMP", precision = 7, scale = 2)
-	@DecimalMin(value = "0.00")
+	@DecimalMin(value = "0.00" , message = "{min.zero.decimal}")
 	private BigDecimal standingLongJump;
 	@Column(name = "DROP_JUMP", precision = 7, scale = 2)
-	@DecimalMin(value = "0.00")
+	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal dropJump;
 
 	/**

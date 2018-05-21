@@ -10,41 +10,41 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
 
 @Embeddable
 public class SpeedDiagnostic {
 	
 	@Column(precision = 7, scale = 2)
-	@Min(value = 0)
+	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal time10m_1;
 	@Column(precision = 7, scale = 2)
-	@Min(value = 0)
+	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal time10m_2;
 	@Column(precision = 7, scale = 2)
-	@Min(value = 0)
+	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal time20m_1;
 	@Column(precision = 7, scale = 2)
-	@Min(value = 0)
+	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal time20m_2;
 	@Column(precision = 7, scale = 2)
-	@Min(value = 0)
+	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal timeAgility_1;
 	@Column(precision = 7, scale = 2)
-	@Min(value = 0)
+	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal timeAgility_2;
 	@Column(precision = 7, scale = 2)
-	@Min(value = 0)
+	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal timeDribbling_1;
 	@Column(precision = 7, scale = 2)
-	@Min(value = 0)
+	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal timeDribbling_2;
 	@Column(precision = 7, scale = 2)
-	@Min(value = 0)
+	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal timeBallCntrl_1;
 	@Column(precision = 7, scale = 2)
-	@Min(value = 0)
+	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal timeBallCntrl_2;
 
 	/**

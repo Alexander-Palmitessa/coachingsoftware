@@ -30,65 +30,65 @@ public class PlayerGameStats implements Serializable {
     @ManyToOne
     private Game game;
     @Column(name = "MINUTES_PLAYED")
-    @Min(value = 0)
+    @Min(value = 0, message = "{min.zero}")
     private int minutesPlayed;
     @Column(name = "TOTAL_DISTANCE")
-    @Min(value = 0)
+    @Min(value = 0, message = "{min.zero}")
     private int totalDistance;
     @Column(name = "SPRINTS")
-    @Min(value = 0)
+    @Min(value = 0, message = "{min.zero}")
     private int sprints;
     @Column(name = "ACCELERATIONS")
-    @Min(value = 0)
+    @Min(value = 0, message = "{min.zero}")
     private int accelerations;
     @Column(name = "DECELERATIONS")
-    @Min(value = 0)
+    @Min(value = 0, message = "{min.zero}")
     private int decelerations;
     @Column(name = "MAX_SPEED", precision = 7, scale = 2)
-    @DecimalMin(value = "0.00")
+    @DecimalMin(value = "0.00", message = "{min.zero.decimal}")
     private BigDecimal maxSpeed;
     @Column(name = "AVG_SPEED", precision = 7, scale = 2)
-    @DecimalMin(value = "0.00")
+    @DecimalMin(value = "0.00", message = "{min.zero.decimal}")
     private BigDecimal avgSpeed;
     @Column(name = "SPRINT_DISTANCE", precision = 7, scale = 2)
-    @DecimalMin(value = "0.00")
+    @DecimalMin(value = "0.00", message = "{min.zero.decimal}")
     private BigDecimal sprintDistance;
     @Column(name = "BALL_CONTACTS")
-    @Min(value = 0)
+    @Min(value = 0, message = "{min.zero}")
     private int ballContacts;
     @Column(name = "PASSES")
-    @Min(value = 0)
+    @Min(value = 0, message = "{min.zero}")
     private int passes;
     @Column(name = "PASSES_PERCENTAGE")
-    @Min(value = 0)
+    @Min(value = 0, message = "{min.zero}")
     private int passesPercentage;
     @Column(name = "DUELS")
-    @Min(value = 0)
+    @Min(value = 0, message = "{min.zero}")
     private int duels;
     @Column(name = "DUELS_PERCENTAGE", precision = 7, scale = 2)
-    @DecimalMin(value = "0.00")
+    @DecimalMin(value = "0.00", message = "{min.zero.decimal}")
     private BigDecimal duelPercentage;
     @Column(name = "OFF_DUELS")
-    @Min(value = 0)
+    @Min(value = 0, message = "{min.zero}")
     private int offensiveDuels;
     @Column(name = "OFF_DUELS_PERCENTAGE", precision = 7, scale = 2)
-    @DecimalMin(value = "0.00")
+    @DecimalMin(value = "0.00", message = "{min.zero.decimal}")
     private BigDecimal offensiveDuelsPercentage;
     @Column(name = "DEF_DUELS")
-    @Min(value = 0)
+    @Min(value = 0, message = "{min.zero}")
     private int defensiveDuels;
     @Column(name = "DEF_DUELS_PERCENTAGE", precision = 7, scale = 2)
-    @DecimalMin(value = "0.00")
+    @DecimalMin(value = "0.00", message = "{min.zero.decimal}")
     private BigDecimal defensiveDuelsPercentage;
     @Column(name = "GOALS")
-    @Min(value = 0)
+    @Min(value = 0, message = "{min.zero}")
     private int goals;
     @Column(name = "ASSIST")
-    @Min(value = 0)
+    @Min(value = 0, message = "{min.zero}")
     private int assist;
     @Column(name = "LOAD_INDICATOR")
-    @Min(value = 0)
-    @Max(value = 10)
+    @Min(value = 0, message = "{min.zero}")
+    @Max(value = 10, message = "{max.ten}")
     private int loadIndicator;
     @OneToOne
     @JoinColumn(name = "CHANGEIN_ID")
