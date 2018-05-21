@@ -125,7 +125,7 @@ public class Player implements Serializable {
 	 * @param firstEmail email of player
 	 * */
 	public Player(String firstName, String lastName, String firstEmail) {
-		this.firstName = firstEmail;
+		this.firstName = firstName;
 		this.lastName = lastName;
 		this.firstEmail = firstEmail;
 	}

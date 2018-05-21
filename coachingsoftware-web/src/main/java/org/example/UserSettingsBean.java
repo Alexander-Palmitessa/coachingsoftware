@@ -27,6 +27,8 @@ public class UserSettingsBean {
     
     @Inject
 	private LoginBean loginBean;
+    @Inject
+	private PlayerBean playerBean;
     
     @PostConstruct
     public void init() {
