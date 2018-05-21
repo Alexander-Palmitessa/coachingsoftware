@@ -61,7 +61,7 @@ public class Game implements Serializable {
     @Min(value = 0)
     private int getResultGoalsAway;
     @OneToMany(mappedBy = "game")
-    Set<PlayerGameStats> playerGameStats;
+    private Set<PlayerGameStats> playerGameStats;
     @OneToOne
     @JoinColumn(name = "LINE_UP_ID")
     private LineUp lineUp;

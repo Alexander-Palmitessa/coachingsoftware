@@ -9,20 +9,20 @@ import javax.validation.constraints.Min;
 public class TIPS {
 
     @Column(name = "TECHNIQUE")
-    @Min(value = 0)
-    @Max(value = 5)
+    @Min(value = 0, message = "{min.zero}")
+    @Max(value = 5, message = "{max.five}")
     private int technique;
     @Column(name = "INTELLIGENCE")
-    @Min(value = 0)
-    @Max(value = 5)
+    @Min(value = 0, message = "{min.zero}")
+    @Max(value = 5, message = "{max.five}")
     private int intelligence;
     @Column(name = "PERSONALITY")
-    @Min(value = 0)
-    @Max(value = 5)
+    @Min(value = 0, message = "{min.zero}")
+    @Max(value = 5, message = "{max.five}")
     private int personality;
     @Column(name = "SPEED")
-    @Min(value = 0)
-    @Max(value = 5)
+    @Min(value = 0, message = "{min.zero}")
+    @Max(value = 5, message = "{max.five}")
     private int speed;
 
     /**

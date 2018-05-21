@@ -10,30 +10,42 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.Min;
 
 @Embeddable
 public class AdditionalDiagnostic {
 	@Column(name = "LEG_RAISE_L")
+	@Min(value = 0)
 	private int legRaiseL;
 	@Column(name = "LEG_RAISE_R")
+	@Min(value = 0)
 	private int legRaiseR;
 	@Column(name = "PUSH_UP")
+	@Min(value = 0)
 	private int pushUp;
 	@Column(name = "ROT_STABILITY_R")
+	@Min(value = 0)
 	private int rotaryStabilityR;
 	@Column(name = "ROT_STABILITY_L")
+	@Min(value = 0)
 	private int rotaryStabilityL;
 	@Column(name = "HURDLE_STEP_R")
+	@Min(value = 0)
 	private int hurdleStepR;
 	@Column(name = "HURDLE_STEP_L")
+	@Min(value = 0)
 	private int hurdleStepL;
 	@Column(name = "SHOULDER_MOB_R")
+	@Min(value = 0)
 	private int shoulderMobilityR;
 	@Column(name = "SHOULDER_MOB_L")
+	@Min(value = 0)
 	private int shoulderMobilityL;
 	@Column(name = "INLINE_LUNGE_R")
+	@Min(value = 0)
 	private int inLineLungeR;
 	@Column(name = "INLINE_LUNGE_L")
+	@Min(value = 0)
 	private int inLineLungeL;
 
 	/**

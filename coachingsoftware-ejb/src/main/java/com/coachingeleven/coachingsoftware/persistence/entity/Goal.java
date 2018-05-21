@@ -22,6 +22,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 @Entity
@@ -57,6 +58,7 @@ public class Goal implements Serializable {
 	@Column(name = "STANDARD")
 	private Standard standard;
 	@Column(name = "MINUTE_SCORED")
+	@Min(value = 0, message = "{min.zero}")
 	private int minuteScored;
 
 	/**

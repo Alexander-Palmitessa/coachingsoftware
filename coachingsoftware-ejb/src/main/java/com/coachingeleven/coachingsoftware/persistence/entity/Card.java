@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "CARD")
@@ -26,6 +27,7 @@ public class Card implements Serializable {
 	
 	@Column(name = "CARD_TYPE")
 	@Enumerated(EnumType.STRING)
+	@NotNull(message = "{not.null}")
 	private CardType type;
 	
 	@Column(name = "DESCRIPTION")
