@@ -1,0 +1,32 @@
+<ui:composition template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                
+	<ui:define name="title">
+		Player Overview - Coaching Eleven
+	</ui:define>
+	
+	<ui:define name="content">
+	<div class="row">
+		<ui:repeat var="player" value="#{playerBean.userTeamPlayers}">
+			<div class="column small-12 medium-4">
+				<div class="card">
+					<div class="card-divider">
+						<h:outputText value="#{player.firstName}"/>
+						<span> </span>
+						<h:outputText value="#{player.lastName}"/>
+					</div>
+					<h:graphicImage name="images/Default-avatar.jpg" />
+					<div class="card-section">
+						Description of player...
+					</div>
+				</div>
+			</div>
+		</ui:repeat>
+		
+	</div>
+    </ui:define>
+
+</ui:composition>

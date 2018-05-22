@@ -40,7 +40,7 @@ public class Game implements Serializable {
     @ManyToOne
     private Team teamAway;
     @ManyToMany(mappedBy = "games")
-    private Set<Player> players;
+    private Set<Team> teams;
     @JoinColumn(name = "GOALS_HOME_ID")
     @OneToMany
     private Set<Goal> goalsHome;
@@ -131,18 +131,23 @@ public class Game implements Serializable {
         this.teamAway = teamAway;
     }
 
+    public Set<Team> getTeams() {
+		return teams;
+	}
 
-    public Set<Player> getPlayers() {
-        return players;
-    }
+	public void setTeams(Set<Team> teams) {
+		this.teams = teams;
+	}
 
+	public LineUp getLineUp() {
+		return lineUp;
+	}
 
-    public void setPlayers(Set<Player> players) {
-        this.players = players;
-    }
+	public void setLineUp(LineUp lineUp) {
+		this.lineUp = lineUp;
+	}
 
-
-    public Set<Goal> getGoalsHome() {
+	public Set<Goal> getGoalsHome() {
         return goalsHome;
     }
 

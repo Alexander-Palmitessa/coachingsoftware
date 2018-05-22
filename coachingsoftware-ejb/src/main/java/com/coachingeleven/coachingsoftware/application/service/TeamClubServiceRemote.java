@@ -22,4 +22,5 @@ public interface TeamClubServiceRemote {
     List<Club> findAllClubs();
     List<Team> findAllTeams();
     Club updateClub(Club club);
+    public Team updateTeam(Team team);
 }

@@ -114,4 +114,9 @@ public class TeamClubService implements TeamClubServiceRemote {
     public Club updateClub(Club club) {
         return clubRepository.update(club);
     }
+
+	@Override
+	public Team updateTeam(Team team) {
+		return teamRepository.update(team);
+	}
 }

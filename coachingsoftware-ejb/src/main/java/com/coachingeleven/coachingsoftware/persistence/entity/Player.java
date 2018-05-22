@@ -100,11 +100,7 @@ public class Player implements Serializable {
 	@JoinColumn(name = "COUNTRY_PERMISSION_ID")
 	@ManyToOne
 	private Country countryPermission;
-	@ManyToMany
-	@JoinTable(
-			name = "PLAYER_TEAM",
-			joinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"),
-			inverseJoinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID"))
+	@ManyToMany(mappedBy = "players")
 	private Set<Team> teams;
 	@ManyToMany
 	@JoinTable(
@@ -141,7 +137,7 @@ public class Player implements Serializable {
 	 * @param firstEmail email of player
 	 * */
 	public Player(String firstName, String lastName, String firstEmail) {
-		this.firstName = firstEmail;
+		this.firstName = firstName;
 		this.lastName = lastName;
 		this.firstEmail = firstEmail;
 	}
