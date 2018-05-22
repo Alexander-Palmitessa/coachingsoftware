@@ -8,6 +8,7 @@
 
 package com.coachingeleven.coachingsoftware.application.service;
 
+import com.coachingeleven.coachingsoftware.application.exception.ArenaAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.ArenaNotFoundException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Arena;
 
@@ -16,7 +17,7 @@ import java.util.List;
 
 @Remote
 public interface ArenaServiceRemote {
-	Arena createArena(Arena arena);
+	Arena createArena(Arena arena) throws ArenaAlreadyExistsException;
 	Arena findArena(int ID) throws ArenaNotFoundException;
 	Arena findArena(String name) throws ArenaNotFoundException;
 	List<Arena> searchArena(String keywords) throws ArenaNotFoundException;

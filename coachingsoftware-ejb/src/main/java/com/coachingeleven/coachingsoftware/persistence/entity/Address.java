@@ -10,6 +10,7 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
@@ -27,7 +28,8 @@ public class Address implements Serializable {
 	@Pattern(regexp = "^[\\w\\s]+$", message = "{pattern.letter.number.space}")
 	private String streetNr;
 	@Column(name = "ZIP")
-	@Min(value = 0, message = "{min.zero}")
+	@Min(value = 1000, message = "{number.zip.range}")
+	@Max(value = 100000, message = "{number.zip.range}")
 	private int zip;
 	@ManyToOne
 	@JoinColumn(name = "COUNTRY")

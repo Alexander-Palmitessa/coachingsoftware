@@ -1,5 +1,6 @@
 package org.example;
 
+import com.coachingeleven.coachingsoftware.application.exception.ArenaAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.service.ArenaServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Arena;
@@ -7,6 +8,7 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Arena;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 
@@ -19,6 +21,9 @@ public class ArenaBean implements Serializable {
     @EJB
     private ArenaServiceRemote arenaService;
 
+    @Inject
+    private AddressBean addressBean;
+
 
     @PostConstruct
     public void init() {
@@ -29,9 +34,16 @@ public class ArenaBean implements Serializable {
         return arena;
     }
 
-    public Arena createArena(Address address) {
-        arena.setAddress(address);
-        arena = arenaService.createArena(arena);
-        return arena;
+    public void createArena(Address address) {
+        try{
+            arena.setAddress(address);
+            arena = arenaService.createArena(arena);
+        } catch (ArenaAlreadyExistsException e){
+        }
+        finally {
+            arena = new Arena();
+            addressBean.init();
+        }
+
     }
 }

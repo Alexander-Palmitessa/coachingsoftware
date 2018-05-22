@@ -13,7 +13,8 @@
         	<div class="row">
 		        <div class="small-12 medium-6 column">
 		        	<label><h:outputText value="#{msg['name']}"/></label>
-				    <h:inputText value="#{teamClubBean.team.name}"/>
+				    <h:inputText id="team_name" value="#{teamClubBean.team.name}"/>
+					<h:message for="team_name" style="color: red"/>
 		        </div>
 		        <div class="small-12 medium-6 column">
 		        	<label><h:outputText value="#{msg['club']}"/></label>

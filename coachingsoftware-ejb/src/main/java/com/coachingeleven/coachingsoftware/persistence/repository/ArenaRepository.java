@@ -25,8 +25,12 @@ public class ArenaRepository extends Repository<Arena> {
 
 	@TransactionAttribute(SUPPORTS)
 	public Arena find(String name) {
-		return entityManager.createQuery("SELECT a FROM Arena a WHERE LOWER(a.name) = " +
-				"LOWER(:arenaname)", Arena.class).setParameter("arenaname", name).getSingleResult();
+		try{
+			return entityManager.createQuery("SELECT a FROM Arena a WHERE LOWER(a.name) = " +
+					"LOWER(:arenaname)", Arena.class).setParameter("arenaname", name).getSingleResult();
+		} catch (Exception e){
+			return null;
+		}
 	}
 
 	@TransactionAttribute(SUPPORTS)
