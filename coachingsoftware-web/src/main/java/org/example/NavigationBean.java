@@ -12,27 +12,27 @@ public class NavigationBean implements Serializable {
 	private static final long serialVersionUID = -2289682738617915324L;
 
 	public String toLogin() {
-		return "/pages/userLogin.xhtml";
+		return "/public/pages/userLogin.xhtml";
 	}
 	
 	public String redirectToLogin() {
-		return "/pages/userLogin.xhtml?faces-redirect=true";
+		return "/public/pages/userLogin.xhtml?faces-redirect=true";
 	}
 	
 	public String toPlayerOverview() {
-		return "/secured/playerOverview.xhtml";
+		return "/secured/pages/playerOverview.xhtml";
 	}
 	
 	public String redirectToPlayerOverview() {
-		return "/secured/playerOverview.xhtml?faces-redirect=true";
+		return "/secured/pages/playerOverview.xhtml?faces-redirect=true";
 	}
 	
 	public String toUserSettings() {
-		return "/secured/userSettings.xhtml";
+		return "/secured/pages/userSettings.xhtml";
 	}
 	
 	public String redirectToUserSettings() {
-		return "/secured/userSettings.xhtml?faces-redirect=true";
+		return "/secured/pages/userSettings.xhtml?faces-redirect=true";
 	}
 	
 }
