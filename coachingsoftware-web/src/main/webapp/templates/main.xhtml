@@ -14,6 +14,7 @@
 	        <h:outputStylesheet name="css/header.css" />
 	        <h:outputStylesheet name="css/forms.css" />
 	        <h:outputStylesheet name="css/footer.css" />
+	        <h:outputStylesheet name="css/sidebar.css" />
 	        <h:outputScript name="js/vendor/jquery.js" />
 	        <h:outputScript name="js/vendor/what-input.js" />
 	        <h:outputScript name="js/vendor/foundation.min.js" />
@@ -21,17 +22,34 @@
 	    </h:head>
 	    
 	    <h:body>
-		    <div class="outer-wrapper">
-		    	<header id="header"><ui:include src="header.xhtml" /></header>
-		        <div id="content">
-			        <div class="row">
-			        	<div class="small-12 column">
-			        		<ui:insert name="content">Default content</ui:insert>
-			        	</div>
-			        </div>
-		        </div>
-		        <footer id="footer"><ui:include src="footer.xhtml" /></footer>
-		    </div>
+	    	<div class="off-canvas-wrapper">
+		    	<div class="off-canvas position-left" id="offCanvasLeft" data-off-canvas="">
+			    	<ui:include src="sidebar.xhtml" />
+			    </div>
+			    <div class="outer-wrapper off-canvas-content" data-off-canvas-content="">
+			    	<header id="header"><ui:include src="header.xhtml" /></header>
+			    	<div class="row">
+			    		<h:panelGroup rendered="#{loginBean.loggedIn}">
+							<div class="medium-4 column show-for-medium">
+				    			<ui:include src="sidebar.xhtml" />
+				    		</div>
+				    		<div class="small-12 medium-8 column">
+				    			<div id="content">
+				    				<ui:insert name="content">Default content</ui:insert>
+				    			</div>
+				        	</div>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{!loginBean.loggedIn}">
+							<div class="small-12 column">
+				    			<div id="content">
+				    				<ui:insert name="content">Default content</ui:insert>
+				    			</div>
+				        	</div>
+						</h:panelGroup>
+			    	</div>
+			        <footer id="footer"><ui:include src="footer.xhtml" /></footer>
+			    </div>
+			</div>
 	    </h:body>
     
     </f:view>

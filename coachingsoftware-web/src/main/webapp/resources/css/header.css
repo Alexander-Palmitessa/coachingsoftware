@@ -1,4 +1,4 @@
-#header, .top-bar, .top-bar ul {
+#header, .top-bar, .top-bar ul, .title-bar {
 	background-color: #5D82A7;
 	color: white;
 }
@@ -7,9 +7,17 @@
 	padding: 0;
 }
 
-.top-bar .menu li {
+.top-bar .menu li, .title-bar-title {
 	padding-bottom: 0.5rem;
 	padding-top: 0.5rem;
+}
+
+.title-bar-title {
+	padding-left: 0.5rem;
+}
+
+.menu-icon::after {
+	height: 3px;
 }
 
 .top-bar .menu li.menu-text, .top-bar .menu li.menu-text > a {

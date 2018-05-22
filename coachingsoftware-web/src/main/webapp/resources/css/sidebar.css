@@ -1,0 +1,17 @@
+.sidebar-menu {
+  padding: 0.5rem 0;
+}
+
+.sidebar-menu .menu.nested {
+  margin-left: 0rem;
+}
+
+.sidebar-menu > li > a:not(:last-child) {
+	border-bottom: 1px solid #e6e6e6;
+}
+
+@media only screen and (min-width: 640px) {
+    .sidebar-menu > li a {
+		padding-left: 0;
+	}
+}

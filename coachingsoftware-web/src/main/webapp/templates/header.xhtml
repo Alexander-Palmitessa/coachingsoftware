@@ -5,16 +5,16 @@
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     
     <div class="title-bar" data-responsive-toggle="coachingeleven-animated-menu" data-hide-for="medium">
-		<button class="menu-icon" type="button" data-toggle="coachingeleven-animated-menu"></button>
-		<div class="title-bar-title">Menu</div>
+		<button class="menu-icon" type="button" data-open="offCanvasLeft"></button>
+		<div class="title-bar-title"><h:outputText value="#{msg['coachingeleven']}"/></div>
 	</div>
-   
-   	<div class="top-bar row" id="coachingeleven-animated-menu" data-animate="hinge-in-from-top hinge-out-from-top">
+	
+	<div class="top-bar show-for-medium row">
 		<div class="top-bar-left small-12 medium-8 column">
-			<ul class="dropdown menu" data-dropdown-menu="">
+			<ul class="menu">
 				<h:panelGroup rendered="#{!loginBean.hasUserAssignedTeam}">
 					<li class="menu-text">
-						<h:outputLink value="#{request.contextPath}/pages/home.xhtml">Coaching Eleven</h:outputLink>
+						<h:outputLink value="#{request.contextPath}/public/pages/home.xhtml"><h:outputText value="#{msg['coachingeleven']}"/></h:outputLink>
 					</li>
 				</h:panelGroup>
 				<h:panelGroup rendered="#{loginBean.hasUserAssignedTeam}">
@@ -25,18 +25,18 @@
 			</ul>
 		</div>
 		<div class="top-bar-right small-12 medium-4 column">
-			<ul class="dropdown menu" data-dropdown-menu="">
+			<ul class="menu dropdown" data-dropdown-menu="">
 				<li>
 					<h:outputLink value="#{request.contextPath}/public/pages/home.xhtml"><h:outputText value="#{msg['home']}"/></h:outputLink>
 				</li>
 				<h:panelGroup rendered="#{!loginBean.loggedIn}">
 					<li>
-						<h:outputLink value="#{request.contextPath}/pages/userLogin.xhtml"><h:outputText value="#{msg['login']}"/></h:outputLink>
+						<h:outputLink value="#{request.contextPath}/public/pages/userLogin.xhtml"><h:outputText value="#{msg['login']}"/></h:outputLink>
 					</li>
 				</h:panelGroup>
 				<h:panelGroup rendered="#{loginBean.loggedIn}">
 					<li>
-						<h:outputLink value="#{request.contextPath}/secured/userSettings.xhtml"><h:outputText value="#{loginBean.username}" /></h:outputLink>
+						<h:outputLink value="#{request.contextPath}/secured/pages/userSettings.xhtml"><h:outputText value="#{loginBean.username}" /></h:outputLink>
 					</li>
 					<li>
 						<h:form>
@@ -46,7 +46,7 @@
 				</h:panelGroup>
 				<li>
 					<h:outputLink value="#"><h:outputText value="#{msg['language']}"/></h:outputLink>
-					<ul class="menu vertical">
+					<ul class="menu">
 						<li>
 							<h:form>
 								<h:commandLink value="#{msg['english']}" action="#{languageBean.changeLanguage('en')}"></h:commandLink>
