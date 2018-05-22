@@ -12,4 +12,11 @@ body {
 
 .outer-wrapper {
 	min-height: 100vh;
+	display: flex;
+	flex-flow: column wrap;
+}
+
+.outer-wrapper > div.row {
+	flex-grow: 1;
+	width: 100%;
 }
