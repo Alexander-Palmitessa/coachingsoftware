@@ -33,7 +33,8 @@
 			    </div>
 			    <div class="small-12 medium-6 column">
 			    	<label><h:outputText value="#{msg['zip']}"/></label>
-			   		<h:inputText value="#{addressBean.address.zip}"/>
+			   		<h:inputText id="addr_zip" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" value="#{addressBean.address.zip}"/>
+					<h:message for="addr_zip" style="color: red"/>
 			    </div>
 			    <div class="small-12 medium-6 column">
 			    	<label><h:outputText value="#{msg['country']}"/></label>

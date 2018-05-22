@@ -10,7 +10,8 @@
                 <!-- First ChangeIn -->
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['minute']}"/></label>
-                    <h:inputText value="#{gameBean.changeIn[0].minuteIn}"/>
+                    <h:inputText id="minute_in" value="#{gameBean.changeIn[0].minuteIn}"/>
+                    <h:message for="minute_in" style="color: red"/>
                 </div>
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['comment']}"/></label>
@@ -28,6 +29,7 @@
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['minute']}"/></label>
                     <h:inputText value="#{gameBean.changeIn[1].minuteIn}"/>
+                    <h:message for="minute_in" style="color: red"/>
                 </div>
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['comment']}"/></label>
@@ -45,6 +47,7 @@
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['minute']}"/></label>
                     <h:inputText value="#{gameBean.changeIn[2].minuteIn}"/>
+                    <h:message for="minute_in" style="color: red"/>
                 </div>
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['comment']}"/></label>
