@@ -9,11 +9,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.coachingeleven.coachingsoftware.application.exception.ClubAlreadyExistsException;
-import com.coachingeleven.coachingsoftware.application.exception.PlayerAlreadyExistsException;
-import com.coachingeleven.coachingsoftware.application.exception.TeamAlreadyExistsException;
-import com.coachingeleven.coachingsoftware.application.exception.UserAlreadyExistsException;
-import com.coachingeleven.coachingsoftware.application.exception.UserNotFoundException;
+import com.coachingeleven.coachingsoftware.application.exception.*;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
@@ -45,15 +41,33 @@ public class LoginBean implements Serializable {
 	private TeamClubServiceRemote teamClubService;
 	@EJB
 	private PlayerServiceRemote playerService;
+
+	@Inject
+	private IndexBean indexBean;
 	
 	@PostConstruct
     public void init() {
 		try {
 			userService.createUser(new UserAccount("elias","elias","elias.schildknecht@students.bfh.ch"));
+			indexBean.init();
 		} catch (UserAlreadyExistsException e) {
 			// TODO 
+		} catch (ClubAlreadyExistsException e) {
+			e.printStackTrace();
+		} catch (LineUpAlreadyExistsException e) {
+			e.printStackTrace();
+		} catch (ArenaAlreadyExistsException e) {
+			e.printStackTrace();
+		} catch (TeamAlreadyExistsException e) {
+			e.printStackTrace();
+		} catch (ClubNotFoundException e) {
+			e.printStackTrace();
+		} catch (PlayerAlreadyExistsException e) {
+			e.printStackTrace();
+		} catch (GameAlreadyExistsException e) {
+			e.printStackTrace();
 		}
-    }
+	}
 	
 	public String doLogin() {
 		try {
