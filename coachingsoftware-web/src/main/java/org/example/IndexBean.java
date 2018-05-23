@@ -27,7 +27,7 @@ public class IndexBean {
     @EJB
     private GameServiceRemote gameService;
 
-    public void init() throws ArenaAlreadyExistsException, ClubAlreadyExistsException, TeamAlreadyExistsException,ClubNotFoundException, PlayerAlreadyExistsException, LineUpAlreadyExistsException, GameAlreadyExistsException {
+    public void init() throws ArenaAlreadyExistsException, ClubAlreadyExistsException, TeamAlreadyExistsException, PlayerAlreadyExistsException, GameAlreadyExistsException {
         Arena arena = new Arena();
         arena.setName("Arena One");
         arena = arenaService.createArena(arena);
@@ -70,13 +70,6 @@ public class IndexBean {
         game.setTime(calendar);
         game = gameService.createGame(game);
 
-
-        LineUp lineUp = new LineUp();
-        lineUp.setGame(game);
-        Set<Player> players = new HashSet<>();
-        players.add(player1);
-        players.add(player2);
-        gameService.createLineUp(lineUp);
     }
 
 }

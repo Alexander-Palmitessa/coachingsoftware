@@ -59,6 +59,7 @@ public class GameBean {
     private LineUp lineUp;
     private Player[] startingPlayers;
     private Player[] benchedPlayers;
+    System system;
 
     private int pathGameID;
 
@@ -77,10 +78,20 @@ public class GameBean {
             selectedArena = game.getArena().getName();
             if (game.getLineUp() != null) {
                 lineUp = game.getLineUp();
-                if (game.getLineUp().getStartingPlayers() != null)
-                    startingPlayers = (Player[]) game.getLineUp().getStartingPlayers().toArray();
-                if (game.getLineUp().getBenchedPlayers() != null)
-                    benchedPlayers = (Player[]) game.getLineUp().getBenchedPlayers().toArray();
+            } else {
+                lineUp = new LineUp();
+            }
+            if (lineUp.getStartingPlayers() != null)
+                startingPlayers = (Player[]) game.getLineUp().getStartingPlayers().toArray();
+            else {
+                startingPlayers = new Player[11];
+                for (Player p : startingPlayers) p = new Player();
+            }
+            if (lineUp.getBenchedPlayers() != null)
+                benchedPlayers = (Player[]) game.getLineUp().getBenchedPlayers().toArray();
+            else {
+                benchedPlayers = new Player[7];
+                for (Player p : benchedPlayers) p = new Player();
             }
         } catch (GameNotFoundException e) {
             game = new Game();
@@ -152,10 +163,10 @@ public class GameBean {
         lineUp.setGame(game);
         try {
             for (Player p : startingPlayers) {
-                p = playerService.findPlayer(p.getID());
+                if(p != null) p = playerService.findPlayer(p.getID());
             }
             for (Player p : benchedPlayers) {
-                p = playerService.findPlayer(p.getID());
+                if(p != null) p = playerService.findPlayer(p.getID());
             }
         } catch (PlayerNotFoundException e) {
             //TODO
@@ -163,6 +174,7 @@ public class GameBean {
         }
         lineUp.setStartingPlayers(new HashSet<Player>(Arrays.asList(startingPlayers)));
         lineUp.setBenchedPlayers(new HashSet<Player>(Arrays.asList(benchedPlayers)));
+        lineUp.setSystem(system);
         try {
             gameService.createLineUp(lineUp);
         } catch (LineUpAlreadyExistsException e) {
@@ -414,5 +426,13 @@ public class GameBean {
 
     public String timeToString(Calendar time) {
         return Integer.toString(time.get(Calendar.HOUR_OF_DAY)) + ":" + Integer.toString(time.get(Calendar.MINUTE));
+    }
+
+    public System getSystem() {
+        return system;
+    }
+
+    public void setSystem(System system) {
+        this.system = system;
     }
 }

@@ -52,19 +52,8 @@ public class LoginBean implements Serializable {
 			indexBean.init();
 		} catch (UserAlreadyExistsException e) {
 			// TODO 
-		} catch (ClubAlreadyExistsException e) {
-			e.printStackTrace();
-		} catch (LineUpAlreadyExistsException e) {
-			e.printStackTrace();
-		} catch (ArenaAlreadyExistsException e) {
-			e.printStackTrace();
-		} catch (TeamAlreadyExistsException e) {
-			e.printStackTrace();
-		} catch (ClubNotFoundException e) {
-			e.printStackTrace();
-		} catch (PlayerAlreadyExistsException e) {
-			e.printStackTrace();
-		} catch (GameAlreadyExistsException e) {
+		} catch (ClubAlreadyExistsException | ArenaAlreadyExistsException | TeamAlreadyExistsException |
+				PlayerAlreadyExistsException | GameAlreadyExistsException e) {
 			e.printStackTrace();
 		}
 	}

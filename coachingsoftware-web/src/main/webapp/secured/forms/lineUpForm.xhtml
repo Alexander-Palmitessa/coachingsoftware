@@ -6,7 +6,6 @@
 
     <f:metadata>
         <f:viewParam name="id" value="#{gameBean.pathGameID}" />
-        <f:viewParam name="gameType" value="#{gameBean.gameTypeNumber}" />
         <f:viewAction action="#{gameBean.viewActionInit}" onPostback="true"/>
     </f:metadata>
 
@@ -19,22 +18,22 @@
             <div class="row">
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['system']}"/></label>
-                    <h:selectOneMenu value="#{gameBean.lineUp.system}">
+                    <h:selectOneMenu value="#{gameBean.system}">
                         <f:selectItems value="#{gameBean.systems}" var="s" itemValue="#{s}"
-                                       itemLabel="#{s}"/>
+                        itemLabel="#{msg['systemType.'.concat(s)]}"/>
                     </h:selectOneMenu>
                     <label><h:outputText value="#{msg['startingLineUp']}"/></label>
                     <ui:repeat value="#{gameBean.startingPlayers}" var="sp">
                         <h:selectOneMenu value="#{sp.ID}">
                             <f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
-                                           itemLabel="#{p.firstName + ' ' + p.lastName}"/>
+                                           itemLabel="#{p.firstName} #{p.lastName}"/>
                         </h:selectOneMenu>
                     </ui:repeat>
                     <label><h:outputText value="#{msg['benchedPlayers']}"/></label>
                     <ui:repeat value="#{gameBean.benchedPlayers}" var="bp">
                         <h:selectOneMenu value="#{bp.ID}">
                             <f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
-                                           itemLabel="#{p.firstName + ' ' + p.lastName}"/>
+                                           itemLabel="#{p.firstName} #{p.lastName}"/>
                         </h:selectOneMenu>
                     </ui:repeat>
                 </div>
