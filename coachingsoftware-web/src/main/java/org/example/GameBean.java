@@ -7,6 +7,7 @@ import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemo
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.*;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.CardType;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.GameType;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -57,14 +58,16 @@ public class GameBean {
 
     private int pathGameID;
 
-    public void viewActionInit(){
+    private int gameTypeNumber;
+
+    public void viewActionInit() {
         try {
             game = gameService.findGame(pathGameID);
             year = game.getDate().get(Calendar.YEAR);
-            month = game.getDate().get(Calendar.MONTH)+1;
+            month = game.getDate().get(Calendar.MONTH) + 1;
             day = game.getDate().get(Calendar.DATE);
             minute = game.getTime().get(Calendar.MINUTE);
-            hour = game.getTime().get(Calendar.HOUR);
+            hour = convertHour(game.getTime().get(Calendar.HOUR));
             teamAway = game.getTeamAway().getName();
             teamHome = game.getTeamHome().getName();
             selectedArena = game.getArena().getName();
@@ -73,6 +76,7 @@ public class GameBean {
             game = new Game();
         }
         calendar = Calendar.getInstance();
+        setGameType();
     }
 
 
@@ -96,7 +100,7 @@ public class GameBean {
         game.setArena(arenaService.findArena(selectedArena));
         game.setTeamHome(teamClubService.findTeam(teamHome));
         game.setTeamAway(teamClubService.findTeam(teamAway));
-        calendar.set(year, month-1, day, hour, minute, 0);
+        calendar.set(year, month - 1, day, hour, minute, 0);
         game.setDate(calendar);
         game.setTime(calendar);
         try {
@@ -135,6 +139,22 @@ public class GameBean {
     public void createGameReport() throws GameNotFoundException {
         gameReport.setGame(gameService.findGame(game.getID()));
         gameService.createGameReport(gameReport);
+    }
+
+    private void setGameType() {
+        switch (gameTypeNumber) {
+            case 0:
+                game.setGameType(GameType.CHAMPIONSHIP);
+                break;
+            case 1:
+                game.setGameType(GameType.CUP);
+                break;
+            case 2:
+                game.setGameType(GameType.TEST);
+            case 3:
+                game.setGameType(GameType.COUNTRY);
+                break;
+        }
     }
 
     public Card createCard() {
@@ -323,5 +343,27 @@ public class GameBean {
 
     public void setPathGameID(int pathGameID) {
         this.pathGameID = pathGameID;
+    }
+
+    public int getGameTypeNumber() {
+        return gameTypeNumber;
+    }
+
+    public void setGameTypeNumber(int gameTypeNumber) {
+        this.gameTypeNumber = gameTypeNumber;
+    }
+
+    public String dateToString(Calendar date) {
+        return Integer.toString(date.get(Calendar.DATE)) + "." + Integer.toString(date.get(Calendar.MONTH)+1) + "." +
+                Integer.toString(date.get(Calendar.YEAR));
+    }
+
+    public String timeToString(Calendar time){
+        int hour = convertHour(time.get(Calendar.HOUR));
+        return Integer.toString(hour)+":"+Integer.toString(time.get(Calendar.MINUTE));
+    }
+
+    private int convertHour(int hour){
+        return hour = hour != 0 ? hour : 12;
     }
 }

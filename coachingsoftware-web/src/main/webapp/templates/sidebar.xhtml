@@ -72,7 +72,7 @@
 			<a href="#">Spiele</a>
 			<ul class="menu vertical nested">
 				<li>
-					<a href="#">Übersicht</a>
+					<h:outputLink value="#{request.contextPath}/secured/pages/gameList.xhtml">#{msg['overview']}</h:outputLink>
 				</li>
 				<li>
 					<a href="#">Statistik</a>
@@ -81,16 +81,16 @@
 					<a href="#">Neues Spiel</a>
 					<ul class="menu vertical nested">
 						<li>
-							<a href="#">Meisterschaftsspiel</a>
+							<h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml?gameType=0">#{msg['championshipGame']}</h:outputLink>
 						</li>
 						<li>
-							<a href="#">Cupspiel</a>
+							<h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml?gameType=1">#{msg['cupGame']}</h:outputLink>
 						</li>
 						<li>
-							<a href="#">Testspiel</a>
+							<h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml?gameType=2">#{msg['testGame']}</h:outputLink>
 						</li>
 						<li>
-							<a href="#">Länderspiel</a>
+							<h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml?gameType=3">#{msg['countryGame']}</h:outputLink>
 						</li>
 					</ul>
 				</li>
