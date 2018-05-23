@@ -11,25 +11,44 @@
     </f:metadata>
 
     <ui:define name="title">
-        Game - Coaching Eleven
+        #{msg['createGame']} - Coaching Eleven
     </ui:define>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".numericIn").keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                    (e.keyCode === 65 &amp;&amp; (e.ctrlKey === true || e.metaKey === true)) ||
+                    (e.keyCode === 67 &amp;&amp; (e.ctrlKey === true || e.metaKey === true)) ||
+                    (e.keyCode === 88 &amp;&amp; (e.ctrlKey === true || e.metaKey === true)) ||
+                    (e.keyCode >= 35 &amp;&amp; e.keyCode &lt;= 39)) {
+                    return;
+                }
+                if ((e.shiftKey || (e.keyCode &lt; 48 || e.keyCode > 57)) &amp;&amp;
+                    (e.keyCode &lt; 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
 
     <ui:define name="content">
         <h:form>
             <div class="row">
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['day']}"/></label>
-                    <h:inputText value="#{gameBean.day}" />
+                    <h:inputText class="numericIn" value="#{gameBean.day}" maxlength="2" />
                     <label><h:outputText value="#{msg['month']}"/></label>
-                    <h:inputText value="#{gameBean.month}"/>
+                    <h:inputText class="numericIn" value="#{gameBean.month}" maxlength="2"/>
                     <label><h:outputText value="#{msg['year']}"/></label>
-                    <h:inputText value="#{gameBean.year}"/>
+                    <h:inputText class="numericIn" value="#{gameBean.year}" maxlength="4"/>
                 </div>
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['hour']}"/></label>
-                    <h:inputText value="#{gameBean.hour}"/>
+                    <h:inputText class="numericIn" value="#{gameBean.hour}" maxlength="2"/>
                     <label><h:outputText value="#{msg['minute']}"/></label>
-                    <h:inputText value="#{gameBean.minute}"/>
+                    <h:inputText class="numericIn" value="#{gameBean.minute}" maxlength="2"/>
                 </div>
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['arena']}"/></label>
@@ -56,11 +75,6 @@
                     <h:commandButton action="#{gameBean.createGame()}" value="submit"/>
                 </div>
             </div>
-            <!--
-            <ui:include src="gameObjectiveForm.xhtml"/>
-            <ui:include src="chageInForm.xhtml"/>
-            <ui:include src="gameReportForm.xhtml"/>
-            -->
         </h:form>
     </ui:define>
 </ui:composition>

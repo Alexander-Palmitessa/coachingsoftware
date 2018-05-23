@@ -9,10 +9,10 @@
 			<a href="#">Team</a>
 			<ul class="menu vertical nested">
 				<li>
-					<a href="#">Alle Teams</a>
+					<a href="#">#{msg['allTeams']}</a>
 				</li>
 				<li>
-					<a href="#">Verein</a>
+					<a href="#">#{msg['club']}</a>
 					<ul class="menu vertical nested">
 						<li>
 							<a href="#">Team 1</a>
@@ -25,13 +25,13 @@
 			</ul>
 		</li>
 		<li>
-			<a href="#">Adressverwaltung</a>
+			<a href="#">#{msg['addressManagement']}</a>
 			<ul class="menu vertical nested">
 				<li>
-					<a href="#">Kontakte / Adressbuch</a>
+					<a href="#">#{msg['contactsAddress']}</a>
 				</li>
 				<li>
-					<a href="#">Neu anlegen</a>
+					<a href="#">#{msg['createNew']}</a>
 				</li>
 			</ul>
 		</li>
@@ -39,18 +39,18 @@
 			<a href="#">Teamverwaltung</a>
 			<ul class="menu vertical nested">
 				<li>
-					<a href="#">Übersicht</a>
+					<a href="#">#{msg['overview']}</a>
 				</li>
 				<li>
-					<a href="#">Stammdaten</a>
+					<a href="#">#{msg['baseData']}</a>
 				</li>
 			</ul>
 		</li>
 		<li>
-			<a href="#">Spieler</a>
+			<a href="#">#{msg['player']}</a>
 			<ul class="menu vertical nested">
 				<li>
-					<a href="#">Übersicht</a>
+					<a href="#">#{msg['overview']}</a>
 				</li>
 			</ul>
 		</li>
@@ -58,27 +58,27 @@
 			<a href="#">Training</a>
 			<ul class="menu vertical nested">
 				<li>
-					<a href="#">Übersicht</a>
+					<a href="#">#{msg['overview']}</a>
 				</li>
 				<li>
-					<a href="#">Statistik</a>
+					<a href="#">#{msg['statistics']}</a>
 				</li>
 				<li>
-					<a href="#">Neues Traning</a>
+					<a href="#">#{msg['newTraining']}</a>
 				</li>
 			</ul>
 		</li>
 		<li>
-			<a href="#">Spiele</a>
+			<a href="#">#{msg['games']}</a>
 			<ul class="menu vertical nested">
 				<li>
 					<h:outputLink value="#{request.contextPath}/secured/pages/gameList.xhtml">#{msg['overview']}</h:outputLink>
 				</li>
 				<li>
-					<a href="#">Statistik</a>
+					<a href="#">#{msg['statistics']}</a>
 				</li>
 				<li>
-					<a href="#">Neues Spiel</a>
+					<a href="#">#{msg['newGame']}</a>
 					<ul class="menu vertical nested">
 						<li>
 							<h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml?gameType=0">#{msg['championshipGame']}</h:outputLink>
@@ -93,6 +93,9 @@
 							<h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml?gameType=3">#{msg['countryGame']}</h:outputLink>
 						</li>
 					</ul>
+				</li>
+				<li>
+					<h:outputLink value="#{request.contextPath}/secured/forms/arenaForm.xhtml">#{msg['newArena']}</h:outputLink>
 				</li>
 			</ul>
 		</li>

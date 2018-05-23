@@ -91,4 +91,9 @@ public class ArenaService implements ArenaServiceRemote {
 	public List<Arena> findAll() {
 		return arenaRepository.findAll(Arena.class);
 	}
+
+	@Override
+	public Arena update(Arena arena) {
+		return arenaRepository.update(arena);
+	}
 }

@@ -9,7 +9,7 @@
     </f:metadata>
 
     <ui:define name="title">
-        Team - Coaching Eleven
+        #{msg['gameOverview']} - Coaching Eleven
     </ui:define>
 
     <ui:define name="content">
@@ -32,7 +32,6 @@
             </h:column>
             <h:column>
                 <f:facet name="header">Link</f:facet>
-                <!-- TODO: LINK WITH ID -->
                 <h:outputLink value="#{request.contextPath}/pages/gameForm.xhtml?id=#{game.ID}"><h:outputText value=">"/></h:outputLink>
             </h:column>
         </h:dataTable>

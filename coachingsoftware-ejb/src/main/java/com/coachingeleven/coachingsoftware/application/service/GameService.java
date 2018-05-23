@@ -92,4 +92,9 @@ public class GameService implements GameServiceRemote {
         return gameReportRepository.persist(gameReport);
     }
 
+	@Override
+	public Game update(Game game) {
+		return gameRepository.update(game);
+	}
+
 }

@@ -19,4 +19,6 @@ public interface GameServiceRemote {
 	Card createCard(Card card);
     Objective createObjective(Objective objective);
     GameReport createGameReport(GameReport gameReport);
+
+    Game update(Game game);
 }
