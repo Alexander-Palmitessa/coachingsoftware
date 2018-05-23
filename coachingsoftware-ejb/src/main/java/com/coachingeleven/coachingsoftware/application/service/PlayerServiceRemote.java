@@ -44,4 +44,6 @@ public interface PlayerServiceRemote {
 	List<Player> findAllPlayers();
 
 	void deletePlayer(Player player);
+
+    Player update(Player player);
 }

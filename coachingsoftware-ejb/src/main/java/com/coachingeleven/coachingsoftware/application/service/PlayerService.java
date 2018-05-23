@@ -77,6 +77,11 @@ public class PlayerService implements PlayerServiceRemote {
 	}
 
 	@Override
+	public Player update(Player player) {
+		return playerRepository.update(player);
+	}
+
+	@Override
 	public List<Player> findPlayers(String firstName, String lastName) {
 		// TODO Auto-generated method stub
 		return null;

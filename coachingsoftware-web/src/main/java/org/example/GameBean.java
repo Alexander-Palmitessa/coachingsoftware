@@ -7,13 +7,14 @@ import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemo
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.*;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.CardType;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.GameType;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.System;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 @Named("gameBean")
 @RequestScoped
@@ -41,11 +42,10 @@ public class GameBean {
     private int minute;
     private int hour;
 
-    private ChangeIn[] changeIn;
-    private ChangeOut changeOut;
+    private Set<ChangeIn> changeIns;
+    private Set<ChangeOut> changeOuts;
     private List<Player> players;
     private int selectedPlayerOutID;
-    private int[] selectedPlayerInID;
     private Card card;
     private CardType[] cardTypes;
 
@@ -55,24 +55,53 @@ public class GameBean {
 
     private GameReport gameReport;
 
+    private System[] systems;
+    private LineUp lineUp;
+    private Player[] startingPlayers;
+    private Player[] benchedPlayers;
+    System system;
+
     private int pathGameID;
 
-    public void viewActionInit(){
+    private int gameTypeNumber;
+
+    public void viewActionInit() {
         try {
             game = gameService.findGame(pathGameID);
             year = game.getDate().get(Calendar.YEAR);
-            month = game.getDate().get(Calendar.MONTH)+1;
+            month = game.getDate().get(Calendar.MONTH) + 1;
             day = game.getDate().get(Calendar.DATE);
             minute = game.getTime().get(Calendar.MINUTE);
-            hour = game.getTime().get(Calendar.HOUR);
+            hour = game.getTime().get(Calendar.HOUR_OF_DAY);
             teamAway = game.getTeamAway().getName();
             teamHome = game.getTeamHome().getName();
             selectedArena = game.getArena().getName();
-
+            if (game.getLineUp() != null) {
+                lineUp = game.getLineUp();
+            } else {
+                lineUp = new LineUp();
+            }
+            if (lineUp.getStartingPlayers() != null)
+                startingPlayers = (Player[]) game.getLineUp().getStartingPlayers().toArray();
+            else {
+                startingPlayers = new Player[11];
+                for (Player p : startingPlayers) p = new Player();
+            }
+            if (lineUp.getBenchedPlayers() != null)
+                benchedPlayers = (Player[]) game.getLineUp().getBenchedPlayers().toArray();
+            else {
+                benchedPlayers = new Player[7];
+                for (Player p : benchedPlayers) p = new Player();
+            }
         } catch (GameNotFoundException e) {
             game = new Game();
+            lineUp = new LineUp();
+            startingPlayers = new Player[11];
+            benchedPlayers = new Player[7];
         }
         calendar = Calendar.getInstance();
+        setGameType();
+        changeOuts.add(new ChangeOut());
     }
 
 
@@ -82,45 +111,38 @@ public class GameBean {
         teams = teamClubService.findAllTeams();
         arenas = arenaService.findAll();
         calendar = Calendar.getInstance();
-        changeOut = new ChangeOut();
+        changeOuts = new HashSet<>();
         players = playerService.findAllPlayers();
         cardTypes = CardType.values();
         allGames = gameService.findAllGames();
         gameReport = new GameReport();
-        changeIn = new ChangeIn[3];
+        changeIns = new HashSet<>();
         gameObjectives = new Objective[2];
-        selectedPlayerInID = new int[3];
+        changeOuts.add(new ChangeOut());
+        systems = System.values();
     }
 
-    public Game createGame() throws GameNotFoundException, ArenaNotFoundException, TeamNotFoundException {
+    public Game createGame() throws ArenaNotFoundException, TeamNotFoundException {
         game.setArena(arenaService.findArena(selectedArena));
         game.setTeamHome(teamClubService.findTeam(teamHome));
         game.setTeamAway(teamClubService.findTeam(teamAway));
-        calendar.set(year, month-1, day, hour, minute, 0);
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month - 1);
+        calendar.set(Calendar.DATE, day);
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
         game.setDate(calendar);
         game.setTime(calendar);
         try {
             game = gameService.createGame(game);
         } catch (GameAlreadyExistsException e) {
-            game = gameService.findGame(game.getID());
+            game = gameService.update(game);
+        } finally {
+            game = new Game();
+            resetValues();
         }
         return game;
-    }
-
-    public ChangeOut createChangeOut() throws GameNotFoundException, PlayerNotFoundException {
-        changeOut.setPlayer(playerService.findPlayer(selectedPlayerOutID));
-        changeOut.setGame(gameService.findGame(game.getID()));
-        return gameService.createChangeOut(changeOut);
-    }
-
-    public void createChangeIn() throws GameNotFoundException, PlayerNotFoundException {
-        for (int i = 0; i < changeIn.length; i++) {
-            if (changeIn[i] != null) {
-                changeIn[i].setPlayer(playerService.findPlayer(selectedPlayerInID[i]));
-                changeIn[i].setGame(gameService.findGame(game.getID()));
-                gameService.createChangeIn(changeIn[i]);
-            }
-        }
     }
 
     public void createObjectives() throws GameNotFoundException {
@@ -137,6 +159,54 @@ public class GameBean {
         gameService.createGameReport(gameReport);
     }
 
+    public void createLineUp() {
+        lineUp.setGame(game);
+        try {
+            for (Player p : startingPlayers) {
+                if(p != null) p = playerService.findPlayer(p.getID());
+            }
+            for (Player p : benchedPlayers) {
+                if(p != null) p = playerService.findPlayer(p.getID());
+            }
+        } catch (PlayerNotFoundException e) {
+            //TODO
+            e.printStackTrace();
+        }
+        lineUp.setStartingPlayers(new HashSet<Player>(Arrays.asList(startingPlayers)));
+        lineUp.setBenchedPlayers(new HashSet<Player>(Arrays.asList(benchedPlayers)));
+        lineUp.setSystem(system);
+        try {
+            gameService.createLineUp(lineUp);
+        } catch (LineUpAlreadyExistsException e) {
+            gameService.update(lineUp);
+        }
+    }
+
+    private void setGameType() {
+        switch (gameTypeNumber) {
+            case 0:
+                game.setGameType(GameType.CHAMPIONSHIP);
+                break;
+            case 1:
+                game.setGameType(GameType.CUP);
+                break;
+            case 2:
+                game.setGameType(GameType.TEST);
+                break;
+            case 3:
+                game.setGameType(GameType.COUNTRY);
+                break;
+        }
+    }
+
+    private void resetValues() {
+        hour = 0;
+        minute = 0;
+        month = 0;
+        year = 0;
+        day = 0;
+    }
+
     public Card createCard() {
         return gameService.createCard(card);
     }
@@ -147,14 +217,6 @@ public class GameBean {
 
     public void setGame(Game game) {
         this.game = game;
-    }
-
-    public Calendar getCalendar() {
-        return calendar;
-    }
-
-    public void setCalendar(Calendar calendar) {
-        this.calendar = calendar;
     }
 
     public String getTeamAway() {
@@ -237,20 +299,20 @@ public class GameBean {
         this.hour = hour;
     }
 
-    public ChangeIn[] getChangeIn() {
-        return changeIn;
+    public Set<ChangeIn> getChangeIns() {
+        return changeIns;
     }
 
-    public void setChangeIn(ChangeIn[] changeIn) {
-        this.changeIn = changeIn;
+    public void setChangeIns(Set<ChangeIn> changeIns) {
+        this.changeIns = changeIns;
     }
 
-    public ChangeOut getChangeOut() {
-        return changeOut;
+    public Set<ChangeOut> getChangeOuts() {
+        return changeOuts;
     }
 
-    public void setChangeOut(ChangeOut changeOut) {
-        this.changeOut = changeOut;
+    public void setChangeOuts(Set<ChangeOut> changeOuts) {
+        this.changeOuts = changeOuts;
     }
 
     public List<Player> getPlayers() {
@@ -267,14 +329,6 @@ public class GameBean {
 
     public void setSelectedPlayerOutID(int selectedPlayerOutID) {
         this.selectedPlayerOutID = selectedPlayerOutID;
-    }
-
-    public int[] getSelectedPlayerInID() {
-        return selectedPlayerInID;
-    }
-
-    public void setSelectedPlayerInID(int[] selectedPlayerInID) {
-        this.selectedPlayerInID = selectedPlayerInID;
     }
 
     public Card getCard() {
@@ -323,5 +377,62 @@ public class GameBean {
 
     public void setPathGameID(int pathGameID) {
         this.pathGameID = pathGameID;
+    }
+
+    public int getGameTypeNumber() {
+        return gameTypeNumber;
+    }
+
+    public void setGameTypeNumber(int gameTypeNumber) {
+        this.gameTypeNumber = gameTypeNumber;
+    }
+
+    public System[] getSystems() {
+        return systems;
+    }
+
+    public void setSystems(System[] systems) {
+        this.systems = systems;
+    }
+
+    public LineUp getLineUp() {
+        return lineUp;
+    }
+
+    public void setLineUp(LineUp lineUp) {
+        this.lineUp = lineUp;
+    }
+
+    public Player[] getStartingPlayers() {
+        return startingPlayers;
+    }
+
+    public void setStartingPlayers(Player[] startingPlayers) {
+        this.startingPlayers = startingPlayers;
+    }
+
+    public Player[] getBenchedPlayers() {
+        return benchedPlayers;
+    }
+
+    public void setBenchedPlayers(Player[] benchedPlayers) {
+        this.benchedPlayers = benchedPlayers;
+    }
+
+    public String dateToString(Calendar date) {
+        return Integer.toString(date.get(Calendar.DATE)) + "." + Integer.toString(date.get(Calendar.MONTH) + 1) + "." +
+                Integer.toString(date.get(Calendar.YEAR));
+    }
+
+    public String timeToString(Calendar time) {
+        return Integer.toString(time.get(Calendar.HOUR_OF_DAY)) + ":" + Integer.toString(time.get(Calendar.MINUTE));
+    }
+
+    public System getSystem() {
+        return system;
+    }
+
+    public void setSystem(System system) {
+        this.system = system;
     }
 }

@@ -41,4 +41,44 @@ public class LineUp implements Serializable {
 	public LineUp() {
 
 	}
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int ID) {
+		this.ID = ID;
+	}
+
+	public Set<Player> getStartingPlayers() {
+		return startingPlayers;
+	}
+
+	public void setStartingPlayers(Set<Player> startingPlayers) {
+		this.startingPlayers = startingPlayers;
+	}
+
+	public Set<Player> getBenchedPlayers() {
+		return benchedPlayers;
+	}
+
+	public void setBenchedPlayers(Set<Player> benchedPlayers) {
+		this.benchedPlayers = benchedPlayers;
+	}
+
+	public System getSystem() {
+		return system;
+	}
+
+	public void setSystem(System system) {
+		this.system = system;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
 }

@@ -39,11 +39,11 @@ public class ArenaBean implements Serializable {
             arena.setAddress(address);
             arena = arenaService.createArena(arena);
         } catch (ArenaAlreadyExistsException e){
+            arena = arenaService.update(arena);
         }
         finally {
             arena = new Arena();
             addressBean.init();
         }
-
     }
 }

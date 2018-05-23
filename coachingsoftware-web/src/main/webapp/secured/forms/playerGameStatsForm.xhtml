@@ -1,0 +1,204 @@
+<ui:composition template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{playerGameStatsBean.pathGameID}" />
+        <f:viewAction action="#{playerGameStatsBean.viewActionInit}" onPostback="true"/>
+    </f:metadata>
+
+    <ui:define name="title">
+        #{msg['playerGameStats']} - Coaching Eleven
+    </ui:define>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".numericIn").keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                    (e.keyCode === 65 &amp;&amp; (e.ctrlKey === true || e.metaKey === true)) ||
+                    (e.keyCode === 67 &amp;&amp; (e.ctrlKey === true || e.metaKey === true)) ||
+                    (e.keyCode === 88 &amp;&amp; (e.ctrlKey === true || e.metaKey === true)) ||
+                    (e.keyCode >= 35 &amp;&amp; e.keyCode &lt;= 39)) {
+                    return;
+                }
+                if ((e.shiftKey || (e.keyCode &lt; 48 || e.keyCode > 57)) &amp;&amp;
+                    (e.keyCode &lt; 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+
+    <ui:define name="content">
+<ui:repeat value="#{playerGameStatsBean.game.getPlayerGameStats}" var="pgs">
+    <h:form>
+        <div class="row">
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['minutesPlayed']}"/></label>
+                <h:inputText id="min_played" class="numericIn" value="#{pgs.minutesPlayed}" maxlength="3" />
+                <h:message for="min_played" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['totalDist']}"/></label>
+                <h:inputText id="tot_dist" class="numericIn" value="#{pgs.totalDistance}"/>
+                <h:message for="tot_dist" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['sprints']}"/></label>
+                <h:inputText id="sprints" class="numericIn" value="#{pgs.sprints}"/>
+                <h:message for="sprints" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['accelerations']}"/></label>
+                <h:inputText id="acc" class="numericIn" value="#{pgs.accelerations}"/>
+                <h:message for="acc" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['decelerations']}"/></label>
+                <h:inputText id="decel" class="numericIn" value="#{pgs.decelerations}" />
+                <h:message for="decel" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['maxSpeed']}"/></label>
+                <h:inputText id="Vmax" class="numericIn" value="#{pgs.maxSpeed}"/>
+                <h:message for="Vmax" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['avgSpeed']}"/></label>
+                <h:inputText id="Vavg" class="numericIn" value="#{pgs.avgSpeed}"/>
+                <h:message for="Vavg" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['sprintDistance']}"/></label>
+                <h:inputText id="sprintDist" class="numericIn" value="#{pgs.sprintDistance}"/>
+                <h:message for="sprintDist" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['ballContacts']}"/></label>
+                <h:inputText id="ballContacts" class="numericIn" value="#{pgs.ballContacts}"/>
+                <h:message for="ballContacts" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['passes']}"/></label>
+                <h:inputText id="pass" class="numericIn" value="#{pgs.passes}"/>
+                <h:message for="pass" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['passesPercentage']}"/></label>
+                <h:inputText id="passPerc" class="numericIn" value="#{pgs.passesPercentage}"/>
+                <h:message for="passPerc" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['duels']}"/></label>
+                <h:inputText id="duel" class="numericIn" value="#{pgs.duels}"/>
+                <h:message for="duel" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['duelsPercentage']}"/></label>
+                <h:inputText id="duelPerc" class="numericIn" value="#{pgs.duelPercentage}"/>
+                <h:message for="duelPerc" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['offDuels']}"/></label>
+                <h:inputText id="offDuel" class="numericIn" value="#{pgs.offensiveDuels}"/>
+                <h:message for="offDuel" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['offDuelsPercentage']}"/></label>
+                <h:inputText id="offDuelPerc" class="numericIn" value="#{pgs.offensiveDuelsPercentage}"/>
+                <h:message for="offDuelPerc" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['defDuels']}"/></label>
+                <h:inputText id="defDuel" class="numericIn" value="#{pgs.defensiveDuels}"/>
+                <h:message for="defDuel" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['defDuelsPercentage']}"/></label>
+                <h:inputText id="defDuelPerc" class="numericIn" value="#{pgs.defensiveDuelsPercentage}"/>
+                <h:message for="defDuelPerc" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['goals']}"/></label>
+                <h:inputText id="goals" class="numericIn" value="#{pgs.goals}"/>
+                <h:message for="goals" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['assists']}"/></label>
+                <h:inputText id="assists" class="numericIn" value="#{pgs.assist}"/>
+                <h:message for="assists" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['loadIndicator']}"/></label>
+                <h:inputText id="loadIndicator" class="numericIn" value="#{pgs.loadIndicator}"/>
+                <h:message for="loadIndicator" style="color: red"/>
+            </div>
+
+            <!-- TIPS -->
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['technique']}"/></label>
+                <h:inputText id="t_tips" class="numericIn" value="#{pgs.tips.technique}"/>
+                <h:message for="t_tips" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['intelligence']}"/></label>
+                <h:inputText id="i_tips" class="numericIn" value="#{pgs.tips.intelligence}"/>
+                <h:message for="i_tips" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['personality']}"/></label>
+                <h:inputText id="p_tips" class="numericIn" value="#{pgs.tips.personality}"/>
+                <h:message for="p_tips" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['speed']}"/></label>
+                <h:inputText id="s_tips" class="numericIn" value="#{pgs.tips.speed}"/>
+                <h:message for="s_tips" style="color: red"/>
+            </div>
+
+            <!-- TODO: Mit Button aktivieren/deaktivieren -->
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['minuteIn']}"/></label>
+                <h:inputText id="changeInMinute" class="numericIn" value="#{pgs.changeIn.minuteIn}"/>
+                <h:message for="changeInMinute" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['comment']}"/></label>
+                <h:inputText id="changeInComment" class="numericIn" value="#{pgs.changeIn.comment}"/>
+                <h:message for="changeInComment" style="color: red"/>
+            </div>
+            <!-- TODO: Mit Button aktivieren deaktivieren -->
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['minuteOut']}"/></label>
+                <h:inputText id="changeOutMinute" class="numericIn" value="#{pgs.changeOut.minuteOut}"/>
+                <h:message for="changeOutMinute" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['comment']}"/></label>
+                <h:inputText id="changeOutComment" class="numericIn" value="#{pgs.changeOut.comment}"/>
+                <h:message for="changeOutComment" style="color: red"/>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['cardType']}"/></label>
+                <h:selectOneMenu value="#{pgs.changeOut.causeCard.type}">
+                    <f:selectItems value="#{gameBean.cardTypes}" var="ct" itemValue="#{ct}"
+                                   itemLabel="#{msg['cardType.'.concat(ct)]}"/>
+                </h:selectOneMenu>
+            </div>
+            <div class="small-12 medium-6 column">
+                <label><h:outputText value="#{msg['comment']}"/></label>
+                <h:inputText value="#{pgs.changeOut.causeCard.description}"/>
+            </div>
+            <div class="small-12 column text-center">
+            </div>
+            <div class="small-12 column text-center">
+                <h:commandButton action="#{playerGameStatsBean.persistPlayerGameStats()}" value="Submit"/>
+            </div>
+        </div>
+    </h:form>
+</ui:repeat>
+    </ui:define>
+</ui:composition>

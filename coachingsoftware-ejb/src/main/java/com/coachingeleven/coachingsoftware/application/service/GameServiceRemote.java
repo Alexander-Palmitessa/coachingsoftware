@@ -4,6 +4,7 @@ import javax.ejb.Remote;
 
 import com.coachingeleven.coachingsoftware.application.exception.GameAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.GameNotFoundException;
+import com.coachingeleven.coachingsoftware.application.exception.LineUpAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.persistence.entity.*;
 
 import java.util.List;
@@ -19,4 +20,7 @@ public interface GameServiceRemote {
 	Card createCard(Card card);
     Objective createObjective(Objective objective);
     GameReport createGameReport(GameReport gameReport);
+	LineUp createLineUp(LineUp lineUp) throws LineUpAlreadyExistsException;
+    Game update(Game game);
+    LineUp update(LineUp lineUp);
 }
