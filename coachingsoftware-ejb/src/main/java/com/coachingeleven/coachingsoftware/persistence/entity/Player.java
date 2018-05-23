@@ -148,6 +148,10 @@ public class Player implements Serializable {
 		return ID;
 	}
 
+	public void setID(int ID) {
+		this.ID = ID;
+	}
+
 	public String getFirstEmail() {
 		return firstEmail;
 	}

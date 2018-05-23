@@ -110,4 +110,9 @@ public class GameService implements GameServiceRemote {
 		return gameRepository.update(game);
 	}
 
+	@Override
+	public LineUp update(LineUp lineUp) {
+		return lineUpRepository.update(lineUp);
+	}
+
 }

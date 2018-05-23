@@ -22,4 +22,5 @@ public interface GameServiceRemote {
     GameReport createGameReport(GameReport gameReport);
 	LineUp createLineUp(LineUp lineUp) throws LineUpAlreadyExistsException;
     Game update(Game game);
+    LineUp update(LineUp lineUp);
 }
