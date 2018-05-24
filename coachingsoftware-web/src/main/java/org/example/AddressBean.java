@@ -35,11 +35,11 @@ public class AddressBean implements Serializable {
         return country;
     }
 
-    public Country[] getCountryValue() {
+    public ISOCountry[] getCountryValue() {
         String[] isoCountries = Locale.getISOCountries();
-        Country[] countryList = new Country[isoCountries.length];
+        ISOCountry[] countryList = new ISOCountry[isoCountries.length];
         for (int i = 0; i < isoCountries.length; i++) {
-            countryList[i] = new Country(isoCountries[i], isoCountries[i]);
+            countryList[i] = new ISOCountry(isoCountries[i], isoCountries[i]);
         }
         return countryList;
     }
@@ -55,11 +55,11 @@ public class AddressBean implements Serializable {
         return address;
     }
 
-    public static class Country {
+    public static class ISOCountry {
         private String countryValue;
         private String countryLabel;
 
-        private Country(String countryValue, String countryLabel) {
+        private ISOCountry(String countryValue, String countryLabel) {
             this.countryValue = countryValue;
             this.countryLabel = countryLabel;
         }

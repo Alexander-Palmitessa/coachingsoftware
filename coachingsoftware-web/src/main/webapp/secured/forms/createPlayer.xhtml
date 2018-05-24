@@ -16,19 +16,60 @@
         <h:form>
         	<div class="row">
 		        <div class="small-12 medium-6 column">
-		        	<label><h:outputText value="#{msg['name']}"/></label>
-				    <h:inputText id="team_name" value="#{teamClubBean.team.name}"/>
-					<h:message for="team_name" style="color: red"/>
+		        	<label><h:outputText value="#{msg['firstName']}"/></label>
+				    <h:inputText id="player_firstName" value="#{playerBean.playerFirstName}"/>
+					<h:message for="player_firstName" style="color: red"/>
 		        </div>
 		        <div class="small-12 medium-6 column">
-		        	<label><h:outputText value="#{msg['club']}"/></label>
-				    <h:selectOneMenu value="#{teamClubBean.selectedClubName}">
-				        <f:selectItems value="#{teamClubBean.clubs}" var="c" itemValue="#{c.name}"
-				                       itemLabel="#{c.name}"/>
-				    </h:selectOneMenu>
+		        	<label><h:outputText value="#{msg['lastName']}"/></label>
+				    <h:inputText id="player_lastName" value="#{playerBean.playerLastName}"/>
+					<h:message for="player_lastName" style="color: red"/>
 		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['email']}"/></label>
+				    <h:inputText id="player_email" value="#{playerBean.playerEmail}"/>
+					<h:message for="player_email" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['mobileNumber']}"/></label>
+				    <h:inputText id="player_mobileNumber" value="#{playerBean.playerMobileNumber}"/>
+					<h:message for="player_mobileNumber" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['city']}"/></label>
+				    <h:inputText id="player_city" value="#{playerBean.playerCity}"/>
+					<h:message for="player_city" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['street']}"/></label>
+				    <h:inputText id="player_street" value="#{playerBean.playerStreet}"/>
+					<h:message for="player_street" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['streetNr']}"/></label>
+				    <h:inputText id="player_streetNr" value="#{playerBean.playerStreetNr}"/>
+					<h:message for="player_streetNr" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['zip']}"/></label>
+				    <h:inputText id="player_playerZip" value="#{playerBean.playerZip}"/>
+					<h:message for="player_playerZip" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['position']}"/></label>
+			    	<h:selectOneMenu value="#{playerBean.position}">
+			   			<f:selectItems value="#{playerBean.positions}" var="position" />
+			   		</h:selectOneMenu>
+		        </div>
+		        <div class="small-12 medium-6 column">
+			    	<label><h:outputText value="#{msg['country']}"/></label>
+				    <h:selectOneMenu value="#{playerBean.playerCountry}">
+				        <f:selectItems value="#{addressBean.countryValue}" var="c" itemValue="#{c.countryValue}"
+				                       itemLabel="#{c.countryLabel}"/>
+				    </h:selectOneMenu>
+			    </div>
 		        <div class="small-12 column text-center">
-		        	<h:commandButton action="#{teamClubBean.createTeam()}" value="#{msg['createTeam']}"/>
+		        	<h:commandButton action="#{playerBean.createPlayer}" value="#{msg['createPlayer']}"/>
 		        </div>
 	        </div>
 		</h:form>

@@ -92,7 +92,7 @@ public class LoginBean implements Serializable {
 				
 				if(currentUser.getTeam() != null) {
 					hasUserAssignedTeam = true;
-					return navigationBean.redirectToPlayerOverview();
+					return navigationBean.redirectToHome();
 				} else {
 					return navigationBean.redirectToUserSettings();
 				}

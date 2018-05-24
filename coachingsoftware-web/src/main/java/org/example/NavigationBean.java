@@ -59,4 +59,12 @@ public class NavigationBean implements Serializable {
 		return "/secured/forms/seasonForm.xhtml?faces-redirect=true";
 	}
 	
+	public String toHome() {
+		return "/public/pages/home.xhtml";
+	}
+	
+	public String redirectToHome() {
+		return "/public/pages/home.xhtml?faces-redirect=true";
+	}
+	
 }

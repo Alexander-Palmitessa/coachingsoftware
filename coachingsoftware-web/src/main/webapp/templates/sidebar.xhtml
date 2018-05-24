@@ -55,10 +55,13 @@
 			</ul>
 		</li>
 		<li>
-			<a href="#">#{msg['player']}</a>
+			<a href="#"><h:outputText value="#{msg['player']}"/></a>
 			<ul class="menu vertical nested">
 				<li>
-					<a href="#">#{msg['overview']}</a>
+					<h:outputLink value="#{request.contextPath}/secured/pages/playerOverview.xhtml"><h:outputText value="#{msg['overview']}"/></h:outputLink>
+				</li>
+				<li>
+					<h:outputLink value="#{request.contextPath}/secured/forms/createPlayer.xhtml"><h:outputText value="#{msg['createPlayer']}"/></h:outputLink>
 				</li>
 			</ul>
 		</li>

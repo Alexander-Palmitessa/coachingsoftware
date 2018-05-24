@@ -42,10 +42,12 @@ import java.util.Set;
 @Table(name = "PLAYER")
 @NamedQueries({
 	@NamedQuery(name = "findPlayer",
-			query = "SELECT c FROM Player c WHERE LOWER(c.firstEmail) = LOWER(:email)")
+			query = "SELECT c FROM Player c WHERE LOWER(c.email) = LOWER(:email)")
 })
 public class Player implements Serializable {
 
+	private static final long serialVersionUID = -645290838661524061L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PLAYER_ID")
@@ -62,10 +64,7 @@ public class Player implements Serializable {
 	private Address address;
 	@Column(name = "FIRST_EMAIL", unique = true)
 	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "{pattern.email}")
-	private String firstEmail;
-	@JoinColumn(name = "CLUB_ID")
-	@ManyToOne
-	private Club club;
+	private String email;
 	@Column(name = "TYPE")
 	@Enumerated(EnumType.STRING)
 	private Role type;
@@ -122,6 +121,8 @@ public class Player implements Serializable {
 	private Set<PerformanceDiagnostics> performanceDiagnostics;
 	@OneToMany(mappedBy = "player")
 	private Set<EvaluationTalk> evaluationTalks;
+	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+	private String avatarUrl;
 
 
 	/**
@@ -134,12 +135,21 @@ public class Player implements Serializable {
 	/**
 	 * @param firstName first name of player
 	 * @param lastName last name of player
-	 * @param firstEmail email of player
+	 * @param email email of player
 	 * */
-	public Player(String firstName, String lastName, String firstEmail) {
+	public Player(String firstName, String lastName, String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.firstEmail = firstEmail;
+		this.email = email;
+	}
+	
+	public Player(String firstName, String lastName, String email, String mobilePhone, Address address, Position position) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.mobileNumber = mobilePhone;
+		this.address = address;
+		this.position = position;
 	}
 	
 	// TODO: Player constructors with parameters equals to input form (tbd)
@@ -150,10 +160,6 @@ public class Player implements Serializable {
 
 	public void setID(int ID) {
 		this.ID = ID;
-	}
-
-	public String getFirstEmail() {
-		return firstEmail;
 	}
 
 	public String getFirstName() {
@@ -178,14 +184,6 @@ public class Player implements Serializable {
 
 	public void setAddress(Address address) {
 		this.address = address;
-	}
-
-	public Club getClub() {
-		return club;
-	}
-
-	public void setClub(Club club) {
-		this.club = club;
 	}
 
 	public Role getType() {
@@ -324,7 +322,19 @@ public class Player implements Serializable {
 		this.evaluationTalks = evaluationTalks;
 	}
 
-	public void setFirstEmail(String firstEmail) {
-		this.firstEmail = firstEmail;
+	public String getAvatarUrl() {
+		return avatarUrl;
+	}
+
+	public void setAvatarUrl(String avatarUrl) {
+		this.avatarUrl = avatarUrl;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

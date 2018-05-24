@@ -5,12 +5,16 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
                 
 	<ui:define name="title">
-		Player Overview - Coaching Eleven
+        <h:outputText value="#{msg['playerOverview']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+    </ui:define>
+	
+	<ui:define name="contentTitle">
+		<h:outputText value="#{msg['playerOverview']}"/>
 	</ui:define>
 	
 	<ui:define name="content">
 	<div class="row">
-		<ui:repeat var="player" value="#{playerBean.userTeamPlayers}">
+		<ui:repeat var="player" value="#{playerBean.playersOfCurrentUser}">
 			<div class="column small-12 medium-4">
 				<div class="card">
 					<div class="card-divider">

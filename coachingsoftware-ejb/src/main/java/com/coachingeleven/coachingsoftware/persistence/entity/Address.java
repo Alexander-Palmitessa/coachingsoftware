@@ -9,7 +9,6 @@
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
@@ -18,6 +17,8 @@ import java.io.Serializable;
 @Embeddable
 public class Address implements Serializable {
 
+	private static final long serialVersionUID = -1351895022038783357L;
+	
 	@Column(name = "CITY")
 	@Pattern(regexp = "[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
 	private String city;
