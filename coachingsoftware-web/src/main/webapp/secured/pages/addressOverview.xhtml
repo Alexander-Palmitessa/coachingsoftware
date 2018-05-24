@@ -7,30 +7,48 @@
 	<ui:define name="title">
         <h:outputText value="#{msg['addressOverview']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
     </ui:define>
-	
-	<ui:define name="contentTitle">
+    
+    <ui:define name="contentTitle">
 		<h:outputText value="#{msg['addressOverview']}"/>
 	</ui:define>
 	
 	<ui:define name="content">
 		<div class="row">
 			<div class="small-12 column">
-				<table class="responsive-card-table unstriped">
-					<thead>
-						<tr>
-							<th><h:outputText value="#{msg['firstName']}"/></th>
-							<th><h:outputText value="#{msg['lastName']}"/></th>
-						</tr>
-					</thead>
-					<tbody>
-						<ui:repeat var="player" value="#{playerBean.playersOfCurrentUser}">
-							<tr>
-								<td data-label="First Name"><h:outputText value="#{player.firstName}"/></td>
-								<td data-label="Last Name"><h:outputText value="#{player.lastName}"/></td>
-							</tr>
-						</ui:repeat>
-					</tbody>
-				</table>
+				<div class="people-you-might-know">
+					<div class="add-people-header">
+						<h6 class="header-title">
+							<h:outputText value="#{msg['users']}"/>
+						</h6>
+					</div>
+					
+					<ui:repeat var="player" value="#{playerBean.playersOfCurrentUser}">
+						<div class="row add-people-section">
+							<div class="small-12 medium-6 columns about-people">
+								<div class="about-people-avatar">
+									<h:graphicImage name="images/Default-avatar.jpg" />
+								</div>
+								<div class="about-people-author">
+									<p class="author-name">
+										<h:outputText value="#{player.firstName}"/><h:outputText value=" "/><h:outputText value="#{player.lastName}"/>
+									</p>
+									<p class="author-location">
+										<i class="fa fa-map-marker" aria-hidden="true"></i>
+										<h:outputText value="#{player.address.city}"/>, <h:outputText value="#{player.address.country.name}"/>
+									</p>
+								</div>    
+							</div>
+							<div class="small-12 medium-6 columns add-friend">
+								<div class="add-friend-action">
+									<button class="button primary-button">
+										<i class="fa fa-user-plus" aria-hidden="true"></i>
+										<h:outputText value="#{msg['addFriend']}"/>
+									</button>
+								</div>
+							</div>
+						</div>
+					</ui:repeat>
+				</div>
 			</div>
 		</div>
     </ui:define>
