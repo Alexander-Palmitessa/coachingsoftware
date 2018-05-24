@@ -28,6 +28,8 @@ import java.util.Set;
 })
 public class Country implements Serializable {
 
+	private static final long serialVersionUID = -6044301127377964433L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "COUNTRY_ID")

@@ -6,40 +6,45 @@
 
 	<ul class="vertical menu accordion-menu sidebar-menu" data-accordion-menu="">
 		<li>
-			<a href="#">Team</a>
+			<a href="#"><h:outputText value="#{msg['team']}"/></a>
 			<ul class="menu vertical nested">
+				<ui:repeat var="club" value="#{teamClubBean.clubs}">
+					<li>
+						<h:outputLink value="#"><h:outputText value="#{club.name}"/></h:outputLink>
+						<ul class="menu vertical nested">
+							<ui:repeat var="team" value="#{club.teams}">
+								<li>
+									<h:outputLink value="#"><h:outputText value="#{team.name}"/></h:outputLink>
+								</li>
+							</ui:repeat>
+						</ul>
+					</li>
+				</ui:repeat>
 				<li>
-					<a href="#">#{msg['allTeams']}</a>
+					<h:outputLink value="#{request.contextPath}/secured/forms/clubForm.xhtml"><h:outputText value="#{msg['createClub']}"/></h:outputLink>
 				</li>
 				<li>
-					<a href="#">#{msg['club']}</a>
-					<ul class="menu vertical nested">
-						<li>
-							<a href="#">Team 1</a>
-						</li>
-						<li>
-							<a href="#">Team 2</a>
-						</li>
-					</ul>
+					<h:outputLink value="#{request.contextPath}/secured/forms/teamForm.xhtml"><h:outputText value="#{msg['createTeam']}"/></h:outputLink>
+				</li>
+				<li>
+					<!-- TODO: Season relationship between team? -->
+					<h:outputLink value="#"><h:outputText value="#{msg['createSeason']}"/></h:outputLink>
 				</li>
 			</ul>
 		</li>
 		<li>
-			<a href="#">#{msg['addressManagement']}</a>
+			<a href="#"><h:outputText value="#{msg['addressManagement']}"/></a>
 			<ul class="menu vertical nested">
 				<li>
-					<a href="#">#{msg['contactsAddress']}</a>
-				</li>
-				<li>
-					<a href="#">#{msg['createNew']}</a>
+					<h:outputLink value="#{request.contextPath}/secured/pages/addressOverview.xhtml"><h:outputText value="#{msg['contactsAddress']}"/></h:outputLink>
 				</li>
 			</ul>
 		</li>
 		<li>
-			<a href="#">Teamverwaltung</a>
+			<a href="#"><h:outputText value="#{msg['teamManagement']}"/></a>
 			<ul class="menu vertical nested">
 				<li>
-					<a href="#">#{msg['overview']}</a>
+					<h:outputLink value="#{request.contextPath}/secured/pages/teamOverview.xhtml"><h:outputText value="#{msg['teamOverview']}"/></h:outputLink>
 				</li>
 				<li>
 					<a href="#">#{msg['baseData']}</a>
@@ -47,10 +52,13 @@
 			</ul>
 		</li>
 		<li>
-			<a href="#">#{msg['player']}</a>
+			<a href="#"><h:outputText value="#{msg['player']}"/></a>
 			<ul class="menu vertical nested">
 				<li>
-					<a href="#">#{msg['overview']}</a>
+					<h:outputLink value="#{request.contextPath}/secured/pages/playerOverview.xhtml"><h:outputText value="#{msg['overview']}"/></h:outputLink>
+				</li>
+				<li>
+					<h:outputLink value="#{request.contextPath}/secured/forms/createPlayer.xhtml"><h:outputText value="#{msg['createPlayer']}"/></h:outputLink>
 				</li>
 			</ul>
 		</li>

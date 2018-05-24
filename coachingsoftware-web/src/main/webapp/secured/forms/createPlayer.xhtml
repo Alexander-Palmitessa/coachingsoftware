@@ -1,0 +1,78 @@
+<ui:composition template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                
+	<ui:define name="title">
+        <h:outputText value="#{msg['createPlayer']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+    </ui:define>
+    
+    <ui:define name="contentTitle">
+		<h:outputText value="#{msg['createPlayer']}"/>
+	</ui:define>
+
+    <ui:define name="content">
+        <h:form>
+        	<div class="row">
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['firstName']}"/></label>
+				    <h:inputText id="player_firstName" value="#{playerBean.playerFirstName}"/>
+					<h:message for="player_firstName" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['lastName']}"/></label>
+				    <h:inputText id="player_lastName" value="#{playerBean.playerLastName}"/>
+					<h:message for="player_lastName" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['email']}"/></label>
+				    <h:inputText id="player_email" value="#{playerBean.playerEmail}"/>
+					<h:message for="player_email" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['mobileNumber']}"/></label>
+				    <h:inputText id="player_mobileNumber" value="#{playerBean.playerMobileNumber}"/>
+					<h:message for="player_mobileNumber" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['city']}"/></label>
+				    <h:inputText id="player_city" value="#{playerBean.playerCity}"/>
+					<h:message for="player_city" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['street']}"/></label>
+				    <h:inputText id="player_street" value="#{playerBean.playerStreet}"/>
+					<h:message for="player_street" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['streetNr']}"/></label>
+				    <h:inputText id="player_streetNr" value="#{playerBean.playerStreetNr}"/>
+					<h:message for="player_streetNr" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['zip']}"/></label>
+				    <h:inputText id="player_playerZip" value="#{playerBean.playerZip}"/>
+					<h:message for="player_playerZip" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['position']}"/></label>
+			    	<h:selectOneMenu value="#{playerBean.position}">
+			   			<f:selectItems value="#{playerBean.positions}" var="position" />
+			   		</h:selectOneMenu>
+		        </div>
+		        <div class="small-12 medium-6 column">
+			    	<label><h:outputText value="#{msg['country']}"/></label>
+				    <h:selectOneMenu value="#{playerBean.playerCountry}">
+				        <f:selectItems value="#{addressBean.countryValue}" var="c" itemValue="#{c.countryValue}"
+				                       itemLabel="#{c.countryLabel}"/>
+				    </h:selectOneMenu>
+			    </div>
+		        <div class="small-12 column text-center">
+		        	<h:commandButton action="#{playerBean.createPlayer}" value="#{msg['createPlayer']}"/>
+		        </div>
+	        </div>
+		</h:form>
+    </ui:define>
+                
+</ui:composition>

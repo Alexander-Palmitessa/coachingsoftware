@@ -5,7 +5,11 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
                 
 	<ui:define name="title">
-		User Login - Coaching Eleven
+		<h:outputText value="#{msg['login']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+	</ui:define>
+	
+	<ui:define name="contentTitle">
+		<h:outputText value="#{msg['login']}"/>
 	</ui:define>
 	
 	<ui:define name="content">
@@ -20,7 +24,7 @@
 			    	<h:inputSecret value="#{loginBean.password}"/>
 		    	</div>
 		    	<div class="small-12 column text-center">
-			    	<h:commandButton class="primary-button" action="#{loginBean.doLogin}" value="#{msg['login']}" />
+			    	<h:commandButton action="#{loginBean.doLogin}" value="#{msg['login']}" />
 			    </div>
 	    	</div>
 	    </h:form>

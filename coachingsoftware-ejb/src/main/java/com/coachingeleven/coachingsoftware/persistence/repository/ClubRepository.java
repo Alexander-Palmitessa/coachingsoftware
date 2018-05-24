@@ -13,10 +13,7 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Club;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-
-import java.util.List;
 
 import static javax.ejb.TransactionAttributeType.SUPPORTS;
 

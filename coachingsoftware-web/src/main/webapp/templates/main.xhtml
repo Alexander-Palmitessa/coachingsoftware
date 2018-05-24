@@ -10,11 +10,17 @@
 	    <h:head>
 	        <title><ui:insert name="title">Default - Coaching Eleven</ui:insert></title>
 	        <h:outputStylesheet name="css/foundation.min.css" />
+	        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
 	        <h:outputStylesheet name="css/app.css" />
 	        <h:outputStylesheet name="css/header.css" />
 	        <h:outputStylesheet name="css/forms.css" />
 	        <h:outputStylesheet name="css/footer.css" />
 	        <h:outputStylesheet name="css/sidebar.css" />
+	        <h:outputStylesheet name="css/typography.css" />
+	        <h:outputStylesheet name="css/address.css" />
+	        <h:outputStylesheet name="css/buttons.css" />
+	        <h:outputStylesheet name="css/cards.css" />
+	        <h:outputStylesheet name="css/menu.css" />
 	        <h:outputScript name="js/vendor/jquery.js" />
 	        <h:outputScript name="js/vendor/what-input.js" />
 	        <h:outputScript name="js/vendor/foundation.min.js" />
@@ -30,21 +36,29 @@
 			    	<header id="header"><ui:include src="header.xhtml" /></header>
 			    	<div class="row">
 			    		<h:panelGroup rendered="#{loginBean.loggedIn}">
-							<div class="medium-4 column show-for-medium">
+							<div class="medium-3 column show-for-medium">
 				    			<ui:include src="sidebar.xhtml" />
 				    		</div>
-				    		<div class="small-12 medium-8 column">
+				    		<div class="small-12 medium-9 column">
 				    			<div id="content">
-				    				<ui:insert name="content">Default content</ui:insert>
+				    				<div class="row">
+				    					<div class="small-12 column">
+				    						<h1><ui:insert name="contentTitle">Default title</ui:insert></h1>
+				    					</div>
+				    					<div class="small-12 column">
+				    						<ui:insert name="content">Default content</ui:insert>
+				    					</div>
+				    				</div>
 				    			</div>
 				        	</div>
 						</h:panelGroup>
 						<h:panelGroup rendered="#{!loginBean.loggedIn}">
-							<div class="small-12 column">
-				    			<div id="content">
-				    				<ui:insert name="content">Default content</ui:insert>
-				    			</div>
-				        	</div>
+	    					<div class="small-12 column">
+		    					<div id="content">
+		    						<h1><ui:insert name="contentTitle">Default title</ui:insert></h1>
+		    						<ui:insert name="content">Default content</ui:insert>
+		    					</div>
+	    					</div>
 						</h:panelGroup>
 			    	</div>
 			        <footer id="footer"><ui:include src="footer.xhtml" /></footer>

@@ -5,8 +5,12 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
                 
 	<ui:define name="title">
-        Club - Coaching Eleven
+        <h:outputText value="#{msg['createClub']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
     </ui:define>
+    
+    <ui:define name="contentTitle">
+		<h:outputText value="#{msg['createClub']}"/>
+	</ui:define>
 
     <ui:define name="content">
         <h:form>
@@ -17,7 +21,7 @@
 					<h:message for="club_name" style="color: red"/>
 		        </div>
 		        <div class="small-12 column text-center">
-		        	<h:commandButton action="#{teamClubBean.createClub()}" value="submit"/>
+		        	<h:commandButton action="#{teamClubBean.createClub()}" value="#{msg['createClub']}"/>
 		        </div>
 	        </div>
 		</h:form>

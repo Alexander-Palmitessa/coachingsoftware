@@ -41,13 +41,13 @@ public class PlayerServiceTest {
 	public void createPlayerTest() throws Exception {
 		player = playerService.createPlayer(player);
 		assertNotNull(playerService.findPlayer(player.getID()));
-		assertNotNull(playerService.findPlayer(player.getFirstEmail()));
+		assertNotNull(playerService.findPlayer(player.getEmail()));
 	}
 	
 	@Test(dependsOnMethods = "createPlayerTest",  expectedExceptions = {PlayerAlreadyExistsException.class})
 	public void createDuplicatePlayerTest() throws Exception {
 		duplicatePlayerEmail = playerService.createPlayer(duplicatePlayerEmail);
-		assertEquals(playerService.findPlayer(duplicatePlayerEmail.getFirstEmail()).getID(), player.getID());
+		assertEquals(playerService.findPlayer(duplicatePlayerEmail.getEmail()).getID(), player.getID());
 	}
 	
 	@Test(dependsOnMethods = "createDuplicatePlayerTest")

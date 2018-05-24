@@ -32,7 +32,6 @@ public class TeamClubService implements TeamClubServiceRemote {
     @EJB
     private TeamRepository teamRepository;
 
-
     @Override
     public Team createTeam(Team team) throws TeamAlreadyExistsException {
         logger.log(Level.INFO, "Creating team with id ''{0}''", team.getID());
@@ -118,5 +117,10 @@ public class TeamClubService implements TeamClubServiceRemote {
 	@Override
 	public Team updateTeam(Team team) {
 		return teamRepository.update(team);
+	}
+
+	@Override
+	public List<Team> findTeamsByClubId(int clubId) {
+		return teamRepository.findTeamsByClubID(clubId);
 	}
 }

@@ -7,13 +7,11 @@ import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemo
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.*;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.util.Calendar;
 import java.util.HashSet;
-import java.util.Set;
 
 @Named
 @RequestScoped
@@ -39,26 +37,25 @@ public class IndexBean {
         team.setClub(club);
         team = teamClubService.createTeam(team);
 
-        Set<Team> teamSet = new HashSet<>();
-        teamSet.add(team);
-
-
         Player player1 = new Player();
         player1.setFirstName("Hans");
         player1.setLastName("Muller");
-        player1.setFirstEmail("hans@muller.com");
-        player1.setClub(club);
-        player1.setTeams(teamSet);
+        player1.setEmail("hans@muller.com");
         player1 = playerServiceRemote.createPlayer(player1);
 
         Player player2 = new Player();
         player2.setFirstName("Rudolf");
         player2.setLastName("Meier");
-        player2.setFirstEmail("ruedi@meier.com");
-        player2.setClub(club);
-        player2.setTeams(teamSet);
+        player2.setEmail("ruedi@meier.com");
         player2 = playerServiceRemote.createPlayer(player2);
 
+        HashSet<Player> players = new HashSet<Player>();
+		players.add(player1);
+		players.add(player2);
+		team.setPlayers(players);
+		teamClubService.updateTeam(team);
+		club.addTeam(team);
+		teamClubService.updateClub(club);
 
         Game game = new Game();
         game.setArena(arena);
