@@ -13,12 +13,12 @@
 		<div class="top-bar-left small-12 medium-8 column">
 			<ul class="menu">
 				<h:panelGroup rendered="#{!loginBean.hasUserAssignedTeam or !loginBean.loggedIn}">
-					<li class="menu-text">
-						<h:outputLink value="#{request.contextPath}/public/pages/home.xhtml"><h:outputText value="#{msg['coachingeleven']}"/></h:outputLink>
+					<li>
+						<h:outputText value="#{msg['coachingeleven']}"/>
 					</li>
 				</h:panelGroup>
 				<h:panelGroup rendered="#{loginBean.hasUserAssignedTeam and loginBean.loggedIn}">
-					<li class="menu-text">
+					<li>
 						<h:outputText value="#{loginBean.userTeam}"/>
 					</li>
 				</h:panelGroup>
@@ -26,16 +26,16 @@
 		</div>
 		<div class="top-bar-right small-12 medium-4 column">
 			<ul class="menu dropdown" data-dropdown-menu="">
-				<li>
+				<li class="#{view.viewId eq '/public/pages/home.xhtml' ? 'active-link' : ''}">
 					<h:outputLink value="#{request.contextPath}/public/pages/home.xhtml"><h:outputText value="#{msg['home']}"/></h:outputLink>
 				</li>
 				<h:panelGroup rendered="#{!loginBean.loggedIn}">
-					<li>
+					<li class="#{view.viewId eq '/public/pages/userLogin.xhtml' ? 'active-link' : ''}">
 						<h:outputLink value="#{request.contextPath}/public/pages/userLogin.xhtml"><h:outputText value="#{msg['login']}"/></h:outputLink>
 					</li>
 				</h:panelGroup>
 				<h:panelGroup rendered="#{loginBean.loggedIn}">
-					<li>
+					<li class="#{view.viewId eq '/secured/pages/userSettings.xhtml' ? 'active-link' : ''}">
 						<h:outputLink value="#{request.contextPath}/secured/pages/userSettings.xhtml"><h:outputText value="#{loginBean.username}" /></h:outputLink>
 					</li>
 					<li>

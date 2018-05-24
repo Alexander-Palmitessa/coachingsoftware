@@ -35,4 +35,28 @@ public class NavigationBean implements Serializable {
 		return "/secured/pages/userSettings.xhtml?faces-redirect=true";
 	}
 	
+	public String toClubForm() {
+		return "/secured/forms/clubForm.xhtml";
+	}
+	
+	public String redirectToClubForm() {
+		return "/secured/forms/clubForm.xhtml?faces-redirect=true";
+	}
+	
+	public String toTeamForm() {
+		return "/secured/forms/teamForm.xhtml";
+	}
+	
+	public String redirectToTeamForm() {
+		return "/secured/forms/teamForm.xhtml?faces-redirect=true";
+	}
+	
+	public String toSeasonForm() {
+		return "/secured/forms/seasonForm.xhtml";
+	}
+	
+	public String redirectToSeasonForm() {
+		return "/secured/forms/seasonForm.xhtml?faces-redirect=true";
+	}
+	
 }

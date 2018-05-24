@@ -10,6 +10,7 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import java.util.HashSet;
@@ -21,6 +22,9 @@ public class TeamClubBean {
 
     @EJB
     private TeamClubServiceRemote teamClubService;
+    
+    @Inject
+	private NavigationBean navigationBean;
 
     private Team team;
     private Club club;
@@ -41,19 +45,20 @@ public class TeamClubBean {
 		}
     }
 
-    public Club createClub() throws ClubNotFoundException {
+    public String createClub() throws ClubNotFoundException {
         try {
             club = teamClubService.createClub(club);
         } catch (ClubAlreadyExistsException e) {
             club = teamClubService.findClub(club.getName());
         }
-        return club;
+        return navigationBean.toClubForm();
     }
 
-    public Team createTeam() throws ClubNotFoundException, TeamAlreadyExistsException {
+    public String createTeam() throws ClubNotFoundException, TeamAlreadyExistsException {
         club = teamClubService.findClub(selectedClubName);
         team.setClub(club);
-        return teamClubService.createTeam(team);
+        teamClubService.createTeam(team);
+        return navigationBean.toTeamForm();
     }
 
     public Team getTeam() {

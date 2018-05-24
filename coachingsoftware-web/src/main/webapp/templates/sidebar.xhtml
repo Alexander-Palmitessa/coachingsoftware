@@ -6,7 +6,7 @@
 
 	<ul class="vertical menu accordion-menu sidebar-menu" data-accordion-menu="">
 		<li>
-			<a href="#">Team</a>
+			<a href="#"><h:outputText value="#{msg['team']}"/></a>
 			<ul class="menu vertical nested">
 				<ui:repeat var="club" value="#{teamClubBean.clubs}">
 					<li>
@@ -20,6 +20,16 @@
 						</ul>
 					</li>
 				</ui:repeat>
+				<li>
+					<h:outputLink value="#{request.contextPath}/secured/forms/clubForm.xhtml"><h:outputText value="#{msg['createClub']}"/></h:outputLink>
+				</li>
+				<li>
+					<h:outputLink value="#{request.contextPath}/secured/forms/teamForm.xhtml"><h:outputText value="#{msg['createTeam']}"/></h:outputLink>
+				</li>
+				<li>
+					<!-- TODO: Season relationship between team? -->
+					<h:outputLink value="#"><h:outputText value="#{msg['createSeason']}"/></h:outputLink>
+				</li>
 			</ul>
 		</li>
 		<li>
