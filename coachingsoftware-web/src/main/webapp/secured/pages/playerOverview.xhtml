@@ -15,16 +15,20 @@
 	<ui:define name="content">
 	<div class="row">
 		<ui:repeat var="player" value="#{playerBean.playersOfCurrentUser}">
-			<div class="column small-12 medium-4">
-				<div class="card">
-					<div class="card-divider">
-						<h:outputText value="#{player.firstName}"/>
-						<span> </span>
-						<h:outputText value="#{player.lastName}"/>
-					</div>
+			<div class="small-3 column card-user-profile">
+				<div class="card-container">
 					<h:graphicImage name="images/Default-avatar.jpg" />
-					<div class="card-section">
-						Description of player...
+					<div class="card-user-profile-content card-section">
+						<div class="card-user-profile-avatar">
+							<h:graphicImage name="images/Default-avatar.jpg" />
+						</div>
+						<p class="card-user-profile-name"><h:outputText value="#{player.firstName}"/><h:outputText value=" "/><h:outputText value="#{player.lastName}"/></p>
+						<p class="card-user-profile-status">Player</p>
+						<p class="card-user-profile-info">Player informations...</p>
+					</div>
+					
+					<div class="card-user-profile-actions">
+						<h:commandButton class="card-user-profile-button secondary-button" action="#" value="#{msg['moreInfo']}"/>
 					</div>
 				</div>
 			</div>
