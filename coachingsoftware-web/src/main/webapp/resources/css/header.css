@@ -5,6 +5,7 @@
 
 .top-bar {
 	padding: 0;
+	text-transform: uppercase;
 }
 
 .top-bar .menu li, .title-bar-title {

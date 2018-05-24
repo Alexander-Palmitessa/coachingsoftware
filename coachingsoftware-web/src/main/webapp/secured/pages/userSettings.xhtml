@@ -4,7 +4,13 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="title">User Settings - Coaching Eleven</ui:define>
+    <ui:define name="title">
+		<h:outputText value="#{msg['userSettings']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+	</ui:define>
+
+	<ui:define name="contentTitle">
+		<h:outputText value="#{msg['userSettings']}"/>
+	</ui:define>
 
     <ui:define name="content">
         <h:form>
