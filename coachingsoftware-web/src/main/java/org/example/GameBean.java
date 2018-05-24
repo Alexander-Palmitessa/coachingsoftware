@@ -8,6 +8,7 @@ import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRe
 import com.coachingeleven.coachingsoftware.persistence.entity.*;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.CardType;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.GameType;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.System;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -54,6 +55,12 @@ public class GameBean {
 
     private GameReport gameReport;
 
+    private System[] systems;
+    private LineUp lineUp;
+    private Player[] startingPlayers;
+    private Player[] benchedPlayers;
+    System system;
+
     private int pathGameID;
 
     private int gameTypeNumber;
@@ -69,9 +76,28 @@ public class GameBean {
             teamAway = game.getTeamAway().getName();
             teamHome = game.getTeamHome().getName();
             selectedArena = game.getArena().getName();
-
+            if (game.getLineUp() != null) {
+                lineUp = game.getLineUp();
+            } else {
+                lineUp = new LineUp();
+            }
+            if (lineUp.getStartingPlayers() != null)
+                startingPlayers = (Player[]) game.getLineUp().getStartingPlayers().toArray();
+            else {
+                startingPlayers = new Player[11];
+                for (Player p : startingPlayers) p = new Player();
+            }
+            if (lineUp.getBenchedPlayers() != null)
+                benchedPlayers = (Player[]) game.getLineUp().getBenchedPlayers().toArray();
+            else {
+                benchedPlayers = new Player[7];
+                for (Player p : benchedPlayers) p = new Player();
+            }
         } catch (GameNotFoundException e) {
             game = new Game();
+            lineUp = new LineUp();
+            startingPlayers = new Player[11];
+            benchedPlayers = new Player[7];
         }
         calendar = Calendar.getInstance();
         setGameType();
@@ -93,6 +119,7 @@ public class GameBean {
         changeIns = new HashSet<>();
         gameObjectives = new Objective[2];
         changeOuts.add(new ChangeOut());
+        systems = System.values();
     }
 
     public Game createGame() throws ArenaNotFoundException, TeamNotFoundException {
@@ -100,7 +127,7 @@ public class GameBean {
         game.setTeamHome(teamClubService.findTeam(teamHome));
         game.setTeamAway(teamClubService.findTeam(teamAway));
         calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month-1);
+        calendar.set(Calendar.MONTH, month - 1);
         calendar.set(Calendar.DATE, day);
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
@@ -109,11 +136,9 @@ public class GameBean {
         game.setTime(calendar);
         try {
             game = gameService.createGame(game);
-        }
-        catch (GameAlreadyExistsException e) {
+        } catch (GameAlreadyExistsException e) {
             game = gameService.update(game);
-        }
-        finally {
+        } finally {
             game = new Game();
             resetValues();
         }
@@ -134,6 +159,29 @@ public class GameBean {
         gameService.createGameReport(gameReport);
     }
 
+    public void createLineUp() {
+        lineUp.setGame(game);
+        try {
+            for (Player p : startingPlayers) {
+                if(p != null) p = playerService.findPlayer(p.getID());
+            }
+            for (Player p : benchedPlayers) {
+                if(p != null) p = playerService.findPlayer(p.getID());
+            }
+        } catch (PlayerNotFoundException e) {
+            //TODO
+            e.printStackTrace();
+        }
+        lineUp.setStartingPlayers(new HashSet<Player>(Arrays.asList(startingPlayers)));
+        lineUp.setBenchedPlayers(new HashSet<Player>(Arrays.asList(benchedPlayers)));
+        lineUp.setSystem(system);
+        try {
+            gameService.createLineUp(lineUp);
+        } catch (LineUpAlreadyExistsException e) {
+            gameService.update(lineUp);
+        }
+    }
+
     private void setGameType() {
         switch (gameTypeNumber) {
             case 0:
@@ -151,7 +199,7 @@ public class GameBean {
         }
     }
 
-    private void resetValues(){
+    private void resetValues() {
         hour = 0;
         minute = 0;
         month = 0;
@@ -339,12 +387,52 @@ public class GameBean {
         this.gameTypeNumber = gameTypeNumber;
     }
 
+    public System[] getSystems() {
+        return systems;
+    }
+
+    public void setSystems(System[] systems) {
+        this.systems = systems;
+    }
+
+    public LineUp getLineUp() {
+        return lineUp;
+    }
+
+    public void setLineUp(LineUp lineUp) {
+        this.lineUp = lineUp;
+    }
+
+    public Player[] getStartingPlayers() {
+        return startingPlayers;
+    }
+
+    public void setStartingPlayers(Player[] startingPlayers) {
+        this.startingPlayers = startingPlayers;
+    }
+
+    public Player[] getBenchedPlayers() {
+        return benchedPlayers;
+    }
+
+    public void setBenchedPlayers(Player[] benchedPlayers) {
+        this.benchedPlayers = benchedPlayers;
+    }
+
     public String dateToString(Calendar date) {
-        return Integer.toString(date.get(Calendar.DATE)) + "." + Integer.toString(date.get(Calendar.MONTH)+1) + "." +
+        return Integer.toString(date.get(Calendar.DATE)) + "." + Integer.toString(date.get(Calendar.MONTH) + 1) + "." +
                 Integer.toString(date.get(Calendar.YEAR));
     }
 
-    public String timeToString(Calendar time){
-        return Integer.toString(time.get(Calendar.HOUR_OF_DAY))+":"+Integer.toString(time.get(Calendar.MINUTE));
+    public String timeToString(Calendar time) {
+        return Integer.toString(time.get(Calendar.HOUR_OF_DAY)) + ":" + Integer.toString(time.get(Calendar.MINUTE));
+    }
+
+    public System getSystem() {
+        return system;
+    }
+
+    public void setSystem(System system) {
+        this.system = system;
     }
 }

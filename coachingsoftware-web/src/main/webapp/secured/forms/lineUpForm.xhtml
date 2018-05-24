@@ -1,0 +1,46 @@
+<ui:composition template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{gameBean.pathGameID}" />
+        <f:viewAction action="#{gameBean.viewActionInit}" onPostback="true"/>
+    </f:metadata>
+
+    <ui:define name="title">
+        #{msg['createLineUp']} - Coaching Eleven
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <div class="row">
+                <div class="small-12 medium-6 column">
+                    <label><h:outputText value="#{msg['system']}"/></label>
+                    <h:selectOneMenu value="#{gameBean.system}">
+                        <f:selectItems value="#{gameBean.systems}" var="s" itemValue="#{s}"
+                        itemLabel="#{msg['systemType.'.concat(s)]}"/>
+                    </h:selectOneMenu>
+                    <label><h:outputText value="#{msg['startingLineUp']}"/></label>
+                    <ui:repeat value="#{gameBean.startingPlayers}" var="sp">
+                        <h:selectOneMenu value="#{sp.ID}">
+                            <f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
+                                           itemLabel="#{p.firstName} #{p.lastName}"/>
+                        </h:selectOneMenu>
+                    </ui:repeat>
+                    <label><h:outputText value="#{msg['benchedPlayers']}"/></label>
+                    <ui:repeat value="#{gameBean.benchedPlayers}" var="bp">
+                        <h:selectOneMenu value="#{bp.ID}">
+                            <f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
+                                           itemLabel="#{p.firstName} #{p.lastName}"/>
+                        </h:selectOneMenu>
+                    </ui:repeat>
+                </div>
+                <div class="small-12 column text-center">
+                    <h:commandButton action="#{gameBean.createLineUp()}" value="submit"/>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
