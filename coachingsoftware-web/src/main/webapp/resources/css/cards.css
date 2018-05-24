@@ -16,7 +16,9 @@
 }
 
 .card-user-profile .card-container {
-	box-shadow: 0 0 1.125rem rgba(0, 0, 0, 0.18);
+	display: flex;
+	flex-flow: column nowrap;
+	height: 100%;
 }
 
 .card-user-profile > :last-child {
@@ -29,17 +31,18 @@
 
 .card-user-profile-content {
   position: relative;
+  flex-grow: 1;
 }
 
 .card-user-profile-content::before {
   position: absolute;
   content: '';
-  top: -4.4375rem;
-  left: 0;
+  top: -5.0375rem;
+  left: -1.875rem;
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 4.4375rem 0rem 0 12rem;
+  border-width: 5.0375rem 0 0 61.25rem;
   z-index: 0;
   border-color: transparent transparent transparent #fefefe;
 }
@@ -71,7 +74,7 @@
   bottom: 100%;
   left: 1rem;
   z-index: 2;
-  max-width: 5.625rem;
+  max-width: 7.625rem;
 }
 
 .card-user-profile-avatar img {

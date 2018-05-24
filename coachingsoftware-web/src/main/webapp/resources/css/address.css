@@ -85,6 +85,10 @@
   margin-top: 0.7rem;
 }
 
+.people-you-might-know .add-people-section .add-friend .add-friend-action .fa-user-plus {
+  padding-right: 0.5rem;
+}
+
 .people-you-might-know .view-more-people {
   margin: .7rem 0;
 }

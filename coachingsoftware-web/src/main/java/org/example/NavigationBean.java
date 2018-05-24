@@ -67,4 +67,12 @@ public class NavigationBean implements Serializable {
 		return "/public/pages/home.xhtml?faces-redirect=true";
 	}
 	
+	public String toPlayer() {
+		return "/secured/pages/playerView.xhtml";
+	}
+	
+	public String redirectToPlayer() {
+		return "/secured/pages/playerView.xhtml?faces-redirect=true";
+	}
+	
 }

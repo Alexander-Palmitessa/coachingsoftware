@@ -11,6 +11,7 @@ import javax.inject.Named;
 
 import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
+import com.coachingeleven.coachingsoftware.application.exception.PlayerNotFoundException;
 import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
 import com.coachingeleven.coachingsoftware.application.exception.UserNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
@@ -30,6 +31,8 @@ public class PlayerBean {
 	
 	@Inject
 	private LoginBean loginBean;
+	@Inject
+	private NavigationBean navigationBean;
 	@EJB
 	private UserServiceRemote userService;
 	@EJB
@@ -40,6 +43,7 @@ public class PlayerBean {
 	private CountryServiceRemote countryService;
 	
 	private List<Player> playersOfCurrentUser;
+	private Player currentPlayer;
 	
 	private String playerFirstName;
 	private String playerLastName;
@@ -91,6 +95,16 @@ public class PlayerBean {
 			// TODO 
 		} catch (TeamNotFoundException e) {
 			// TODO 
+		}
+	}
+	
+	public String showPlayer(int playerId) {
+		try {
+			currentPlayer = playerService.findPlayer(playerId);
+			// TODO: Reload player content via ajax
+			return navigationBean.toPlayer();
+		} catch (PlayerNotFoundException e) {
+			return navigationBean.toPlayerOverview();
 		}
 	}
 
@@ -192,5 +206,13 @@ public class PlayerBean {
 
 	public void setPlayerCountry(String playerCountry) {
 		this.playerCountry = playerCountry;
+	}
+
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
 	}
 }

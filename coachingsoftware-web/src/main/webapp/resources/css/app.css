@@ -20,3 +20,17 @@ body {
 	flex-grow: 1;
 	width: 100%;
 }
+
+.grey-background {
+	background-color: lightgrey;
+	height: 200px;
+}
+
+.player-overview-container .card-user-profile-avatar {
+	max-width: 5.625rem;
+}
+
+.player-overview-container .card-user-profile-content::before {
+	top: -3.0375rem;
+	border-width: 3.0375rem 0 0 31.25rem;
+}
