@@ -53,7 +53,7 @@ public class RepositoryTest {
 	}
 
 	@Test(dependsOnMethods = "createCountryTest")
-	public void createArenaTest() throws ArenaNotFoundException {
+	public void createArenaTest() throws ArenaNotFoundException, ArenaAlreadyExistsException {
 		arena = new Arena("Bobs Arena", new Address("Biel", "Alicestreet", "12a", 1234, country));
 		arena = arenaService.createArena(arena);
 		assertNotNull(arenaService.findArena(arena.getName()));

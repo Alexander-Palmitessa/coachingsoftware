@@ -65,6 +65,10 @@ public class Game implements Serializable {
     @OneToOne
     @JoinColumn(name = "LINE_UP_ID")
     private LineUp lineUp;
+    @JoinColumn(name = "ID_SEASON")
+	@ManyToOne
+	private Season season;
+    
     /**
      * JPA required default constructor
      */

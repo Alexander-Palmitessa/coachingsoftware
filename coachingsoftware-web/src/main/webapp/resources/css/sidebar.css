@@ -2,7 +2,7 @@
   padding: 0.5rem 0;
 }
 
-.sidebar-menu .menu.nested {
+.sidebar-menu > .menu.nested {
   margin-left: 0rem;
 }
 
