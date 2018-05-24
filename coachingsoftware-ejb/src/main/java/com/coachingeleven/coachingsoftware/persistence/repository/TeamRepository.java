@@ -17,6 +17,8 @@ import javax.persistence.TypedQuery;
 
 import static javax.ejb.TransactionAttributeType.SUPPORTS;
 
+import java.util.List;
+
 @Stateless
 public class TeamRepository extends Repository<Team> {
 
@@ -26,6 +28,17 @@ public class TeamRepository extends Repository<Team> {
 			TypedQuery<Team> query = entityManager.createNamedQuery("findTeam", Team.class);
 			query.setParameter("teamname", name);
 			return query.getSingleResult();
+		} catch (NoResultException ex) {
+			return null;
+		}
+    }
+    
+    @TransactionAttribute(SUPPORTS)
+    public List<Team> findTeamsByClubID(int clubId) {
+    	try {
+			TypedQuery<Team> query = entityManager.createNamedQuery("findTeamsByClubId", Team.class);
+			query.setParameter("clubId", clubId);
+			return query.getResultList();
 		} catch (NoResultException ex) {
 			return null;
 		}

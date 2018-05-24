@@ -8,20 +8,18 @@
 		<li>
 			<a href="#">Team</a>
 			<ul class="menu vertical nested">
-				<li>
-					<a href="#">#{msg['allTeams']}</a>
-				</li>
-				<li>
-					<a href="#">#{msg['club']}</a>
-					<ul class="menu vertical nested">
-						<li>
-							<a href="#">Team 1</a>
-						</li>
-						<li>
-							<a href="#">Team 2</a>
-						</li>
-					</ul>
-				</li>
+				<ui:repeat var="club" value="#{teamClubBean.clubs}">
+					<li>
+						<h:outputLink value="#"><h:outputText value="#{club.name}"/></h:outputLink>
+						<ul class="menu vertical nested">
+							<ui:repeat var="team" value="#{club.teams}">
+								<li>
+									<h:outputLink value="#"><h:outputText value="#{team.name}"/></h:outputLink>
+								</li>
+							</ui:repeat>
+						</ul>
+					</li>
+				</ui:repeat>
 			</ul>
 		</li>
 		<li>

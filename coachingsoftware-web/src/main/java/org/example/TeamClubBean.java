@@ -11,6 +11,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+
+import java.util.HashSet;
 import java.util.List;
 
 @Named("teamClubBean")
@@ -30,6 +32,13 @@ public class TeamClubBean {
         team = new Team();
         club = new Club();
         clubs = teamClubService.findAllClubs();
+        for (Club club : clubs) {
+        	HashSet<Team> teams = new HashSet<Team>();
+        	for (Team team : teamClubService.findTeamsByClubId(club.getID())) {
+        		teams.add(team);
+			}
+        	club.setTeams(teams);
+		}
     }
 
     public Club createClub() throws ClubNotFoundException {

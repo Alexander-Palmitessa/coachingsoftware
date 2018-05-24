@@ -18,10 +18,14 @@ import java.util.Set;
 @Table(name = "TEAM")
 @NamedQueries({
 	@NamedQuery(name = "findTeam",
-			query = "SELECT c FROM Team c WHERE LOWER(c.name) = LOWER(:teamname)")
+			query = "SELECT c FROM Team c WHERE LOWER(c.name) = LOWER(:teamname)"),
+	@NamedQuery(name = "findTeamsByClubId",
+			query = "SELECT t FROM Team t WHERE t.club.ID = :clubId")
 })
 public class Team implements Serializable {
 
+	private static final long serialVersionUID = -2807580302598720350L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "TEAM_ID")
