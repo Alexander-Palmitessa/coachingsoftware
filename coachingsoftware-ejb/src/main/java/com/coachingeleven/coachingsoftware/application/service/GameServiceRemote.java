@@ -19,7 +19,7 @@ public interface GameServiceRemote {
 	ChangeIn createChangeIn(ChangeIn changeIn);
 	Card createCard(Card card);
     Objective createObjective(Objective objective);
-    GameReport createGameReport(GameReport gameReport);
+    PostGameReport createGameReport(PostGameReport postGameReport);
 	LineUp createLineUp(LineUp lineUp) throws LineUpAlreadyExistsException;
     Game update(Game game);
     LineUp update(LineUp lineUp);

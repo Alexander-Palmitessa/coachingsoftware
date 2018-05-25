@@ -53,13 +53,13 @@ public class GameBean {
 
     private Objective[] gameObjectives;
 
-    private GameReport gameReport;
+    private PostGameReport postGameReport;
 
     private System[] systems;
     private LineUp lineUp;
     private Player[] startingPlayers;
     private Player[] benchedPlayers;
-    System system;
+    private System system;
 
     private int pathGameID;
 
@@ -115,7 +115,7 @@ public class GameBean {
         players = playerService.findAllPlayers();
         cardTypes = CardType.values();
         allGames = gameService.findAllGames();
-        gameReport = new GameReport();
+        postGameReport = new PostGameReport();
         changeIns = new HashSet<>();
         gameObjectives = new Objective[2];
         changeOuts.add(new ChangeOut());
@@ -155,8 +155,8 @@ public class GameBean {
     }
 
     public void createGameReport() throws GameNotFoundException {
-        gameReport.setGame(gameService.findGame(game.getID()));
-        gameService.createGameReport(gameReport);
+        postGameReport.setGame(gameService.findGame(game.getID()));
+        gameService.createGameReport(postGameReport);
     }
 
     public void createLineUp() {
@@ -363,12 +363,12 @@ public class GameBean {
         this.gameObjectives = gameObjectives;
     }
 
-    public GameReport getGameReport() {
-        return gameReport;
+    public PostGameReport getPostGameReport() {
+        return postGameReport;
     }
 
-    public void setGameReport(GameReport gameReport) {
-        this.gameReport = gameReport;
+    public void setPostGameReport(PostGameReport postGameReport) {
+        this.postGameReport = postGameReport;
     }
 
     public int getPathGameID() {

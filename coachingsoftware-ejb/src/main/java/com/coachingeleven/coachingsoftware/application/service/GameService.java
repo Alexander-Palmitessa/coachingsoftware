@@ -91,8 +91,8 @@ public class GameService implements GameServiceRemote {
     }
 
     @Override
-    public GameReport createGameReport(GameReport gameReport) {
-        return gameReportRepository.persist(gameReport);
+    public PostGameReport createGameReport(PostGameReport postGameReport) {
+        return gameReportRepository.persist(postGameReport);
     }
 
 	@Override

@@ -8,10 +8,10 @@
 
 package com.coachingeleven.coachingsoftware.persistence.repository;
 
-import com.coachingeleven.coachingsoftware.persistence.entity.GameReport;
+import com.coachingeleven.coachingsoftware.persistence.entity.PostGameReport;
 
 import javax.ejb.Stateless;
 
 @Stateless
-public class GameReportRepository extends Repository<GameReport> {
+public class GameReportRepository extends Repository<PostGameReport> {
 }

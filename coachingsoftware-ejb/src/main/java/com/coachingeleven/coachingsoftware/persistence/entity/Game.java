@@ -50,7 +50,9 @@ public class Game implements Serializable {
     @OneToMany(mappedBy = "game")
     private Set<Objective> objectives;
     @OneToOne(mappedBy = "game")
-    private GameReport gameReport;
+    private PostGameReport postGameReport;
+    @OneToOne(mappedBy = "game")
+    private PreGameReport preGameReport;
     @Enumerated(value = EnumType.STRING)
     @Column(name = "GAME_TYPE")
     private GameType gameType;
@@ -66,9 +68,9 @@ public class Game implements Serializable {
     @JoinColumn(name = "LINE_UP_ID")
     private LineUp lineUp;
     @JoinColumn(name = "ID_SEASON")
-	@ManyToOne
-	private Season season;
-    
+    @ManyToOne
+    private Season season;
+
     /**
      * JPA required default constructor
      */
@@ -136,22 +138,22 @@ public class Game implements Serializable {
     }
 
     public Set<Team> getTeams() {
-		return teams;
-	}
+        return teams;
+    }
 
-	public void setTeams(Set<Team> teams) {
-		this.teams = teams;
-	}
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
+    }
 
-	public LineUp getLineUp() {
-		return lineUp;
-	}
+    public LineUp getLineUp() {
+        return lineUp;
+    }
 
-	public void setLineUp(LineUp lineUp) {
-		this.lineUp = lineUp;
-	}
+    public void setLineUp(LineUp lineUp) {
+        this.lineUp = lineUp;
+    }
 
-	public Set<Goal> getGoalsHome() {
+    public Set<Goal> getGoalsHome() {
         return goalsHome;
     }
 
@@ -181,13 +183,29 @@ public class Game implements Serializable {
     }
 
 
-    public GameReport getGameReport() {
-        return gameReport;
+    public PostGameReport getPostGameReport() {
+        return postGameReport;
     }
 
 
-    public void setGameReport(GameReport gameReport) {
-        this.gameReport = gameReport;
+    public void setPostGameReport(PostGameReport postGameReport) {
+        this.postGameReport = postGameReport;
+    }
+
+    public PreGameReport getPreGameReport() {
+        return preGameReport;
+    }
+
+    public void setPreGameReport(PreGameReport preGameReport) {
+        this.preGameReport = preGameReport;
+    }
+
+    public Season getSeason() {
+        return season;
+    }
+
+    public void setSeason(Season season) {
+        this.season = season;
     }
 
     public GameType getGameType() {

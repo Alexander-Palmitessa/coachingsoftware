@@ -19,11 +19,11 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "GAME_REPORT")
-public class GameReport implements Serializable {
+@Table(name = "POST_GAME_REPORT")
+public class PostGameReport implements Serializable {
 
 	@Id
-	@Column(name = "GAME_REPORT_ID")
+	@Column(name = "POST_GAME_REPORT_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 	@OneToOne
@@ -59,9 +59,9 @@ public class GameReport implements Serializable {
 	 * @param positiveTakeBall    positives in the game taking the ball away
 	 * @param negativeTakeBall    negativess in the game taking the ball away
 	 */
-	public GameReport(Game game, String positiveWithBall, String negativeWithBall, String positiveWithoutBall,
-					  String negativeWithoutBall, String positiveLoseBall, String negativeLoseBall,
-					  String positiveTakeBall, String negativeTakeBall) {
+	public PostGameReport(Game game, String positiveWithBall, String negativeWithBall, String positiveWithoutBall,
+						  String negativeWithoutBall, String positiveLoseBall, String negativeLoseBall,
+						  String positiveTakeBall, String negativeTakeBall) {
 		this.game = game;
 		this.positiveWithBall = positiveWithBall;
 		this.negativeWithBall = negativeWithBall;
@@ -76,7 +76,7 @@ public class GameReport implements Serializable {
 	/**
 	 * JPA required default constructor
 	 */
-	public GameReport() {
+	public PostGameReport() {
 
 	}
 
