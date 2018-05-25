@@ -26,7 +26,7 @@ public class Season implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "SEASON_ID")
 	private int ID;
-	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "{pattern.letter.number.space}")
 	@NotNull
 	private String name;
 	@Column(name = "STARTDATE")

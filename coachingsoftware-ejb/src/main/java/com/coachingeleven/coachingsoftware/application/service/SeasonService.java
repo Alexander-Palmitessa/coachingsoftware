@@ -10,6 +10,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 
+import com.coachingeleven.coachingsoftware.application.exception.SeasonAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.SeasonNotFoundException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 import com.coachingeleven.coachingsoftware.persistence.repository.SeasonRepository;
@@ -33,6 +34,16 @@ public class SeasonService implements SeasonServiceRemote {
             throw new SeasonNotFoundException();
         }
         return season;
+	}
+
+	@Override
+	public Season createSeason(Season season) throws SeasonAlreadyExistsException {
+		logger.log(Level.INFO, "Creating season with name " + season.getName());
+        if (seasonRepository.find(season.getID()) != null) {
+            logger.log(Level.INFO, "Season with id " + season.getName() + " already exists");
+            throw new SeasonAlreadyExistsException();
+        }
+        return seasonRepository.persist(season);
 	}
 
 }

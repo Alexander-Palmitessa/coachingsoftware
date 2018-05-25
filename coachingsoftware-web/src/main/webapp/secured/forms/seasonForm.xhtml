@@ -17,11 +17,11 @@
 	        <div class="row">
 		        <div class="small-12 column">
 		        	<label><h:outputText value="#{msg['name']}"/></label>
-				    <h:inputText id="club_name" value="#{teamClubBean.club.name}"/>
-					<h:message for="club_name" style="color: red"/>
+				    <h:inputText id="season_name" value="#{seasonBean.season.name}"/>
+					<h:message for="season_name" style="color: red"/>
 		        </div>
 		        <div class="small-12 column text-center">
-		        	<h:commandButton action="#{teamClubBean.createClub()}" value="#{msg['createClub']}"/>
+		        	<h:commandButton action="#{seasonBean.createSeason()}" value="#{msg['createSeason']}"/>
 		        </div>
 	        </div>
 		</h:form>

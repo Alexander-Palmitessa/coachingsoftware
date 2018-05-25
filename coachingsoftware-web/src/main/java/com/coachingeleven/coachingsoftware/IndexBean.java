@@ -1,4 +1,4 @@
-package org.example;
+package com.coachingeleven.coachingsoftware;
 
 import com.coachingeleven.coachingsoftware.application.exception.*;
 import com.coachingeleven.coachingsoftware.application.service.ArenaServiceRemote;
