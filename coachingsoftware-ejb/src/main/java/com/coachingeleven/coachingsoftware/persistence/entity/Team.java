@@ -51,6 +51,8 @@ public class Team implements Serializable {
 	private Set<Game> games;
 	@OneToOne(mappedBy="team")
 	private UserAccount user;
+	@ManyToOne
+	private Season season;
 
 	public Team(String name, Club club) {
 		this.name = name;
