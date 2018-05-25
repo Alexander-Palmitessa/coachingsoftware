@@ -31,6 +31,6 @@ body {
 }
 
 .player-overview-container .card-user-profile-content::before {
-	top: -3.0375rem;
-	border-width: 3.0375rem 0 0 31.25rem;
+	top: -3rem;
+	border-width: 3rem 0 0 31.25rem;
 }
