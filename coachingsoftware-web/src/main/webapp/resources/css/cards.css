@@ -23,6 +23,8 @@
 
 .card-user-profile > :last-child {
   margin-bottom: 0;
+  overflow: hidden;
+  box-shadow: 0 0 1.125rem rgba(0, 0, 0, 0.18);
 }
 
 .card-user-profile:hover .card-user-profile-img {

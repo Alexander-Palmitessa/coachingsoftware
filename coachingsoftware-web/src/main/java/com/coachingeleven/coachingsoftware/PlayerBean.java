@@ -1,4 +1,4 @@
-package org.example;
+package com.coachingeleven.coachingsoftware;
 
 import java.util.ArrayList;
 import java.util.List;
