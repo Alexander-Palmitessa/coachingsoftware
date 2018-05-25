@@ -23,7 +23,9 @@ import java.io.Serializable;
 })
 public class UserAccount implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = -8514552901525533422L;
+	
+	@Id
     @Column(name = "USERNAME")
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "{pattern.letter.number.underscore}")
     private String username;
