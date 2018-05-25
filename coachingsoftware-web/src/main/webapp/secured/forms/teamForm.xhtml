@@ -22,8 +22,8 @@
 		        </div>
 		        <div class="small-12 medium-6 column">
 		        	<label><h:outputText value="#{msg['club']}"/></label>
-				    <h:selectOneMenu value="#{teamClubBean.selectedClubName}">
-				        <f:selectItems value="#{teamClubBean.clubs}" var="c" itemValue="#{c.name}"
+				    <h:selectOneMenu value="#{teamClubBean.selectedClubID}">
+				        <f:selectItems value="#{teamClubBean.allClubs}" var="c" itemValue="#{c.name}"
 				                       itemLabel="#{c.name}"/>
 				    </h:selectOneMenu>
 		        </div>

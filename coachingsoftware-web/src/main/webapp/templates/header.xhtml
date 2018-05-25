@@ -19,7 +19,7 @@
 				</h:panelGroup>
 				<h:panelGroup rendered="#{loginBean.hasUserAssignedTeam and loginBean.loggedIn}">
 					<li>
-						<h:outputText value="#{loginBean.userTeam}"/>
+						<h:outputText value="#{loginBean.loggedInUser.team.name}"/>
 					</li>
 				</h:panelGroup>
 			</ul>

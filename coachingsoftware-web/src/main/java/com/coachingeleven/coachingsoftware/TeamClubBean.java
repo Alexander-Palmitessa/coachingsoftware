@@ -28,15 +28,16 @@ public class TeamClubBean {
 
     private Team team;
     private Club club;
-    private List<Club> clubs;
-    private String selectedClubName;
+    
+    private List<Club> allClubs;
+    private int selectedClubID;
 
     @PostConstruct
     public void init() {
-        team = new Team();
+    	team = new Team();
         club = new Club();
-        clubs = teamClubService.findAllClubs();
-        for (Club club : clubs) {
+        allClubs = teamClubService.findAllClubs();
+        for (Club club : allClubs) {
         	HashSet<Team> teams = new HashSet<Team>();
         	for (Team team : teamClubService.findTeamsByClubId(club.getID())) {
         		teams.add(team);
@@ -55,7 +56,7 @@ public class TeamClubBean {
     }
 
     public String createTeam() throws ClubNotFoundException, TeamAlreadyExistsException {
-        club = teamClubService.findClub(selectedClubName);
+    	club = teamClubService.findClub(selectedClubID);
         team.setClub(club);
         teamClubService.createTeam(team);
         return navigationBean.toTeamForm();
@@ -77,15 +78,19 @@ public class TeamClubBean {
         this.club = club;
     }
 
-    public List<Club> getClubs() {
-        return clubs;
-    }
+	public List<Club> getAllClubs() {
+		return allClubs;
+	}
 
-    public String getSelectedClubName() {
-        return selectedClubName;
-    }
+	public void setAllClubs(List<Club> allClubs) {
+		this.allClubs = allClubs;
+	}
 
-    public void setSelectedClubName(String selectedClubName) {
-        this.selectedClubName = selectedClubName;
-    }
+	public int getSelectedClubID() {
+		return selectedClubID;
+	}
+
+	public void setSelectedClubID(int selectedClubID) {
+		this.selectedClubID = selectedClubID;
+	}
 }

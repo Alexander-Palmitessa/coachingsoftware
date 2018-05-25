@@ -8,7 +8,7 @@
 		<li>
 			<a href="#"><h:outputText value="#{msg['team']}"/></a>
 			<ul class="menu vertical nested">
-				<ui:repeat var="club" value="#{teamClubBean.clubs}">
+				<ui:repeat var="club" value="#{teamClubBean.allClubs}">
 					<li>
 						<h:outputLink value="#"><h:outputText value="#{club.name}"/></h:outputLink>
 						<ul class="menu vertical nested">
@@ -46,7 +46,7 @@
 					<h:outputLink value="#{request.contextPath}/secured/pages/teamOverview.xhtml"><h:outputText value="#{msg['teamOverview']}"/></h:outputLink>
 				</li>
 				<li>
-					<a href="#">#{msg['baseData']}</a>
+					<h:outputLink value="#{request.contextPath}/secured/pages/teamOverview.xhtml"><h:outputText value="#{msg['baseData']}"/></h:outputLink>
 				</li>
 			</ul>
 		</li>

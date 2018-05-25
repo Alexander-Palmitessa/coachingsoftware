@@ -37,7 +37,7 @@ public class Team implements Serializable {
 	@JoinColumn(name = "CLUB_ID")
 	@ManyToOne
 	private Club club;
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinTable(
 			name = "TEAM_PLAYER",
 			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID"),

@@ -11,9 +11,8 @@ import javax.inject.Named;
 
 import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
+import com.coachingeleven.coachingsoftware.application.exception.PlayerAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.PlayerNotFoundException;
-import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
-import com.coachingeleven.coachingsoftware.application.exception.UserNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
@@ -21,7 +20,6 @@ import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
-import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
 
@@ -59,15 +57,8 @@ public class PlayerBean {
 	@PostConstruct
     public void init() {
 		playersOfCurrentUser = new ArrayList<Player>();
-		try {
-			UserAccount currentUser = userService.findUser(loginBean.getUsername());
-			Team team = teamClubService.findTeam(currentUser.getTeam().getID());
-			playersOfCurrentUser.addAll(team.getPlayers());
-		} catch (UserNotFoundException e) {
-			// TODO 
-		} catch (TeamNotFoundException e) {
-			// TODO 
-		}
+		UserAccount loggedInUser = loginBean.getLoggedInUser();
+		playersOfCurrentUser.addAll(loggedInUser.getTeam().getPlayers());
     }
 	
 	public void createPlayer() {
@@ -83,17 +74,13 @@ public class PlayerBean {
 		}
 		Address address = new Address(playerCity,playerStreet,playerStreetNr,playerZip,selectedCountry);
 		Player newPlayer = new Player(playerFirstName,playerLastName,playerEmail,playerMobileNumber,address,position);
-		
-		// Add new player to the current team of the logged in user
 		try {
-			UserAccount currentUser = userService.findUser(loginBean.getUsername());
-			Team team = teamClubService.findTeam(currentUser.getTeam().getID());
-			team.getPlayers().add(newPlayer);
-			teamClubService.updateTeam(team);
+			newPlayer = playerService.createPlayer(newPlayer);
+			UserAccount currentUser = loginBean.getLoggedInUser();
+			currentUser.getTeam().getPlayers().add(newPlayer);
+			userService.updateUser(currentUser);
 			playersOfCurrentUser.add(newPlayer);
-		} catch (UserNotFoundException e) {
-			// TODO 
-		} catch (TeamNotFoundException e) {
+		} catch (PlayerAlreadyExistsException e) {
 			// TODO 
 		}
 	}

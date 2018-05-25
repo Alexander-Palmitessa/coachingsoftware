@@ -47,15 +47,10 @@ public class UserSettingsBean {
     	try {
 			Team team = teamClubService.findTeam(selectedTeamID);
 			if(team != null) {
-				try {
-					UserAccount currentUser = userService.findUser(loginBean.getUsername());
-					currentUser.setTeam(team);
-					loginBean.setUserTeam(team.getName());
-					loginBean.setHasUserAssignedTeam(true);
-					userService.updateUser(currentUser);
-				} catch (UserNotFoundException e) {
-					// TODO
-				}
+				UserAccount currentUser = loginBean.getLoggedInUser();
+				currentUser.setTeam(team);
+				loginBean.setHasUserAssignedTeam(true);
+				userService.updateUser(currentUser);
 			}
 		} catch (TeamNotFoundException e) {
 			// TODO

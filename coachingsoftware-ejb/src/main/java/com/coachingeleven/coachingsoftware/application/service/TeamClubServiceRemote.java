@@ -12,16 +12,17 @@ import java.util.List;
 
 @Remote
 public interface TeamClubServiceRemote {
-    Team createTeam(Team team) throws TeamAlreadyExistsException;
-    Club createClub(Club club) throws ClubAlreadyExistsException;
-    Team findTeam(String name) throws TeamNotFoundException;
+	public Team createTeam(Team team) throws TeamAlreadyExistsException;
+	public Club createClub(Club club) throws ClubAlreadyExistsException;
+	public Team findTeam(String name) throws TeamNotFoundException;
     public Team findTeam(int id) throws TeamNotFoundException;
-    Club findClub(String name) throws ClubNotFoundException;
-    boolean deleteTeam(Team team);
-    boolean deleteClub(Club club);
-    List<Club> findAllClubs();
-    List<Team> findAllTeams();
-    Club updateClub(Club club);
+    public Club findClub(String name) throws ClubNotFoundException;
+    public Club findClub(int id) throws ClubNotFoundException;
+    public boolean deleteTeam(Team team);
+    public boolean deleteClub(Club club);
+    public List<Club> findAllClubs();
+    public List<Team> findAllTeams();
+    public Club updateClub(Club club);
     public Team updateTeam(Team team);
     public List<Team> findTeamsByClubId(int clubId);
 }

@@ -26,7 +26,8 @@ public class LoginBean implements Serializable {
 	
 	private String username;
 	private String password;
-	private String userTeam;
+	
+	private UserAccount loggedInUser;
 	
 	private boolean loggedIn;
 	
@@ -47,8 +48,9 @@ public class LoginBean implements Serializable {
 	
 	@PostConstruct
     public void init() {
+		if(loggedInUser == null) loggedInUser = new UserAccount();
 		try {
-			userService.createUser(new UserAccount("elias","elias","elias.schildknecht@students.bfh.ch"));
+			loggedInUser = userService.createUser(new UserAccount("elias","elias","elias.schildknecht@students.bfh.ch"));
 			indexBean.init();
 		} catch (UserAlreadyExistsException e) {
 			// TODO 
@@ -59,46 +61,40 @@ public class LoginBean implements Serializable {
 	}
 	
 	public String doLogin() {
-		try {
-			UserAccount currentUser = userService.findUser(username);
-			if(userService.authenticate(password, currentUser.getPassword())) {
-				loggedIn = true;
-				
-				try {
-					Player player1 = playerService.createPlayer(new Player("Elias","Schildknecht","test@test.ch"));
-					Player player2 = playerService.createPlayer(new Player("Alexander","Palmitessa","test@test2.ch"));
-					Club club = teamClubService.createClub(new Club("Verein 1"));
-					Team team = teamClubService.createTeam(new Team("Team 1",club));
-					HashSet<Player> players = new HashSet<Player>();
-					players.add(player1);
-					players.add(player2);
-					team.setPlayers(players);
-					teamClubService.updateTeam(team);
-					club.addTeam(team);
-					teamClubService.updateClub(club);
-					currentUser.setTeam(team);
-					userService.updateUser(currentUser);
-					userTeam = team.getName();
-				} catch (PlayerAlreadyExistsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (TeamAlreadyExistsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ClubAlreadyExistsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				if(currentUser.getTeam() != null) {
-					hasUserAssignedTeam = true;
-					return navigationBean.redirectToHome();
-				} else {
-					return navigationBean.redirectToUserSettings();
-				}
+		if(userService.authenticate(password, loggedInUser.getPassword())) {
+			loggedIn = true;
+			
+			try {
+				Player player1 = playerService.createPlayer(new Player("Elias","Schildknecht","test@test.ch"));
+				Player player2 = playerService.createPlayer(new Player("Alexander","Palmitessa","test@test2.ch"));
+				Club club = teamClubService.createClub(new Club("Verein 1"));
+				Team team = teamClubService.createTeam(new Team("Team 1",club));
+				HashSet<Player> players = new HashSet<Player>();
+				players.add(player1);
+				players.add(player2);
+				team.setPlayers(players);
+				teamClubService.updateTeam(team);
+				club.addTeam(team);
+				teamClubService.updateClub(club);
+				loggedInUser.setTeam(team);
+				userService.updateUser(loggedInUser);
+			} catch (PlayerAlreadyExistsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TeamAlreadyExistsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClubAlreadyExistsException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (UserNotFoundException e) {
-			loggedIn = false;
+			
+			if(loggedInUser.getTeam() != null) {
+				hasUserAssignedTeam = true;
+				return navigationBean.redirectToHome();
+			} else {
+				return navigationBean.redirectToUserSettings();
+			}
 		}
 		
 		return navigationBean.redirectToLogin();
@@ -137,12 +133,16 @@ public class LoginBean implements Serializable {
 		this.hasUserAssignedTeam = hasUserAssignedTeam;
 	}
 
-	public String getUserTeam() {
-		return userTeam;
+	public UserAccount getLoggedInUser() {
+		return loggedInUser;
 	}
 
-	public void setUserTeam(String userTeam) {
-		this.userTeam = userTeam;
+	public void setLoggedInUser(UserAccount loggedInUser) {
+		this.loggedInUser = loggedInUser;
+	}
+
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
 	}
 
 }

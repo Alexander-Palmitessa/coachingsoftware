@@ -1,5 +1,6 @@
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -33,7 +34,7 @@ public class UserAccount implements Serializable {
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "{pattern.email}")
     @NotNull(message = "{not.null}")
     private String email;
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
