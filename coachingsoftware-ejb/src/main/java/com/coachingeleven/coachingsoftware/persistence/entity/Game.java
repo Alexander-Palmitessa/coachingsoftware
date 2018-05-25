@@ -42,12 +42,12 @@ public class Game implements Serializable {
     @ManyToMany(mappedBy = "games")
     private Set<Team> teams;
     @JoinColumn(name = "GOALS_HOME_ID")
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Goal> goalsHome;
     @JoinColumn(name = "GOALS_AWAY_ID")
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Goal> goalsAway;
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Objective> objectives;
     @OneToOne(mappedBy = "game")
     private PostGameReport postGameReport;
@@ -62,7 +62,7 @@ public class Game implements Serializable {
     @Column(name = "RES_GOALS_AWAY")
     @Min(value = 0)
     private int getResultGoalsAway;
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<PlayerGameStats> playerGameStats;
     @OneToOne
     @JoinColumn(name = "LINE_UP_ID")

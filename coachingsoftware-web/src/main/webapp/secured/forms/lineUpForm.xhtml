@@ -2,10 +2,11 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <f:metadata>
-        <f:viewParam name="id" value="#{gameBean.pathGameID}" />
+        <f:viewParam name="id" value="#{gameBean.pathGameID}"/>
         <f:viewAction action="#{gameBean.viewActionInit}" onPostback="true"/>
     </f:metadata>
 
@@ -14,26 +15,57 @@
     </ui:define>
 
     <ui:define name="content">
+        <div class="row">
+            <div class="small-12 column">
+                <ul class="menu menu-hover-lines player-menu">
+                    <li class="active">
+                        <h:outputLink
+                                value="#{request.contextPath}/secured/forms/gameForm.xhtml?id=#{gameBean.pathGameID}"><h:outputText
+                                value="#{msg['overview']}"/></h:outputLink>
+                    </li>
+                    <li>
+                        <h:outputLink
+                                value="#{request.contextPath}/secured/forms/lineUpForm.xhtml?id=#{gameBean.pathGameID}"><h:outputText
+                                value="#{msg['lineUp']}"/></h:outputLink>
+                    </li>
+                    <li>
+                        <h:outputLink value="#"><h:outputText value="#{msg['preGameReport']}"/></h:outputLink>
+                    </li>
+                    <li>
+                        <h:outputLink value="#"><h:outputText value="#{msg['postGameReport']}"/></h:outputLink>
+                    </li>
+                    <li>
+                        <h:outputLink value="#"><h:outputText value="#{msg['playerGameStats']}"/></h:outputLink>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <h:form>
             <div class="row">
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['system']}"/></label>
                     <h:selectOneMenu value="#{gameBean.system}">
                         <f:selectItems value="#{gameBean.systems}" var="s" itemValue="#{s}"
-                        itemLabel="#{msg['systemType.'.concat(s)]}"/>
+                                       itemLabel="#{msg['systemType.'.concat(s)]}"/>
                     </h:selectOneMenu>
-                    <label><h:outputText value="#{msg['startingLineUp']}"/></label>
-                    <ui:repeat value="#{gameBean.startingPlayers}" var="sp">
-                        <h:selectOneMenu value="#{sp.ID}">
-                            <f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
-                                           itemLabel="#{p.firstName} #{p.lastName}"/>
+                    <label><h:outputText value="#{msg['players']}"/></label>
+                    <ui:repeat value="#{gameBean.lineUpPlayers}" var="lup">
+
+                        <label><h:outputText value="#{lup.player.firstName} #{lup.player.lastName}"/></label>
+
+                        <h:selectOneMenu value="#{lup.lineUpType}">
+                            <f:selectItems value="#{gameBean.lineUpTypes}" var="lut" itemValue="#{lut}"
+                                           itemLabel="#{msg['lineUpType.'.concat(lut)]}"/>
                         </h:selectOneMenu>
-                    </ui:repeat>
-                    <label><h:outputText value="#{msg['benchedPlayers']}"/></label>
-                    <ui:repeat value="#{gameBean.benchedPlayers}" var="bp">
-                        <h:selectOneMenu value="#{bp.ID}">
-                            <f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
-                                           itemLabel="#{p.firstName} #{p.lastName}"/>
+                        <h:selectOneMenu value="#{lup.position}">
+                            <f:selectItems value="#{gameBean.positions}" var="p"
+                                           itemValue="#{(lup.lineUpType.equals('MISSING')) ? null : p}"
+                                           itemLabel="#{msg['position.'.concat(p)]}"/>
+                        </h:selectOneMenu>
+                        <h:selectOneMenu value="#{lup.missingType}">
+                            <f:selectItems value="#{gameBean.missingTypes}" var="mt"
+                                           itemValue="#{(lup.lineUpType.equals('MISSING')) ? mt : null}"
+                                           itemLabel="#{msg['missingType.'.concat(mt)]}"/>
                         </h:selectOneMenu>
                     </ui:repeat>
                 </div>

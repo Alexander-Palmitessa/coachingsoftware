@@ -6,8 +6,7 @@ import com.coachingeleven.coachingsoftware.application.service.GameServiceRemote
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.*;
-import com.coachingeleven.coachingsoftware.persistence.enumeration.CardType;
-import com.coachingeleven.coachingsoftware.persistence.enumeration.GameType;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.*;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.System;
 
 import javax.annotation.PostConstruct;
@@ -56,9 +55,11 @@ public class GameBean {
     private PostGameReport postGameReport;
 
     private System[] systems;
+    private MissingType[] missingTypes;
+    private LineUpType[] lineUpTypes;
+    private Position[] positions;
     private LineUp lineUp;
-    private Player[] startingPlayers;
-    private Player[] benchedPlayers;
+    private Set<LineUpPlayer> lineUpPlayers;
     private System system;
 
     private int pathGameID;
@@ -79,25 +80,29 @@ public class GameBean {
             if (game.getLineUp() != null) {
                 lineUp = game.getLineUp();
             } else {
-                lineUp = new LineUp();
+                try {
+                    lineUp = new LineUp();
+                    lineUp.setGame(game);
+                    lineUp = gameService.createLineUp(lineUp);
+                } catch (LineUpAlreadyExistsException e) {
+                    //TODO
+                }
             }
-            if (lineUp.getStartingPlayers() != null)
-                startingPlayers = (Player[]) game.getLineUp().getStartingPlayers().toArray();
+            if (lineUp.getLineUpPlayers() != null)
+                lineUpPlayers = game.getLineUp().getLineUpPlayers();
             else {
-                startingPlayers = new Player[11];
-                for (Player p : startingPlayers) p = new Player();
-            }
-            if (lineUp.getBenchedPlayers() != null)
-                benchedPlayers = (Player[]) game.getLineUp().getBenchedPlayers().toArray();
-            else {
-                benchedPlayers = new Player[7];
-                for (Player p : benchedPlayers) p = new Player();
+                lineUpPlayers = new HashSet<>();
+                for (Player p : players) {
+                    LineUpPlayer lup = new LineUpPlayer();
+                    lup.setPlayer(p);
+                    lup.setLineUp(lineUp);
+                    lineUpPlayers.add(lup);
+                }
             }
         } catch (GameNotFoundException e) {
             game = new Game();
             lineUp = new LineUp();
-            startingPlayers = new Player[11];
-            benchedPlayers = new Player[7];
+            lineUpPlayers = new HashSet<>();
         }
         calendar = Calendar.getInstance();
         setGameType();
@@ -120,6 +125,9 @@ public class GameBean {
         gameObjectives = new Objective[2];
         changeOuts.add(new ChangeOut());
         systems = System.values();
+        lineUpTypes = LineUpType.values();
+        missingTypes = MissingType.values();
+        positions = Position.values();
     }
 
     public Game createGame() throws ArenaNotFoundException, TeamNotFoundException {
@@ -138,10 +146,8 @@ public class GameBean {
             game = gameService.createGame(game);
         } catch (GameAlreadyExistsException e) {
             game = gameService.update(game);
-        } finally {
-            game = new Game();
-            resetValues();
         }
+
         return game;
     }
 
@@ -160,21 +166,7 @@ public class GameBean {
     }
 
     public void createLineUp() {
-        lineUp.setGame(game);
-        try {
-            for (Player p : startingPlayers) {
-                if(p != null) p = playerService.findPlayer(p.getID());
-            }
-            for (Player p : benchedPlayers) {
-                if(p != null) p = playerService.findPlayer(p.getID());
-            }
-        } catch (PlayerNotFoundException e) {
-            //TODO
-            e.printStackTrace();
-        }
-        lineUp.setStartingPlayers(new HashSet<Player>(Arrays.asList(startingPlayers)));
-        lineUp.setBenchedPlayers(new HashSet<Player>(Arrays.asList(benchedPlayers)));
-        lineUp.setSystem(system);
+        lineUp.setLineUpPlayers(lineUpPlayers);
         try {
             gameService.createLineUp(lineUp);
         } catch (LineUpAlreadyExistsException e) {
@@ -197,14 +189,6 @@ public class GameBean {
                 game.setGameType(GameType.COUNTRY);
                 break;
         }
-    }
-
-    private void resetValues() {
-        hour = 0;
-        minute = 0;
-        month = 0;
-        year = 0;
-        day = 0;
     }
 
     public Card createCard() {
@@ -403,22 +387,6 @@ public class GameBean {
         this.lineUp = lineUp;
     }
 
-    public Player[] getStartingPlayers() {
-        return startingPlayers;
-    }
-
-    public void setStartingPlayers(Player[] startingPlayers) {
-        this.startingPlayers = startingPlayers;
-    }
-
-    public Player[] getBenchedPlayers() {
-        return benchedPlayers;
-    }
-
-    public void setBenchedPlayers(Player[] benchedPlayers) {
-        this.benchedPlayers = benchedPlayers;
-    }
-
     public String dateToString(Calendar date) {
         return Integer.toString(date.get(Calendar.DATE)) + "." + Integer.toString(date.get(Calendar.MONTH) + 1) + "." +
                 Integer.toString(date.get(Calendar.YEAR));
@@ -434,5 +402,45 @@ public class GameBean {
 
     public void setSystem(System system) {
         this.system = system;
+    }
+
+    public MissingType[] getMissingTypes() {
+        return missingTypes;
+    }
+
+    public void setMissingTypes(MissingType[] missingTypes) {
+        this.missingTypes = missingTypes;
+    }
+
+    public LineUpType[] getLineUpTypes() {
+        return lineUpTypes;
+    }
+
+    public void setLineUpTypes(LineUpType[] lineUpTypes) {
+        this.lineUpTypes = lineUpTypes;
+    }
+
+    public Set<LineUpPlayer> getLineUpPlayers() {
+        return lineUpPlayers;
+    }
+
+    public void setLineUpPlayers(Set<LineUpPlayer> lineUpPlayers) {
+        this.lineUpPlayers = lineUpPlayers;
+    }
+
+    public PlayerServiceRemote getPlayerService() {
+        return playerService;
+    }
+
+    public void setPlayerService(PlayerServiceRemote playerService) {
+        this.playerService = playerService;
+    }
+
+    public Position[] getPositions() {
+        return positions;
+    }
+
+    public void setPositions(Position[] positions) {
+        this.positions = positions;
     }
 }

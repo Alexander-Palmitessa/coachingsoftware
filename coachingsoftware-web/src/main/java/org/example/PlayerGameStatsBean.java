@@ -3,10 +3,7 @@ package org.example;
 import com.coachingeleven.coachingsoftware.application.exception.GameNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.GameServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
-import com.coachingeleven.coachingsoftware.persistence.entity.Game;
-import com.coachingeleven.coachingsoftware.persistence.entity.Goal;
-import com.coachingeleven.coachingsoftware.persistence.entity.Player;
-import com.coachingeleven.coachingsoftware.persistence.entity.PlayerGameStats;
+import com.coachingeleven.coachingsoftware.persistence.entity.*;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -38,16 +35,10 @@ public class PlayerGameStatsBean {
         }
         if (game.getPlayerGameStats().isEmpty() || game.getPlayerGameStats() == null) {
             Set<PlayerGameStats> playerGameStatsSet = new HashSet<>();
-            for (Player player : game.getLineUp().getStartingPlayers()) {
+            for (LineUpPlayer lineUpPlayer : game.getLineUp().getLineUpPlayers()) {
                 PlayerGameStats playerGameStats = new PlayerGameStats();
                 playerGameStats.setGame(game);
-                playerGameStats.setPlayer(player);
-                playerGameStatsSet.add(playerGameStats);
-            }
-            for (Player player : game.getLineUp().getBenchedPlayers()) {
-                PlayerGameStats playerGameStats = new PlayerGameStats();
-                playerGameStats.setGame(game);
-                playerGameStats.setPlayer(player);
+                playerGameStats.setPlayer(lineUpPlayer.getPlayer());
                 playerGameStatsSet.add(playerGameStats);
             }
             game.setPlayerGameStats(playerGameStatsSet);

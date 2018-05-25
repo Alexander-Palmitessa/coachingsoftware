@@ -91,13 +91,6 @@ public class Player implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID")
     )
     private Set<Game> games;
-    @ManyToMany
-    @JoinTable(
-            name = "PLAYER_LINEUP",
-            joinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "LINEUP_ID", referencedColumnName = "LINEUP_ID")
-    )
-    private Set<LineUp> lineUps;
     @OneToMany
     private Set<PlayerGameStats> gameStats;
     @OneToMany(mappedBy = "player")
@@ -275,14 +268,6 @@ public class Player implements Serializable {
 
     public void setGames(Set<Game> games) {
         this.games = games;
-    }
-
-    public Set<LineUp> getLineUps() {
-        return lineUps;
-    }
-
-    public void setLineUps(Set<LineUp> lineUps) {
-        this.lineUps = lineUps;
     }
 
     public Set<PlayerGameStats> getGameStats() {

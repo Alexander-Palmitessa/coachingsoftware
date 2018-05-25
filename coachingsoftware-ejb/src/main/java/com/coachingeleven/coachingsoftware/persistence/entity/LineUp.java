@@ -18,67 +18,55 @@ import java.util.Set;
 @Table(name = "LINEUP")
 public class LineUp implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "LINEUP_ID")
-	private int ID;
-	@ManyToMany(mappedBy = "lineUps")
-	@JoinColumn(name = "STARTING_PLAYER_ID")
-	private Set<Player> startingPlayers;
-	@ManyToMany(mappedBy = "lineUps")
-	@JoinColumn(name = "BENCHED_PLAYER_ID")
-	private Set<Player> benchedPlayers;
-	@Column(name = "SYSTEM")
-	@Enumerated(EnumType.STRING)
-	private System system;
-	@OneToOne
-	@JoinColumn(name = "GAME_ID", nullable = false)
-	private Game game;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "LINEUP_ID")
+    private int ID;
+    @OneToMany(mappedBy = "lineUp", fetch = FetchType.EAGER)
+    private Set<LineUpPlayer> lineUpPlayers;
+    @Column(name = "SYSTEM")
+    @Enumerated(EnumType.STRING)
+    private System system;
+    @OneToOne
+    @JoinColumn(name = "GAME_ID", nullable = false)
+    private Game game;
 
-	/**
-	 * JPA required default constructor
-	 */
-	public LineUp() {
+    /**
+     * JPA required default constructor
+     */
+    public LineUp() {
 
-	}
+    }
 
-	public int getID() {
-		return ID;
-	}
+    public int getID() {
+        return ID;
+    }
 
-	public void setID(int ID) {
-		this.ID = ID;
-	}
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
-	public Set<Player> getStartingPlayers() {
-		return startingPlayers;
-	}
+    public System getSystem() {
+        return system;
+    }
 
-	public void setStartingPlayers(Set<Player> startingPlayers) {
-		this.startingPlayers = startingPlayers;
-	}
+    public void setSystem(System system) {
+        this.system = system;
+    }
 
-	public Set<Player> getBenchedPlayers() {
-		return benchedPlayers;
-	}
+    public Game getGame() {
+        return game;
+    }
 
-	public void setBenchedPlayers(Set<Player> benchedPlayers) {
-		this.benchedPlayers = benchedPlayers;
-	}
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
-	public System getSystem() {
-		return system;
-	}
+    public Set<LineUpPlayer> getLineUpPlayers() {
+        return lineUpPlayers;
+    }
 
-	public void setSystem(System system) {
-		this.system = system;
-	}
-
-	public Game getGame() {
-		return game;
-	}
-
-	public void setGame(Game game) {
-		this.game = game;
-	}
+    public void setLineUpPlayers(Set<LineUpPlayer> lineUpPlayers) {
+        this.lineUpPlayers = lineUpPlayers;
+    }
 }
