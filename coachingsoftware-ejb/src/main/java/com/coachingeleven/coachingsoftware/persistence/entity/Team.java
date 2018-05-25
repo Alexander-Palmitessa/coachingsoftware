@@ -109,4 +109,12 @@ public class Team implements Serializable {
 	public void setUser(UserAccount user) {
 		this.user = user;
 	}
+
+	public Season getSeason() {
+		return season;
+	}
+
+	public void setSeason(Season season) {
+		this.season = season;
+	}
 }

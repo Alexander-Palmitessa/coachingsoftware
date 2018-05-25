@@ -2,9 +2,14 @@ package com.coachingeleven.coachingsoftware;
 
 import com.coachingeleven.coachingsoftware.application.exception.ClubAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.ClubNotFoundException;
+import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyExistsException;
+import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
 import com.coachingeleven.coachingsoftware.application.exception.TeamAlreadyExistsException;
+import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
+import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Club;
+import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
 import javax.annotation.PostConstruct;
@@ -22,12 +27,16 @@ public class TeamClubBean {
 
     @EJB
     private TeamClubServiceRemote teamClubService;
+    @EJB
+    private CountryServiceRemote countryService;
     
     @Inject
 	private NavigationBean navigationBean;
 
     private Team team;
     private Club club;
+    private Address clubAddress;
+    private Country clubCountry;
     
     private List<Club> allClubs;
     private int selectedClubID;
@@ -36,6 +45,8 @@ public class TeamClubBean {
     public void init() {
     	team = new Team();
         club = new Club();
+        clubAddress = new Address();
+        clubCountry = new Country();
         allClubs = teamClubService.findAllClubs();
         for (Club club : allClubs) {
         	HashSet<Team> teams = new HashSet<Team>();
@@ -46,7 +57,14 @@ public class TeamClubBean {
 		}
     }
 
-    public String createClub() throws ClubNotFoundException {
+    public String createClub() throws ClubNotFoundException, CountryAlreadyExistsException {
+        try {
+        	clubCountry = countryService.findCountry(clubCountry.getName());
+    	} catch (CountryNotFounException e) {
+    		clubCountry = countryService.createCountry(clubCountry);
+    	}
+        clubAddress.setCountry(clubCountry);
+        club.setAddress(clubAddress);
         try {
             club = teamClubService.createClub(club);
         } catch (ClubAlreadyExistsException e) {
@@ -92,5 +110,21 @@ public class TeamClubBean {
 
 	public void setSelectedClubID(int selectedClubID) {
 		this.selectedClubID = selectedClubID;
+	}
+
+	public Address getClubAddress() {
+		return clubAddress;
+	}
+
+	public void setClubAddress(Address clubAddress) {
+		this.clubAddress = clubAddress;
+	}
+
+	public Country getClubCountry() {
+		return clubCountry;
+	}
+
+	public void setClubCountry(Country clubCountry) {
+		this.clubCountry = clubCountry;
 	}
 }

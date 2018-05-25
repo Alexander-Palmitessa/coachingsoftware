@@ -22,7 +22,7 @@
 						</h6>
 					</div>
 					
-					<ui:repeat var="player" value="#{playerBean.playersOfCurrentUser}">
+					<ui:repeat var="player" value="#{loginBean.loggedInUser.team.players}">
 						<div class="row add-people-section">
 							<div class="small-12 medium-6 columns about-people">
 								<div class="about-people-avatar">

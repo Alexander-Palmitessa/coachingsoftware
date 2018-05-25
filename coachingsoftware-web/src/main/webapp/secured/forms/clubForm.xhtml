@@ -13,13 +13,40 @@
 	</ui:define>
 
     <ui:define name="content">
-        <h:form>
+        <h:form class="translucent-form-overlay">
 	        <div class="row">
-		        <div class="small-12 column">
+		        <div class="small-12 medium-6 column">
 		        	<label><h:outputText value="#{msg['name']}"/></label>
 				    <h:inputText id="club_name" value="#{teamClubBean.club.name}"/>
 					<h:message for="club_name" style="color: red"/>
 		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['city']}"/></label>
+				    <h:inputText id="player_city" value="#{teamClubBean.clubAddress.city}"/>
+					<h:message for="player_city" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['street']}"/></label>
+				    <h:inputText id="player_street" value="#{teamClubBean.clubAddress.street}"/>
+					<h:message for="player_street" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['streetNr']}"/></label>
+				    <h:inputText id="player_streetNr" value="#{teamClubBean.clubAddress.streetNr}"/>
+					<h:message for="player_streetNr" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['zip']}"/></label>
+				    <h:inputText id="player_playerZip" value="#{teamClubBean.clubAddress.zip}"/>
+					<h:message for="player_playerZip" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+			    	<label><h:outputText value="#{msg['country']}"/></label>
+				    <h:selectOneMenu value="#{teamClubBean.clubCountry.name}">
+				        <f:selectItems value="#{addressBean.countryValue}" var="c" itemValue="#{c.countryValue}"
+				                       itemLabel="#{c.countryLabel}"/>
+				    </h:selectOneMenu>
+			    </div>
 		        <div class="small-12 column text-center">
 		        	<h:commandButton action="#{teamClubBean.createClub()}" value="#{msg['createClub']}"/>
 		        </div>

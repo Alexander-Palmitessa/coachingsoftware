@@ -32,6 +32,8 @@ public class Club implements Serializable {
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "club", orphanRemoval = true)
     private Set<Team> teams;
+    @Embedded
+	private Address address;
 
     /**
      * Class constructor
@@ -74,4 +76,12 @@ public class Club implements Serializable {
         teams.add(team);
         team.setClub(this);
     }
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 }

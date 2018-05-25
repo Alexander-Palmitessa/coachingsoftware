@@ -14,7 +14,28 @@
 	
 	<ui:define name="content">
 		<div class="row">
-			<div class="small-12 column">
+			<div class="small-7 column">
+				<div class="translucent-form-overlay">
+					<h:form>
+				        <div class="row">
+					        <div class="small-12 column">
+					        	<label><h:outputText value="#{msg['club']}"/></label>
+							    <h:inputText id="club_name" value="#{loginBean.loggedInUser.team.club.name}"/>
+								<h:message for="club_name" style="color: red"/>
+					        </div>
+					        <div class="small-12 column">
+					        	<label><h:outputText value="#{msg['name']}"/></label>
+							    <h:inputText id="team_name" value="#{loginBean.loggedInUser.team.name}"/>
+								<h:message for="team_name" style="color: red"/>
+					        </div>
+					        <div class="small-12 column">
+					        	<h:commandButton action="#" value="#{msg['save']}"/>
+					        </div>
+				        </div>
+					</h:form>
+				</div>
+			</div>
+			<div class="small-5 column">
 				<h:graphicImage name="images/sfv_u19.jpg" />
 			</div>
 		</div>
