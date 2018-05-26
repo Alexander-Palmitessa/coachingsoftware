@@ -3,6 +3,7 @@ package com.coachingeleven.coachingsoftware;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.coachingeleven.coachingsoftware.application.exception.SeasonAlreadyExistsException;
@@ -16,6 +17,9 @@ public class SeasonBean {
 	@EJB
 	private SeasonServiceRemote seasonService;
 	
+	@Inject
+	private NavigationBean navigationBean;
+	
 	private Season season;
 	
 	@PostConstruct
@@ -23,13 +27,13 @@ public class SeasonBean {
 		if(season == null) season = new Season();
     }
 	
-	public void createSeason() {
+	public String createSeason() {
 		try {
 			seasonService.createSeason(season);
 		} catch (SeasonAlreadyExistsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// TODO
 		}
+		return navigationBean.redirectToSeasonForm();
 	}
 
 	public Season getSeason() {

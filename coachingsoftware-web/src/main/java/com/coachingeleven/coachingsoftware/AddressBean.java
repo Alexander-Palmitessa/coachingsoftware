@@ -7,12 +7,11 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import java.io.Serializable;
 import java.util.Locale;
 
 @Named("addressBean")
 @RequestScoped
-public class AddressBean implements Serializable {
+public class AddressBean {
 
     @EJB
     private CountryServiceRemote countryService;

@@ -33,20 +33,20 @@ public class TeamClubBean {
     @Inject
 	private NavigationBean navigationBean;
 
-    private Team team;
-    private Club club;
-    private Address clubAddress;
-    private Country clubCountry;
+    private Team newTeam;
+    private Club newClub;
+    private Address newAddress;
+    private Country newCountry;
     
     private List<Club> allClubs;
-    private int selectedClubID;
+    private int selectedClubId;
 
     @PostConstruct
     public void init() {
-    	team = new Team();
-        club = new Club();
-        clubAddress = new Address();
-        clubCountry = new Country();
+    	newTeam = new Team();
+    	newClub = new Club();
+    	newAddress = new Address();
+    	newCountry = new Country();
         allClubs = teamClubService.findAllClubs();
         for (Club club : allClubs) {
         	HashSet<Team> teams = new HashSet<Team>();
@@ -59,41 +59,25 @@ public class TeamClubBean {
 
     public String createClub() throws ClubNotFoundException, CountryAlreadyExistsException {
         try {
-        	clubCountry = countryService.findCountry(clubCountry.getName());
+        	newCountry = countryService.findCountry(newCountry.getName());
     	} catch (CountryNotFounException e) {
-    		clubCountry = countryService.createCountry(clubCountry);
+    		newCountry = countryService.createCountry(newCountry);
     	}
-        clubAddress.setCountry(clubCountry);
-        club.setAddress(clubAddress);
+        newAddress.setCountry(newCountry);
+        newClub.setAddress(newAddress);
         try {
-            club = teamClubService.createClub(club);
+        	newClub = teamClubService.createClub(newClub);
         } catch (ClubAlreadyExistsException e) {
-            club = teamClubService.findClub(club.getName());
+        	newClub = teamClubService.findClub(newClub.getName());
         }
-        return navigationBean.toClubForm();
+        return navigationBean.redirectToClubForm();
     }
 
     public String createTeam() throws ClubNotFoundException, TeamAlreadyExistsException {
-    	club = teamClubService.findClub(selectedClubID);
-        team.setClub(club);
-        teamClubService.createTeam(team);
-        return navigationBean.toTeamForm();
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
-
-    public Club getClub() {
-        return club;
-    }
-
-    public void setClub(Club club) {
-        this.club = club;
+    	Club selectedClub = teamClubService.findClub(selectedClubId);
+    	newTeam.setClub(selectedClub);
+        teamClubService.createTeam(newTeam);
+        return navigationBean.redirectToTeamForm();
     }
 
 	public List<Club> getAllClubs() {
@@ -104,27 +88,43 @@ public class TeamClubBean {
 		this.allClubs = allClubs;
 	}
 
-	public int getSelectedClubID() {
-		return selectedClubID;
+	public Team getNewTeam() {
+		return newTeam;
 	}
 
-	public void setSelectedClubID(int selectedClubID) {
-		this.selectedClubID = selectedClubID;
+	public void setNewTeam(Team newTeam) {
+		this.newTeam = newTeam;
 	}
 
-	public Address getClubAddress() {
-		return clubAddress;
+	public Club getNewClub() {
+		return newClub;
 	}
 
-	public void setClubAddress(Address clubAddress) {
-		this.clubAddress = clubAddress;
+	public void setNewClub(Club newClub) {
+		this.newClub = newClub;
 	}
 
-	public Country getClubCountry() {
-		return clubCountry;
+	public Address getNewAddress() {
+		return newAddress;
 	}
 
-	public void setClubCountry(Country clubCountry) {
-		this.clubCountry = clubCountry;
+	public void setNewAddress(Address newAddress) {
+		this.newAddress = newAddress;
+	}
+
+	public Country getNewCountry() {
+		return newCountry;
+	}
+
+	public void setNewCountry(Country newCountry) {
+		this.newCountry = newCountry;
+	}
+
+	public int getSelectedClubId() {
+		return selectedClubId;
+	}
+
+	public void setSelectedClubId(int selectedClubId) {
+		this.selectedClubId = selectedClubId;
 	}
 }

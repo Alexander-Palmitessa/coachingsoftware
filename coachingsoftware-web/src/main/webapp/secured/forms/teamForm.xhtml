@@ -17,14 +17,14 @@
         	<div class="row">
 		        <div class="small-12 medium-6 column">
 		        	<label><h:outputText value="#{msg['name']}"/></label>
-				    <h:inputText id="team_name" value="#{teamClubBean.team.name}"/>
+				    <h:inputText id="team_name" value="#{teamClubBean.newTeam.name}"/>
 					<h:message for="team_name" style="color: red"/>
 		        </div>
 		        <div class="small-12 medium-6 column">
 		        	<label><h:outputText value="#{msg['club']}"/></label>
-				    <h:selectOneMenu value="#{teamClubBean.selectedClubID}">
-				        <f:selectItems value="#{teamClubBean.allClubs}" var="c" itemValue="#{c.name}"
-				                       itemLabel="#{c.name}"/>
+				    <h:selectOneMenu value="#{teamClubBean.selectedClubId}">
+				        <f:selectItems value="#{teamClubBean.allClubs}" var="club" itemValue="#{club.ID}"
+				                       itemLabel="#{club.name}"/>
 				    </h:selectOneMenu>
 		        </div>
 		        <div class="small-12 column text-center">

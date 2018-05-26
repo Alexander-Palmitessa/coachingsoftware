@@ -22,7 +22,7 @@
 						</h6>
 					</div>
 					
-					<ui:repeat var="player" value="#{loginBean.loggedInUser.team.players}">
+					<ui:repeat var="player" value="#{playerBean.currentPlayers}">
 						<div class="row add-people-section">
 							<div class="small-12 medium-6 columns about-people">
 								<div class="about-people-avatar">
@@ -34,11 +34,51 @@
 									</p>
 									<p class="author-location">
 										<i class="fa fa-map-marker" aria-hidden="true"></i>
-										<h:outputText value="#{player.address.city}"/>, <h:outputText value="#{player.address.country.name}"/>
+										<h:outputText value="#{player.address.city}, #{player.address.country.name}"/>
 									</p>
 								</div>    
 							</div>
-							<div class="small-12 medium-6 columns add-friend">
+							<div class="small-12 medium-2 columns">
+								<div class="about-people-author">
+									<p class="author-name">
+										<h:outputText value="#{msg['player']}"/>
+									</p>
+								</div>
+							</div>
+							<div class="small-12 medium-4 columns add-friend">
+								<div class="add-friend-action">
+									<button class="button primary-button">
+										<i class="fa fa-user-plus" aria-hidden="true"></i>
+										<h:outputText value="#{msg['addFriend']}"/>
+									</button>
+								</div>
+							</div>
+						</div>
+					</ui:repeat>
+					<ui:repeat var="player" value="#{playerBean.historyPlayers}">
+						<div class="row add-people-section">
+							<div class="small-12 medium-6 columns about-people">
+								<div class="about-people-avatar">
+									<h:graphicImage name="images/Default-avatar.jpg" />
+								</div>
+								<div class="about-people-author">
+									<p class="author-name">
+										<h:outputText value="#{player.firstName}"/><h:outputText value=" "/><h:outputText value="#{player.lastName}"/>
+									</p>
+									<p class="author-location">
+										<i class="fa fa-map-marker" aria-hidden="true"></i>
+										<h:outputText value="#{player.address.city}, #{player.address.country.name}"/>
+									</p>
+								</div>    
+							</div>
+							<div class="small-12 medium-2 columns">
+								<div class="about-people-author">
+									<p class="author-name">
+										<h:outputText value="#{msg['historyPlayer']}"/>
+									</p>
+								</div>
+							</div>
+							<div class="small-12 medium-4 columns add-friend">
 								<div class="add-friend-action">
 									<button class="button primary-button">
 										<i class="fa fa-user-plus" aria-hidden="true"></i>
