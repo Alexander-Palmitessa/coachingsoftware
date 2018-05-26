@@ -76,4 +76,14 @@ public class PlayerService implements PlayerServiceRemote {
 		return playerRepository.findAll(Player.class);
 	}
 
+	@Override
+	public List<Player> findCurrentPlayersByTeam(int teamId) {
+		return playerRepository.findCurrentPlayersByTeam(teamId);
+	}
+
+	@Override
+	public List<Player> findHistoryPlayersByTeam(int teamId) {
+		return playerRepository.findHistoryPlayersByTeam(teamId);
+	}
+
 }

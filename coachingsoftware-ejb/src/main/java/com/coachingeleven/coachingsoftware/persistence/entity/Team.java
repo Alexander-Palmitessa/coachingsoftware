@@ -37,12 +37,6 @@ public class Team implements Serializable {
 	@JoinColumn(name = "CLUB_ID")
 	@ManyToOne
 	private Club club;
-	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinTable(
-			name = "TEAM_PLAYER",
-			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID"),
-			inverseJoinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"))
-	private Set<Player> players;
 	@ManyToMany
 	@JoinTable(
 			name = "TEAM_GAME",
@@ -51,8 +45,13 @@ public class Team implements Serializable {
 	private Set<Game> games;
 	@OneToOne(mappedBy="team")
 	private UserAccount user;
+	@JoinColumn(name = "ID_SEASON")
 	@ManyToOne
 	private Season season;
+	@OneToMany(mappedBy = "currentTeam")
+	private Set<Player> currentPlayers;
+	@ManyToMany(mappedBy = "historyTeams")
+    private Set<Player> historyPlayers;
 
 	public Team(String name, Club club) {
 		this.name = name;
@@ -86,14 +85,6 @@ public class Team implements Serializable {
 		this.club = club;
 	}
 
-	public Set<Player> getPlayers() {
-		return players;
-	}
-
-	public void setPlayers(Set<Player> players) {
-		this.players = players;
-	}
-
 	public Set<Game> getGames() {
 		return games;
 	}
@@ -116,5 +107,21 @@ public class Team implements Serializable {
 
 	public void setSeason(Season season) {
 		this.season = season;
+	}
+
+	public Set<Player> getCurrentPlayers() {
+		return currentPlayers;
+	}
+
+	public void setCurrentPlayers(Set<Player> currentPlayers) {
+		this.currentPlayers = currentPlayers;
+	}
+
+	public Set<Player> getHistoryPlayers() {
+		return historyPlayers;
+	}
+
+	public void setHistoryPlayers(Set<Player> historyPlayers) {
+		this.historyPlayers = historyPlayers;
 	}
 }

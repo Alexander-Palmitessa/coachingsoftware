@@ -1,5 +1,7 @@
 package com.coachingeleven.coachingsoftware;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -33,6 +35,9 @@ public class PlayerBean {
 	@EJB
     private CountryServiceRemote countryService;
 	
+	private List<Player> currentPlayers;
+	private List<Player> historyPlayers;
+	
 	private Player showPlayer;
 	private Player newPlayer;
 	private Address newPlayerAddress;
@@ -43,6 +48,8 @@ public class PlayerBean {
 		newPlayer = new Player();
 		newPlayerAddress = new Address();
 		newPlayerCountry = new Country();
+		currentPlayers = playerService.findCurrentPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
+		historyPlayers = playerService.findHistoryPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
     }
 	
 	public String createPlayer() throws CountryAlreadyExistsException, PlayerNotFoundException {
@@ -54,6 +61,8 @@ public class PlayerBean {
 		
 		newPlayerAddress.setCountry(newPlayerCountry);
 		newPlayer.setAddress(newPlayerAddress);
+		// Add created player to the managed team of the logged in user
+		newPlayer.setCurrentTeam(loginBean.getLoggedInUser().getTeam());
 		
 		try {
 			newPlayer = playerService.createPlayer(newPlayer);
@@ -61,8 +70,6 @@ public class PlayerBean {
 			newPlayer = playerService.findPlayer(newPlayer.getID());
 		}
 		
-		loginBean.getLoggedInUser().getTeam().getPlayers().add(newPlayer);
-		userService.updateUser(loginBean.getLoggedInUser());
 		return navigationBean.toPlayerForm();
 	}
 	
@@ -110,5 +117,21 @@ public class PlayerBean {
 
 	public void setNewPlayerCountry(Country newPlayerCountry) {
 		this.newPlayerCountry = newPlayerCountry;
+	}
+
+	public List<Player> getCurrentPlayers() {
+		return currentPlayers;
+	}
+
+	public void setCurrentPlayers(List<Player> currentPlayers) {
+		this.currentPlayers = currentPlayers;
+	}
+
+	public List<Player> getHistoryPlayers() {
+		return historyPlayers;
+	}
+
+	public void setHistoryPlayers(List<Player> historyPlayers) {
+		this.historyPlayers = historyPlayers;
 	}
 }

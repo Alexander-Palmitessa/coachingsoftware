@@ -20,7 +20,9 @@ import java.util.Set;
 @Table(name = "GAME")
 public class Game implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = 8831699747010806773L;
+	
+	@Id
     @Column(name = "GAME_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;

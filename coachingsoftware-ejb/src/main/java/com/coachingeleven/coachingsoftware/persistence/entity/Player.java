@@ -42,7 +42,11 @@ import java.util.Set;
 @Table(name = "PLAYER")
 @NamedQueries({
 	@NamedQuery(name = "findPlayer",
-			query = "SELECT c FROM Player c WHERE LOWER(c.email) = LOWER(:email)")
+			query = "SELECT p FROM Player p WHERE LOWER(p.email) = LOWER(:email)"),
+	@NamedQuery(name = "findPlayerByCurrentTeamId",
+			query = "SELECT p FROM Player p WHERE p.currentTeam.ID = :teamId"),
+	@NamedQuery(name = "findHistoryPlayerByTeamId",
+			query = "SELECT p FROM Player p JOIN p.historyTeams t WHERE t.ID = :teamId")
 })
 public class Player implements Serializable {
 
@@ -99,8 +103,6 @@ public class Player implements Serializable {
 	@JoinColumn(name = "COUNTRY_PERMISSION_ID")
 	@ManyToOne
 	private Country countryPermission;
-	@ManyToMany(mappedBy = "players")
-	private Set<Team> teams;
 	@ManyToMany
 	@JoinTable(
 			name = "PLAYER_GAME",
@@ -123,6 +125,16 @@ public class Player implements Serializable {
 	private Set<EvaluationTalk> evaluationTalks;
 	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
 	private String avatarUrl;
+	@JoinColumn(name = "CURRENT_TEAM_ID")
+	@ManyToOne
+	private Team currentTeam;
+	@ManyToMany
+	@JoinTable(
+			name = "PLAYER_TEAM_HISTORY",
+			joinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"),
+			inverseJoinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID")
+	)
+	private Set<Team> historyTeams;
 
 
 	/**
@@ -274,14 +286,6 @@ public class Player implements Serializable {
 		this.countryPermission = countryPermission;
 	}
 
-	public Set<Team> getTeams() {
-		return teams;
-	}
-
-	public void setTeams(Set<Team> teams) {
-		this.teams = teams;
-	}
-
 	public Set<Game> getGames() {
 		return games;
 	}
@@ -336,5 +340,21 @@ public class Player implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Team getCurrentTeam() {
+		return currentTeam;
+	}
+
+	public void setCurrentTeam(Team currentTeam) {
+		this.currentTeam = currentTeam;
+	}
+
+	public Set<Team> getHistoryTeams() {
+		return historyTeams;
+	}
+
+	public void setHistoryTeams(Set<Team> historyTeams) {
+		this.historyTeams = historyTeams;
 	}
 }

@@ -1,7 +1,6 @@
 package com.coachingeleven.coachingsoftware;
 
 import java.io.Serializable;
-import java.util.HashSet;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -13,9 +12,6 @@ import com.coachingeleven.coachingsoftware.application.exception.*;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
-import com.coachingeleven.coachingsoftware.persistence.entity.Club;
-import com.coachingeleven.coachingsoftware.persistence.entity.Player;
-import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
 
 @Named(value = "loginBean")
@@ -52,43 +48,15 @@ public class LoginBean implements Serializable {
 		try {
 			loggedInUser = userService.createUser(new UserAccount("elias","elias","elias.schildknecht@students.bfh.ch"));
 			indexBean.init();
-		} catch (UserAlreadyExistsException e) {
+		} catch (UserAlreadyExistsException | ArenaAlreadyExistsException | ClubAlreadyExistsException | TeamAlreadyExistsException | PlayerAlreadyExistsException | GameAlreadyExistsException e) {
 			// TODO 
-		} catch (ClubAlreadyExistsException | ArenaAlreadyExistsException | TeamAlreadyExistsException |
-				PlayerAlreadyExistsException | GameAlreadyExistsException e) {
-			e.printStackTrace();
 		}
+		
 	}
 	
 	public String doLogin() {
 		if(userService.authenticate(password, loggedInUser.getPassword())) {
 			loggedIn = true;
-			
-			try {
-				Player player1 = playerService.createPlayer(new Player("Elias","Schildknecht","test@test.ch"));
-				Player player2 = playerService.createPlayer(new Player("Alexander","Palmitessa","test@test2.ch"));
-				Club club = teamClubService.createClub(new Club("Verein 1"));
-				Team team = teamClubService.createTeam(new Team("Team 1",club));
-				HashSet<Player> players = new HashSet<Player>();
-				players.add(player1);
-				players.add(player2);
-				team.setPlayers(players);
-				teamClubService.updateTeam(team);
-				club.addTeam(team);
-				teamClubService.updateClub(club);
-				loggedInUser.setTeam(team);
-				userService.updateUser(loggedInUser);
-			} catch (PlayerAlreadyExistsException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (TeamAlreadyExistsException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClubAlreadyExistsException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
 			if(loggedInUser.getTeam() != null) {
 				hasUserAssignedTeam = true;
 				return navigationBean.redirectToHome();

@@ -10,6 +10,8 @@ package com.coachingeleven.coachingsoftware.persistence.repository;
 
 import static javax.ejb.TransactionAttributeType.SUPPORTS;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.persistence.NoResultException;
@@ -31,6 +33,28 @@ public class PlayerRepository extends Repository<Player> {
 			TypedQuery<Player> query = entityManager.createNamedQuery("findPlayer", Player.class);
 			query.setParameter("email", email);
 			return query.getSingleResult();
+		} catch (NoResultException ex) {
+			return null;
+		}
+	}
+	
+	@TransactionAttribute(SUPPORTS)
+	public List<Player> findCurrentPlayersByTeam(int teamId) {
+		try {
+			TypedQuery<Player> query = entityManager.createNamedQuery("findPlayerByCurrentTeamId", Player.class);
+			query.setParameter("teamId", teamId);
+			return query.getResultList();
+		} catch (NoResultException ex) {
+			return null;
+		}
+	}
+	
+	@TransactionAttribute(SUPPORTS)
+	public List<Player> findHistoryPlayersByTeam(int teamId) {
+		try {
+			TypedQuery<Player> query = entityManager.createNamedQuery("findHistoryPlayerByTeamId", Player.class);
+			query.setParameter("teamId", teamId);
+			return query.getResultList();
 		} catch (NoResultException ex) {
 			return null;
 		}

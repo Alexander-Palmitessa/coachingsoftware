@@ -19,12 +19,11 @@ public interface PlayerServiceRemote {
 	 * */
 	public Player createPlayer(Player player) throws PlayerAlreadyExistsException;
 	
-	// TODO: 'finding player' is in use case xy
 	public Player findPlayer(int id) throws PlayerNotFoundException;
 	public Player findPlayer(String email) throws PlayerNotFoundException;
 	public List<Player> findAllPlayers();
-
 	public void deletePlayer(Player player);
-
     public Player update(Player player);
+    public List<Player> findCurrentPlayersByTeam(int teamId);
+    public List<Player> findHistoryPlayersByTeam(int teamId);
 }
