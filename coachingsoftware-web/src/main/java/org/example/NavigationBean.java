@@ -77,6 +77,10 @@ public class NavigationBean implements Serializable {
 
 	public String toGameOverview() { return "/secured/pages/gameList.xhtml"; }
 
-	public String redirectToGame(int id) { return "secured/forms/gameForm.xhtml?id="+Integer.toString(id); }
+	public String redirectToUpdateGameForm() { return "/secured/forms/updateGameForm.xhtml"; }
+
+	public String redirectToNewGameForm() { return "/coachingsoftware/secured/forms/newGameForm.xhtml"; }
+
+	public String redirectToLineUpForm() { return "/secured/forms/lineUpForm.xhtml"; }
 
 }

@@ -44,10 +44,8 @@ public class Team implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"))
     private Set<Player> players;
     @OneToMany(mappedBy = "teamHome", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "TEAM_ID")
     private Set<Game> gamesHome;
     @OneToMany(mappedBy = "teamAway", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "TEAM_ID")
     private Set<Game> gamesAway;
     @OneToOne(mappedBy = "team")
     private UserAccount user;

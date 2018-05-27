@@ -5,11 +5,6 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <f:metadata>
-        <f:viewParam name="id" value="#{gameBean.pathGameID}"/>
-        <f:viewAction action="#{gameBean.viewActionInit}" onPostback="true"/>
-    </f:metadata>
-
     <ui:define name="title">
         #{msg['createLineUp']} - Coaching Eleven
     </ui:define>
@@ -20,12 +15,12 @@
                 <ul class="menu menu-hover-lines player-menu">
                     <li>
                         <h:outputLink
-                                value="#{request.contextPath}/secured/forms/gameForm.xhtml?id=#{gameBean.pathGameID}"><h:outputText
+                                value="#{navigationBean.redirectToUpdateGameForm}"><h:outputText
                                 value="#{msg['overview']}"/></h:outputLink>
                     </li>
                     <li  class="active">
                         <h:outputLink
-                                value="#{request.contextPath}/secured/forms/lineUpForm.xhtml?id=#{gameBean.pathGameID}"><h:outputText
+                                value="#{navigationBean.redirectToLineUpForm}"><h:outputText
                                 value="#{msg['lineUp']}"/></h:outputLink>
                     </li>
                     <li>
@@ -49,7 +44,7 @@
                                        itemLabel="#{msg['systemType.'.concat(s)]}"/>
                     </h:selectOneMenu>
                     <label><h:outputText value="#{msg['players']}"/></label>
-                    <ui:repeat value="#{gameBean.game.lineUp.lineUpPlayers}" var="lup">
+                    <ui:repeat value="#{gameBean.currentGame.lineUp.lineUpPlayers}" var="lup">
 
                         <label><h:outputText value="#{lup.player.firstName} #{lup.player.lastName}"/></label>
 

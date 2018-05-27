@@ -4,12 +4,6 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <f:metadata>
-        <f:viewParam name="id" value="#{gameBean.pathGameID}" />
-        <f:viewParam name="gameType" value="#{gameBean.gameTypeNumber}" />
-        <f:viewAction action="#{gameBean.viewActionInit}" onPostback="true"/>
-    </f:metadata>
-
     <ui:define name="title">
         #{msg['createGame']} - Coaching Eleven
     </ui:define>
@@ -20,27 +14,6 @@
 
     <ui:define name="content">
         <div class="row">
-        <div class="small-12 column">
-            <ul class="menu menu-hover-lines player-menu">
-                <li class="active">
-                    <h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml?id=#{gameBean.pathGameID}">
-                        <h:outputText value="#{msg['overview']}"/></h:outputLink>
-                </li>
-                <li>
-                    <h:outputLink value="#{request.contextPath}/secured/forms/lineUpForm.xhtml?id=#{gameBean.pathGameID}">
-                        <h:outputText value="#{msg['lineUp']}"/></h:outputLink>
-                </li>
-                <li>
-                    <h:outputLink value="#"><h:outputText value="#{msg['preGameReport']}"/></h:outputLink>
-                </li>
-                <li>
-                    <h:outputLink value="#"><h:outputText value="#{msg['postGameReport']}"/></h:outputLink>
-                </li>
-                <li>
-                    <h:outputLink value="#"><h:outputText value="#{msg['playerGameStats']}"/></h:outputLink>
-                </li>
-            </ul>
-        </div>
         </div>
         <h:form>
             <div class="row">
