@@ -9,6 +9,7 @@
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Foot;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.GoalType;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Standard;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Zone;
 
@@ -28,7 +29,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "GOAL")
 public class Goal implements Serializable {
-	
+
 	@Id
 	@Column(name = "GOAL_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +37,7 @@ public class Goal implements Serializable {
 	@JoinColumn(name = "SCORER_ID", nullable = false)
 	@ManyToOne
 	private Player scorer;
-	@JoinColumn(name = "ASSITANT_ID")
+	@JoinColumn(name = "ASSISTANT_ID")
 	@ManyToOne
 	private Player assistant;
 	@JoinColumn(name = "GAME_ID", nullable = false)
@@ -60,6 +61,8 @@ public class Goal implements Serializable {
 	@Column(name = "MINUTE_SCORED")
 	@Min(value = 0, message = "{min.zero}")
 	private int minuteScored;
+	@Enumerated(EnumType.STRING)
+	private GoalType goalType;
 
 	/**
 	 * Class constructor for goals without assistant
@@ -181,5 +184,25 @@ public class Goal implements Serializable {
 
 	public void setStandard(Standard standard) {
 		this.standard = standard;
+	}
+
+	public void setID(int ID) {
+		this.ID = ID;
+	}
+
+	public int getMinuteScored() {
+		return minuteScored;
+	}
+
+	public void setMinuteScored(int minuteScored) {
+		this.minuteScored = minuteScored;
+	}
+
+	public GoalType getGoalType() {
+		return goalType;
+	}
+
+	public void setGoalType(GoalType goalType) {
+		this.goalType = goalType;
 	}
 }

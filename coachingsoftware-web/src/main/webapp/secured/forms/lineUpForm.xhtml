@@ -18,12 +18,12 @@
         <div class="row">
             <div class="small-12 column">
                 <ul class="menu menu-hover-lines player-menu">
-                    <li class="active">
+                    <li>
                         <h:outputLink
                                 value="#{request.contextPath}/secured/forms/gameForm.xhtml?id=#{gameBean.pathGameID}"><h:outputText
                                 value="#{msg['overview']}"/></h:outputLink>
                     </li>
-                    <li>
+                    <li  class="active">
                         <h:outputLink
                                 value="#{request.contextPath}/secured/forms/lineUpForm.xhtml?id=#{gameBean.pathGameID}"><h:outputText
                                 value="#{msg['lineUp']}"/></h:outputLink>
@@ -44,33 +44,36 @@
             <div class="row">
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['system']}"/></label>
-                    <h:selectOneMenu value="#{gameBean.system}">
+                    <h:selectOneMenu value="#{gameBean.selectedSystem}">
                         <f:selectItems value="#{gameBean.systems}" var="s" itemValue="#{s}"
                                        itemLabel="#{msg['systemType.'.concat(s)]}"/>
                     </h:selectOneMenu>
                     <label><h:outputText value="#{msg['players']}"/></label>
-                    <ui:repeat value="#{gameBean.lineUpPlayers}" var="lup">
+                    <ui:repeat value="#{gameBean.game.lineUp.lineUpPlayers}" var="lup">
 
                         <label><h:outputText value="#{lup.player.firstName} #{lup.player.lastName}"/></label>
 
                         <h:selectOneMenu value="#{lup.lineUpType}">
+                            <f:selectItem value="#{null}" itemLabel="-"/>
                             <f:selectItems value="#{gameBean.lineUpTypes}" var="lut" itemValue="#{lut}"
                                            itemLabel="#{msg['lineUpType.'.concat(lut)]}"/>
                         </h:selectOneMenu>
                         <h:selectOneMenu value="#{lup.position}">
+                            <f:selectItem value="#{null}" itemLabel="-"/>
                             <f:selectItems value="#{gameBean.positions}" var="p"
-                                           itemValue="#{(lup.lineUpType.equals('MISSING')) ? null : p}"
+                                           itemValue="p"
                                            itemLabel="#{msg['position.'.concat(p)]}"/>
                         </h:selectOneMenu>
                         <h:selectOneMenu value="#{lup.missingType}">
+                            <f:selectItem value="#{null}" itemLabel="-"/>
                             <f:selectItems value="#{gameBean.missingTypes}" var="mt"
-                                           itemValue="#{(lup.lineUpType.equals('MISSING')) ? mt : null}"
+                                           itemValue="mt"
                                            itemLabel="#{msg['missingType.'.concat(mt)]}"/>
                         </h:selectOneMenu>
                     </ui:repeat>
                 </div>
                 <div class="small-12 column text-center">
-                    <h:commandButton action="#{gameBean.createLineUp()}" value="submit"/>
+                    <h:commandButton action="#{gameBean.updateLineUp}" value="submit"/>
                 </div>
             </div>
         </h:form>

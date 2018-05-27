@@ -39,4 +39,6 @@ public interface GameServiceRemote {
     LineUpPlayer createLineUpPlayer(LineUpPlayer lineUpPlayer) throws LineUpPlayerAlreadyExistsException;
 
     LineUpPlayer update(LineUpPlayer lineUpPlayer);
+
+	void flush();
 }

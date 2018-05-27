@@ -36,7 +36,9 @@ public class Repository<T> {
 
 	@TransactionAttribute(MANDATORY)
 	public T update(T entity) {
-		return entityManager.merge(entity);
+		entityManager.merge(entity);
+		entityManager.flush();
+		return entity;
 	}
 
 	@TransactionAttribute(MANDATORY)
@@ -54,4 +56,8 @@ public class Repository<T> {
     public List<T> findAll(Class<T> type) {
 		return entityManager.createQuery("Select t from " + type.getSimpleName() + " t").getResultList();
     }
+
+    public void flush(){
+		entityManager.flush();
+	}
 }

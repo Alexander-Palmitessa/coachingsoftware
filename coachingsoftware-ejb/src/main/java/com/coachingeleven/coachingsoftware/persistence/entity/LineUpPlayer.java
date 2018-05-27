@@ -14,7 +14,7 @@ public class LineUpPlayer implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "LINEUP_PLAYER_ID")
     private int ID;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "LINEUP_ID")
     private LineUp lineUp;
     @ManyToOne

@@ -22,13 +22,13 @@ public class LineUp implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "LINEUP_ID")
     private int ID;
-    @OneToMany(mappedBy = "lineUp", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "lineUp", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<LineUpPlayer> lineUpPlayers;
     @Column(name = "SYSTEM")
     @Enumerated(EnumType.STRING)
     private System system;
-    @OneToOne
-    @JoinColumn(name = "GAME_ID", nullable = false)
+    @JoinColumn(name = "GAME_ID")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "lineUp")
     private Game game;
 
     /**
@@ -54,19 +54,19 @@ public class LineUp implements Serializable {
         this.system = system;
     }
 
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
     public Set<LineUpPlayer> getLineUpPlayers() {
         return lineUpPlayers;
     }
 
     public void setLineUpPlayers(Set<LineUpPlayer> lineUpPlayers) {
         this.lineUpPlayers = lineUpPlayers;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

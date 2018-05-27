@@ -110,6 +110,7 @@ public class GameService implements GameServiceRemote {
 
     @Override
     public Game update(Game game) {
+        logger.log(Level.INFO, "Updating game with id ''{0}''", game.getID());
         return gameRepository.update(game);
     }
 
@@ -126,6 +127,11 @@ public class GameService implements GameServiceRemote {
             throw new LineUpPlayerAlreadyExistsException();
         }
         return lineUpPlayerRepository.persist(lineUpPlayer);
+    }
+
+    @Override
+    public void flush(){
+        gameRepository.flush();
     }
 
     @Override

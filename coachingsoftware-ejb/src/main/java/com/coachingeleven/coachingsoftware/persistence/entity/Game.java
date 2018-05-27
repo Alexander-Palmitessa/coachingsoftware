@@ -9,6 +9,7 @@
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import com.coachingeleven.coachingsoftware.persistence.enumeration.GameType;
+import org.eclipse.persistence.annotations.Mutable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -26,29 +27,23 @@ public class Game implements Serializable {
     private int ID;
     @Column(name = "DATE")
     @Temporal(TemporalType.DATE)
+    @Mutable
     private Calendar date;
     @Column(name = "TIME")
     @Temporal(TemporalType.TIME)
+    @Mutable
     private Calendar time;
     @ManyToOne
     @JoinColumn(name = "ARENA_ID")
     private Arena arena;
     @JoinColumn(name = "TEAM_HOME_ID")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Team teamHome;
     @JoinColumn(name = "TEAM_AWAY_ID")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Team teamAway;
-    @ManyToMany(mappedBy = "games")
-    private Set<Team> teams;
-    @JoinColumn(name = "GOALS_HOME_ID")
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Goal> goalsHome;
-    @JoinColumn(name = "GOALS_AWAY_ID")
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Goal> goalsAway;
-    @OneToMany(mappedBy = "game", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Objective> objectives;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "game")
+    private Set<Goal> goals;
     @OneToOne(mappedBy = "game")
     private PostGameReport postGameReport;
     @OneToOne(mappedBy = "game")
@@ -64,7 +59,7 @@ public class Game implements Serializable {
     private int getResultGoalsAway;
     @OneToMany(mappedBy = "game", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<PlayerGameStats> playerGameStats;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "LINE_UP_ID")
     private LineUp lineUp;
     @JoinColumn(name = "ID_SEASON")
@@ -137,14 +132,6 @@ public class Game implements Serializable {
         this.teamAway = teamAway;
     }
 
-    public Set<Team> getTeams() {
-        return teams;
-    }
-
-    public void setTeams(Set<Team> teams) {
-        this.teams = teams;
-    }
-
     public LineUp getLineUp() {
         return lineUp;
     }
@@ -153,40 +140,9 @@ public class Game implements Serializable {
         this.lineUp = lineUp;
     }
 
-    public Set<Goal> getGoalsHome() {
-        return goalsHome;
-    }
-
-
-    public void setGoalsHome(Set<Goal> goalsHome) {
-        this.goalsHome = goalsHome;
-    }
-
-
-    public Set<Goal> getGoalsAway() {
-        return goalsAway;
-    }
-
-
-    public void setGoalsAway(Set<Goal> goalsAway) {
-        this.goalsAway = goalsAway;
-    }
-
-
-    public Set<Objective> getObjectives() {
-        return objectives;
-    }
-
-
-    public void setObjectives(Set<Objective> objectives) {
-        this.objectives = objectives;
-    }
-
-
     public PostGameReport getPostGameReport() {
         return postGameReport;
     }
-
 
     public void setPostGameReport(PostGameReport postGameReport) {
         this.postGameReport = postGameReport;
