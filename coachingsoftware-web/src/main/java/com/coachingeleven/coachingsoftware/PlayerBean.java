@@ -77,7 +77,7 @@ public class PlayerBean {
 		try {
 			showPlayer = playerService.findPlayer(playerId);
 			// TODO: Reload player content via ajax
-			return navigationBean.toPlayer();
+			return navigationBean.redirectToPlayer();
 		} catch (PlayerNotFoundException e) {
 			return navigationBean.toPlayerOverview();
 		}
