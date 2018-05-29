@@ -89,16 +89,16 @@
 					<a href="#">#{msg['newGame']}</a>
 					<ul class="menu vertical nested">
 						<li>
-							<h:outputLink value="#{gameBean.setUpNewGame(0)}">#{msg['championshipGame']}</h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/forms/newGameForm.xhtml?gameType=0">#{msg['championshipGame']}</h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{gameBean.setUpNewGame(1)}">#{msg['cupGame']}</h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/forms/newGameForm.xhtml?gameType=1">#{msg['cupGame']}</h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{gameBean.setUpNewGame(2)}">#{msg['testGame']}</h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/forms/newGameForm.xhtml?gameType=2">#{msg['testGame']}</h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{gameBean.setUpNewGame(3)}">#{msg['countryGame']}</h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/forms/newGameForm.xhtml?gameType=3">#{msg['countryGame']}</h:outputLink>
 						</li>
 					</ul>
 				</li>

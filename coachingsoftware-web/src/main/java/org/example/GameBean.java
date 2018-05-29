@@ -9,16 +9,15 @@ import com.coachingeleven.coachingsoftware.persistence.entity.*;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.*;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.System;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.*;
 
 @Named("gameBean")
-@RequestScoped
+@SessionScoped
 public class GameBean implements Serializable {
 
 	@EJB
@@ -53,11 +52,80 @@ public class GameBean implements Serializable {
 	private MissingType[] missingTypes;
 	private LineUpType[] lineUpTypes;
 	private Position[] positions;
+	private CardType[] cardTypes;
 
 	private Game currentGame;
 	private Game newGame;
 
-	@PostConstruct
+	private Team homeTeam;
+	private Team awayTeam;
+
+	private int resGoalsHome;
+	private int resGoalsAway;
+
+	private int gameTypeNumber;
+	private int gameID;
+
+	public void newGameInit() {
+		init();
+		newGame = new Game();
+
+		//add LineUp to the game and LineUpPlayers to the LineUp
+		if (newGame.getLineUp() == null) {
+			LineUp lineUp = new LineUp();
+			lineUp.setGame(newGame);
+			lineUp.setLineUpPlayers(new HashSet<LineUpPlayer>());
+			for (Player p : players) {
+				LineUpPlayer lup = new LineUpPlayer();
+				lup.setPlayer(p);
+				lup.setLineUp(lineUp);
+				lineUp.getLineUpPlayers().add(lup);
+			}
+			newGame.setLineUp(lineUp);
+		}
+
+		//add PlayerGameStats to the Game
+		if (newGame.getPlayerGameStats() == null) {
+			newGame.setPlayerGameStats(new HashSet<PlayerGameStats>());
+			for (LineUpPlayer lineUpPlayer : newGame.getLineUp().getLineUpPlayers()) {
+				PlayerGameStats playerGameStats = new PlayerGameStats();
+				playerGameStats.setGame(newGame);
+				playerGameStats.setChangeIn(new ChangeIn());
+				playerGameStats.setChangeOut(new ChangeOut());
+				playerGameStats.setTips(new TIPS());
+				playerGameStats.setPlayer(lineUpPlayer.getPlayer());
+				newGame.getPlayerGameStats().add(playerGameStats);
+			}
+		}
+		setGameType(gameTypeNumber);
+		newGame.setDate(Calendar.getInstance());
+		newGame.setTime(Calendar.getInstance());
+		newGame.setResultGoalsHome(0);
+		newGame.setResultGoalsAway(0);
+	}
+
+	public void getGameInit() {
+		init();
+		try {
+			currentGame = gameService.findGame(gameID);
+			year = currentGame.getDate().get(Calendar.YEAR);
+			month = currentGame.getDate().get(Calendar.MONTH) + 1;
+			day = currentGame.getDate().get(Calendar.DATE);
+			minute = currentGame.getTime().get(Calendar.MINUTE);
+			hour = currentGame.getTime().get(Calendar.HOUR_OF_DAY);
+			teamAway = currentGame.getTeamAway().getName();
+			teamHome = currentGame.getTeamHome().getName();
+			selectedArena = currentGame.getArena().getName();
+			selectedSystem = currentGame.getLineUp().getSystem();
+			resGoalsHome = currentGame.getResultGoalsHome();
+			resGoalsAway = currentGame.getResultGoalsAway();
+		} catch (GameNotFoundException e) {
+			createGame();
+			e.printStackTrace();
+			//TODO
+		}
+	}
+
 	public void init() {
 		teams = teamClubService.findAllTeams();
 		arenas = arenaService.findAll();
@@ -67,39 +135,77 @@ public class GameBean implements Serializable {
 		lineUpTypes = LineUpType.values();
 		missingTypes = MissingType.values();
 		positions = Position.values();
+		cardTypes = CardType.values();
 	}
 
 	public String createGame() {
-		try {
-			newGame.setArena(arenaService.findArena(selectedArena));
-			newGame.setTeamHome(teamClubService.findTeam(teamHome));
-			newGame.setTeamAway(teamClubService.findTeam(teamAway));
-		} catch (ArenaNotFoundException | TeamNotFoundException e) {
-			e.printStackTrace();
-			//TODO
-		}
+		newGame = setArenaAndTeam(newGame);
 		newGame.getDate().set(Calendar.YEAR, year);
 		newGame.getDate().set(Calendar.MONTH, month - 1);
 		newGame.getDate().set(Calendar.DATE, day);
 		newGame.getTime().set(Calendar.HOUR_OF_DAY, hour);
 		newGame.getTime().set(Calendar.MINUTE, minute);
 		newGame.getTime().set(Calendar.SECOND, 0);
-
 		try {
 			currentGame = gameService.createGame(newGame);
-		} catch (GameAlreadyExistsException e) {
+			teamClubService.findTeam(teamHome).getGamesHome().add(currentGame);
+			teamClubService.findTeam(teamAway).getGamesAway().add(currentGame);
+		} catch (GameAlreadyExistsException | TeamNotFoundException e) {
 			currentGame = gameService.update(newGame);
 		}
-		return getGameFromContext(currentGame.getID());
+		allGames = gameService.findAllGames();
+		return navigationBean.redirectToGameOverview();
 	}
 
-	public void updateGame(){
+	public String updateGame() {
+		currentGame = setArenaAndTeam(currentGame);
+		currentGame.getDate().set(Calendar.YEAR, year);
+		currentGame.getDate().set(Calendar.MONTH, month - 1);
+		currentGame.getDate().set(Calendar.DATE, day);
+		currentGame.getTime().set(Calendar.HOUR_OF_DAY, hour);
+		currentGame.getTime().set(Calendar.MINUTE, minute);
+		currentGame.getTime().set(Calendar.SECOND, 0);
+		try {
+			currentGame.setArena(arenaService.findArena(selectedArena));
+		} catch (ArenaNotFoundException e) {
+			e.printStackTrace();
+		}
 		currentGame = gameService.update(currentGame);
+		try {
+			teamClubService.findTeam(teamHome).getGamesHome().add(currentGame);
+			teamClubService.findTeam(teamAway).getGamesAway().add(currentGame);
+
+		} catch (TeamNotFoundException e) {
+			e.printStackTrace();
+		}
+		allGames = gameService.findAllGames();
+		return navigationBean.toUpdateGameForm(currentGame.getID());
+	}
+
+	private Game setArenaAndTeam(Game game) {
+		try {
+			homeTeam = teamClubService.findTeam(teamHome);
+			awayTeam = teamClubService.findTeam(teamAway);
+			game.setArena(arenaService.findArena(selectedArena));
+			game.setTeamHome(homeTeam);
+			game.setTeamAway(awayTeam);
+		} catch (ArenaNotFoundException | TeamNotFoundException e) {
+			e.printStackTrace();
+			//TODO
+		}
+		return game;
 	}
 
 
-	public void updateLineUp(){
-		gameService.update(currentGame.getLineUp());
+	public void updateLineUp() {
+		gameService.update(currentGame);
+	}
+
+	public void updatePlayerGameStats() {
+		for(PlayerGameStats pgs : currentGame.getPlayerGameStats()){
+			gameService.update(pgs);
+		}
+		gameService.update(currentGame);
 	}
 
 	private void setGameType(int gameTypeNumber) {
@@ -119,48 +225,6 @@ public class GameBean implements Serializable {
 		}
 	}
 
-	public String getGameFromContext(int id) {
-		try{
-			currentGame = gameService.findGame(id);
-			year = currentGame.getDate().get(Calendar.YEAR);
-			month = currentGame.getDate().get(Calendar.MONTH) + 1;
-			day = currentGame.getDate().get(Calendar.DATE);
-			minute = currentGame.getTime().get(Calendar.MINUTE);
-			hour = currentGame.getTime().get(Calendar.HOUR_OF_DAY);
-			teamAway = currentGame.getTeamAway().getName();
-			teamHome = currentGame.getTeamHome().getName();
-			selectedArena = currentGame.getArena().getName();
-			selectedSystem = currentGame.getLineUp().getSystem();
-		} catch (GameNotFoundException e) {
-			e.printStackTrace();
-			//TODO
-		}
-		return navigationBean.redirectToUpdateGameForm();
-	}
-
-	public String setUpNewGame(int gameTypeNumber){
-		newGame = new Game();
-		if(selectedSystem != null)newGame.getLineUp().setSystem(selectedSystem);
-		if (newGame.getLineUp() == null) {
-			LineUp lineUp = new LineUp();
-			lineUp.setGame(newGame);
-			lineUp.setLineUpPlayers(new HashSet<LineUpPlayer>());
-			for (Player p : players) {
-				LineUpPlayer lup = new LineUpPlayer();
-				lup.setPlayer(p);
-				lup.setLineUp(lineUp);
-				lineUp.getLineUpPlayers().add(lup);
-			}
-			newGame.setLineUp(lineUp);
-		}
-		setGameType(gameTypeNumber);
-		newGame.setDate(Calendar.getInstance());
-		newGame.setTime(Calendar.getInstance());
-		newGame.setResultGoalsHome(0);
-		newGame.setGetResultGoalsAway(0);
-		return navigationBean.redirectToNewGameForm();
-	}
-
 	public String dateToString(Calendar date) {
 		return Integer.toString(date.get(Calendar.DATE)) + "." + Integer.toString(date.get(Calendar.MONTH) + 1) + "." +
 				Integer.toString(date.get(Calendar.YEAR));
@@ -168,11 +232,16 @@ public class GameBean implements Serializable {
 
 	public String timeToString(Calendar time) {
 		String timeString;
-		if (time.get(Calendar.HOUR_OF_DAY) < 10) timeString = "0" + Integer.toString(hour) +":";
+		if (time.get(Calendar.HOUR_OF_DAY) < 10)
+			timeString = "0" + Integer.toString(time.get(Calendar.HOUR_OF_DAY)) + ":";
 		else timeString = Integer.toString(time.get(Calendar.HOUR_OF_DAY)) + ":";
 		if (time.get(Calendar.MINUTE) < 10) timeString += "0" + Integer.toString(time.get(Calendar.MINUTE));
 		else timeString += Integer.toString(time.get(Calendar.MINUTE));
 		return timeString;
+	}
+
+	public void reset() {
+		year = month = day = hour = minute = 0;
 	}
 
 	public String getTeamAway() {
@@ -325,5 +394,45 @@ public class GameBean implements Serializable {
 
 	public void setNewGame(Game newGame) {
 		this.newGame = newGame;
+	}
+
+	public int getGameTypeNumber() {
+		return gameTypeNumber;
+	}
+
+	public void setGameTypeNumber(int gameTypeNumber) {
+		this.gameTypeNumber = gameTypeNumber;
+	}
+
+	public int getGameID() {
+		return gameID;
+	}
+
+	public void setGameID(int gameID) {
+		this.gameID = gameID;
+	}
+
+	public int getResGoalsHome() {
+		return resGoalsHome;
+	}
+
+	public void setResGoalsHome(int resGoalsHome) {
+		this.resGoalsHome = resGoalsHome;
+	}
+
+	public int getResGoalsAway() {
+		return resGoalsAway;
+	}
+
+	public void setResGoalsAway(int resGoalsAway) {
+		this.resGoalsAway = resGoalsAway;
+	}
+
+	public CardType[] getCardTypes() {
+		return cardTypes;
+	}
+
+	public void setCardTypes(CardType[] cardTypes) {
+		this.cardTypes = cardTypes;
 	}
 }

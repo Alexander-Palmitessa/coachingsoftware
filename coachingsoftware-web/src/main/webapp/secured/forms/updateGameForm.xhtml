@@ -4,47 +4,54 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
+    <f:metadata>
+        <f:viewParam name="id" value="#{gameBean.gameID}"/>
+        <f:viewAction action="#{gameBean.getGameInit}"/>
+    </f:metadata>
+
     <ui:define name="title">
         #{msg['updateGame']} - Coaching Eleven
     </ui:define>
 
     <ui:define name="content">
         <div class="row">
-        <div class="small-12 column">
-            <ul class="menu menu-hover-lines player-menu">
-                <li class="active">
-                    <h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml">
-                        <h:outputText value="#{msg['overview']}"/></h:outputLink>
-                </li>
-                <li>
-                    <h:outputLink value="#{request.contextPath}/secured/forms/lineUpForm.xhtml">
-                        <h:outputText value="#{msg['lineUp']}"/></h:outputLink>
-                </li>
-                <li>
-                    <h:outputLink value="#"><h:outputText value="#{msg['preGameReport']}"/></h:outputLink>
-                </li>
-                <li>
-                    <h:outputLink value="#"><h:outputText value="#{msg['postGameReport']}"/></h:outputLink>
-                </li>
-                <li>
-                    <h:outputLink value="#"><h:outputText value="#{msg['playerGameStats']}"/></h:outputLink>
-                </li>
-            </ul>
-        </div>
+            <div class="small-12 column">
+                <ul class="menu menu-hover-lines player-menu">
+                    <li class="active">
+                        <h:outputLink
+                                value="#{request.contextPath}/secured/forms/updateGameForm.xhtml?id=#{gameBean.currentGame.ID}">
+                            <h:outputText value="#{msg['overview']}"/></h:outputLink>
+                    </li>
+                    <li>
+                        <h:outputLink
+                                value="#{request.contextPath}/secured/forms/lineUpForm.xhtml?id=#{gameBean.currentGame.ID}">
+                            <h:outputText value="#{msg['lineUp']}"/></h:outputLink>
+                    </li>
+                    <li>
+                        <h:outputLink value="#"><h:outputText value="#{msg['preGameReport']}"/></h:outputLink>
+                    </li>
+                    <li>
+                        <h:outputLink value="#"><h:outputText value="#{msg['postGameReport']}"/></h:outputLink>
+                    </li>
+                    <li>
+                        <h:outputLink
+                                value="#{request.contextPath}/secured/forms/playerGameStatsForm.xhtml"><h:outputText
+                                value="#{msg['playerGameStats']}"/></h:outputLink>
+                    </li>
+                </ul>
+            </div>
         </div>
         <h:form>
             <div class="row">
-                <!--
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['goalsHome']}"/></label>
-                    <h:inputText class="numericIn" value="#{gameBean.currentGame.resultGoalsHome}" maxlength="2" />
+                    <h:inputText class="numericIn" value="#{gameBean.currentGame.resultGoalsHome}" maxlength="2"/>
                     <label><h:outputText value="#{msg['goalsAway']}"/></label>
-                    <h:inputText class="numericIn" value="#{gameBean.currentGame.getResultGoalsAway}" maxlength="2"/>
+                    <h:inputText class="numericIn" value="#{gameBean.currentGame.resultGoalsAway}" maxlength="2"/>
                 </div>
-                -->
                 <div class="small-12 medium-6 column">
                     <label><h:outputText value="#{msg['day']}"/></label>
-                    <h:inputText class="numericIn" value="#{gameBean.day}" maxlength="2" />
+                    <h:inputText class="numericIn" value="#{gameBean.day}" maxlength="2"/>
                     <label><h:outputText value="#{msg['month']}"/></label>
                     <h:inputText class="numericIn" value="#{gameBean.month}" maxlength="2"/>
                     <label><h:outputText value="#{msg['year']}"/></label>

@@ -56,7 +56,7 @@ public class Game implements Serializable {
     private int resultGoalsHome;
     @Column(name = "RES_GOALS_AWAY")
     @Min(value = 0)
-    private int getResultGoalsAway;
+    private int resultGoalsAway;
     @OneToMany(mappedBy = "game", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<PlayerGameStats> playerGameStats;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -180,12 +180,20 @@ public class Game implements Serializable {
         this.resultGoalsHome = resultGoalsHome;
     }
 
-    public int getGetResultGoalsAway() {
-        return getResultGoalsAway;
+    public Set<Goal> getGoals() {
+        return goals;
     }
 
-    public void setGetResultGoalsAway(int getResultGoalsAway) {
-        this.getResultGoalsAway = getResultGoalsAway;
+    public void setGoals(Set<Goal> goals) {
+        this.goals = goals;
+    }
+
+    public int getResultGoalsAway() {
+        return resultGoalsAway;
+    }
+
+    public void setResultGoalsAway(int resultGoalsAway) {
+        this.resultGoalsAway = resultGoalsAway;
     }
 
     public Set<PlayerGameStats> getPlayerGameStats() {

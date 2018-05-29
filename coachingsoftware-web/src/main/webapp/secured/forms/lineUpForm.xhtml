@@ -15,12 +15,12 @@
                 <ul class="menu menu-hover-lines player-menu">
                     <li>
                         <h:outputLink
-                                value="#{navigationBean.redirectToUpdateGameForm}"><h:outputText
+                                value="#{request.contextPath}/secured/forms/updateGameForm.xhtml?id=#{gameBean.currentGame.ID}"><h:outputText
                                 value="#{msg['overview']}"/></h:outputLink>
                     </li>
                     <li  class="active">
                         <h:outputLink
-                                value="#{navigationBean.redirectToLineUpForm}"><h:outputText
+                                value="#{request.contextPath}/secured/forms/lineUpForm.xhtml"><h:outputText
                                 value="#{msg['lineUp']}"/></h:outputLink>
                     </li>
                     <li>
@@ -30,7 +30,7 @@
                         <h:outputLink value="#"><h:outputText value="#{msg['postGameReport']}"/></h:outputLink>
                     </li>
                     <li>
-                        <h:outputLink value="#"><h:outputText value="#{msg['playerGameStats']}"/></h:outputLink>
+                        <h:outputLink value="#{request.contextPath}/secured/forms/playerGameStatsForm.xhtml"><h:outputText value="#{msg['playerGameStats']}"/></h:outputLink>
                     </li>
                 </ul>
             </div>
@@ -56,13 +56,13 @@
                         <h:selectOneMenu value="#{lup.position}">
                             <f:selectItem value="#{null}" itemLabel="-"/>
                             <f:selectItems value="#{gameBean.positions}" var="p"
-                                           itemValue="p"
+                                           itemValue="#{p}"
                                            itemLabel="#{msg['position.'.concat(p)]}"/>
                         </h:selectOneMenu>
                         <h:selectOneMenu value="#{lup.missingType}">
                             <f:selectItem value="#{null}" itemLabel="-"/>
                             <f:selectItems value="#{gameBean.missingTypes}" var="mt"
-                                           itemValue="mt"
+                                           itemValue="#{mt}"
                                            itemLabel="#{msg['missingType.'.concat(mt)]}"/>
                         </h:selectOneMenu>
                     </ui:repeat>

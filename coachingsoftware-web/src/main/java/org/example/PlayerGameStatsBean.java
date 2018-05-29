@@ -33,16 +33,7 @@ public class PlayerGameStatsBean {
         } catch (GameNotFoundException e) {
             game = new Game();
         }
-        if (game.getPlayerGameStats().isEmpty() || game.getPlayerGameStats() == null) {
-            Set<PlayerGameStats> playerGameStatsSet = new HashSet<>();
-            for (LineUpPlayer lineUpPlayer : game.getLineUp().getLineUpPlayers()) {
-                PlayerGameStats playerGameStats = new PlayerGameStats();
-                playerGameStats.setGame(game);
-                playerGameStats.setPlayer(lineUpPlayer.getPlayer());
-                playerGameStatsSet.add(playerGameStats);
-            }
-            game.setPlayerGameStats(playerGameStatsSet);
-        }
+
     }
 
     public void persistPlayerGameStats() {

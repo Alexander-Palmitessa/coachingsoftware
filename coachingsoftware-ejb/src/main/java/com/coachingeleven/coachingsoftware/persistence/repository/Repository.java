@@ -36,9 +36,7 @@ public class Repository<T> {
 
 	@TransactionAttribute(MANDATORY)
 	public T update(T entity) {
-		entityManager.merge(entity);
-		entityManager.flush();
-		return entity;
+		return entityManager.merge(entity);
 	}
 
 	@TransactionAttribute(MANDATORY)
