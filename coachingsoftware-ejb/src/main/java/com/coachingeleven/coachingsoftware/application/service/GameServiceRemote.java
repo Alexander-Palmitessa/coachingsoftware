@@ -40,7 +40,9 @@ public interface GameServiceRemote {
 
     LineUpPlayer update(LineUpPlayer lineUpPlayer);
 
-	void flush();
-
 	void update(PlayerGameStats playerGameStats);
+
+	void update(PreGameReport preGameReport);
+
+	void update(PostGameReport postGameReport);
 }

@@ -100,6 +100,10 @@ public class GameBean implements Serializable {
 		setGameType(gameTypeNumber);
 		newGame.setDate(Calendar.getInstance());
 		newGame.setTime(Calendar.getInstance());
+		newGame.setPreGameReport(new PreGameReport());
+		newGame.getPreGameReport().setGame(newGame);
+		newGame.setPostGameReport(new PostGameReport());
+		newGame.getPostGameReport().setGame(newGame);
 		newGame.setResultGoalsHome(0);
 		newGame.setResultGoalsAway(0);
 	}
@@ -206,6 +210,14 @@ public class GameBean implements Serializable {
 			gameService.update(pgs);
 		}
 		gameService.update(currentGame);
+	}
+
+	public void updatePreGameReport() {
+		gameService.update(currentGame.getPreGameReport());
+	}
+
+	public void updatePostGameReport() {
+		gameService.update(currentGame.getPostGameReport());
 	}
 
 	private void setGameType(int gameTypeNumber) {

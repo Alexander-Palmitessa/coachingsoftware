@@ -43,6 +43,10 @@ public class GameService implements GameServiceRemote {
     private LineUpPlayerRepository lineUpPlayerRepository;
     @EJB
     private PlayerGameStatsRepository playerGameStatsRepository;
+    @EJB
+    private PreGameReportRepository preGameReportRepository;
+    @EJB
+	private PostGameReportRepository postGameReportRepository;
 
     @Override
     public Game createGame(Game game) throws GameAlreadyExistsException {
@@ -132,16 +136,21 @@ public class GameService implements GameServiceRemote {
     }
 
     @Override
-    public void flush(){
-        gameRepository.flush();
-    }
-
-    @Override
     public void update(PlayerGameStats playerGameStats) {
         playerGameStatsRepository.update(playerGameStats);
     }
 
     @Override
+    public void update(PreGameReport preGameReport) {
+        preGameReportRepository.update(preGameReport);
+    }
+
+	@Override
+	public void update(PostGameReport postGameReport) {
+		postGameReportRepository.update(postGameReport);
+	}
+
+	@Override
     public LineUpPlayer update(LineUpPlayer lineUpPlayer) {
         return lineUpPlayerRepository.update(lineUpPlayer);
     }

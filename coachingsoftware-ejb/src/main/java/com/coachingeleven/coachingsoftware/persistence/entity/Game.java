@@ -44,9 +44,9 @@ public class Game implements Serializable {
     private Team teamAway;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "game")
     private Set<Goal> goals;
-    @OneToOne(mappedBy = "game")
+    @OneToOne(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private PostGameReport postGameReport;
-    @OneToOne(mappedBy = "game")
+    @OneToOne(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private PreGameReport preGameReport;
     @Enumerated(value = EnumType.STRING)
     @Column(name = "GAME_TYPE")
