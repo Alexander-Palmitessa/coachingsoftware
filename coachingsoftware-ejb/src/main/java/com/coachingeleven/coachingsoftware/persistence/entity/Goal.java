@@ -34,7 +34,7 @@ public class Goal implements Serializable {
 	@Column(name = "GOAL_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
-	@JoinColumn(name = "SCORER_ID", nullable = false)
+	@JoinColumn(name = "SCORER_ID")
 	@ManyToOne
 	private Player scorer;
 	@JoinColumn(name = "ASSISTANT_ID")
@@ -43,9 +43,6 @@ public class Goal implements Serializable {
 	@JoinColumn(name = "GAME_ID", nullable = false)
 	@ManyToOne
 	private Game game;
-	@JoinColumn(name = "TEAM_ID")
-	@ManyToOne
-	private Team team;
 	@Enumerated(EnumType.STRING)
 	@Column(name = "ZONE_SCORE")
 	private Zone scoreZone;
@@ -69,16 +66,14 @@ public class Goal implements Serializable {
 	 *
 	 * @param scorer       the goal scorer
 	 * @param game         the game which the goal was scored in
-	 * @param team         the team who scored the goal
 	 * @param scoreZone    the zone where the goal was scored from
 	 * @param foot         the foot or head the goal was scored with
 	 * @param standard     NO if the goal wasn't scored from a standard else the standard
 	 * @param minuteScored the minute the goal was scored
 	 */
-	public Goal(Player scorer, Game game, Team team, Zone scoreZone, Foot foot, Standard standard, int minuteScored) {
+	public Goal(Player scorer, Game game, Zone scoreZone, Foot foot, Standard standard, int minuteScored) {
 		this.scorer = scorer;
 		this.game = game;
-		this.team = team;
 		this.scoreZone = scoreZone;
 		this.foot = foot;
 		this.standard = standard;
@@ -103,7 +98,6 @@ public class Goal implements Serializable {
 		this.scorer = scorer;
 		this.assistant = assistant;
 		this.game = game;
-		this.team = team;
 		this.scoreZone = scoreZone;
 		this.assistZone = assistZone;
 		this.foot = foot;
@@ -144,14 +138,6 @@ public class Goal implements Serializable {
 
 	public void setGame(Game game) {
 		this.game = game;
-	}
-
-	public Team getTeam() {
-		return team;
-	}
-
-	public void setTeam(Team team) {
-		this.team = team;
 	}
 
 	public Zone getScoreZone() {

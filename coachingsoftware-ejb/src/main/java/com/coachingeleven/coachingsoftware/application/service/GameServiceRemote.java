@@ -45,4 +45,6 @@ public interface GameServiceRemote {
 	void update(PreGameReport preGameReport);
 
 	void update(PostGameReport postGameReport);
+
+	void update(Goal goal);
 }

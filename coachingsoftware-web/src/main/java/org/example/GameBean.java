@@ -53,6 +53,10 @@ public class GameBean implements Serializable {
 	private LineUpType[] lineUpTypes;
 	private Position[] positions;
 	private CardType[] cardTypes;
+	private GoalType[] goalTypes;
+	private Zone[] zones;
+	private Foot[] footTypes;
+	private Standard[] standards;
 
 	private Game currentGame;
 	private Game newGame;
@@ -104,6 +108,7 @@ public class GameBean implements Serializable {
 		newGame.getPreGameReport().setGame(newGame);
 		newGame.setPostGameReport(new PostGameReport());
 		newGame.getPostGameReport().setGame(newGame);
+		newGame.setGoals(new HashSet<Goal>());
 		newGame.setResultGoalsHome(0);
 		newGame.setResultGoalsAway(0);
 	}
@@ -140,6 +145,10 @@ public class GameBean implements Serializable {
 		missingTypes = MissingType.values();
 		positions = Position.values();
 		cardTypes = CardType.values();
+		goalTypes = GoalType.values();
+		zones = Zone.values();
+		footTypes = Foot.values();
+		standards = Standard.values();
 	}
 
 	public String createGame() {
@@ -200,13 +209,56 @@ public class GameBean implements Serializable {
 		return game;
 	}
 
+	/**
+	 * Call addAnotherGoal() if the Set Goals of the currentGame is empty
+	 */
+	public void addGoal(){
+		if(currentGame.getGoals().isEmpty()){
+			addAnotherGoal();
+		}
+	}
+
+	/**
+	 * Add another Goal to the Set of Goals of the currentGame
+	 */
+	public void addAnotherGoal(){
+		Goal goal = new Goal();
+		goal.setScorer(new Player());
+		goal.setAssistant(new Player());
+		goal.setGame(currentGame);
+		currentGame.getGoals().add(goal);
+	}
+
+	public void updateGoals(){
+		//TODO: FIX DUPLICATES & EXCEPTION WHEN NO PLAYER IS SELECTED
+		for(Goal goal : currentGame.getGoals()){
+			if(goal.getScorer().getLastName() == null && goal.getScorer().getID() != 0) {
+				try {
+					goal.setScorer(playerService.findPlayer(goal.getScorer().getID()));
+				} catch (PlayerNotFoundException e) {
+					//TODO
+					e.printStackTrace();
+				}
+			}
+			if(goal.getAssistant().getLastName() == null && goal.getAssistant().getID() != 0) {
+				try {
+					goal.setAssistant(playerService.findPlayer(goal.getAssistant().getID()));
+				} catch (PlayerNotFoundException e) {
+					//TODO
+					e.printStackTrace();
+				}
+			}
+		}
+		gameService.update(currentGame);
+	}
+
 
 	public void updateLineUp() {
 		gameService.update(currentGame);
 	}
 
 	public void updatePlayerGameStats() {
-		for(PlayerGameStats pgs : currentGame.getPlayerGameStats()){
+		for (PlayerGameStats pgs : currentGame.getPlayerGameStats()) {
 			gameService.update(pgs);
 		}
 		gameService.update(currentGame);
@@ -446,5 +498,37 @@ public class GameBean implements Serializable {
 
 	public void setCardTypes(CardType[] cardTypes) {
 		this.cardTypes = cardTypes;
+	}
+
+	public GoalType[] getGoalTypes() {
+		return goalTypes;
+	}
+
+	public void setGoalTypes(GoalType[] goalTypes) {
+		this.goalTypes = goalTypes;
+	}
+
+	public Zone[] getZones() {
+		return zones;
+	}
+
+	public void setZones(Zone[] zones) {
+		this.zones = zones;
+	}
+
+	public Foot[] getFootTypes() {
+		return footTypes;
+	}
+
+	public void setFootTypes(Foot[] footTypes) {
+		this.footTypes = footTypes;
+	}
+
+	public Standard[] getStandards() {
+		return standards;
+	}
+
+	public void setStandards(Standard[] standards) {
+		this.standards = standards;
 	}
 }

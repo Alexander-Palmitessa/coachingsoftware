@@ -9,7 +9,6 @@
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import com.coachingeleven.coachingsoftware.persistence.enumeration.GameType;
-import org.eclipse.persistence.annotations.Mutable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -27,11 +26,9 @@ public class Game implements Serializable {
     private int ID;
     @Column(name = "DATE")
     @Temporal(TemporalType.DATE)
-    @Mutable
     private Calendar date;
     @Column(name = "TIME")
     @Temporal(TemporalType.TIME)
-    @Mutable
     private Calendar time;
     @ManyToOne
     @JoinColumn(name = "ARENA_ID")
