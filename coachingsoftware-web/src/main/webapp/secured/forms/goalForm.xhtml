@@ -64,14 +64,14 @@
 					<!-- SCORER -->
 					<label><h:outputText value="#{msg['scorer']}"/></label>
 					<h:selectOneMenu value="#{goal.scorer.ID}">
-						<f:selectItem itemValue="#{null}" itemLabel="-"/>
+						<f:selectItem itemValue="#{0}" itemLabel="-"/>
 						<f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
 									   itemLabel="#{p.firstName} #{p.lastName}"/>
 					</h:selectOneMenu>
 					<!-- ASSISTANT -->
 					<label><h:outputText value="#{msg['assistant']}"/></label>
 					<h:selectOneMenu value="#{goal.assistant.ID}">
-						<f:selectItem itemValue="#{null}" itemLabel="-"/>
+						<f:selectItem itemValue="#{0}" itemLabel="-"/>
 						<f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
 									   itemLabel="#{p.firstName} #{p.lastName}"/>
 					</h:selectOneMenu>
@@ -107,7 +107,7 @@
 			</ui:repeat>
 			<div class="small-12 column text-center">
 				<h:commandButton action="#{gameBean.addAnotherGoal}" value="Add Goal"/>
-				<h:commandButton action="#{gameBean.updateGoals}" value="submit"/>
+				<h:commandButton action="#{gameBean.updateGame2}" value="Submit"/>
 			</div>
 		</h:form>
 	</ui:define>

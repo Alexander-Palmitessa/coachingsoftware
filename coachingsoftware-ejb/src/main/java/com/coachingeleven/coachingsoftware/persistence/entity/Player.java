@@ -91,7 +91,7 @@ public class Player implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID")
     )
     private Set<Game> games;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<PlayerGameStats> gameStats;
     @OneToMany(mappedBy = "player")
     private Set<PerformanceDiagnostics> performanceDiagnostics;

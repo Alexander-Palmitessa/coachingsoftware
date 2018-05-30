@@ -11,6 +11,7 @@ import com.coachingeleven.coachingsoftware.persistence.enumeration.System;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -98,6 +99,7 @@ public class GameBean implements Serializable {
 				playerGameStats.setChangeOut(new ChangeOut());
 				playerGameStats.setTips(new TIPS());
 				playerGameStats.setPlayer(lineUpPlayer.getPlayer());
+				playerGameStats.getPlayer().getGameStats().add(playerGameStats);
 				newGame.getPlayerGameStats().add(playerGameStats);
 			}
 		}
@@ -108,7 +110,7 @@ public class GameBean implements Serializable {
 		newGame.getPreGameReport().setGame(newGame);
 		newGame.setPostGameReport(new PostGameReport());
 		newGame.getPostGameReport().setGame(newGame);
-		newGame.setGoals(new HashSet<Goal>());
+		newGame.setGoals(new TreeSet<Goal>());
 		newGame.setResultGoalsHome(0);
 		newGame.setResultGoalsAway(0);
 	}
@@ -170,6 +172,53 @@ public class GameBean implements Serializable {
 		return navigationBean.redirectToGameOverview();
 	}
 
+	private Game setArenaAndTeam(Game game) {
+		try {
+			homeTeam = teamClubService.findTeam(teamHome);
+			awayTeam = teamClubService.findTeam(teamAway);
+			game.setArena(arenaService.findArena(selectedArena));
+			game.setTeamHome(homeTeam);
+			game.setTeamAway(awayTeam);
+		} catch (ArenaNotFoundException | TeamNotFoundException e) {
+			e.printStackTrace();
+			//TODO
+		}
+		return game;
+	}
+
+	/**
+	 * Call addAnotherGoal() if the Set Goals of the currentGame is empty
+	 */
+	public void addGoal() {
+		if (currentGame.getGoals().isEmpty()) {
+			addAnotherGoal();
+		}
+		setNullPlayersToNewPlayers();
+	}
+
+	/**
+	 * Add another Goal to the Set of Goals of the currentGame
+	 */
+	public void addAnotherGoal() {
+		Goal goal = new Goal();
+		goal.setScorer(new Player());
+		goal.setAssistant(new Player());
+		goal.setGame(currentGame);
+		currentGame.getGoals().add(goal);
+		setNullPlayersToNewPlayers();
+	}
+
+	/**
+	 * Set to Scorer and/or Assistant of the Goal to a new Player if they are null
+	 * to avoid unreachable Player.ID
+	 */
+	private void setNullPlayersToNewPlayers() {
+		for (Goal goal : currentGame.getGoals()) {
+			if (goal.getScorer() == null) goal.setScorer(new Player());
+			if (goal.getAssistant() == null) goal.setAssistant(new Player());
+		}
+	}
+
 	public String updateGame() {
 		currentGame = setArenaAndTeam(currentGame);
 		currentGame.getDate().set(Calendar.YEAR, year);
@@ -195,61 +244,54 @@ public class GameBean implements Serializable {
 		return navigationBean.toUpdateGameForm(currentGame.getID());
 	}
 
-	private Game setArenaAndTeam(Game game) {
+	public String updateGame2() {
+		//Prepare Goals
+		for (Goal goal : currentGame.getGoals()) {
+			if (goal.getScorer() != null) {
+				if (goal.getScorer().getLastName() == null && goal.getScorer().getID() != 0) {
+					try {
+						goal.setScorer(playerService.findPlayer(goal.getScorer().getID()));
+					} catch (PlayerNotFoundException e) {
+						//TODO
+						e.printStackTrace();
+					}
+				} else if (goal.getScorer().getID() == 0) goal.setScorer(null);
+			}
+			if (goal.getAssistant() != null) {
+				if (goal.getAssistant().getLastName() == null && goal.getAssistant().getID() != 0) {
+					try {
+						goal.setAssistant(playerService.findPlayer(goal.getAssistant().getID()));
+					} catch (PlayerNotFoundException e) {
+						//TODO
+						e.printStackTrace();
+					}
+				} else if (goal.getAssistant().getID() == 0) goal.setAssistant(null);
+			}
+		}
+
+		currentGame = setArenaAndTeam(currentGame);
+		currentGame.getDate().set(Calendar.YEAR, year);
+		currentGame.getDate().set(Calendar.MONTH, month - 1);
+		currentGame.getDate().set(Calendar.DATE, day);
+		currentGame.getTime().set(Calendar.HOUR_OF_DAY, hour);
+		currentGame.getTime().set(Calendar.MINUTE, minute);
+		currentGame.getTime().set(Calendar.SECOND, 0);
 		try {
-			homeTeam = teamClubService.findTeam(teamHome);
-			awayTeam = teamClubService.findTeam(teamAway);
-			game.setArena(arenaService.findArena(selectedArena));
-			game.setTeamHome(homeTeam);
-			game.setTeamAway(awayTeam);
-		} catch (ArenaNotFoundException | TeamNotFoundException e) {
+			currentGame.setArena(arenaService.findArena(selectedArena));
+		} catch (ArenaNotFoundException e) {
 			e.printStackTrace();
-			//TODO
 		}
-		return game;
-	}
+		currentGame = gameService.update(currentGame);
+		try {
+			teamClubService.findTeam(teamHome).getGamesHome().add(currentGame);
+			teamClubService.findTeam(teamAway).getGamesAway().add(currentGame);
 
-	/**
-	 * Call addAnotherGoal() if the Set Goals of the currentGame is empty
-	 */
-	public void addGoal(){
-		if(currentGame.getGoals().isEmpty()){
-			addAnotherGoal();
+		} catch (TeamNotFoundException e) {
+			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * Add another Goal to the Set of Goals of the currentGame
-	 */
-	public void addAnotherGoal(){
-		Goal goal = new Goal();
-		goal.setScorer(new Player());
-		goal.setAssistant(new Player());
-		goal.setGame(currentGame);
-		currentGame.getGoals().add(goal);
-	}
-
-	public void updateGoals(){
-		//TODO: FIX DUPLICATES & EXCEPTION WHEN NO PLAYER IS SELECTED
-		for(Goal goal : currentGame.getGoals()){
-			if(goal.getScorer().getLastName() == null && goal.getScorer().getID() != 0) {
-				try {
-					goal.setScorer(playerService.findPlayer(goal.getScorer().getID()));
-				} catch (PlayerNotFoundException e) {
-					//TODO
-					e.printStackTrace();
-				}
-			}
-			if(goal.getAssistant().getLastName() == null && goal.getAssistant().getID() != 0) {
-				try {
-					goal.setAssistant(playerService.findPlayer(goal.getAssistant().getID()));
-				} catch (PlayerNotFoundException e) {
-					//TODO
-					e.printStackTrace();
-				}
-			}
-		}
+		allGames = gameService.findAllGames();
 		gameService.update(currentGame);
+		return FacesContext.getCurrentInstance().getViewRoot().getViewId() + "?faces-redirect=true&includeViewParams=true";
 	}
 
 
