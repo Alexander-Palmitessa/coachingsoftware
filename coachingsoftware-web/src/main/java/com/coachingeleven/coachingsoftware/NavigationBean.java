@@ -83,4 +83,12 @@ public class NavigationBean implements Serializable {
 		return "/secured/forms/createPlayer.xhtml?faces-redirect=true";
 	}
 	
+	public String to404() {
+		return "/public/pages/404.xhtml";
+	}
+	
+	public String redirectTo404() {
+		return "/public/pages/404.xhtml?faces-redirect=true";
+	}
+	
 }

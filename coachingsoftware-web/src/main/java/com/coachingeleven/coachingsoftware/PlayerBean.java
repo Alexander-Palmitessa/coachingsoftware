@@ -5,8 +5,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
@@ -38,10 +40,12 @@ public class PlayerBean {
 	private List<Player> currentPlayers;
 	private List<Player> historyPlayers;
 	
-	private Player showPlayer;
+	private Player currentPlayer;
 	private Player newPlayer;
 	private Address newPlayerAddress;
 	private Country newPlayerCountry;
+	
+	private Integer playerID;
 	
 	@PostConstruct
     public void init() {
@@ -51,6 +55,18 @@ public class PlayerBean {
 		currentPlayers = playerService.findCurrentPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
 		historyPlayers = playerService.findHistoryPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
     }
+	
+	public void setRequestParameters() {
+		if(playerID != null) {
+			try {
+				HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+				playerID = Integer.parseInt(request.getParameter("playerID"));
+				currentPlayer = playerService.findPlayer(playerID);
+			} catch (PlayerNotFoundException e) {
+				// TODO
+			}
+		}
+	}
 	
 	public String createPlayer() throws CountryAlreadyExistsException, PlayerNotFoundException {
 		try {
@@ -73,26 +89,8 @@ public class PlayerBean {
 		return navigationBean.toPlayerForm();
 	}
 	
-	public String showPlayer(int playerId) {
-		try {
-			showPlayer = playerService.findPlayer(playerId);
-			// TODO: Reload player content via ajax
-			return navigationBean.redirectToPlayer();
-		} catch (PlayerNotFoundException e) {
-			return navigationBean.toPlayerOverview();
-		}
-	}
-	
 	public Position[] getPositions() {
 		return Position.values();
-	}
-
-	public Player getShowPlayer() {
-		return showPlayer;
-	}
-
-	public void setShowPlayer(Player showPlayer) {
-		this.showPlayer = showPlayer;
 	}
 
 	public Player getNewPlayer() {
@@ -133,5 +131,21 @@ public class PlayerBean {
 
 	public void setHistoryPlayers(List<Player> historyPlayers) {
 		this.historyPlayers = historyPlayers;
+	}
+
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
+	public Integer getPlayerID() {
+		return playerID;
+	}
+
+	public void setPlayerID(Integer playerID) {
+		this.playerID = playerID;
 	}
 }

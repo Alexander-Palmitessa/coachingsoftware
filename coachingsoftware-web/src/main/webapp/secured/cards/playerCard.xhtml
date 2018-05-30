@@ -18,7 +18,9 @@
 			
 			<h:form>
 				<div class="card-user-profile-actions">
-					<h:commandButton class="card-user-profile-button secondary-button" action="#{playerBean.showPlayer()}" value="#{msg['moreInfo']}"/>
+					<h:outputLink class="card-user-profile-button secondary-button" value="#{request.contextPath}/secured/pages/playerView.xhtml"><h:outputText value="#{msg['moreInfo']}"/>
+						<f:param name="playerID" value="#{player.ID}" />
+					</h:outputLink>
 				</div>
 			</h:form>
 		</div>
