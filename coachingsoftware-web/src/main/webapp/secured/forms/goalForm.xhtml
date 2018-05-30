@@ -104,10 +104,14 @@
 									   itemLabel="#{msg['foot.'.concat(f)]}"/>
 					</h:selectOneMenu>
 				</div>
+				<div class="small-12 column text-center">
+					<h:commandButton action="#{gameBean.deleteGoal(goal)}" value="delete"
+									 onclick="return confirm('Are you sure?')"/>
+				</div>
 			</ui:repeat>
 			<div class="small-12 column text-center">
 				<h:commandButton action="#{gameBean.addAnotherGoal}" value="Add Goal"/>
-				<h:commandButton action="#{gameBean.updateGame2}" value="Submit"/>
+				<h:commandButton action="#{gameBean.updateGame}" value="Submit"/>
 			</div>
 		</h:form>
 	</ui:define>

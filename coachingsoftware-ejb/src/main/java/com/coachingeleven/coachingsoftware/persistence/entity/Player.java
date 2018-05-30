@@ -84,13 +84,6 @@ public class Player implements Serializable {
     private Country countryPermission;
     @ManyToMany(mappedBy = "players")
     private Set<Team> teams;
-    @ManyToMany
-    @JoinTable(
-            name = "PLAYER_GAME",
-            joinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID")
-    )
-    private Set<Game> games;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<PlayerGameStats> gameStats;
     @OneToMany(mappedBy = "player")
@@ -260,14 +253,6 @@ public class Player implements Serializable {
 
     public void setTeams(Set<Team> teams) {
         this.teams = teams;
-    }
-
-    public Set<Game> getGames() {
-        return games;
-    }
-
-    public void setGames(Set<Game> games) {
-        this.games = games;
     }
 
     public Set<PlayerGameStats> getGameStats() {

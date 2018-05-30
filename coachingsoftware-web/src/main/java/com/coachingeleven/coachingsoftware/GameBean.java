@@ -31,6 +31,8 @@ public class GameBean implements Serializable {
 	private PlayerServiceRemote playerService;
 	@Inject
 	private NavigationBean navigationBean;
+	@Inject
+	private LoginBean loginBean;
 
 	private String teamAway;
 	private String teamHome;
@@ -71,6 +73,9 @@ public class GameBean implements Serializable {
 	private int gameTypeNumber;
 	private int gameID;
 
+	/**
+	 * Initialise all needed data and set up a new game
+	 */
 	public void newGameInit() {
 		init();
 		newGame = new Game();
@@ -115,6 +120,10 @@ public class GameBean implements Serializable {
 		newGame.setResultGoalsAway(0);
 	}
 
+	/**
+	 * Initialise all needed object and get the game from  the database.
+	 * Called when redirected from gameList.xhtml
+	 */
 	public void getGameInit() {
 		init();
 		try {
@@ -137,11 +146,27 @@ public class GameBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Initialise all needed objects
+	 */
 	public void init() {
 		teams = teamClubService.findAllTeams();
 		arenas = arenaService.findAll();
-		players = playerService.findAllPlayers();
-		allGames = gameService.findAllGames();
+		try {
+			Team currentTeam = teamClubService.findTeam(loginBean.getUserTeam());
+			if (currentTeam.getPlayers() != null)
+				players = new ArrayList<>(currentTeam.getPlayers());
+			else players = new ArrayList<>();
+			if (currentTeam.getGamesHome() != null)
+				allGames = new ArrayList<>(currentTeam.getGamesHome());
+			else allGames = new ArrayList<>();
+			if (currentTeam.getGamesAway() != null)
+				allGames.addAll(currentTeam.getGamesAway());
+		} catch (TeamNotFoundException e) {
+			e.printStackTrace();
+			//TODO
+		}
+
 		systems = System.values();
 		lineUpTypes = LineUpType.values();
 		missingTypes = MissingType.values();
@@ -153,6 +178,11 @@ public class GameBean implements Serializable {
 		standards = Standard.values();
 	}
 
+	/**
+	 * Create a new Game and store it in the database
+	 *
+	 * @return redirect to the game overview
+	 */
 	public String createGame() {
 		newGame = setArenaAndTeam(newGame);
 		newGame.getDate().set(Calendar.YEAR, year);
@@ -163,19 +193,27 @@ public class GameBean implements Serializable {
 		newGame.getTime().set(Calendar.SECOND, 0);
 		try {
 			currentGame = gameService.createGame(newGame);
-			teamClubService.findTeam(teamHome).getGamesHome().add(currentGame);
-			teamClubService.findTeam(teamAway).getGamesAway().add(currentGame);
-		} catch (GameAlreadyExistsException | TeamNotFoundException e) {
+			teamClubService.updateTeam(currentGame.getTeamHome());
+			teamClubService.updateTeam(currentGame.getTeamAway());
+		} catch (GameAlreadyExistsException e) {
 			currentGame = gameService.update(newGame);
 		}
 		allGames = gameService.findAllGames();
 		return navigationBean.redirectToGameOverview();
 	}
 
+	/**
+	 * Get the Arena and the Home and Away Team from the database, set the Games to the Team and the Teams to the games.
+	 *
+	 * @param game The Game which the Arena and Teams should be set
+	 * @return The game
+	 */
 	private Game setArenaAndTeam(Game game) {
 		try {
 			homeTeam = teamClubService.findTeam(teamHome);
+			homeTeam.getGamesHome().add(newGame);
 			awayTeam = teamClubService.findTeam(teamAway);
+			awayTeam.getGamesAway().add(game);
 			game.setArena(arenaService.findArena(selectedArena));
 			game.setTeamHome(homeTeam);
 			game.setTeamAway(awayTeam);
@@ -219,32 +257,12 @@ public class GameBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Update a game and all it's children
+	 *
+	 * @return redirect to the same page
+	 */
 	public String updateGame() {
-		currentGame = setArenaAndTeam(currentGame);
-		currentGame.getDate().set(Calendar.YEAR, year);
-		currentGame.getDate().set(Calendar.MONTH, month - 1);
-		currentGame.getDate().set(Calendar.DATE, day);
-		currentGame.getTime().set(Calendar.HOUR_OF_DAY, hour);
-		currentGame.getTime().set(Calendar.MINUTE, minute);
-		currentGame.getTime().set(Calendar.SECOND, 0);
-		try {
-			currentGame.setArena(arenaService.findArena(selectedArena));
-		} catch (ArenaNotFoundException e) {
-			e.printStackTrace();
-		}
-		currentGame = gameService.update(currentGame);
-		try {
-			teamClubService.findTeam(teamHome).getGamesHome().add(currentGame);
-			teamClubService.findTeam(teamAway).getGamesAway().add(currentGame);
-
-		} catch (TeamNotFoundException e) {
-			e.printStackTrace();
-		}
-		allGames = gameService.findAllGames();
-		return navigationBean.toUpdateGameForm(currentGame.getID());
-	}
-
-	public String updateGame2() {
 		//Prepare Goals
 		for (Goal goal : currentGame.getGoals()) {
 			if (goal.getScorer() != null) {
@@ -268,7 +286,7 @@ public class GameBean implements Serializable {
 				} else if (goal.getAssistant().getID() == 0) goal.setAssistant(null);
 			}
 		}
-
+		//Prepare other attributes
 		currentGame = setArenaAndTeam(currentGame);
 		currentGame.getDate().set(Calendar.YEAR, year);
 		currentGame.getDate().set(Calendar.MONTH, month - 1);
@@ -294,26 +312,40 @@ public class GameBean implements Serializable {
 		return FacesContext.getCurrentInstance().getViewRoot().getViewId() + "?faces-redirect=true&includeViewParams=true";
 	}
 
+	/**
+	 * Delete the currentGame
+	 *
+	 * @return redirect to the game overview
+	 */
+	public String deleteGame() {
+		Team teamHome = currentGame.getTeamHome();
+		Team teamAway = currentGame.getTeamAway();
+		teamHome.getGamesHome().remove(currentGame);
+		teamAway.getGamesAway().remove(currentGame);
+		teamClubService.updateTeam(teamHome);
+		teamClubService.updateTeam(teamAway);
+		gameService.deleteGame(currentGame);
+		return navigationBean.redirectToGameOverview();
+	}
 
-	public void updateLineUp() {
+	/**
+	 * Delete a goal
+	 *
+	 * @param goal the goal to delete
+	 * @return redirect to the goal form
+	 */
+	public String deleteGoal(Goal goal) {
+		currentGame.getGoals().remove(goal);
 		gameService.update(currentGame);
+		gameService.delete(goal);
+		return FacesContext.getCurrentInstance().getViewRoot().getViewId() + "?faces-redirect=true&includeViewParams=true";
 	}
 
-	public void updatePlayerGameStats() {
-		for (PlayerGameStats pgs : currentGame.getPlayerGameStats()) {
-			gameService.update(pgs);
-		}
-		gameService.update(currentGame);
-	}
-
-	public void updatePreGameReport() {
-		gameService.update(currentGame.getPreGameReport());
-	}
-
-	public void updatePostGameReport() {
-		gameService.update(currentGame.getPostGameReport());
-	}
-
+	/**
+	 * Set the GameType of the new game
+	 *
+	 * @param gameTypeNumber the integer which represents the GameType
+	 */
 	private void setGameType(int gameTypeNumber) {
 		switch (gameTypeNumber) {
 			case 0:
@@ -331,11 +363,23 @@ public class GameBean implements Serializable {
 		}
 	}
 
+	/**
+	 * Convert a Calendar to a String which represents a date
+	 *
+	 * @param date The Calendar to convert
+	 * @return the converted Calendar's date as a string
+	 */
 	public String dateToString(Calendar date) {
 		return Integer.toString(date.get(Calendar.DATE)) + "." + Integer.toString(date.get(Calendar.MONTH) + 1) + "." +
 				Integer.toString(date.get(Calendar.YEAR));
 	}
 
+	/**
+	 * Convert a Calendar to a String which represents the time
+	 *
+	 * @param time The calendar to convert
+	 * @return the converted Calendar's time as a string
+	 */
 	public String timeToString(Calendar time) {
 		String timeString;
 		if (time.get(Calendar.HOUR_OF_DAY) < 10)
@@ -573,4 +617,5 @@ public class GameBean implements Serializable {
 	public void setStandards(Standard[] standards) {
 		this.standards = standards;
 	}
+
 }
