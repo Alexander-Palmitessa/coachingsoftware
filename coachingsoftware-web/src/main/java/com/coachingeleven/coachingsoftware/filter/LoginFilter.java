@@ -1,4 +1,4 @@
-package org.example.filter;
+package com.coachingeleven.coachingsoftware.filter;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.example.LoginBean;
+import com.coachingeleven.coachingsoftware.LoginBean;
 
 
 public class LoginFilter implements Filter {
