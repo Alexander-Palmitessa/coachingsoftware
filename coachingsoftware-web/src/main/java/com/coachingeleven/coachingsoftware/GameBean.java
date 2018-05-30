@@ -31,6 +31,8 @@ public class GameBean implements Serializable {
 	private PlayerServiceRemote playerService;
 	@Inject
 	private NavigationBean navigationBean;
+	@Inject
+	private LoginBean loginBean;
 
 	private String teamAway;
 	private String teamHome;
@@ -140,8 +142,25 @@ public class GameBean implements Serializable {
 	public void init() {
 		teams = teamClubService.findAllTeams();
 		arenas = arenaService.findAll();
+
+		/*
 		players = playerService.findAllPlayers();
 		allGames = gameService.findAllGames();
+		*/
+		try {
+			Team currentTeam = teamClubService.findTeam(loginBean.getUserTeam());
+			if (currentTeam.getPlayers() != null)
+				players = new ArrayList<>(currentTeam.getPlayers());
+			else players = new ArrayList<>();
+			if (currentTeam.getGamesHome() != null)
+				allGames = new ArrayList<>(currentTeam.getGamesHome());
+			else allGames = new ArrayList<>();
+			if (currentTeam.getGamesAway() != null)
+				allGames.addAll(currentTeam.getGamesAway());
+		} catch (TeamNotFoundException e) {
+			e.printStackTrace();
+		}
+
 		systems = System.values();
 		lineUpTypes = LineUpType.values();
 		missingTypes = MissingType.values();
@@ -163,9 +182,9 @@ public class GameBean implements Serializable {
 		newGame.getTime().set(Calendar.SECOND, 0);
 		try {
 			currentGame = gameService.createGame(newGame);
-			teamClubService.findTeam(teamHome).getGamesHome().add(currentGame);
-			teamClubService.findTeam(teamAway).getGamesAway().add(currentGame);
-		} catch (GameAlreadyExistsException | TeamNotFoundException e) {
+			teamClubService.updateTeam(currentGame.getTeamHome());
+			teamClubService.updateTeam(currentGame.getTeamAway());
+		} catch (GameAlreadyExistsException e) {
 			currentGame = gameService.update(newGame);
 		}
 		allGames = gameService.findAllGames();
@@ -175,7 +194,9 @@ public class GameBean implements Serializable {
 	private Game setArenaAndTeam(Game game) {
 		try {
 			homeTeam = teamClubService.findTeam(teamHome);
+			homeTeam.getGamesHome().add(newGame);
 			awayTeam = teamClubService.findTeam(teamAway);
+			awayTeam.getGamesAway().add(game);
 			game.setArena(arenaService.findArena(selectedArena));
 			game.setTeamHome(homeTeam);
 			game.setTeamAway(awayTeam);
@@ -220,31 +241,6 @@ public class GameBean implements Serializable {
 	}
 
 	public String updateGame() {
-		currentGame = setArenaAndTeam(currentGame);
-		currentGame.getDate().set(Calendar.YEAR, year);
-		currentGame.getDate().set(Calendar.MONTH, month - 1);
-		currentGame.getDate().set(Calendar.DATE, day);
-		currentGame.getTime().set(Calendar.HOUR_OF_DAY, hour);
-		currentGame.getTime().set(Calendar.MINUTE, minute);
-		currentGame.getTime().set(Calendar.SECOND, 0);
-		try {
-			currentGame.setArena(arenaService.findArena(selectedArena));
-		} catch (ArenaNotFoundException e) {
-			e.printStackTrace();
-		}
-		currentGame = gameService.update(currentGame);
-		try {
-			teamClubService.findTeam(teamHome).getGamesHome().add(currentGame);
-			teamClubService.findTeam(teamAway).getGamesAway().add(currentGame);
-
-		} catch (TeamNotFoundException e) {
-			e.printStackTrace();
-		}
-		allGames = gameService.findAllGames();
-		return navigationBean.toUpdateGameForm(currentGame.getID());
-	}
-
-	public String updateGame2() {
 		//Prepare Goals
 		for (Goal goal : currentGame.getGoals()) {
 			if (goal.getScorer() != null) {
@@ -292,26 +288,6 @@ public class GameBean implements Serializable {
 		allGames = gameService.findAllGames();
 		gameService.update(currentGame);
 		return FacesContext.getCurrentInstance().getViewRoot().getViewId() + "?faces-redirect=true&includeViewParams=true";
-	}
-
-
-	public void updateLineUp() {
-		gameService.update(currentGame);
-	}
-
-	public void updatePlayerGameStats() {
-		for (PlayerGameStats pgs : currentGame.getPlayerGameStats()) {
-			gameService.update(pgs);
-		}
-		gameService.update(currentGame);
-	}
-
-	public void updatePreGameReport() {
-		gameService.update(currentGame.getPreGameReport());
-	}
-
-	public void updatePostGameReport() {
-		gameService.update(currentGame.getPostGameReport());
 	}
 
 	private void setGameType(int gameTypeNumber) {
