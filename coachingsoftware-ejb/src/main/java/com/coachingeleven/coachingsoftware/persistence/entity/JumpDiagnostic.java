@@ -19,35 +19,23 @@ public class JumpDiagnostic {
 	@Column(name = "SQUAT_JUMP", precision = 7, scale = 2)
 	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal squatJump;
+
 	@Column(name = "COUNTER_MOVEMENT_JUMP", precision = 7, scale = 2)
 	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal counterMovementJump;
-	@Column(name = "STANDING_LONG_JUMP", precision = 7, scale = 2)
-	@DecimalMin(value = "0.00" , message = "{min.zero.decimal}")
-	private BigDecimal standingLongJump;
+
 	@Column(name = "DROP_JUMP", precision = 7, scale = 2)
 	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal dropJump;
+
+	@Column(name = "EXPL_POWER_ONE_LEG", precision = 7, scale = 2)
+	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
+	private BigDecimal explosivePowerOneLegged;
 
 	/**
 	 * JPA required default constructor
 	 */
 	public JumpDiagnostic() {
-	}
-
-	/**
-	 * Class constructor
-	 *
-	 * @param squatJump           distance for squad jumps
-	 * @param counterMovementJump distance for counter movement jumps
-	 * @param standingLongJump    distance for standing long jumps
-	 * @param dropJump            distance for drop jumps
-	 */
-	public JumpDiagnostic(BigDecimal squatJump, BigDecimal counterMovementJump, BigDecimal standingLongJump, BigDecimal dropJump) {
-		this.squatJump = squatJump;
-		this.counterMovementJump = counterMovementJump;
-		this.standingLongJump = standingLongJump;
-		this.dropJump = dropJump;
 	}
 
 	public BigDecimal getSquatJump() {
@@ -66,19 +54,19 @@ public class JumpDiagnostic {
 		this.counterMovementJump = counterMovementJump;
 	}
 
-	public BigDecimal getStandingLongJump() {
-		return standingLongJump;
-	}
-
-	public void setStandingLongJump(BigDecimal standingLongJump) {
-		this.standingLongJump = standingLongJump;
-	}
-
 	public BigDecimal getDropJump() {
 		return dropJump;
 	}
 
 	public void setDropJump(BigDecimal dropJump) {
 		this.dropJump = dropJump;
+	}
+
+	public BigDecimal getExplosivePowerOneLegged() {
+		return explosivePowerOneLegged;
+	}
+
+	public void setExplosivePowerOneLegged(BigDecimal explosivePowerOneLegged) {
+		this.explosivePowerOneLegged = explosivePowerOneLegged;
 	}
 }
