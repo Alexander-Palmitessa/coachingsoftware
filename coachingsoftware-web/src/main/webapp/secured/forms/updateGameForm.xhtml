@@ -91,7 +91,11 @@
 									   itemLabel="#{t.name}"/>
 					</h:selectOneMenu>
 				</div>
-				<div class="small-12 column text-center">
+				<div class="small-12 columns text-center">
+					<h:commandButton action="#{gameBean.deleteGame}" value="delete"
+									 onclick="return confirm('Are you sure?')"/>
+				</div>
+				<div class="small-12 columns text-center">
 					<h:commandButton action="#{gameBean.updateGame}" value="submit"/>
 				</div>
 			</div>

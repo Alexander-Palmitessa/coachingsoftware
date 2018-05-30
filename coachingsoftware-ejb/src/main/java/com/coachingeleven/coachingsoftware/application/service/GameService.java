@@ -158,6 +158,11 @@ public class GameService implements GameServiceRemote {
     }
 
     @Override
+    public void delete(Goal goal) {
+        goalRepository.delete(Goal.class, goal.getID());
+    }
+
+    @Override
     public LineUpPlayer update(LineUpPlayer lineUpPlayer) {
         return lineUpPlayerRepository.update(lineUpPlayer);
     }
