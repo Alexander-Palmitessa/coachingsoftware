@@ -25,7 +25,7 @@ import java.util.Set;
 public class Team implements Serializable {
 
 	private static final long serialVersionUID = -2807580302598720350L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "TEAM_ID")
@@ -37,19 +37,17 @@ public class Team implements Serializable {
 	@JoinColumn(name = "CLUB_ID")
 	@ManyToOne
 	private Club club;
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "TEAM_PLAYER",
 			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID"),
 			inverseJoinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"))
 	private Set<Player> players;
-	@ManyToMany
-	@JoinTable(
-			name = "TEAM_GAME",
-			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID"),
-			inverseJoinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID"))
-	private Set<Game> games;
-	@OneToOne(mappedBy="team")
+	@OneToMany(mappedBy = "teamHome", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Game> gamesHome;
+	@OneToMany(mappedBy = "teamAway", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<Game> gamesAway;
+	@OneToOne(mappedBy = "team")
 	private UserAccount user;
 	@ManyToOne
 	private Season season;
@@ -62,7 +60,7 @@ public class Team implements Serializable {
 	/**
 	 * JPA required default constructor
 	 */
-	public Team(){
+	public Team() {
 
 	}
 
@@ -94,19 +92,27 @@ public class Team implements Serializable {
 		this.players = players;
 	}
 
-	public Set<Game> getGames() {
-		return games;
-	}
-
-	public void setGames(Set<Game> games) {
-		this.games = games;
-	}
-
 	public UserAccount getUser() {
 		return user;
 	}
 
 	public void setUser(UserAccount user) {
 		this.user = user;
+	}
+
+	public Set<Game> getGamesHome() {
+		return gamesHome;
+	}
+
+	public void setGamesHome(Set<Game> gamesHome) {
+		this.gamesHome = gamesHome;
+	}
+
+	public Set<Game> getGamesAway() {
+		return gamesAway;
+	}
+
+	public void setGamesAway(Set<Game> gamesAway) {
+		this.gamesAway = gamesAway;
 	}
 }

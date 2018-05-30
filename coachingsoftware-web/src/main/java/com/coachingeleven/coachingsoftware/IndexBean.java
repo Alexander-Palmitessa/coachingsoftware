@@ -65,6 +65,18 @@ public class IndexBean {
         calendar.set(1990, 12, 12, 17, 45, 0);
         game.setDate(calendar);
         game.setTime(calendar);
+        if (game.getLineUp() == null) {
+            LineUp lineUp = new LineUp();
+            lineUp.setGame(game);
+            lineUp.setLineUpPlayers(new HashSet<LineUpPlayer>());
+            for (Player p : players) {
+                LineUpPlayer lup = new LineUpPlayer();
+                lup.setPlayer(p);
+                lup.setLineUp(lineUp);
+                lineUp.getLineUpPlayers().add(lup);
+            }
+            game.setLineUp(lineUp);
+        }
         game = gameService.createGame(game);
 
     }

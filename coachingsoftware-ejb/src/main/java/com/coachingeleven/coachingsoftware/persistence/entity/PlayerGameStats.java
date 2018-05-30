@@ -90,10 +90,10 @@ public class PlayerGameStats implements Serializable {
     @Min(value = 0, message = "{min.zero}")
     @Max(value = 10, message = "{max.ten}")
     private int loadIndicator;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CHANGEIN_ID")
     private ChangeIn changeIn;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CHANGEOUT_ID")
     private ChangeOut changeOut;
     @Embedded

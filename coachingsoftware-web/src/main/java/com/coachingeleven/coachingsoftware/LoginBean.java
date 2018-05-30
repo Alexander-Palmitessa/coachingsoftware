@@ -23,18 +23,18 @@ import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
 public class LoginBean implements Serializable {
 
 	private static final long serialVersionUID = 3548028163173684077L;
-	
+
 	private String username;
 	private String password;
 	private String userTeam;
-	
+
 	private boolean loggedIn;
-	
+
 	private boolean hasUserAssignedTeam;
-	
+
 	@Inject
 	private NavigationBean navigationBean;
-	
+
 	@EJB
 	private UserServiceRemote userService;
 	@EJB
@@ -44,7 +44,7 @@ public class LoginBean implements Serializable {
 
 	@Inject
 	private IndexBean indexBean;
-	
+
 	@PostConstruct
     public void init() {
 		try {
@@ -57,13 +57,13 @@ public class LoginBean implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String doLogin() {
 		try {
 			UserAccount currentUser = userService.findUser(username);
 			if(userService.authenticate(password, currentUser.getPassword())) {
 				loggedIn = true;
-				
+
 				try {
 					Player player1 = playerService.createPlayer(new Player("Elias","Schildknecht","test@test.ch"));
 					Player player2 = playerService.createPlayer(new Player("Alexander","Palmitessa","test@test2.ch"));
@@ -89,7 +89,7 @@ public class LoginBean implements Serializable {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 				if(currentUser.getTeam() != null) {
 					hasUserAssignedTeam = true;
 					return navigationBean.redirectToHome();
@@ -100,15 +100,15 @@ public class LoginBean implements Serializable {
 		} catch (UserNotFoundException e) {
 			loggedIn = false;
 		}
-		
+
 		return navigationBean.redirectToLogin();
 	}
-	
+
 	public String doLogout() {
 		loggedIn = false;
 		return navigationBean.toLogin();
 	}
-	
+
 	public boolean isLoggedIn() {
 		return loggedIn;
 	}

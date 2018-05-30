@@ -12,24 +12,7 @@ import com.coachingeleven.coachingsoftware.persistence.enumeration.Draft;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Role;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -41,300 +24,305 @@ import java.util.Set;
 @Entity
 @Table(name = "PLAYER")
 @NamedQueries({
-	@NamedQuery(name = "findPlayer",
-			query = "SELECT c FROM Player c WHERE LOWER(c.email) = LOWER(:email)")
+        @NamedQuery(name = "findPlayer",
+                query = "SELECT c FROM Player c WHERE LOWER(c.email) = LOWER(:email)")
 })
 public class Player implements Serializable {
 
-	private static final long serialVersionUID = -645290838661524061L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PLAYER_ID")
-	private int ID;
-	@Column(name = "FIRST_NAME", nullable = false)
-	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
-	@NotNull
-	private String firstName;
-	@Column(name = "LAST_NAME", nullable = false)
-	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
-	@NotNull
-	private String lastName;
-	@Embedded
-	private Address address;
-	@Column(name = "FIRST_EMAIL", unique = true)
-	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "{pattern.email}")
-	private String email;
-	@Column(name = "TYPE")
-	@Enumerated(EnumType.STRING)
-	private Role type;
-	@Column(name = "DRAFT")
-	@Enumerated(EnumType.STRING)
-	private Draft draft;
-	@Column(name = "POSITION")
-	@Enumerated(EnumType.STRING)
-	private Position position;
-	@Column(name = "PRIVATE_NUMBER")
-	@Pattern(regexp = "^[0-9\\s]+$", message = "{pattern.number.space}")
-	private String privateNumber;
-	@Column(name = "WORKING_NUMBER")
-	@Pattern(regexp = "^[0-9\\s]+$", message = "{pattern.number.space}")
-	private String workingNumber;
-	@Column(name = "MOBILE_NUMBER")
-	@Pattern(regexp = "^[0-9\\s]+$", message = "{pattern.number.space}")
-	private String mobileNumber;
-	@Column(name = "BIRTHDATE")
-	@Temporal(TemporalType.DATE)
-	private Calendar birthdate;
-	@Column(name = "SIZE_CM")
-	@Min(value = 0, message = "{min.zero}")
-	@Max(value = 300, message = "{max.value}")
-	private int size;
-	@Column(name = "WEIGHT_KG")
-	@Min(value = 0, message = "{min.zero}")
-	@Max(value = 500, message = "{max.value}")
-	private int weight;
-	@Embedded
-	private Contract contract;
-	@JoinColumn(name = "COUNTRY_PERMISSION_ID")
-	@ManyToOne
-	private Country countryPermission;
-	@ManyToMany(mappedBy = "players")
-	private Set<Team> teams;
-	@ManyToMany
-	@JoinTable(
-			name = "PLAYER_GAME",
-			joinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"),
-			inverseJoinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID")
-	)
-	private Set<Game> games;
-	@ManyToMany
-	@JoinTable(
-			name = "PLAYER_LINEUP",
-			joinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"),
-			inverseJoinColumns = @JoinColumn(name = "LINEUP_ID", referencedColumnName = "LINEUP_ID")
-	)
-	private Set<LineUp> lineUps;
-	@OneToMany
-	private Set<PlayerGameStats> gameStats;
-	@OneToMany(mappedBy = "player")
-	private Set<PerformanceDiagnostics> performanceDiagnostics;
-	@OneToMany(mappedBy = "player")
-	private Set<EvaluationTalk> evaluationTalks;
-	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
-	private String avatarUrl;
+    private static final long serialVersionUID = -645290838661524061L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PLAYER_ID")
+    private int ID;
+    @Column(name = "FIRST_NAME", nullable = false)
+    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+    @NotNull
+    private String firstName;
+    @Column(name = "LAST_NAME", nullable = false)
+    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+    @NotNull
+    private String lastName;
+    @Embedded
+    private Address address;
+    @Column(name = "FIRST_EMAIL", unique = true)
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "{pattern.email}")
+    private String email;
+    @Column(name = "TYPE")
+    @Enumerated(EnumType.STRING)
+    private Role type;
+    @Column(name = "DRAFT")
+    @Enumerated(EnumType.STRING)
+    private Draft draft;
+    @Column(name = "POSITION")
+    @Enumerated(EnumType.STRING)
+    private Position position;
+    @Column(name = "PRIVATE_NUMBER")
+    @Pattern(regexp = "^[0-9\\s]+$", message = "{pattern.number.space}")
+    private String privateNumber;
+    @Column(name = "WORKING_NUMBER")
+    @Pattern(regexp = "^[0-9\\s]+$", message = "{pattern.number.space}")
+    private String workingNumber;
+    @Column(name = "MOBILE_NUMBER")
+    @Pattern(regexp = "^[0-9\\s]+$", message = "{pattern.number.space}")
+    private String mobileNumber;
+    @Column(name = "BIRTHDATE")
+    @Temporal(TemporalType.DATE)
+    private Calendar birthdate;
+    @Column(name = "SIZE_CM")
+    @Min(value = 0, message = "{min.zero}")
+    @Max(value = 300, message = "{max.value}")
+    private int size;
+    @Column(name = "WEIGHT_KG")
+    @Min(value = 0, message = "{min.zero}")
+    @Max(value = 500, message = "{max.value}")
+    private int weight;
+    @Embedded
+    private Contract contract;
+    @JoinColumn(name = "COUNTRY_PERMISSION_ID")
+    @ManyToOne
+    private Country countryPermission;
+    @ManyToMany(mappedBy = "players")
+    private Set<Team> teams;
+    @ManyToMany
+    @JoinTable(
+            name = "PLAYER_GAME",
+            joinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID")
+    )
+    private Set<Game> games;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<PlayerGameStats> gameStats;
+    @OneToMany(mappedBy = "player")
+    private Set<PerformanceDiagnostics> performanceDiagnostics;
+    @OneToMany(mappedBy = "player")
+    private Set<EvaluationTalk> evaluationTalks;
+    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+    private String avatarUrl;
+    @OneToMany(mappedBy = "player")
+    private Set<ObserveTIPS> observeTIPS;
+    @OneToMany(mappedBy = "player")
+    private Set<ExtendedTIPS> extendedTIPS;
 
 
-	/**
-	 * JPA required default constructor
-	 */
-	public Player() {
+    /**
+     * JPA required default constructor
+     */
+    public Player() {
 
-	}
-	
-	/**
-	 * @param firstName first name of player
-	 * @param lastName last name of player
-	 * @param email email of player
-	 * */
-	public Player(String firstName, String lastName, String email) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-	}
-	
-	public Player(String firstName, String lastName, String email, String mobilePhone, Address address, Position position) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.mobileNumber = mobilePhone;
-		this.address = address;
-		this.position = position;
-	}
-	
-	// TODO: Player constructors with parameters equals to input form (tbd)
+    }
 
-	public int getID() {
-		return ID;
-	}
+    /**
+     * @param firstName first name of player
+     * @param lastName  last name of player
+     * @param email     email of player
+     */
+    public Player(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
 
-	public void setID(int ID) {
-		this.ID = ID;
-	}
+    public Player(String firstName, String lastName, String email, String mobilePhone, Address address, Position position) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.mobileNumber = mobilePhone;
+        this.address = address;
+        this.position = position;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    // TODO: Player constructors with parameters equals to input form (tbd)
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public int getID() {
+        return ID;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public Address getAddress() {
-		return address;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public Role getType() {
-		return type;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setType(Role type) {
-		this.type = type;
-	}
+    public Address getAddress() {
+        return address;
+    }
 
-	public Draft getDraft() {
-		return draft;
-	}
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
-	public void setDraft(Draft draft) {
-		this.draft = draft;
-	}
+    public Role getType() {
+        return type;
+    }
 
-	public Position getPosition() {
-		return position;
-	}
+    public void setType(Role type) {
+        this.type = type;
+    }
 
-	public void setPosition(Position position) {
-		this.position = position;
-	}
+    public Draft getDraft() {
+        return draft;
+    }
 
-	public String getPrivateNumber() {
-		return privateNumber;
-	}
+    public void setDraft(Draft draft) {
+        this.draft = draft;
+    }
 
-	public void setPrivateNumber(String privateNumber) {
-		this.privateNumber = privateNumber;
-	}
+    public Position getPosition() {
+        return position;
+    }
 
-	public String getWorkingNumber() {
-		return workingNumber;
-	}
+    public void setPosition(Position position) {
+        this.position = position;
+    }
 
-	public void setWorkingNumber(String workingNumber) {
-		this.workingNumber = workingNumber;
-	}
+    public String getPrivateNumber() {
+        return privateNumber;
+    }
 
-	public String getMobileNumber() {
-		return mobileNumber;
-	}
+    public void setPrivateNumber(String privateNumber) {
+        this.privateNumber = privateNumber;
+    }
 
-	public void setMobileNumber(String mobileNumber) {
-		this.mobileNumber = mobileNumber;
-	}
+    public String getWorkingNumber() {
+        return workingNumber;
+    }
 
-	public Calendar getBirthdate() {
-		return birthdate;
-	}
+    public void setWorkingNumber(String workingNumber) {
+        this.workingNumber = workingNumber;
+    }
 
-	public void setBirthdate(Calendar birthdate) {
-		this.birthdate = birthdate;
-	}
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
 
-	public int getSize() {
-		return size;
-	}
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
 
-	public void setSize(int size) {
-		this.size = size;
-	}
+    public Calendar getBirthdate() {
+        return birthdate;
+    }
 
-	public int getWeight() {
-		return weight;
-	}
+    public void setBirthdate(Calendar birthdate) {
+        this.birthdate = birthdate;
+    }
 
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
+    public int getSize() {
+        return size;
+    }
 
-	public Contract getContract() {
-		return contract;
-	}
+    public void setSize(int size) {
+        this.size = size;
+    }
 
-	public void setContract(Contract contract) {
-		this.contract = contract;
-	}
+    public int getWeight() {
+        return weight;
+    }
 
-	public Country getCountryPermission() {
-		return countryPermission;
-	}
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 
-	public void setCountryPermission(Country countryPermission) {
-		this.countryPermission = countryPermission;
-	}
+    public Contract getContract() {
+        return contract;
+    }
 
-	public Set<Team> getTeams() {
-		return teams;
-	}
+    public void setContract(Contract contract) {
+        this.contract = contract;
+    }
 
-	public void setTeams(Set<Team> teams) {
-		this.teams = teams;
-	}
+    public Country getCountryPermission() {
+        return countryPermission;
+    }
 
-	public Set<Game> getGames() {
-		return games;
-	}
+    public void setCountryPermission(Country countryPermission) {
+        this.countryPermission = countryPermission;
+    }
 
-	public void setGames(Set<Game> games) {
-		this.games = games;
-	}
+    public Set<Team> getTeams() {
+        return teams;
+    }
 
-	public Set<LineUp> getLineUps() {
-		return lineUps;
-	}
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
+    }
 
-	public void setLineUps(Set<LineUp> lineUps) {
-		this.lineUps = lineUps;
-	}
+    public Set<Game> getGames() {
+        return games;
+    }
 
-	public Set<PlayerGameStats> getGameStats() {
-		return gameStats;
-	}
+    public void setGames(Set<Game> games) {
+        this.games = games;
+    }
 
-	public void setGameStats(Set<PlayerGameStats> gameStats) {
-		this.gameStats = gameStats;
-	}
+    public Set<PlayerGameStats> getGameStats() {
+        return gameStats;
+    }
 
-	public Set<PerformanceDiagnostics> getPerformanceDiagnostics() {
-		return performanceDiagnostics;
-	}
+    public void setGameStats(Set<PlayerGameStats> gameStats) {
+        this.gameStats = gameStats;
+    }
 
-	public void setPerformanceDiagnostics(Set<PerformanceDiagnostics> performanceDiagnostics) {
-		this.performanceDiagnostics = performanceDiagnostics;
-	}
+    public Set<PerformanceDiagnostics> getPerformanceDiagnostics() {
+        return performanceDiagnostics;
+    }
 
-	public Set<EvaluationTalk> getEvaluationTalks() {
-		return evaluationTalks;
-	}
+    public void setPerformanceDiagnostics(Set<PerformanceDiagnostics> performanceDiagnostics) {
+        this.performanceDiagnostics = performanceDiagnostics;
+    }
 
-	public void setEvaluationTalks(Set<EvaluationTalk> evaluationTalks) {
-		this.evaluationTalks = evaluationTalks;
-	}
+    public Set<EvaluationTalk> getEvaluationTalks() {
+        return evaluationTalks;
+    }
 
-	public String getAvatarUrl() {
-		return avatarUrl;
-	}
+    public void setEvaluationTalks(Set<EvaluationTalk> evaluationTalks) {
+        this.evaluationTalks = evaluationTalks;
+    }
 
-	public void setAvatarUrl(String avatarUrl) {
-		this.avatarUrl = avatarUrl;
-	}
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Set<ObserveTIPS> getObserveTIPS() {
+        return observeTIPS;
+    }
+
+    public void setObserveTIPS(Set<ObserveTIPS> observeTIPS) {
+        this.observeTIPS = observeTIPS;
+    }
+
+    public Set<ExtendedTIPS> getExtendedTIPS() {
+        return extendedTIPS;
+    }
+
+    public void setExtendedTIPS(Set<ExtendedTIPS> extendedTIPS) {
+        this.extendedTIPS = extendedTIPS;
+    }
 }
