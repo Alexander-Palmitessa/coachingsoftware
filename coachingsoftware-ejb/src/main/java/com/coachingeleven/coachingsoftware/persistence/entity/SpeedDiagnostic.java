@@ -11,10 +11,11 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.DecimalMin;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Embeddable
-public class SpeedDiagnostic {
+public class SpeedDiagnostic implements Serializable {
 
 	@Column(name = "TIME_10M", precision = 7, scale = 2)
 	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")

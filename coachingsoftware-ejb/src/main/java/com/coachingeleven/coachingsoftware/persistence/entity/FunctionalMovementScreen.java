@@ -3,9 +3,10 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 
 @Embeddable
-public class FunctionalMovementScreen {
+public class FunctionalMovementScreen implements Serializable {
 
 	@Column(name = "LEG_RAISE_L")
 	@Min(value = 0)

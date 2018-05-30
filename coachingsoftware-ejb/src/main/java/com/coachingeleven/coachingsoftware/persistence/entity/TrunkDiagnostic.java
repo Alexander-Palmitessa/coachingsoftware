@@ -12,10 +12,11 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Embeddable
-public class TrunkDiagnostic {
+public class TrunkDiagnostic implements Serializable {
 
 	@Column(name = "FRONT_TRUNK", precision = 7, scale = 2)
 	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")

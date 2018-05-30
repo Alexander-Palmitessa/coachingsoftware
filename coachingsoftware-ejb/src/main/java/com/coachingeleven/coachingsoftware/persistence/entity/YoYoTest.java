@@ -12,10 +12,12 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Embeddable
-public class YoYoTest {
+public class YoYoTest implements Serializable {
+
 	@Column(name = "LEVEL", precision = 7, scale = 2)
 	@DecimalMin(value = "0.00", message = "{min.zero.decimal}")
 	private BigDecimal level;
