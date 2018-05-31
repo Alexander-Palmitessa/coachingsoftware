@@ -32,10 +32,18 @@
 									<p class="author-name">
 										<h:outputText value="#{player.firstName}"/><h:outputText value=" "/><h:outputText value="#{player.lastName}"/>
 									</p>
-									<p class="author-location">
-										<i class="fa fa-map-marker" aria-hidden="true"></i>
-										<h:outputText value="#{player.address.city}, #{player.address.country.name}"/>
-									</p>
+									<h:panelGroup rendered="#{player.address.city != null}">
+										<p class="author-location">
+											<i class="fa fa-map-marker" aria-hidden="true"></i>
+											<h:outputText value="#{player.address.city}, #{player.address.country.name}"/>
+										</p>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{player.address.city == null}">
+										<p class="author-location">
+											<i class="fa fa-map-marker" aria-hidden="true"></i>
+											<h:outputText value="#{msg['noLocation']}"/>
+										</p>
+									</h:panelGroup>
 								</div>    
 							</div>
 							<div class="small-12 medium-2 columns">
@@ -47,7 +55,7 @@
 							</div>
 							<div class="small-12 medium-4 columns add-friend">
 								<div class="add-friend-action">
-									<button class="button primary-button">
+									<button class="button primary-button" disabled="disabled">
 										<i class="fa fa-user-plus" aria-hidden="true"></i>
 										<h:outputText value="#{msg['addFriend']}"/>
 									</button>
@@ -65,10 +73,18 @@
 									<p class="author-name">
 										<h:outputText value="#{player.firstName}"/><h:outputText value=" "/><h:outputText value="#{player.lastName}"/>
 									</p>
-									<p class="author-location">
-										<i class="fa fa-map-marker" aria-hidden="true"></i>
-										<h:outputText value="#{player.address.city}, #{player.address.country.name}"/>
-									</p>
+									<h:panelGroup rendered="#{player.address.city != null}">
+										<p class="author-location">
+											<i class="fa fa-map-marker" aria-hidden="true"></i>
+											<h:outputText value="#{player.address.city}, #{player.address.country.name}"/>
+										</p>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{player.address.city == null}">
+										<p class="author-location">
+											<i class="fa fa-map-marker" aria-hidden="true"></i>
+											<h:outputText value="#{msg['noLocation']}"/>
+										</p>
+									</h:panelGroup>
 								</div>    
 							</div>
 							<div class="small-12 medium-2 columns">
@@ -80,7 +96,7 @@
 							</div>
 							<div class="small-12 medium-4 columns add-friend">
 								<div class="add-friend-action">
-									<button class="button primary-button">
+									<button class="button primary-button" disabled="disabled">
 										<i class="fa fa-user-plus" aria-hidden="true"></i>
 										<h:outputText value="#{msg['addFriend']}"/>
 									</button>

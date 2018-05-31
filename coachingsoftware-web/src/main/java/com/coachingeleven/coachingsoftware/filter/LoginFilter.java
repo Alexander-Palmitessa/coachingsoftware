@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.coachingeleven.coachingsoftware.LoginBean;
 
-
 public class LoginFilter implements Filter {
 
 	@Inject

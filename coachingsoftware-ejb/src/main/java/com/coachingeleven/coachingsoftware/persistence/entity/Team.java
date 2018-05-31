@@ -52,6 +52,10 @@ public class Team implements Serializable {
 	private Set<Player> currentPlayers;
 	@ManyToMany(mappedBy = "historyTeams")
     private Set<Player> historyPlayers;
+	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+	private String teamPictureURL;
+	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+	private String teamLogoURL;
 
 	public Team(String name, Club club) {
 		this.name = name;
@@ -123,5 +127,21 @@ public class Team implements Serializable {
 
 	public void setHistoryPlayers(Set<Player> historyPlayers) {
 		this.historyPlayers = historyPlayers;
+	}
+
+	public String getTeamPictureURL() {
+		return teamPictureURL;
+	}
+
+	public void setTeamPictureURL(String teamPictureURL) {
+		this.teamPictureURL = teamPictureURL;
+	}
+
+	public String getTeamLogoURL() {
+		return teamLogoURL;
+	}
+
+	public void setTeamLogoURL(String teamLogoURL) {
+		this.teamLogoURL = teamLogoURL;
 	}
 }

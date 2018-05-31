@@ -31,6 +31,11 @@
 					<h:message for="player_email" style="color: red"/>
 		        </div>
 		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['birthday']}"/></label>
+		        	<h:inputText id="datePickerPlayerBirthday" class="js-datepicker" value="#{playerBean.playerBirthday}"/>
+		        	<h:message for="datePickerPlayerBirthday" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
 		        	<label><h:outputText value="#{msg['mobileNumber']}"/></label>
 				    <h:inputText id="player_mobileNumber" value="#{playerBean.newPlayer.mobileNumber}"/>
 					<h:message for="player_mobileNumber" style="color: red"/>

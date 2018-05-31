@@ -1,5 +1,8 @@
 package com.coachingeleven.coachingsoftware;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -47,6 +50,10 @@ public class PlayerBean {
 	
 	private Integer playerID;
 	
+	private String playerBirthday;
+	
+	private SimpleDateFormat dateFormatter;
+	
 	@PostConstruct
     public void init() {
 		newPlayer = new Player();
@@ -54,6 +61,7 @@ public class PlayerBean {
 		newPlayerCountry = new Country();
 		currentPlayers = playerService.findCurrentPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
 		historyPlayers = playerService.findHistoryPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
+		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
     }
 	
 	public void setRequestParameters() {
@@ -79,6 +87,14 @@ public class PlayerBean {
 		newPlayer.setAddress(newPlayerAddress);
 		// Add created player to the managed team of the logged in user
 		newPlayer.setCurrentTeam(loginBean.getLoggedInUser().getTeam());
+		
+		try {
+			Calendar playerBirthdayCalendar = Calendar.getInstance();
+			playerBirthdayCalendar.setTime(dateFormatter.parse(playerBirthday));
+			newPlayer.setBirthdate(playerBirthdayCalendar);
+		} catch (ParseException e1) {
+			// TODO 
+		}
 		
 		try {
 			newPlayer = playerService.createPlayer(newPlayer);
@@ -147,5 +163,13 @@ public class PlayerBean {
 
 	public void setPlayerID(Integer playerID) {
 		this.playerID = playerID;
+	}
+
+	public String getPlayerBirthday() {
+		return playerBirthday;
+	}
+
+	public void setPlayerBirthday(String playerBirthday) {
+		this.playerBirthday = playerBirthday;
 	}
 }

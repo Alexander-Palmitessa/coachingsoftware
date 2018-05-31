@@ -9,7 +9,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 
 import java.security.NoSuchAlgorithmException;
@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 import static javax.ejb.TransactionAttributeType.REQUIRED;
 
 @LocalBean
-@Stateless(name = "UserService")
+@Stateful(name = "UserService")
 @TransactionAttribute(REQUIRED)
 public class UserService implements UserServiceRemote {
 
