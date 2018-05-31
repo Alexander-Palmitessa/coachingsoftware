@@ -50,52 +50,64 @@
 		</div>
 		<h:form>
 			<div class="row">
-				<div class="small-12 medium-6 column">
+				<!-- GOALS -->
+				<div class="medium-2 small-6 columns">
 					<label><h:outputText value="#{msg['goalsHome']}"/></label>
 					<h:inputText class="numericIn" value="#{gameBean.currentGame.resultGoalsHome}" maxlength="2"/>
+				</div>
+				<div class="medium-2 small-6 columns">
 					<label><h:outputText value="#{msg['goalsAway']}"/></label>
 					<h:inputText class="numericIn" value="#{gameBean.currentGame.resultGoalsAway}" maxlength="2"/>
 				</div>
-				<div class="small-12 medium-6 column">
+				<!-- DATE & TIME -->
+				<div class="medium-1 small-3 columns">
 					<label><h:outputText value="#{msg['day']}"/></label>
 					<h:inputText class="numericIn" value="#{gameBean.day}" maxlength="2"/>
+				</div>
+				<div class="medium-1 small-3 columns">
 					<label><h:outputText value="#{msg['month']}"/></label>
 					<h:inputText class="numericIn" value="#{gameBean.month}" maxlength="2"/>
+				</div>
+				<div class="medium-2 small-6 columns">
 					<label><h:outputText value="#{msg['year']}"/></label>
 					<h:inputText class="numericIn" value="#{gameBean.year}" maxlength="4"/>
 				</div>
-				<div class="small-12 medium-6 column">
+				<div class="medium-2 small-6 columns">
 					<label><h:outputText value="#{msg['hour']}"/></label>
 					<h:inputText class="numericIn" value="#{gameBean.hour}" maxlength="2"/>
+				</div>
+				<div class="medium-2 small-6 columns">
 					<label><h:outputText value="#{msg['minute']}"/></label>
 					<h:inputText class="numericIn" value="#{gameBean.minute}" maxlength="2"/>
 				</div>
-				<div class="small-12 medium-6 column">
+				<!-- TEAMS & ARENA -->
+				<div class="medium-4 small-12 columns">
 					<label><h:outputText value="#{msg['arena']}"/></label>
 					<h:selectOneMenu value="#{gameBean.selectedArena}">
 						<f:selectItems value="#{gameBean.arenas}" var="a" itemValue="#{a.name}"
 									   itemLabel="#{a.name}"/>
 					</h:selectOneMenu>
 				</div>
-				<div class="small-12 medium-6 column">
+				<div class="medium-4 small-12 columns">
 					<label><h:outputText value="#{msg['teamHome']}"/></label>
 					<h:selectOneMenu value="#{gameBean.teamHome}">
 						<f:selectItems value="#{gameBean.teams}" var="t" itemValue="#{t.name}"
 									   itemLabel="#{t.name}"/>
 					</h:selectOneMenu>
 				</div>
-				<div class="small-12 medium-6 column">
+				<div class="medium-4 small-12 columns">
 					<label><h:outputText value="#{msg['teamAway']}"/></label>
 					<h:selectOneMenu value="#{gameBean.teamAway}">
 						<f:selectItems value="#{gameBean.teams}" var="t" itemValue="#{t.name}"
 									   itemLabel="#{t.name}"/>
 					</h:selectOneMenu>
 				</div>
-				<div class="small-12 columns text-center">
+				<!-- BUTTONS -->
+				<div class="medium-6 small-6 columns text-center deletebutton">
 					<h:commandButton action="#{gameBean.deleteGame}" value="delete"
 									 onclick="return confirm('Are you sure?')"/>
 				</div>
-				<div class="small-12 columns text-center">
+				<div class="medium-6 small-6 columns text-center">
 					<h:commandButton action="#{gameBean.updateGame}" value="submit"/>
 				</div>
 			</div>
