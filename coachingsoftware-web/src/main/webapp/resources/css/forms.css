@@ -30,8 +30,12 @@ form input[type="submit"]:hover, form input[type="reset"]:hover {
 }
 
 .goalcontainer input[type="submit"] {
-	margin-top: 1.67rem;
-	padding: 0.55rem 1.25rem;
+	  margin-top: 1.67rem;
+	  padding: 0.55rem 1.25rem;
+	  color: red;
+	  border: 2px solid red;
+  }
+.deletebutton input[type="submit"] {
 	color: red;
 	border: 2px solid red;
 }

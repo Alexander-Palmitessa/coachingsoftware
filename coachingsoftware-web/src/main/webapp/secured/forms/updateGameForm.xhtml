@@ -51,33 +51,32 @@
 		<h:form>
 			<div class="row">
 				<!-- GOALS -->
-				<div class="medium-3 small-6 columns">
+				<div class="medium-2 small-6 columns">
 					<label><h:outputText value="#{msg['goalsHome']}"/></label>
 					<h:inputText class="numericIn" value="#{gameBean.currentGame.resultGoalsHome}" maxlength="2"/>
 				</div>
-				<div class="medium-3 small-6 columns">
+				<div class="medium-2 small-6 columns">
 					<label><h:outputText value="#{msg['goalsAway']}"/></label>
 					<h:inputText class="numericIn" value="#{gameBean.currentGame.resultGoalsAway}" maxlength="2"/>
 				</div>
-				<div class="medium-6 columns"></div>
 				<!-- DATE & TIME -->
-				<div class="medium-2 columns">
+				<div class="medium-1 small-3 columns">
 					<label><h:outputText value="#{msg['day']}"/></label>
 					<h:inputText class="numericIn" value="#{gameBean.day}" maxlength="2"/>
 				</div>
-				<div class="medium-2 columns">
+				<div class="medium-1 small-3 columns">
 					<label><h:outputText value="#{msg['month']}"/></label>
 					<h:inputText class="numericIn" value="#{gameBean.month}" maxlength="2"/>
 				</div>
-				<div class="medium-4 columns">
+				<div class="medium-2 small-6 columns">
 					<label><h:outputText value="#{msg['year']}"/></label>
 					<h:inputText class="numericIn" value="#{gameBean.year}" maxlength="4"/>
 				</div>
-				<div class="medium-2 columns">
+				<div class="medium-2 small-6 columns">
 					<label><h:outputText value="#{msg['hour']}"/></label>
 					<h:inputText class="numericIn" value="#{gameBean.hour}" maxlength="2"/>
 				</div>
-				<div class="medium-4 columns">
+				<div class="medium-2 small-6 columns">
 					<label><h:outputText value="#{msg['minute']}"/></label>
 					<h:inputText class="numericIn" value="#{gameBean.minute}" maxlength="2"/>
 				</div>
@@ -104,7 +103,7 @@
 					</h:selectOneMenu>
 				</div>
 				<!-- BUTTONS -->
-				<div class="medium-6 small-6 columns text-center">
+				<div class="medium-6 small-6 columns text-center deletebutton">
 					<h:commandButton action="#{gameBean.deleteGame}" value="delete"
 									 onclick="return confirm('Are you sure?')"/>
 				</div>
