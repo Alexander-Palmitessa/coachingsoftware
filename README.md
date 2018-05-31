@@ -23,6 +23,10 @@ Open the project and run the following commands:
 <br/>
 <em>mvn clean install -DskipTests</em>
 <br/>
-<em>asadmin redeploy coachingsoftware-app/target/coachingsoftware-app-1.0.ear</em>
+<em>asadmin deploy coachingsoftware-app/target/coachingsoftware-app-1.0.ear</em>
+
+If you need to redeploy the application run:</br>
+<em>asadmin redeploy coachingsoftware-app/target/coachingsoftware-app-1.0.ear</em></br>
+and type: <em>coachingsoftware-app</em>
 
 Open your browser and go to: http://localhost:8080/coachingsoftware/
