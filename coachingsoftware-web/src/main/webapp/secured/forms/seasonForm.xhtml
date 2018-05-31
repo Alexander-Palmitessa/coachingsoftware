@@ -20,6 +20,16 @@
 				    <h:inputText id="season_name" value="#{seasonBean.season.name}"/>
 					<h:message for="season_name" style="color: red"/>
 		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['startDate']}"/></label>
+		        	<h:inputText id="datePickerSeasonStart" class="js-datepicker" value="#{seasonBean.startDate}"/>
+		        	<h:message for="datePickerSeasonStart" style="color: red"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['endDate']}"/></label>
+		        	<h:inputText id="datePickerSeasonEnd" class="js-datepicker" value="#{seasonBean.endDate}"/>
+		        	<h:message for="datePickerSeasonEnd" style="color: red"/>
+		        </div>
 		        <div class="small-12 column text-center">
 		        	<h:commandButton action="#{seasonBean.createSeason()}" value="#{msg['createSeason']}"/>
 		        </div>

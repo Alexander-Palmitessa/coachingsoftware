@@ -9,16 +9,27 @@
         <f:event type="preRenderView" listener="#{playerBean.setRequestParameters}" />
     </f:metadata>
     
-	<ui:define name="title">
-        <h:outputText value="#{playerBean.currentPlayer.firstName} #{playerBean.currentPlayer.lastName}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
-    </ui:define>
-	
-	<ui:define name="contentTitle">
-		<h:outputText value="#{playerBean.currentPlayer.firstName} #{playerBean.currentPlayer.lastName}"/>
-	</ui:define>
-	
-	<ui:define name="content">
-		<h:panelGroup rendered="#{playerBean.currentPlayer != null}">
+    <h:panelGroup rendered="#{playerBean.currentPlayer != null}">
+    	<ui:define name="title">
+	        <h:outputText value="#{msg['noPlayerFound']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+	    </ui:define>
+		
+		<ui:define name="contentTitle">
+			<h:outputText value="#{msg['noPlayerFound']}"/>
+		</ui:define>
+    </h:panelGroup>
+    
+    <h:panelGroup rendered="#{playerBean.currentPlayer != null}">
+    
+		<ui:define name="title">
+	        <h:outputText value="#{playerBean.currentPlayer.firstName} #{playerBean.currentPlayer.lastName}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+	    </ui:define>
+		
+		<ui:define name="contentTitle">
+			<h:outputText value="#{playerBean.currentPlayer.firstName} #{playerBean.currentPlayer.lastName}"/>
+		</ui:define>
+		
+		<ui:define name="content">
 			<div class="row">
 				<div class="small-12 column">
 					<ul class="menu menu-hover-lines player-menu">
@@ -50,7 +61,8 @@
 					</div>
 				</div>
 			</div>
-		</h:panelGroup>
-    </ui:define>
+	    </ui:define>
+    
+    </h:panelGroup>
 
 </ui:composition>

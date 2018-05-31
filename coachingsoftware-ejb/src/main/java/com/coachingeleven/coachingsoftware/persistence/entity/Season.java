@@ -30,10 +30,10 @@ public class Season implements Serializable {
 	@NotNull
 	private String name;
 	@Column(name = "STARTDATE")
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.DATE)
     private Calendar startDate;
 	@Column(name = "ENDDATE")
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.DATE)
     private Calendar endDate;
 	@OneToMany(mappedBy = "season")
 	private Set<Game> games;

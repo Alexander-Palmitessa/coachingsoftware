@@ -31,113 +31,115 @@
 				</li>
 			</ul>
 		</li>
-		<li>
-			<a href="#"><h:outputText value="#{msg['addressManagement']}"/></a>
-			<ul class="menu vertical nested">
-				<li>
-					<h:outputLink value="#{request.contextPath}/secured/pages/addressOverview.xhtml"><h:outputText value="#{msg['contactsAddress']}"/></h:outputLink>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<a href="#"><h:outputText value="#{msg['teamManagement']}"/></a>
-			<ul class="menu vertical nested">
-				<li>
-					<h:outputLink value="#{request.contextPath}/secured/pages/teamOverview.xhtml"><h:outputText value="#{msg['teamOverview']}"/></h:outputLink>
-				</li>
-				<li>
-					<h:outputLink value="#{request.contextPath}/secured/pages/teamOverviewData.xhtml"><h:outputText value="#{msg['baseData']}"/></h:outputLink>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<a href="#"><h:outputText value="#{msg['player']}"/></a>
-			<ul class="menu vertical nested">
-				<li>
-					<h:outputLink value="#"><h:outputText value="#{msg['overview']}"/></h:outputLink>
-					<ul class="menu vertical nested">
-						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/currentPlayersOverview.xhtml"><h:outputText value="#{msg['currentPlayers']}"/></h:outputLink>
-						</li>
-						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/historyPlayersOverview.xhtml"><h:outputText value="#{msg['historyPlayers']}"/></h:outputLink>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<h:outputLink value="#{request.contextPath}/secured/forms/createPlayer.xhtml"><h:outputText value="#{msg['createPlayer']}"/></h:outputLink>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<a href="#">Training</a>
-			<ul class="menu vertical nested">
-				<li>
-					<a href="#">#{msg['overview']}</a>
-				</li>
-				<li>
-					<a href="#">#{msg['statistics']}</a>
-				</li>
-				<li>
-					<a href="#">#{msg['newTraining']}</a>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<a href="#">#{msg['games']}</a>
-			<ul class="menu vertical nested">
-				<li>
-					<h:outputLink value="#{request.contextPath}/secured/pages/gameList.xhtml">#{msg['overview']}</h:outputLink>
-				</li>
-				<li>
-					<a href="#">#{msg['statistics']}</a>
-				</li>
-				<li>
-					<a href="#">#{msg['newGame']}</a>
-					<ul class="menu vertical nested">
-						<li>
-							<h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml?gameType=0">#{msg['championshipGame']}</h:outputLink>
-						</li>
-						<li>
-							<h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml?gameType=1">#{msg['cupGame']}</h:outputLink>
-						</li>
-						<li>
-							<h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml?gameType=2">#{msg['testGame']}</h:outputLink>
-						</li>
-						<li>
-							<h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml?gameType=3">#{msg['countryGame']}</h:outputLink>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<h:outputLink value="#{request.contextPath}/secured/forms/arenaForm.xhtml">#{msg['newArena']}</h:outputLink>
-				</li>
-			</ul>
-		</li>
-		<li>
-			<a href="#">Gegner</a>
-			<ul class="menu vertical nested">
-				<li>
-					<a href="#">Übersicht</a>
-				</li>
-				<li>
-					<a href="#">Neuer Gegner</a>
-					<ul class="menu vertical nested">
-						<li>
-							<a href="#">Meisterschaftsspiel</a>
-						</li>
-						<li>
-							<a href="#">Cupspiel</a>
-						</li>
-						<li>
-							<a href="#">Testspiel</a>
-						</li>
-						<li>
-							<a href="#">Länderspiel</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</li>
+		<h:panelGroup rendered="#{loginBean.hasUserAssignedTeam}">
+			<li>
+				<a href="#"><h:outputText value="#{msg['addressManagement']}"/></a>
+				<ul class="menu vertical nested">
+					<li>
+						<h:outputLink value="#{request.contextPath}/secured/pages/addressOverview.xhtml"><h:outputText value="#{msg['contactsAddress']}"/></h:outputLink>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#"><h:outputText value="#{msg['teamManagement']}"/></a>
+				<ul class="menu vertical nested">
+					<li>
+						<h:outputLink value="#{request.contextPath}/secured/pages/teamOverview.xhtml"><h:outputText value="#{msg['teamOverview']}"/></h:outputLink>
+					</li>
+					<li>
+						<h:outputLink value="#{request.contextPath}/secured/pages/teamOverviewData.xhtml"><h:outputText value="#{msg['baseData']}"/></h:outputLink>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#"><h:outputText value="#{msg['player']}"/></a>
+				<ul class="menu vertical nested">
+					<li>
+						<h:outputLink value="#"><h:outputText value="#{msg['overview']}"/></h:outputLink>
+						<ul class="menu vertical nested">
+							<li>
+								<h:outputLink value="#{request.contextPath}/secured/pages/currentPlayersOverview.xhtml"><h:outputText value="#{msg['currentPlayers']}"/></h:outputLink>
+							</li>
+							<li>
+								<h:outputLink value="#{request.contextPath}/secured/pages/historyPlayersOverview.xhtml"><h:outputText value="#{msg['historyPlayers']}"/></h:outputLink>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<h:outputLink value="#{request.contextPath}/secured/forms/createPlayer.xhtml"><h:outputText value="#{msg['createPlayer']}"/></h:outputLink>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">Training</a>
+				<ul class="menu vertical nested">
+					<li>
+						<a href="#">#{msg['overview']}</a>
+					</li>
+					<li>
+						<a href="#">#{msg['statistics']}</a>
+					</li>
+					<li>
+						<a href="#">#{msg['newTraining']}</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">#{msg['games']}</a>
+				<ul class="menu vertical nested">
+					<li>
+						<h:outputLink value="#{request.contextPath}/secured/pages/gameList.xhtml">#{msg['overview']}</h:outputLink>
+					</li>
+					<li>
+						<a href="#">#{msg['statistics']}</a>
+					</li>
+					<li>
+						<a href="#">#{msg['newGame']}</a>
+						<ul class="menu vertical nested">
+							<li>
+								<h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml?gameType=0">#{msg['championshipGame']}</h:outputLink>
+							</li>
+							<li>
+								<h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml?gameType=1">#{msg['cupGame']}</h:outputLink>
+							</li>
+							<li>
+								<h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml?gameType=2">#{msg['testGame']}</h:outputLink>
+							</li>
+							<li>
+								<h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml?gameType=3">#{msg['countryGame']}</h:outputLink>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<h:outputLink value="#{request.contextPath}/secured/forms/arenaForm.xhtml">#{msg['newArena']}</h:outputLink>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">Gegner</a>
+				<ul class="menu vertical nested">
+					<li>
+						<a href="#">Übersicht</a>
+					</li>
+					<li>
+						<a href="#">Neuer Gegner</a>
+						<ul class="menu vertical nested">
+							<li>
+								<a href="#">Meisterschaftsspiel</a>
+							</li>
+							<li>
+								<a href="#">Cupspiel</a>
+							</li>
+							<li>
+								<a href="#">Testspiel</a>
+							</li>
+							<li>
+								<a href="#">Länderspiel</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</h:panelGroup>
 	</ul>
 </ui:composition>
