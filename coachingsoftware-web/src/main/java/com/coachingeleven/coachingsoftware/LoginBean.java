@@ -1,6 +1,7 @@
 package com.coachingeleven.coachingsoftware;
 
 import java.io.Serializable;
+import java.text.ParseException;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -48,7 +49,7 @@ public class LoginBean implements Serializable {
 		try {
 			loggedInUser = userService.createUser(new UserAccount("elias","elias","elias.schildknecht@students.bfh.ch"));
 			indexBean.init();
-		} catch (UserAlreadyExistsException | ArenaAlreadyExistsException | ClubAlreadyExistsException | TeamAlreadyExistsException | PlayerAlreadyExistsException | GameAlreadyExistsException e) {
+		} catch (UserAlreadyExistsException | ArenaAlreadyExistsException | ClubAlreadyExistsException | TeamAlreadyExistsException | PlayerAlreadyExistsException | GameAlreadyExistsException | CountryAlreadyExistsException | SeasonAlreadyExistsException | ParseException e) {
 			// TODO 
 		}
 		

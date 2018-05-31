@@ -2,6 +2,7 @@ package com.coachingeleven.coachingsoftware.application.service;
 
 import static javax.ejb.TransactionAttributeType.REQUIRED;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,6 +45,16 @@ public class SeasonService implements SeasonServiceRemote {
             throw new SeasonAlreadyExistsException();
         }
         return seasonRepository.persist(season);
+	}
+
+	@Override
+	public List<Season> findAllSeasons() {
+		return seasonRepository.findAll(Season.class);
+	}
+
+	@Override
+	public List<Season> findSeasonsByTeam(int teamID) {
+		return seasonRepository.findSeasonsByTeam(teamID);
 	}
 
 }

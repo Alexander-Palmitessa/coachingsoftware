@@ -15,6 +15,13 @@
 							<ui:repeat var="team" value="#{club.teams}">
 								<li>
 									<h:outputLink value="#"><h:outputText value="#{team.name}"/></h:outputLink>
+									<ul class="menu vertical nested">
+										<ui:repeat var="season" value="#{team.seasons}">
+											<li>
+												<h:outputLink value="#"><h:outputText value="#{season.name}"/></h:outputLink>
+											</li>
+										</ui:repeat>
+									</ul>
 								</li>
 							</ui:repeat>
 						</ul>

@@ -45,9 +45,9 @@ public class Team implements Serializable {
 	private Set<Game> games;
 	@OneToOne(mappedBy="team")
 	private UserAccount user;
-	@JoinColumn(name = "ID_SEASON")
-	@ManyToOne
-	private Season season;
+	@JoinColumn(name = "PREVIOUS_TEAM_ID")
+	@OneToOne
+	private Team previousTeam;
 	@OneToMany(mappedBy = "currentTeam")
 	private Set<Player> currentPlayers;
 	@ManyToMany(mappedBy = "historyTeams")
@@ -56,6 +56,11 @@ public class Team implements Serializable {
 	private String teamPictureURL;
 	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
 	private String teamLogoURL;
+	@ManyToMany(mappedBy = "teams")
+    private Set<Season> seasons;
+	@ManyToOne
+	private Season activeSeason;
+	
 
 	public Team(String name, Club club) {
 		this.name = name;
@@ -105,14 +110,6 @@ public class Team implements Serializable {
 		this.user = user;
 	}
 
-	public Season getSeason() {
-		return season;
-	}
-
-	public void setSeason(Season season) {
-		this.season = season;
-	}
-
 	public Set<Player> getCurrentPlayers() {
 		return currentPlayers;
 	}
@@ -143,5 +140,29 @@ public class Team implements Serializable {
 
 	public void setTeamLogoURL(String teamLogoURL) {
 		this.teamLogoURL = teamLogoURL;
+	}
+
+	public Team getPreviousTeam() {
+		return previousTeam;
+	}
+
+	public void setPreviousTeam(Team previousTeam) {
+		this.previousTeam = previousTeam;
+	}
+
+	public Set<Season> getSeasons() {
+		return seasons;
+	}
+
+	public void setSeasons(Set<Season> seasons) {
+		this.seasons = seasons;
+	}
+
+	public Season getActiveSeason() {
+		return activeSeason;
+	}
+
+	public void setActiveSeason(Season activeSeason) {
+		this.activeSeason = activeSeason;
 	}
 }

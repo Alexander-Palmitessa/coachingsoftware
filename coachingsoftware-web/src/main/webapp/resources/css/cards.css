@@ -107,3 +107,14 @@
   opacity: 0.8;
 }
 
+.card-team .card-user-profile-content::before {
+	border: none;
+}
+
+.card-team .card-user-profile-button {
+	flex-grow: 0;
+}
+
+.card-team .card-user-profile-info p {
+	margin-bottom: 0;
+}

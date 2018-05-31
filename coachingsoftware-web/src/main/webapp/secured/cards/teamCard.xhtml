@@ -1,0 +1,26 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <div class="card-team card-user-profile">
+		<div class="card-container">
+			<div class="image-container">
+				<h:graphicImage name="images/sfv_u19.jpg" />
+			</div>
+			<div class="card-user-profile-content card-section">
+				<h:outputLabel class="card-user-profile-name" value="#{msg['myTeamInformations']}" />
+				<h:outputLabel class="card-user-profile-info">
+					<p><h:outputText value="#{loginBean.loggedInUser.team.club.address.street} #{loginBean.loggedInUser.team.club.address.streetNr}"/></p>
+					<p><h:outputText value="#{loginBean.loggedInUser.team.club.address.zip} #{loginBean.loggedInUser.team.club.address.city}"/></p>
+				</h:outputLabel>
+			</div>
+			
+			<div class="card-user-profile-actions">
+				<h:outputLink class="card-user-profile-button secondary-button" value="#{request.contextPath}/secured/pages/teamOverviewData.xhtml"><h:outputText value="#{msg['baseData']}"/></h:outputLink>
+			</div>
+		</div>
+	</div>
+    
+</ui:composition>

@@ -18,16 +18,22 @@
 				<div class="translucent-form-overlay">
 					<h:form>
 				        <div class="row">
-					        <div class="small-12 column">
+					        <div class="small-12 medium-6 column">
 					        	<label><h:outputText value="#{msg['club']}"/></label>
-							    <h:inputText id="club_name" value="#{loginBean.loggedInUser.team.club.name}"/>
+							    <h:inputText id="club_name" value="#{teamDataBean.currentTeam.club.name}"/>
 								<h:message for="club_name" style="color: red"/>
 					        </div>
-					        <div class="small-12 column">
+					        <div class="small-12 medium-6 column">
 					        	<label><h:outputText value="#{msg['name']}"/></label>
-							    <h:inputText id="team_name" value="#{loginBean.loggedInUser.team.name}"/>
+							    <h:inputText id="team_name" value="#{teamDataBean.currentTeam.name}"/>
 								<h:message for="team_name" style="color: red"/>
 					        </div>
+					        <div class="small-12 medium-6 column">
+					        	<h:selectOneMenu value="#{teamDataBean.selectedSeasonID}">
+						   			<f:selectItems value="#{teamDataBean.seasons}" var="season"
+						   				itemLabel="#{season.name}" itemValue="#{season.ID}" />
+						   		</h:selectOneMenu>
+						   	</div>
 					        <div class="small-12 column">
 					        	<h:commandButton action="#" value="#{msg['save']}"/>
 					        </div>
