@@ -50,68 +50,98 @@
 		</div>
 		<h:form>
 			<ui:repeat value="#{gameBean.currentGame.goals}" var="goal">
-				<div class="row">
-					<!-- GOALTYPE-->
-					<label><h:outputText value="#{msg['goalType']}"/></label>
-					<h:selectOneMenu value="#{goal.goalType}">
-						<f:selectItem itemValue="#{null}" itemLabel="-"/>
-						<f:selectItems value="#{gameBean.goalTypes}" var="g" itemValue="#{g}"
-									   itemLabel="#{msg['goalType.'.concat(g)]}"/>
-					</h:selectOneMenu>
-					<!-- MINUTE -->
-					<label><h:outputText value="#{msg['minute']}"/></label>
-					<h:inputText class="numericIn" value="#{goal.minuteScored}" maxlength="3"/>
-					<!-- SCORER -->
-					<label><h:outputText value="#{msg['scorer']}"/></label>
-					<h:selectOneMenu value="#{goal.scorer.ID}">
-						<f:selectItem itemValue="#{0}" itemLabel="-"/>
-						<f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
-									   itemLabel="#{p.firstName} #{p.lastName}"/>
-					</h:selectOneMenu>
-					<!-- ASSISTANT -->
-					<label><h:outputText value="#{msg['assistant']}"/></label>
-					<h:selectOneMenu value="#{goal.assistant.ID}">
-						<f:selectItem itemValue="#{0}" itemLabel="-"/>
-						<f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
-									   itemLabel="#{p.firstName} #{p.lastName}"/>
-					</h:selectOneMenu>
-					<!-- ZONE SCORED -->
-					<label><h:outputText value="#{msg['zoneScored']}"/></label>
-					<h:selectOneMenu value="#{goal.scoreZone}">
-						<f:selectItem itemValue="#{null}" itemLabel="-"/>
-						<f:selectItems value="#{gameBean.zones}" var="z" itemValue="#{z}"
-									   itemLabel="#{z}"/>
-					</h:selectOneMenu>
-					<!-- ZONE ASSIST -->
-					<label><h:outputText value="#{msg['zoneAssist']}"/></label>
-					<h:selectOneMenu value="#{goal.assistZone}">
-						<f:selectItem itemValue="#{null}" itemLabel="-"/>
-						<f:selectItems value="#{gameBean.zones}" var="z" itemValue="#{z}"
-									   itemLabel="#{z}"/>
-					</h:selectOneMenu>
-					<!-- STANDARD -->
-					<label><h:outputText value="#{msg['standard']}"/></label>
-					<h:selectOneMenu value="#{goal.standard}">
-						<f:selectItem itemValue="#{null}" itemLabel="-"/>
-						<f:selectItems value="#{gameBean.standards}" var="s" itemValue="#{s}"
-									   itemLabel="#{msg['standard.'.concat(s)]}"/>
-					</h:selectOneMenu>
-					<!-- FOOT -->
-					<label><h:outputText value="#{msg['foot']}"/></label>
-					<h:selectOneMenu value="#{goal.foot}">
-						<f:selectItem itemValue="#{null}" itemLabel="-"/>
-						<f:selectItems value="#{gameBean.footTypes}" var="f" itemValue="#{f}"
-									   itemLabel="#{msg['foot.'.concat(f)]}"/>
-					</h:selectOneMenu>
+				<div class="block goalcontainer margintop-05">
+					<div class="row">
+						<div class="medium-6 columns">
+							<!-- GOALTYPE-->
+							<label><h:outputText value="#{msg['goalType']}"/></label>
+							<h:selectOneMenu value="#{goal.goalType}">
+								<f:selectItem itemValue="#{null}" itemLabel="-"/>
+								<f:selectItems value="#{gameBean.goalTypes}" var="g" itemValue="#{g}"
+											   itemLabel="#{msg['goalType.'.concat(g)]}"/>
+							</h:selectOneMenu>
+						</div>
+						<div class="medium-4 columns">
+							<!-- MINUTE -->
+							<label><h:outputText value="#{msg['minute']}"/></label>
+							<h:inputText class="numericIn" value="#{goal.minuteScored}" maxlength="3"/>
+						</div>
+					</div>
+					<div class="row">
+						<div class="medium-6 small-12 columns">
+							<!-- SCORER -->
+							<label><h:outputText value="#{msg['scorer']}"/></label>
+							<h:selectOneMenu value="#{goal.scorer.ID}">
+								<f:selectItem itemValue="#{0}" itemLabel="-"/>
+								<f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
+											   itemLabel="#{p.firstName} #{p.lastName}"/>
+							</h:selectOneMenu>
+						</div>
+						<div class="medium-6 small-12 columns">
+							<!-- ASSISTANT -->
+							<label><h:outputText value="#{msg['assistant']}"/></label>
+							<h:selectOneMenu value="#{goal.assistant.ID}">
+								<f:selectItem itemValue="#{0}" itemLabel="-"/>
+								<f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
+											   itemLabel="#{p.firstName} #{p.lastName}"/>
+							</h:selectOneMenu>
+						</div>
+					</div>
+					<div class="row">
+						<div class="medium-6 columns">
+							<!-- ZONE SCORED -->
+							<label><h:outputText value="#{msg['zoneScored']}"/></label>
+							<h:selectOneMenu value="#{goal.scoreZone}">
+								<f:selectItem itemValue="#{null}" itemLabel="-"/>
+								<f:selectItems value="#{gameBean.zones}" var="z" itemValue="#{z}"
+											   itemLabel="#{z}"/>
+							</h:selectOneMenu>
+						</div>
+						<div class="medium-6 columns">
+							<!-- ZONE ASSIST -->
+							<label><h:outputText value="#{msg['zoneAssist']}"/></label>
+							<h:selectOneMenu value="#{goal.assistZone}">
+								<f:selectItem itemValue="#{null}" itemLabel="-"/>
+								<f:selectItems value="#{gameBean.zones}" var="z" itemValue="#{z}"
+											   itemLabel="#{z}"/>
+							</h:selectOneMenu>
+						</div>
+					</div>
+					<div class="row">
+						<div class="medium-5 small-12 columns">
+							<!-- STANDARD -->
+							<label><h:outputText value="#{msg['standard']}"/></label>
+							<h:selectOneMenu value="#{goal.standard}">
+								<f:selectItem itemValue="#{null}" itemLabel="-"/>
+								<f:selectItems value="#{gameBean.standards}" var="s" itemValue="#{s}"
+											   itemLabel="#{msg['standard.'.concat(s)]}"/>
+							</h:selectOneMenu>
+						</div>
+						<div class="medium-5 small-6 columns">
+							<!-- FOOT -->
+							<label><h:outputText value="#{msg['foot']}"/></label>
+							<h:selectOneMenu value="#{goal.foot}">
+								<f:selectItem itemValue="#{null}" itemLabel="-"/>
+								<f:selectItems value="#{gameBean.footTypes}" var="f" itemValue="#{f}"
+											   itemLabel="#{msg['foot.'.concat(f)]}"/>
+							</h:selectOneMenu>
+						</div>
+						<div class="medium-2 small-6 columns">
+							<label>              </label>
+							<h:commandButton action="#{gameBean.deleteGoal(goal)}" value="delete"
+											 onclick="return confirm('Are you sure?')"/>
+						</div>
+					</div>
 				</div>
-				<div class="small-12 column text-center">
-					<h:commandButton action="#{gameBean.deleteGoal(goal)}" value="delete"
-									 onclick="return confirm('Are you sure?')"/>
-				</div>
+
 			</ui:repeat>
-			<div class="small-12 column text-center">
-				<h:commandButton action="#{gameBean.addAnotherGoal}" value="Add Goal"/>
-				<h:commandButton action="#{gameBean.updateGame}" value="Submit"/>
+			<div class="row margintop-05">
+				<div class="medium-6 small-6 columns text-center">
+					<h:commandButton action="#{gameBean.addAnotherGoal}" value="Add Goal"/>
+				</div>
+				<div class="medium-6 small-6 columns text-center">
+					<h:commandButton action="#{gameBean.updateGame}" value="Submit"/>
+				</div>
 			</div>
 		</h:form>
 	</ui:define>

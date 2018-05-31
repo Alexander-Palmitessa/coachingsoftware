@@ -22,3 +22,19 @@ form input[type="submit"], form input[type="reset"] {
 form input[type="submit"]:hover, form input[type="reset"]:hover {
 	background-color: rgba(93, 116, 167, 0.07);
 }
+
+.goalcontainer {
+	border: 2px solid #5D82A7;
+	border-radius: 4px;
+	padding: 4px;
+}
+
+.goalcontainer input[type="submit"] {
+	margin-top: 1.67rem;
+	padding: 0.55rem 1.25rem;
+	color: red;
+	border: 2px solid red;
+}
+.margintop-05{
+	margin-top: 0.5rem;
+}
