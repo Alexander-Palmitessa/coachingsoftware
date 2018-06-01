@@ -1,13 +1,38 @@
 package com.coachingeleven.coachingsoftware;
 
-import com.coachingeleven.coachingsoftware.application.exception.*;
+
+import com.coachingeleven.coachingsoftware.application.exception.ArenaNotFoundException;
+import com.coachingeleven.coachingsoftware.application.exception.GameAlreadyExistsException;
+import com.coachingeleven.coachingsoftware.application.exception.GameNotFoundException;
+import com.coachingeleven.coachingsoftware.application.exception.PlayerNotFoundException;
+import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.ArenaServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.GameServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
-import com.coachingeleven.coachingsoftware.persistence.entity.*;
-import com.coachingeleven.coachingsoftware.persistence.enumeration.*;
+import com.coachingeleven.coachingsoftware.persistence.entity.Arena;
+import com.coachingeleven.coachingsoftware.persistence.entity.ChangeIn;
+import com.coachingeleven.coachingsoftware.persistence.entity.ChangeOut;
+import com.coachingeleven.coachingsoftware.persistence.entity.Game;
+import com.coachingeleven.coachingsoftware.persistence.entity.Goal;
+import com.coachingeleven.coachingsoftware.persistence.entity.LineUp;
+import com.coachingeleven.coachingsoftware.persistence.entity.LineUpPlayer;
+import com.coachingeleven.coachingsoftware.persistence.entity.Player;
+import com.coachingeleven.coachingsoftware.persistence.entity.PlayerGameStats;
+import com.coachingeleven.coachingsoftware.persistence.entity.PostGameReport;
+import com.coachingeleven.coachingsoftware.persistence.entity.PreGameReport;
+import com.coachingeleven.coachingsoftware.persistence.entity.TIPS;
+import com.coachingeleven.coachingsoftware.persistence.entity.Team;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.CardType;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.Foot;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.GameType;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.GoalType;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.LineUpType;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.MissingType;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.Standard;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.System;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.Zone;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -15,7 +40,12 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.TreeSet;
+
 
 @Named("gameBean")
 @SessionScoped
@@ -40,10 +70,15 @@ public class GameBean implements Serializable {
 	private List<Team> teams;
 	private List<Arena> arenas;
 	private int day;
+	private int newDay;
 	private int month;
+	private int newMonth;
 	private int year;
+	private int newYear;
 	private int minute;
+	private int newMinute;
 	private int hour;
+	private int newHour;
 
 	private List<Player> players;
 
@@ -84,7 +119,7 @@ public class GameBean implements Serializable {
 		if (newGame.getLineUp() == null) {
 			LineUp lineUp = new LineUp();
 			lineUp.setGame(newGame);
-			lineUp.setLineUpPlayers(new HashSet<LineUpPlayer>());
+			lineUp.setLineUpPlayers(new LinkedHashSet<LineUpPlayer>());
 			for (Player p : players) {
 				LineUpPlayer lup = new LineUpPlayer();
 				lup.setPlayer(p);
@@ -96,7 +131,7 @@ public class GameBean implements Serializable {
 
 		//add PlayerGameStats to the Game
 		if (newGame.getPlayerGameStats() == null) {
-			newGame.setPlayerGameStats(new HashSet<PlayerGameStats>());
+			newGame.setPlayerGameStats(new LinkedHashSet<PlayerGameStats>());
 			for (LineUpPlayer lineUpPlayer : newGame.getLineUp().getLineUpPlayers()) {
 				PlayerGameStats playerGameStats = new PlayerGameStats();
 				playerGameStats.setGame(newGame);
@@ -142,7 +177,7 @@ public class GameBean implements Serializable {
 		} catch (GameNotFoundException e) {
 			createGame();
 			e.printStackTrace();
-			//TODO
+			//TODO: DISPLAY ERROR PAGE?
 		}
 	}
 
@@ -164,7 +199,7 @@ public class GameBean implements Serializable {
 				allGames.addAll(currentTeam.getGamesAway());
 		} catch (TeamNotFoundException e) {
 			e.printStackTrace();
-			//TODO
+			//TODO: DISPLAY ERROR PAGE?
 		}
 
 		systems = System.values();
@@ -185,11 +220,11 @@ public class GameBean implements Serializable {
 	 */
 	public String createGame() {
 		newGame = setArenaAndTeam(newGame);
-		newGame.getDate().set(Calendar.YEAR, year);
-		newGame.getDate().set(Calendar.MONTH, month - 1);
-		newGame.getDate().set(Calendar.DATE, day);
-		newGame.getTime().set(Calendar.HOUR_OF_DAY, hour);
-		newGame.getTime().set(Calendar.MINUTE, minute);
+		newGame.getDate().set(Calendar.YEAR, newYear);
+		newGame.getDate().set(Calendar.MONTH, newMonth - 1);
+		newGame.getDate().set(Calendar.DATE, newDay);
+		newGame.getTime().set(Calendar.HOUR_OF_DAY, newHour);
+		newGame.getTime().set(Calendar.MINUTE, newMinute);
 		newGame.getTime().set(Calendar.SECOND, 0);
 		try {
 			currentGame = gameService.createGame(newGame);
@@ -199,11 +234,12 @@ public class GameBean implements Serializable {
 			currentGame = gameService.update(newGame);
 		}
 		allGames = gameService.findAllGames();
+		resetDateTime();
 		return navigationBean.redirectToGameOverview();
 	}
 
 	/**
-	 * Get the Arena and the Home and Away Team from the database, set the Games to the Team and the Teams to the games.
+	 * Get the Arena and the home and away Team from the database, set the Games to the Team and the Teams to the games.
 	 *
 	 * @param game The Game which the Arena and Teams should be set
 	 * @return The game
@@ -219,7 +255,7 @@ public class GameBean implements Serializable {
 			game.setTeamAway(awayTeam);
 		} catch (ArenaNotFoundException | TeamNotFoundException e) {
 			e.printStackTrace();
-			//TODO
+			//TODO: DISPLAY ERROR PAGE?
 		}
 		return game;
 	}
@@ -270,7 +306,7 @@ public class GameBean implements Serializable {
 					try {
 						goal.setScorer(playerService.findPlayer(goal.getScorer().getID()));
 					} catch (PlayerNotFoundException e) {
-						//TODO
+						//TODO: DISPLAY ERROR PAGE?
 						e.printStackTrace();
 					}
 				} else if (goal.getScorer().getID() == 0) goal.setScorer(null);
@@ -280,7 +316,7 @@ public class GameBean implements Serializable {
 					try {
 						goal.setAssistant(playerService.findPlayer(goal.getAssistant().getID()));
 					} catch (PlayerNotFoundException e) {
-						//TODO
+						//TODO: DISPLAY ERROR PAGE?
 						e.printStackTrace();
 					}
 				} else if (goal.getAssistant().getID() == 0) goal.setAssistant(null);
@@ -390,8 +426,8 @@ public class GameBean implements Serializable {
 		return timeString;
 	}
 
-	public void reset() {
-		year = month = day = hour = minute = 0;
+	public void resetDateTime() {
+		newYear = newMonth = newDay = newHour = newMinute = 0;
 	}
 
 	public String getTeamAway() {
@@ -618,4 +654,43 @@ public class GameBean implements Serializable {
 		this.standards = standards;
 	}
 
+	public int getNewDay() {
+		return newDay;
+	}
+
+	public void setNewDay(int newDay) {
+		this.newDay = newDay;
+	}
+
+	public int getNewMonth() {
+		return newMonth;
+	}
+
+	public void setNewMonth(int newMonth) {
+		this.newMonth = newMonth;
+	}
+
+	public int getNewYear() {
+		return newYear;
+	}
+
+	public void setNewYear(int newYear) {
+		this.newYear = newYear;
+	}
+
+	public int getNewMinute() {
+		return newMinute;
+	}
+
+	public void setNewMinute(int newMinute) {
+		this.newMinute = newMinute;
+	}
+
+	public int getNewHour() {
+		return newHour;
+	}
+
+	public void setNewHour(int newHour) {
+		this.newHour = newHour;
+	}
 }

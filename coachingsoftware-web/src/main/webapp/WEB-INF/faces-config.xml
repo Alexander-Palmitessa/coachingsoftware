@@ -5,22 +5,6 @@
 			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
-	<managed-bean>
-		<managed-bean-name>addressBean</managed-bean-name>
-		<managed-bean-class>org.example.AddressBean</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>arenaBean</managed-bean-name>
-		<managed-bean-class>org.example.ArenaBean</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>teamClubBean</managed-bean-name>
-		<managed-bean-class>org.example.TeamClubBean</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-
 	<application>
 		<locale-config>
 			<default-locale>de</default-locale>
