@@ -14,8 +14,12 @@
 					<h:graphicImage name="images/Default-avatar.jpg" />
 				</div>
 				<p class="card-user-profile-name"><h:outputText value="#{player.firstName} #{player.lastName}"/></p>
-				<p class="card-user-profile-status">Player</p>
-				<p class="card-user-profile-info">Player informations...</p>
+				<label><h:outputText value="#{msg['email']}"/></label>
+				<p class="card-user-profile-info"><h:outputText value="#{player.email}"/></p>
+				<h:panelGroup rendered="#{not empty player.birthdateFormatted}">
+					<label><h:outputText value="#{msg['birthday']}"/></label>
+					<p class="card-user-profile-info"><h:outputText value="#{player.birthdateFormatted}"/></p>
+				</h:panelGroup>
 			</div>
 			
 			<div class="card-user-profile-actions">

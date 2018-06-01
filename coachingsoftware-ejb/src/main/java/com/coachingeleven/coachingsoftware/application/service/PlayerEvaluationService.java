@@ -34,7 +34,6 @@ public class PlayerEvaluationService implements PlayerEvaluationServiceRemote {
 	@EJB
 	private EvaluationTalkRepository evaluationTalkRepository;
 
-
 	@Override
 	public EvaluationTalk createEvaluationTalk(EvaluationTalk evaluationTalk) throws EvaluationTalkAlreadyExistsException {
 		logger.log(Level.INFO, "Adding evluation talk for player with id ''{0}''", evaluationTalk.getPlayer().getID());
@@ -42,7 +41,7 @@ public class PlayerEvaluationService implements PlayerEvaluationServiceRemote {
 			logger.log(Level.INFO, "Evaluation talk with same id already exists");
 			throw new EvaluationTalkAlreadyExistsException();
 		}
-		return evaluationTalkRepository.persist(evaluationTalk);
+		return evaluationTalkRepository.persist(new EvaluationTalk());
 	}
 
 	@Override
