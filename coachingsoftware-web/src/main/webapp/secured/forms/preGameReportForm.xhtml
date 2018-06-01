@@ -1,0 +1,62 @@
+<ui:composition template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="title">
+        #{msg['preGameReport']} - Coaching Eleven
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="row">
+            <div class="small-12 column">
+                <ul class="menu menu-hover-lines player-menu">
+                    <li>
+                        <h:outputLink
+                                value="#{request.contextPath}/secured/forms/updateGameForm.xhtml?id=#{gameBean.currentGame.ID}"><h:outputText
+                                value="#{msg['overview']}"/></h:outputLink>
+                    </li>
+                    <li>
+                        <h:outputLink
+                                value="#{request.contextPath}/secured/forms/lineUpForm.xhtml"><h:outputText
+                                value="#{msg['lineUp']}"/></h:outputLink>
+                    </li>
+                    <li  class="active">
+                        <h:outputLink value="#{request.contextPath}/secured/forms/preGameReportForm.xhtml"><h:outputText value="#{msg['preGameReport']}"/></h:outputLink>
+                    </li>
+                    <li>
+                        <h:outputLink value="#{request.contextPath}/secured/forms/postGameReportForm.xhtml"><h:outputText value="#{msg['postGameReport']}"/></h:outputLink>
+                    </li>
+                    <li>
+                        <h:outputLink
+                                value="#{request.contextPath}/secured/forms/playerGameStatsForm.xhtml"><h:outputText
+                                value="#{msg['playerGameStats']}"/></h:outputLink>
+                    </li>
+                    <li>
+                        <h:outputLink value="#{request.contextPath}/secured/forms/goalForm.xhtml"><h:outputText value="#{msg['goals']}"/></h:outputLink>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <h:form>
+            <div class="row">
+                <div class="small-12 medium-6 column">
+                    <label><h:outputText value="#{msg['objectiveGoals']}"/></label>
+                    <h:inputTextarea value="#{gameBean.currentGame.preGameReport.goals}"/>
+                    <label><h:outputText value="#{msg['gameWithBall']}"/></label>
+                    <h:inputTextarea value="#{gameBean.currentGame.preGameReport.withBall}"/>
+                    <label><h:outputText value="#{msg['gameWithoutBall']}"/></label>
+                    <h:inputTextarea value="#{gameBean.currentGame.preGameReport.withoutBall}"/>
+                    <label><h:outputText value="#{msg['loseBall']}"/></label>
+                    <h:inputTextarea value="#{gameBean.currentGame.preGameReport.loseBall}"/>
+                    <label><h:outputText value="#{msg['takeBall']}"/></label>
+                    <h:inputTextarea value="#{gameBean.currentGame.preGameReport.takeBall}"/>
+                </div>
+                <div class="small-12 column text-center">
+                    <h:commandButton action="#{gameBean.updateGame}" value="Submit"/>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

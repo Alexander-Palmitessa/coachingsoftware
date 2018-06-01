@@ -1,0 +1,40 @@
+@import url(//fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700);
+@import url(//fonts.googleapis.com/css?family=Raleway:400,500,700);
+
+body {
+	font-family: "Rubik", sans-serif;
+	font-size: 16px;
+}
+
+#content {
+	padding: 1.5rem 0;
+}
+
+.outer-wrapper {
+	min-height: 100vh;
+	display: flex;
+	flex-flow: column wrap;
+}
+
+.outer-wrapper > div.row {
+	flex-grow: 1;
+	width: 100%;
+}
+
+.grey-background {
+	background-color: lightgrey;
+	height: 200px;
+}
+
+.player-overview-container .card-user-profile-avatar {
+	max-width: 5.625rem;
+}
+
+.player-overview-container .card-user-profile-content::before {
+	top: -3rem;
+	border-width: 3rem 0 0 31.25rem;
+}
+
+.image-container img {
+	width: 100%;
+}

@@ -1,0 +1,45 @@
+#header, .top-bar, .top-bar ul, .title-bar {
+	background-color: #5D82A7;
+	color: white;
+}
+
+#header li.active-link {
+	font-weight: 700;
+}
+
+.top-bar {
+	padding: 0;
+	text-transform: uppercase;
+}
+
+.top-bar .menu li, .title-bar-title {
+	padding-bottom: 0.5rem;
+	padding-top: 0.5rem;
+}
+
+.title-bar-title {
+	padding-left: 0.5rem;
+}
+
+.menu-icon::after {
+	height: 3px;
+}
+
+.top-bar .menu > li:first-child > a {
+	padding-left: 0;
+}
+
+.top-bar a,
+.top-bar a:after,
+.top-bar a:before {
+	color: white;
+}
+
+#header .dropdown.menu > li.is-dropdown-submenu-parent > a::after {
+	border-color: white transparent transparent;
+}
+
+#header .dropdown.menu .is-active > a, .top-bar li:not(.menu-text) a:hover {
+	opacity: 0.6;
+	color: white;
+}

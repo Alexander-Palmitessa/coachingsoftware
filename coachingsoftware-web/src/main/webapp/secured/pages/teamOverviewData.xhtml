@@ -1,0 +1,79 @@
+<ui:composition template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                
+	<ui:define name="title">
+        <h:outputText value="#{msg['teamOverview']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+    </ui:define>
+	
+	<ui:define name="contentTitle">
+		<h:outputText value="#{loginBean.loggedInUser.team.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['baseData']}"/>
+	</ui:define>
+	
+	<ui:define name="content">
+		<div class="row">
+			<div class="small-7 column">
+				<h:form class="create-form">
+			        <div class="row">
+				        <div class="small-12 medium-6 column">
+				        	<label><h:outputText value="#{msg['club']}"/></label>
+				        	<h:selectOneMenu value="#{teamDataBean.selectedClubID}">
+					   			<f:selectItems value="#{teamClubBean.allClubs}" var="club"
+					   				itemLabel="#{club.name}" itemValue="#{club.ID}" />
+					   			<f:ajax listener="#{teamDataBean.updateCurrentClub}" render="@form" />
+					   		</h:selectOneMenu>
+				        </div>
+				        <div class="small-12 medium-6 column">
+				        	<label><h:outputText value="#{msg['name']}"/></label>
+						    <h:inputText id="team_name" value="#{teamDataBean.currentTeam.name}"/>
+							<h:message for="team_name" style="color: red"/>
+				        </div>
+				        <div class="small-12 medium-6 column">
+				        	<label><h:outputText value="#{msg['season']}"/></label>
+				        	<h:selectOneMenu value="#{teamDataBean.selectedSeasonID}">
+					   			<f:selectItems value="#{teamDataBean.seasons}" var="season"
+					   				itemLabel="#{season.name}" itemValue="#{season.ID}" />
+					   		</h:selectOneMenu>
+					   	</div>
+					   	<div class="small-12 medium-6 column">
+				        	<label><h:outputText value="#{msg['street']}"/></label>
+						    <h:inputText id="club_street" value="#{teamDataBean.selectedClub.address.street}"/>
+							<h:message for="club_street" style="color: red"/>
+				        </div>
+				        <div class="small-12 medium-6 column">
+				        	<label><h:outputText value="#{msg['streetNr']}"/></label>
+						    <h:inputText id="club_streetNr" value="#{teamDataBean.selectedClub.address.streetNr}"/>
+							<h:message for="club_streetNr" style="color: red"/>
+				        </div>
+				        <div class="small-12 medium-6 column">
+				        	<label><h:outputText value="#{msg['zip']}"/></label>
+						    <h:inputText id="club_zip" value="#{teamDataBean.selectedClub.address.zip}"/>
+							<h:message for="club_zip" style="color: red"/>
+				        </div>
+				        <div class="small-12 medium-6 column">
+				        	<label><h:outputText value="#{msg['city']}"/></label>
+						    <h:inputText id="club_city" value="#{teamDataBean.selectedClub.address.city}"/>
+							<h:message for="club_city" style="color: red"/>
+				        </div>
+				        <div class="small-12 medium-6 column">
+				        	<label><h:outputText value="#{msg['country']}"/></label>
+						    <h:selectOneMenu value="#{teamDataBean.selectedCountry.name}">
+						        <f:selectItems value="#{addressBean.countryValue}" var="c" itemValue="#{c.countryValue}"
+						                       itemLabel="#{c.countryLabel}"/>
+						    </h:selectOneMenu>
+				        </div>
+				        <div class="small-12 column">
+				        	<h:commandButton action="#{teamDataBean.updateTeam}" value="#{msg['save']}"/>
+				        </div>
+			        </div>
+				</h:form>
+			</div>
+			<div class="small-5 column">
+				<h:graphicImage name="images/sfv_u19.jpg" />
+			</div>
+		</div>
+    </ui:define>
+
+</ui:composition>

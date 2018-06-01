@@ -1,0 +1,34 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <div class="card-user-profile">
+		<div class="card-container">
+			<div class="image-container">
+				<h:graphicImage name="images/Default-avatar.jpg" />
+			</div>
+			<div class="card-user-profile-content card-section">
+				<div class="card-user-profile-avatar">
+					<h:graphicImage name="images/Default-avatar.jpg" />
+				</div>
+				<p class="card-user-profile-name"><h:outputText value="#{player.firstName} #{player.lastName}"/></p>
+				<label><h:outputText value="#{msg['email']}"/></label>
+				<p class="card-user-profile-info"><h:outputText value="#{player.email}"/></p>
+				<h:panelGroup rendered="#{not empty player.birthdateFormatted}">
+					<label><h:outputText value="#{msg['birthday']}"/></label>
+					<p class="card-user-profile-info"><h:outputText value="#{player.birthdateFormatted}"/></p>
+				</h:panelGroup>
+			</div>
+			
+			<div class="card-user-profile-actions">
+				<h:outputLink class="card-user-profile-button secondary-button" value="#{request.contextPath}/secured/pages/playerView.xhtml"><h:outputText value="#{msg['moreInfo']}"/>
+					<f:param name="playerID" value="#{player.ID}" />
+				</h:outputLink>
+			</div>
+		</div>
+	</div>
+    
+</ui:composition>
+

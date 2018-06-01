@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html class="no-js" lang="#{languageBean.locale}"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <f:view locale="#{languageBean.locale}">
+    
+	    <h:head>
+	        <title><ui:insert name="title">Default - Coaching Eleven</ui:insert></title>
+	        <h:outputStylesheet name="css/vendor/foundation.min.css" />
+	        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+	        <h:outputStylesheet name="css/vendor/foundation-datepicker.min.css" />
+	        <h:outputStylesheet name="css/app.css" />
+	        <h:outputStylesheet name="css/header.css" />
+	        <h:outputStylesheet name="css/forms.css" />
+	        <h:outputStylesheet name="css/footer.css" />
+	        <h:outputStylesheet name="css/sidebar.css" />
+	        <h:outputStylesheet name="css/typography.css" />
+	        <h:outputStylesheet name="css/address.css" />
+	        <h:outputStylesheet name="css/buttons.css" />
+	        <h:outputStylesheet name="css/cards.css" />
+	        <h:outputStylesheet name="css/menu.css" />
+			<h:outputStylesheet name="css/table.css" />
+	        <h:outputScript name="js/vendor/jquery.js" />
+	        <h:outputScript name="js/vendor/what-input.js" />
+	        <h:outputScript name="js/vendor/foundation.min.js" />
+	        <h:outputScript name="js/vendor/foundation-datepicker.min.js" />
+	        <h:outputScript name="js/app.js" />
+			<h:outputScript name="js/numericalInput.js" />
+	    </h:head>
+	    
+	    <h:body>
+	    	<div class="off-canvas-wrapper">
+	    		<h:panelGroup rendered="#{loginBean.loggedIn}">
+	    			<div class="off-canvas position-left" id="offCanvasLeft" data-off-canvas="">
+				    	<ui:include src="sidebar.xhtml" />
+				    </div>
+	    		</h:panelGroup>
+			    <div class="outer-wrapper off-canvas-content" data-off-canvas-content="">
+			    	<header id="header"><ui:include src="header.xhtml" /></header>
+			    	<div class="row">
+			    		<h:panelGroup rendered="#{loginBean.loggedIn}">
+							<div class="medium-3 column show-for-medium">
+				    			<ui:include src="sidebar.xhtml" />
+				    		</div>
+				    		<div class="small-12 medium-9 column">
+				    			<div id="content">
+				    				<div class="row">
+				    					<div class="small-12 column">
+				    						<h1><ui:insert name="contentTitle">Default title</ui:insert></h1>
+				    					</div>
+				    					<div class="small-12 column">
+				    						<ui:insert name="content">Default content</ui:insert>
+				    					</div>
+				    				</div>
+				    			</div>
+				        	</div>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{!loginBean.loggedIn}">
+	    					<div class="small-12 column">
+		    					<div id="content">
+		    						<h1><ui:insert name="contentTitle">Default title</ui:insert></h1>
+		    						<ui:insert name="content">Default content</ui:insert>
+		    					</div>
+	    					</div>
+						</h:panelGroup>
+			    	</div>
+			        <footer id="footer"><ui:include src="footer.xhtml" /></footer>
+			    </div>
+			</div>
+	    </h:body>
+    
+    </f:view>
+    
+</html>

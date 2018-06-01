@@ -1,0 +1,23 @@
+<ui:composition template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                
+	<ui:define name="title">
+        <h:outputText value="#{msg['teamOverview']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+    </ui:define>
+	
+	<ui:define name="contentTitle">
+		<h:outputText value="#{loginBean.loggedInUser.team.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['overview']}"/>
+	</ui:define>
+	
+	<ui:define name="content">
+		<div class="row">
+			<div class="small-12 column">
+				<ui:include src="/secured/cards/teamCard.xhtml" />
+			</div>
+		</div>
+    </ui:define>
+
+</ui:composition>
