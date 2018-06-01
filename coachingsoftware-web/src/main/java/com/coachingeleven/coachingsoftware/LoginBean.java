@@ -76,7 +76,6 @@ public class LoginBean implements Serializable {
 					teamClubService.updateTeam(team);
 					club.addTeam(team);
 					teamClubService.updateClub(club);
-					currentUser.setTeam(team);
 					userService.updateUser(currentUser);
 					userTeam = team.getName();
 				} catch (PlayerAlreadyExistsException e) {

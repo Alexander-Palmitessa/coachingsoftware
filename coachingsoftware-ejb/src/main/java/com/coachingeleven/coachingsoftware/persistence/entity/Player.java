@@ -32,87 +32,75 @@ import java.util.Set;
 			query = "SELECT p FROM Player p JOIN p.historyTeams t WHERE t.ID = :teamId")
 })
 public class Player implements Serializable {
-
-	private static final long serialVersionUID = -645290838661524061L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PLAYER_ID")
-	private int ID;
-	@Column(name = "FIRST_NAME", nullable = false)
-	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
-	@NotNull
-	private String firstName;
-	@Column(name = "LAST_NAME", nullable = false)
-	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
-	@NotNull
-	private String lastName;
-	@Embedded
-	private Address address;
-	@Column(name = "FIRST_EMAIL", unique = true)
-	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "{pattern.email}")
-	private String email;
-	@Column(name = "TYPE")
-	@Enumerated(EnumType.STRING)
-	private Role type;
-	@Column(name = "DRAFT")
-	@Enumerated(EnumType.STRING)
-	private Draft draft;
-	@Column(name = "POSITION")
-	@Enumerated(EnumType.STRING)
-	private Position position;
-	@Column(name = "PRIVATE_NUMBER")
-	@Pattern(regexp = "^[0-9\\s]+$", message = "{pattern.number.space}")
-	private String privateNumber;
-	@Column(name = "WORKING_NUMBER")
-	@Pattern(regexp = "^[0-9\\s]+$", message = "{pattern.number.space}")
-	private String workingNumber;
-	@Column(name = "MOBILE_NUMBER")
-	@Pattern(regexp = "^[0-9\\s]+$", message = "{pattern.number.space}")
-	private String mobileNumber;
-	@Column(name = "BIRTHDATE")
-	@Temporal(TemporalType.DATE)
-	private Calendar birthdate;
-	@Column(name = "SIZE_CM")
-	@Min(value = 0, message = "{min.zero}")
-	@Max(value = 300, message = "{max.value}")
-	private int size;
-	@Column(name = "WEIGHT_KG")
-	@Min(value = 0, message = "{min.zero}")
-	@Max(value = 500, message = "{max.value}")
-	private int weight;
-	@Embedded
-	private Contract contract;
-	@JoinColumn(name = "COUNTRY_PERMISSION_ID")
-	@ManyToOne
-	private Country countryPermission;
-	@ManyToMany
-	@JoinTable(
-			name = "PLAYER_GAME",
-			joinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"),
-			inverseJoinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID")
-	)
-	private Set<Game> games;
-	@ManyToMany
-	@JoinTable(
-			name = "PLAYER_LINEUP",
-			joinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"),
-			inverseJoinColumns = @JoinColumn(name = "LINEUP_ID", referencedColumnName = "LINEUP_ID")
-	)
-	private Set<LineUp> lineUps;
-	@OneToMany
-	private Set<PlayerGameStats> gameStats;
-	@OneToMany(mappedBy = "player")
-	private Set<PerformanceDiagnostics> performanceDiagnostics;
-	@OneToMany(mappedBy = "player")
-	private Set<EvaluationTalk> evaluationTalks;
-	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
-	private String avatarUrl;
-  @OneToMany(mappedBy = "player")
-  private Set<ObserveTIPS> observeTIPS;
-  @OneToMany(mappedBy = "player")
-  private Set<ExtendedTIPS> extendedTIPS;
-  @ManyToMany(mappedBy = "currentPlayers")
+	private static final long serialVersionUID = -645290838661524061L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PLAYER_ID")
+    private int ID;
+    @Column(name = "FIRST_NAME", nullable = false)
+    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+    @NotNull
+    private String firstName;
+    @Column(name = "LAST_NAME", nullable = false)
+    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+    @NotNull
+    private String lastName;
+    @Embedded
+    private Address address;
+    @Column(name = "FIRST_EMAIL", unique = true)
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "{pattern.email}")
+    private String email;
+    @Column(name = "TYPE")
+    @Enumerated(EnumType.STRING)
+    private Role type;
+    @Column(name = "DRAFT")
+    @Enumerated(EnumType.STRING)
+    private Draft draft;
+    @Column(name = "POSITION")
+    @Enumerated(EnumType.STRING)
+    private Position position;
+    @Column(name = "PRIVATE_NUMBER")
+    @Pattern(regexp = "^[0-9\\s]+$", message = "{pattern.number.space}")
+    private String privateNumber;
+    @Column(name = "WORKING_NUMBER")
+    @Pattern(regexp = "^[0-9\\s]+$", message = "{pattern.number.space}")
+    private String workingNumber;
+    @Column(name = "MOBILE_NUMBER")
+    @Pattern(regexp = "^[0-9\\s]+$", message = "{pattern.number.space}")
+    private String mobileNumber;
+    @Column(name = "BIRTHDATE")
+    @Temporal(TemporalType.DATE)
+    private Calendar birthdate;
+    @Column(name = "SIZE_CM")
+    @Min(value = 0, message = "{min.zero}")
+    @Max(value = 300, message = "{max.value}")
+    private int size;
+    @Column(name = "WEIGHT_KG")
+    @Min(value = 0, message = "{min.zero}")
+    @Max(value = 500, message = "{max.value}")
+    private int weight;
+    @Embedded
+    private Contract contract;
+    @JoinColumn(name = "COUNTRY_PERMISSION_ID")
+    @ManyToOne
+    private Country countryPermission;
+    @ManyToMany(mappedBy = "players")
+    private Set<Team> teams;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<PlayerGameStats> gameStats;
+    @OneToMany(mappedBy = "player")
+    private Set<PerformanceDiagnostics> performanceDiagnostics;
+    @OneToMany(mappedBy = "player")
+    private Set<EvaluationTalk> evaluationTalks;
+    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+    private String avatarUrl;
+    @OneToMany(mappedBy = "player")
+    private Set<ObserveTIPS> observeTIPS;
+    @OneToMany(mappedBy = "player")
+    private Set<ExtendedTIPS> extendedTIPS;
+	@ManyToMany(mappedBy = "currentPlayers")
     private Set<Team> currentTeams;
 	@ManyToMany
 	@JoinTable(
@@ -266,10 +254,6 @@ public class Player implements Serializable {
 
     public Country getCountryPermission() {
         return countryPermission;
-    }
-  
-    public Set<Game> getGames() {
-      return games;
     }
   
     public void setCountryPermission(Country countryPermission) {

@@ -64,13 +64,14 @@ public class TeamDataBean {
 		allClubs = teamClubService.findAllClubs();
 		selectedClubID = currentTeam.getClub().getID();
 		selectedClub = currentTeam.getClub();
+		if(selectedClub.getAddress() == null) selectedClub.setAddress(new Address());
 		seasons = seasonService.findAllSeasons();
 		List<Season> teamSeasons = seasonService.findSeasonsByTeam(currentTeam.getID());
 		if(teamSeasons.size() > 0) {
 			selectedSeasonID = teamSeasons.get(0).getID();
 		}
 		selectedCountry = new Country();
-		selectedCountry.setName(selectedClub.getAddress().getCountry().getName());
+		if(selectedClub.getAddress().getCountry() != null) selectedCountry.setName(selectedClub.getAddress().getCountry().getName());
     }
 	
 	private Team copyTeam(Team team) throws TeamAlreadyExistsException {
