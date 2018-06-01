@@ -5,6 +5,7 @@ import com.coachingeleven.coachingsoftware.application.exception.ClubNotFoundExc
 import com.coachingeleven.coachingsoftware.application.exception.TeamAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Club;
+import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.repository.ClubRepository;
 import com.coachingeleven.coachingsoftware.persistence.repository.TeamRepository;
@@ -127,5 +128,25 @@ public class TeamClubService implements TeamClubServiceRemote {
 	@Override
 	public Club findClub(int id) throws ClubNotFoundException {
 		return clubRepository.find(Club.class, id);
+	}
+
+	@Override
+	public List<Team> findTeamsBySeasonID(int seasonID) {
+		return teamRepository.findTeamsBySeasonID(seasonID);
+	}
+
+	@Override
+	public Team addPlayerToTeam(int teamID, Player player) {
+		return teamRepository.addPlayerToTeam(teamID, player);
+	}
+
+	@Override
+	public Team addCurrentPlayersToTeam(int oldTeamID, int newTeamID) {
+		return teamRepository.addCurrentPlayersToTeam(oldTeamID, newTeamID);
+	}
+
+	@Override
+	public Team addHistoryPlayersToTeam(int oldTeamID, int newTeamID) {
+		return teamRepository.addHistoryPlayersToTeam(oldTeamID, newTeamID);
 	}
 }

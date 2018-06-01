@@ -14,6 +14,7 @@ import javax.ejb.TransactionAttribute;
 import com.coachingeleven.coachingsoftware.application.exception.SeasonAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.SeasonNotFoundException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Season;
+import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.repository.SeasonRepository;
 
 @LocalBean
@@ -55,6 +56,16 @@ public class SeasonService implements SeasonServiceRemote {
 	@Override
 	public List<Season> findSeasonsByTeam(int teamID) {
 		return seasonRepository.findSeasonsByTeam(teamID);
+	}
+
+	@Override
+	public Season updateSeason(Season season) {
+		return seasonRepository.update(season);
+	}
+
+	@Override
+	public Season addTeamToSeason(int seasonID, Team team) {
+		return seasonRepository.addTeamToSeason(seasonID, team);
 	}
 
 }

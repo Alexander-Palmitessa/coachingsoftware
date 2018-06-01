@@ -5,6 +5,7 @@ import com.coachingeleven.coachingsoftware.application.exception.ClubNotFoundExc
 import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
 import com.coachingeleven.coachingsoftware.application.exception.TeamAlreadyExistsException;
+import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.SeasonServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
@@ -20,6 +21,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -54,14 +57,32 @@ public class TeamClubBean {
         allClubs = teamClubService.findAllClubs();
         for (Club club : allClubs) {
         	HashSet<Team> teams = new HashSet<Team>();
+        	HashMap<Integer,List<Season>> teamSeasons = new HashMap<Integer,List<Season>>();
         	for (Team team : teamClubService.findTeamsByClubId(club.getID())) {
-        		teams.add(team);
-        		HashSet<Season> seasons = new HashSet<Season>();
         		for(Season season : seasonService.findSeasonsByTeam(team.getID())) {
-        			seasons.add(season);
+        			if(teamSeasons.get(team.getID()) != null) {
+        				List<Season> tempSeasons = teamSeasons.get(team.getID());
+            			tempSeasons.add(season);
+        			} else {
+        				List<Season> tempListSeasons = new ArrayList<Season>();
+        				tempListSeasons.add(season);
+        				teamSeasons.put(team.getID(), tempListSeasons);
+        			}
         		}
-        		team.setSeasons(seasons);
 			}
+        	for(Integer teamID : teamSeasons.keySet()) {
+				try {
+					Team team = teamClubService.findTeam(teamID);
+					HashSet<Season> seasons = new HashSet<Season>();
+	        		for(Season season : teamSeasons.get(teamID)) {
+	        			seasons.add(season);
+	        		}
+	        		team.setSeasons(seasons);
+	        		teams.add(team);
+				} catch (TeamNotFoundException e) {
+					// TODO 
+				}
+        	}
         	club.setTeams(teams);
 		}
     }

@@ -10,6 +10,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import com.coachingeleven.coachingsoftware.persistence.entity.Season;
+import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
 @Stateless
 public class SeasonRepository extends Repository<Season> {
@@ -28,5 +29,12 @@ public class SeasonRepository extends Repository<Season> {
 		} catch (NoResultException ex) {
 			return null;
 		}
+	}
+	
+	@TransactionAttribute(SUPPORTS)
+	public Season addTeamToSeason(int seasonID, Team team) {
+		Season season = entityManager.find(Season.class, seasonID);
+		season.getTeams().add(team);
+		return entityManager.merge(season);
 	}
 }

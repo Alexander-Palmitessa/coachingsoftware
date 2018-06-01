@@ -14,11 +14,11 @@
 	
 	<ui:define name="content">
 		<div class="row player-overview-container">
-			<div class="small-12 medium-4 column">
-				<ui:repeat var="player" value="#{playerBean.currentPlayers}">
+			<ui:repeat var="player" value="#{playerBean.currentPlayers}">
+				<div class="small-12 medium-4 column">
 					<ui:include src="/secured/cards/playerCard.xhtml" />
-				</ui:repeat>
-			</div>
+				</div>
+			</ui:repeat>
 		</div>
     </ui:define>
 

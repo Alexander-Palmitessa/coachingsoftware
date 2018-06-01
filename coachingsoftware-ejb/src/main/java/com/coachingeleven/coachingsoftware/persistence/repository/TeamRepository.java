@@ -8,6 +8,7 @@
 
 package com.coachingeleven.coachingsoftware.persistence.repository;
 
+import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
 import javax.ejb.Stateless;
@@ -43,4 +44,42 @@ public class TeamRepository extends Repository<Team> {
 			return null;
 		}
     }
+    
+    @TransactionAttribute(SUPPORTS)
+    public List<Team> findTeamsBySeasonID(int seasonID) {
+    	try {
+			TypedQuery<Team> query = entityManager.createNamedQuery("findTeamsBySeasonID", Team.class);
+			query.setParameter("seasonID", seasonID);
+			return query.getResultList();
+		} catch (NoResultException ex) {
+			return null;
+		}
+    }
+    
+    @TransactionAttribute(SUPPORTS)
+	public Team addPlayerToTeam(int teamID, Player player) {
+		Team team = entityManager.find(Team.class, teamID);
+		team.getCurrentPlayers().add(player);
+		return entityManager.merge(team);
+	}
+    
+    @TransactionAttribute(SUPPORTS)
+	public Team addCurrentPlayersToTeam(int oldTeamID, int newTeamID) {
+		Team oldTeam = entityManager.find(Team.class, oldTeamID);
+		Team newTeam = entityManager.find(Team.class, newTeamID);
+		for(Player player : oldTeam.getCurrentPlayers()) {
+			newTeam.getCurrentPlayers().add(player);
+		}
+		return entityManager.merge(newTeam);
+	}
+    
+    @TransactionAttribute(SUPPORTS)
+	public Team addHistoryPlayersToTeam(int oldTeamID, int newTeamID) {
+		Team oldTeam = entityManager.find(Team.class, oldTeamID);
+		Team newTeam = entityManager.find(Team.class, newTeamID);
+		for(Player player : oldTeam.getHistoryPlayers()) {
+			newTeam.getHistoryPlayers().add(player);
+		}
+		return entityManager.merge(newTeam);
+	}
 }

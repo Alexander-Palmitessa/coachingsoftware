@@ -46,8 +46,6 @@ public class Season implements Serializable {
     private Calendar endDate;
 	@OneToMany(mappedBy = "season")
 	private Set<Game> games;
-	@OneToMany(mappedBy = "activeSeason")
-	private Set<Team> activeTeams;
 	@ManyToMany
 	@JoinTable(
 			name = "SEASON_TEAM",
@@ -113,14 +111,6 @@ public class Season implements Serializable {
 
 	public void setTeams(Set<Team> teams) {
 		this.teams = teams;
-	}
-
-	public Set<Team> getActiveTeams() {
-		return activeTeams;
-	}
-
-	public void setActiveTeams(Set<Team> activeTeams) {
-		this.activeTeams = activeTeams;
 	}
 
 }

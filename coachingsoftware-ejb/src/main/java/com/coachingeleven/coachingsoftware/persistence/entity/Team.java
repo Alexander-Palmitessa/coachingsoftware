@@ -20,7 +20,9 @@ import java.util.Set;
 	@NamedQuery(name = "findTeam",
 			query = "SELECT c FROM Team c WHERE LOWER(c.name) = LOWER(:teamname)"),
 	@NamedQuery(name = "findTeamsByClubId",
-			query = "SELECT t FROM Team t WHERE t.club.ID = :clubId")
+			query = "SELECT t FROM Team t WHERE t.club.ID = :clubId"),
+	@NamedQuery(name = "findTeamsBySeasonID",
+			query = "SELECT t FROM Team t JOIN t.seasons s WHERE s.ID = :seasonID")
 })
 public class Team implements Serializable {
 
@@ -48,18 +50,21 @@ public class Team implements Serializable {
 	@JoinColumn(name = "PREVIOUS_TEAM_ID")
 	@OneToOne
 	private Team previousTeam;
-	@OneToMany(mappedBy = "currentTeam")
+	@ManyToMany
+	@JoinTable(
+			name = "TEAM_CURRENT_PLAYERS",
+			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID"),
+			inverseJoinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID")
+	)
 	private Set<Player> currentPlayers;
-	@ManyToMany(mappedBy = "historyTeams")
-    private Set<Player> historyPlayers;
 	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
 	private String teamPictureURL;
 	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
 	private String teamLogoURL;
 	@ManyToMany(mappedBy = "teams")
     private Set<Season> seasons;
-	@ManyToOne
-	private Season activeSeason;
+	@ManyToMany(mappedBy = "historyTeams")
+    private Set<Player> historyPlayers;
 	
 
 	public Team(String name, Club club) {
@@ -110,22 +115,6 @@ public class Team implements Serializable {
 		this.user = user;
 	}
 
-	public Set<Player> getCurrentPlayers() {
-		return currentPlayers;
-	}
-
-	public void setCurrentPlayers(Set<Player> currentPlayers) {
-		this.currentPlayers = currentPlayers;
-	}
-
-	public Set<Player> getHistoryPlayers() {
-		return historyPlayers;
-	}
-
-	public void setHistoryPlayers(Set<Player> historyPlayers) {
-		this.historyPlayers = historyPlayers;
-	}
-
 	public String getTeamPictureURL() {
 		return teamPictureURL;
 	}
@@ -158,11 +147,19 @@ public class Team implements Serializable {
 		this.seasons = seasons;
 	}
 
-	public Season getActiveSeason() {
-		return activeSeason;
+	public Set<Player> getCurrentPlayers() {
+		return currentPlayers;
 	}
 
-	public void setActiveSeason(Season activeSeason) {
-		this.activeSeason = activeSeason;
+	public void setCurrentPlayers(Set<Player> currentPlayers) {
+		this.currentPlayers = currentPlayers;
+	}
+
+	public Set<Player> getHistoryPlayers() {
+		return historyPlayers;
+	}
+
+	public void setHistoryPlayers(Set<Player> historyPlayers) {
+		this.historyPlayers = historyPlayers;
 	}
 }

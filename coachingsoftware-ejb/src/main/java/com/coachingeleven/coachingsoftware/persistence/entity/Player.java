@@ -44,7 +44,7 @@ import java.util.Set;
 	@NamedQuery(name = "findPlayer",
 			query = "SELECT p FROM Player p WHERE LOWER(p.email) = LOWER(:email)"),
 	@NamedQuery(name = "findPlayerByCurrentTeamId",
-			query = "SELECT p FROM Player p WHERE p.currentTeam.ID = :teamId"),
+			query = "SELECT p FROM Player p JOIN p.currentTeams t WHERE t.ID = :teamId"),
 	@NamedQuery(name = "findHistoryPlayerByTeamId",
 			query = "SELECT p FROM Player p JOIN p.historyTeams t WHERE t.ID = :teamId")
 })
@@ -125,9 +125,8 @@ public class Player implements Serializable {
 	private Set<EvaluationTalk> evaluationTalks;
 	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
 	private String avatarUrl;
-	@JoinColumn(name = "CURRENT_TEAM_ID")
-	@ManyToOne
-	private Team currentTeam;
+	@ManyToMany(mappedBy = "currentPlayers")
+    private Set<Team> currentTeams;
 	@ManyToMany
 	@JoinTable(
 			name = "PLAYER_TEAM_HISTORY",
@@ -342,19 +341,19 @@ public class Player implements Serializable {
 		this.email = email;
 	}
 
-	public Team getCurrentTeam() {
-		return currentTeam;
-	}
-
-	public void setCurrentTeam(Team currentTeam) {
-		this.currentTeam = currentTeam;
-	}
-
 	public Set<Team> getHistoryTeams() {
 		return historyTeams;
 	}
 
 	public void setHistoryTeams(Set<Team> historyTeams) {
 		this.historyTeams = historyTeams;
+	}
+
+	public Set<Team> getCurrentTeams() {
+		return currentTeams;
+	}
+
+	public void setCurrentTeams(Set<Team> currentTeams) {
+		this.currentTeams = currentTeams;
 	}
 }

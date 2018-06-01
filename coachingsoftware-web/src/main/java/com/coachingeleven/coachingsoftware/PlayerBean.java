@@ -17,12 +17,15 @@ import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyE
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
 import com.coachingeleven.coachingsoftware.application.exception.PlayerAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.PlayerNotFoundException;
+import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
+import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
+import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
 
 @Named(value = "playerBean")
@@ -39,6 +42,8 @@ public class PlayerBean {
 	private PlayerServiceRemote playerService;
 	@EJB
     private CountryServiceRemote countryService;
+	@EJB
+	private TeamClubServiceRemote teamClubService;
 	
 	private List<Player> currentPlayers;
 	private List<Player> historyPlayers;
@@ -85,8 +90,6 @@ public class PlayerBean {
 		
 		newPlayerAddress.setCountry(newPlayerCountry);
 		newPlayer.setAddress(newPlayerAddress);
-		// Add created player to the managed team of the logged in user
-		newPlayer.setCurrentTeam(loginBean.getLoggedInUser().getTeam());
 		
 		try {
 			Calendar playerBirthdayCalendar = Calendar.getInstance();
@@ -100,6 +103,14 @@ public class PlayerBean {
 			newPlayer = playerService.createPlayer(newPlayer);
 		} catch (PlayerAlreadyExistsException e) {
 			newPlayer = playerService.findPlayer(newPlayer.getID());
+		}
+		
+		// Add created player to the managed team of the logged in user
+		try {
+			Team team = teamClubService.findTeam(loginBean.getLoggedInUser().getTeam().getID());
+			teamClubService.addPlayerToTeam(team.getID(), newPlayer);
+		} catch (TeamNotFoundException e) {
+			// TODO 
 		}
 		
 		return navigationBean.toPlayerForm();

@@ -91,4 +91,12 @@ public class NavigationBean implements Serializable {
 		return "/public/pages/404.xhtml?faces-redirect=true";
 	}
 	
+	public String toTeamDataOverview() {
+		return "/secured/pages/teamOverviewData.xhtml";
+	}
+	
+	public String redirectToTeamDataOverview() {
+		return "/secured/pages/teamOverviewData.xhtml?faces-redirect=true";
+	}
+	
 }

@@ -45,17 +45,28 @@ public class IndexBean {
         Address clubAddres = new Address("Bern", "Teststrasse", "32", 3001, clubCountry);
         club.setAddress(clubAddres);
         club = teamClubService.createClub(club);
-        Team team = new Team();
-        team.setName("Team One");
-        team.setClub(club);
-        team = teamClubService.createTeam(team);
+        
+        Club club2 = new Club();
+        club2.setName("Club Two");
+        Country club2Country = new Country("DE");
+        club2Country = countryService.createCountry(club2Country);
+        Address club2Addres = new Address("Lyss", "Juraweg", "10", 3250, club2Country);
+        club2.setAddress(club2Addres);
+        club2 = teamClubService.createClub(club2);
 
         Player player1 = new Player();
         player1.setFirstName("Hans");
         player1.setLastName("Muller");
         player1.setEmail("hans@muller.com");
-        player1.setCurrentTeam(team);
         player1 = playerServiceRemote.createPlayer(player1);
+        
+        Team team = new Team();
+        team.setName("Team One");
+        team.setClub(club);
+        HashSet<Player> currentPlayers = new HashSet<Player>();
+        currentPlayers.add(player1);
+        team.setCurrentPlayers(currentPlayers);
+        team = teamClubService.createTeam(team);
 
         Player player2 = new Player();
         player2.setFirstName("Rudolf");
@@ -99,15 +110,14 @@ public class IndexBean {
         season1Games.add(game);
         
         Season season1 = new Season("Season One", startDate1Calendar, endDate1Calendar);
-        season1.setTeams(season1Teams);
-        season1.setGames(season1Games);
         Season season2 = new Season("Season Two", startDate2Calendar, endDate2Calendar);
         Season season3 = new Season("Season Three", startDate3Calendar, endDate3Calendar);
+        season3.setTeams(season1Teams);
+        season3.setGames(season1Games);
         season1 = seasonService.createSeason(season1);
         season2 = seasonService.createSeason(season2);
         season3 = seasonService.createSeason(season3);
         
-        team.setActiveSeason(season3);
         teamClubService.updateTeam(team);
     }
 
