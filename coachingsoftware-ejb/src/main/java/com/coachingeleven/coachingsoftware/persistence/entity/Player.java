@@ -18,6 +18,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -109,6 +110,8 @@ public class Player implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID")
 	)
 	private Set<Team> historyTeams;
+	
+	private String birthdateFormatted;
 
 
 	/**
@@ -324,11 +327,24 @@ public class Player implements Serializable {
 		this.currentTeams = currentTeams;
 	}
   
-  public Set<ExtendedTIPS> getExtendedTIPS() {
-      return extendedTIPS;
-  }
+	public Set<ExtendedTIPS> getExtendedTIPS() {
+		return extendedTIPS;
+	}
 
-  public void setExtendedTIPS(Set<ExtendedTIPS> extendedTIPS) {
-      this.extendedTIPS = extendedTIPS;
-  }
+	public void setExtendedTIPS(Set<ExtendedTIPS> extendedTIPS) {
+		this.extendedTIPS = extendedTIPS;
+	}
+
+	public String getBirthdateFormatted() {
+		if(birthdate != null) {
+			SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+			birthdateFormatted = formatter.format(birthdate.getTime());
+		}
+		return birthdateFormatted;
+	}
+
+	public void setBirthdateFormatted(String birthdateFormatted) {
+		this.birthdateFormatted = birthdateFormatted;
+	}
+	
 }

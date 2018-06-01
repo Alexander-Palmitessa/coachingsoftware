@@ -15,15 +15,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
+import com.coachingeleven.coachingsoftware.application.exception.EvaluationTalkAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.PlayerAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.PlayerNotFoundException;
 import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
+import com.coachingeleven.coachingsoftware.application.service.PlayerEvaluationServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
+import com.coachingeleven.coachingsoftware.persistence.entity.EvaluationTalk;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
@@ -44,6 +47,8 @@ public class PlayerBean {
     private CountryServiceRemote countryService;
 	@EJB
 	private TeamClubServiceRemote teamClubService;
+	@EJB
+	private PlayerEvaluationServiceRemote evaluationTalkService;
 	
 	private List<Player> currentPlayers;
 	private List<Player> historyPlayers;
@@ -59,8 +64,12 @@ public class PlayerBean {
 	
 	private SimpleDateFormat dateFormatter;
 	
+	private EvaluationTalk newTalk;
+	private String newTalkDate;
+	
 	@PostConstruct
     public void init() {
+		newTalk = new EvaluationTalk();
 		newPlayer = new Player();
 		newPlayerAddress = new Address();
 		newPlayerCountry = new Country();
@@ -73,8 +82,10 @@ public class PlayerBean {
 		if(playerID != null) {
 			try {
 				HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-				playerID = Integer.parseInt(request.getParameter("playerID"));
-				currentPlayer = playerService.findPlayer(playerID);
+				if(request.getParameter("playerID") != null) {
+					playerID = Integer.parseInt(request.getParameter("playerID"));
+					currentPlayer = playerService.findPlayer(playerID);
+				}
 			} catch (PlayerNotFoundException e) {
 				// TODO
 			}
@@ -114,6 +125,21 @@ public class PlayerBean {
 		}
 		
 		return navigationBean.toPlayerForm();
+	}
+	
+	public void createPlayerTalk() {
+		if(currentPlayer != null) {
+			try {
+				Calendar startDateCalendar = Calendar.getInstance();
+				startDateCalendar.setTime(dateFormatter.parse(newTalkDate));
+				newTalk.setPlayer(currentPlayer);
+				evaluationTalkService.createEvaluationTalk(newTalk);
+			} catch (ParseException e) {
+				// TODO 
+			} catch (EvaluationTalkAlreadyExistsException e) {
+				// TODO 
+			}
+		}
 	}
 	
 	public Position[] getPositions() {
@@ -182,5 +208,21 @@ public class PlayerBean {
 
 	public void setPlayerBirthday(String playerBirthday) {
 		this.playerBirthday = playerBirthday;
+	}
+
+	public String getNewTalkDate() {
+		return newTalkDate;
+	}
+
+	public void setNewTalkDate(String newTalkDate) {
+		this.newTalkDate = newTalkDate;
+	}
+
+	public EvaluationTalk getNewTalk() {
+		return newTalk;
+	}
+
+	public void setNewTalk(EvaluationTalk newTalk) {
+		this.newTalk = newTalk;
 	}
 }
