@@ -1,39 +1,44 @@
 <ui:composition template="/templates/main.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <f:metadata>
-        <f:viewAction action="#{gameBean.init}" onPostback="true"/>
-    </f:metadata>
+	<f:metadata>
+		<f:viewAction action="#{gameBean.init}" onPostback="true"/>
+	</f:metadata>
 
-    <ui:define name="title">
-        #{msg['gameOverview']} - Coaching Eleven
-    </ui:define>
 
-    <ui:define name="content">
-        <h:dataTable value="#{gameBean.allGames}" var="game">
-            <h:column>
-                <f:facet name="header">#{msg['dateColumn']}</f:facet>
-                #{gameBean.dateToString(game.date)}
-            </h:column>
-            <h:column>
-                <f:facet name="header">#{msg['timeColumn']}</f:facet>
-                #{gameBean.timeToString(game.time)}
-            </h:column>
-            <h:column>
-                <f:facet name="header">#{msg['teamHome']}</f:facet>
-                #{game.teamHome.name}
-            </h:column>
-            <h:column>
-                <f:facet name="header">#{msg['teamAway']}</f:facet>
-                #{game.teamAway.name}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Link</f:facet>
-                <h:outputLink value="#{request.contextPath}/secured/forms/gameForm.xhtml?id=#{game.ID}"><h:outputText value=">"/></h:outputLink>
-            </h:column>
-        </h:dataTable>
-    </ui:define>
+	<ui:define name="title">
+		#{msg['gameOverview']} - Coaching Eleven
+	</ui:define>
+
+	<ui:define name="content">
+		<table class="responsive-card-table unstriped">
+			<thead>
+			<tr>
+				<th>#{msg['dateColumn']}</th>
+				<th>#{msg['timeColumn']}</th>
+				<th>#{msg['score']}</th>
+				<th>#{msg['teamHome']}</th>
+				<th>#{msg['teamAway']}</th>
+				<th>Link</th>
+			</tr>
+			</thead>
+			<tbody>
+			<ui:repeat value="#{gameBean.allGames}" var="game">
+				<tr>
+					<td data-label="#{msg['dateColumn']}">#{gameBean.dateToString(game.date)}</td>
+					<td data-label="#{msg['timeColumn']}">#{gameBean.timeToString(game.time)}</td>
+					<td data-label="#{msg['score']}">#{game.resultGoalsHome} - #{game.resultGoalsAway}</td>
+					<td data-label="#{msg['teamHome']}">#{game.teamHome.name}</td>
+					<td data-label="#{msg['teamAway']}">#{game.teamAway.name}</td>
+					<td data-label="Link"><h:outputLink
+							value="#{request.contextPath}/secured/forms/updateGameForm.xhtml?id=#{game.ID}">></h:outputLink>
+					</td>
+				</tr>
+			</ui:repeat>
+			</tbody>
+		</table>
+	</ui:define>
 </ui:composition>

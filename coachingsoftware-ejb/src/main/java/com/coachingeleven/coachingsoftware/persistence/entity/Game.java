@@ -10,7 +10,22 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import com.coachingeleven.coachingsoftware.persistence.enumeration.GameType;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.util.Calendar;
@@ -36,23 +51,17 @@ public class Game implements Serializable {
     @JoinColumn(name = "ARENA_ID")
     private Arena arena;
     @JoinColumn(name = "TEAM_HOME_ID")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Team teamHome;
     @JoinColumn(name = "TEAM_AWAY_ID")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Team teamAway;
-    @ManyToMany(mappedBy = "games")
-    private Set<Team> teams;
-    @JoinColumn(name = "GOALS_HOME_ID")
-    @OneToMany
-    private Set<Goal> goalsHome;
-    @JoinColumn(name = "GOALS_AWAY_ID")
-    @OneToMany
-    private Set<Goal> goalsAway;
-    @OneToMany(mappedBy = "game")
-    private Set<Objective> objectives;
-    @OneToOne(mappedBy = "game")
-    private GameReport gameReport;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "game")
+    private Set<Goal> goals;
+    @OneToOne(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private PostGameReport postGameReport;
+    @OneToOne(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private PreGameReport preGameReport;
     @Enumerated(value = EnumType.STRING)
     @Column(name = "GAME_TYPE")
     private GameType gameType;
@@ -61,16 +70,16 @@ public class Game implements Serializable {
     private int resultGoalsHome;
     @Column(name = "RES_GOALS_AWAY")
     @Min(value = 0)
-    private int getResultGoalsAway;
-    @OneToMany(mappedBy = "game")
+    private int resultGoalsAway;
+    @OneToMany(mappedBy = "game", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<PlayerGameStats> playerGameStats;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "LINE_UP_ID")
     private LineUp lineUp;
     @JoinColumn(name = "ID_SEASON")
-	@ManyToOne
-	private Season season;
-    
+    @ManyToOne
+    private Season season;
+
     /**
      * JPA required default constructor
      */
@@ -137,59 +146,36 @@ public class Game implements Serializable {
         this.teamAway = teamAway;
     }
 
-    public Set<Team> getTeams() {
-		return teams;
-	}
-
-	public void setTeams(Set<Team> teams) {
-		this.teams = teams;
-	}
-
-	public LineUp getLineUp() {
-		return lineUp;
-	}
-
-	public void setLineUp(LineUp lineUp) {
-		this.lineUp = lineUp;
-	}
-
-	public Set<Goal> getGoalsHome() {
-        return goalsHome;
+    public LineUp getLineUp() {
+        return lineUp;
     }
 
-
-    public void setGoalsHome(Set<Goal> goalsHome) {
-        this.goalsHome = goalsHome;
+    public void setLineUp(LineUp lineUp) {
+        this.lineUp = lineUp;
     }
 
-
-    public Set<Goal> getGoalsAway() {
-        return goalsAway;
+    public PostGameReport getPostGameReport() {
+        return postGameReport;
     }
 
-
-    public void setGoalsAway(Set<Goal> goalsAway) {
-        this.goalsAway = goalsAway;
+    public void setPostGameReport(PostGameReport postGameReport) {
+        this.postGameReport = postGameReport;
     }
 
-
-    public Set<Objective> getObjectives() {
-        return objectives;
+    public PreGameReport getPreGameReport() {
+        return preGameReport;
     }
 
-
-    public void setObjectives(Set<Objective> objectives) {
-        this.objectives = objectives;
+    public void setPreGameReport(PreGameReport preGameReport) {
+        this.preGameReport = preGameReport;
     }
 
-
-    public GameReport getGameReport() {
-        return gameReport;
+    public Season getSeason() {
+        return season;
     }
 
-
-    public void setGameReport(GameReport gameReport) {
-        this.gameReport = gameReport;
+    public void setSeason(Season season) {
+        this.season = season;
     }
 
     public GameType getGameType() {
@@ -208,12 +194,20 @@ public class Game implements Serializable {
         this.resultGoalsHome = resultGoalsHome;
     }
 
-    public int getGetResultGoalsAway() {
-        return getResultGoalsAway;
+    public Set<Goal> getGoals() {
+        return goals;
     }
 
-    public void setGetResultGoalsAway(int getResultGoalsAway) {
-        this.getResultGoalsAway = getResultGoalsAway;
+    public void setGoals(Set<Goal> goals) {
+        this.goals = goals;
+    }
+
+    public int getResultGoalsAway() {
+        return resultGoalsAway;
+    }
+
+    public void setResultGoalsAway(int resultGoalsAway) {
+        this.resultGoalsAway = resultGoalsAway;
     }
 
     public Set<PlayerGameStats> getPlayerGameStats() {

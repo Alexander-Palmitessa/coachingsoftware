@@ -8,7 +8,18 @@
 
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -90,10 +101,10 @@ public class PlayerGameStats implements Serializable {
     @Min(value = 0, message = "{min.zero}")
     @Max(value = 10, message = "{max.ten}")
     private int loadIndicator;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CHANGEIN_ID")
     private ChangeIn changeIn;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CHANGEOUT_ID")
     private ChangeOut changeOut;
     @Embedded

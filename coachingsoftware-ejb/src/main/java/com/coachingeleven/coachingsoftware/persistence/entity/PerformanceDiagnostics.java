@@ -41,30 +41,34 @@ public class PerformanceDiagnostics implements Serializable {
 	@Embedded
 	private JumpDiagnostic jumpDiagnostic;
 	@Embedded
-	private ShootingDiagnostic shootingDiagnostic;
+	private TrunkDiagnostic trunkDiagnostic;
 	@Embedded
-	private AdditionalDiagnostic additionalDiagnostic;
+	private YoYoTest yoYoTest;
+	@Embedded
+	private FunctionalMovementScreen functionalMovementScreen;
 
 
 	/**
 	 * Class constructor
 	 *
-	 * @param date                 the date of the performance diagnostics
-	 * @param player               the player which was diagnosed
-	 * @param speedDiagnostic      the speed diagnostics
-	 * @param jumpDiagnostic       the jump diagnostic
-	 * @param shootingDiagnostic   the shooting diagnostic
-	 * @param additionalDiagnostic the additional diagnostics, i.e. mobility and muscles endurance
+	 * @param date                     the date of the performance diagnostics
+	 * @param player                   the player which was diagnosed
+	 * @param speedDiagnostic          the speed diagnostics
+	 * @param jumpDiagnostic           the jump diagnostic
+	 * @param trunkDiagnostic          the trunk power diagnostic
+	 * @param yoYoTest                 YoYo test diagnostic
+	 * @param functionalMovementScreen the functional movement screen, i.e. mobility and muscles endurance
 	 */
 	public PerformanceDiagnostics(Calendar date, Player player, SpeedDiagnostic speedDiagnostic,
-								  JumpDiagnostic jumpDiagnostic, ShootingDiagnostic shootingDiagnostic,
-								  AdditionalDiagnostic additionalDiagnostic) {
+								  JumpDiagnostic jumpDiagnostic, TrunkDiagnostic trunkDiagnostic,
+								  YoYoTest yoYoTest, FunctionalMovementScreen functionalMovementScreen) {
 		this.date = date;
 		this.player = player;
 		this.speedDiagnostic = speedDiagnostic;
 		this.jumpDiagnostic = jumpDiagnostic;
-		this.shootingDiagnostic = shootingDiagnostic;
-		this.additionalDiagnostic = additionalDiagnostic;
+		this.trunkDiagnostic = trunkDiagnostic;
+		this.yoYoTest = yoYoTest;
+		this.functionalMovementScreen = functionalMovementScreen;
 	}
 
 	/**
@@ -78,6 +82,9 @@ public class PerformanceDiagnostics implements Serializable {
 		return ID;
 	}
 
+	public void setID(int ID) {
+		this.ID = ID;
+	}
 
 	public Calendar getDate() {
 		return date;
@@ -111,19 +118,27 @@ public class PerformanceDiagnostics implements Serializable {
 		this.jumpDiagnostic = jumpDiagnostic;
 	}
 
-	public ShootingDiagnostic getShootingDiagnostic() {
-		return shootingDiagnostic;
+	public TrunkDiagnostic getTrunkDiagnostic() {
+		return trunkDiagnostic;
 	}
 
-	public void setShootingDiagnostic(ShootingDiagnostic shootingDiagnostic) {
-		this.shootingDiagnostic = shootingDiagnostic;
+	public void setTrunkDiagnostic(TrunkDiagnostic trunkDiagnostic) {
+		this.trunkDiagnostic = trunkDiagnostic;
 	}
 
-	public AdditionalDiagnostic getAdditionalDiagnostic() {
-		return additionalDiagnostic;
+	public YoYoTest getYoYoTest() {
+		return yoYoTest;
 	}
 
-	public void setAdditionalDiagnostic(AdditionalDiagnostic additionalDiagnostic) {
-		this.additionalDiagnostic = additionalDiagnostic;
+	public void setYoYoTest(YoYoTest yoYoTest) {
+		this.yoYoTest = yoYoTest;
+	}
+
+	public FunctionalMovementScreen getFunctionalMovementScreen() {
+		return functionalMovementScreen;
+	}
+
+	public void setFunctionalMovementScreen(FunctionalMovementScreen functionalMovementScreen) {
+		this.functionalMovementScreen = functionalMovementScreen;
 	}
 }

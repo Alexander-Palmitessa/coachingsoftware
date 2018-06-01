@@ -4,9 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 
 @Embeddable
-public class TIPS {
+public class TIPS implements Serializable {
 
     @Column(name = "TECHNIQUE")
     @Min(value = 0, message = "{min.zero}")

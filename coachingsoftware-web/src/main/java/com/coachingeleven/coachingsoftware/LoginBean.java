@@ -20,19 +20,18 @@ import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
 public class LoginBean implements Serializable {
 
 	private static final long serialVersionUID = 3548028163173684077L;
-	
+
 	private String username;
 	private String password;
-	
 	private UserAccount loggedInUser;
-	
+  private String userTeam;
 	private boolean loggedIn;
-	
+
 	private boolean hasUserAssignedTeam;
-	
+
 	@Inject
 	private NavigationBean navigationBean;
-	
+
 	@EJB
 	private UserServiceRemote userService;
 	@EJB
@@ -42,7 +41,7 @@ public class LoginBean implements Serializable {
 
 	@Inject
 	private IndexBean indexBean;
-	
+
 	@PostConstruct
     public void init() {
 		if(loggedInUser == null) loggedInUser = new UserAccount();
@@ -54,26 +53,56 @@ public class LoginBean implements Serializable {
 		}
 		
 	}
-	
+
 	public String doLogin() {
-		if(userService.authenticate(password, loggedInUser.getPassword())) {
-			loggedIn = true;
-			if(loggedInUser.getTeam() != null) {
-				hasUserAssignedTeam = true;
-				return navigationBean.redirectToHome();
-			} else {
-				return navigationBean.redirectToUserSettings();
+		try {
+			UserAccount currentUser = userService.findUser(username);
+			if(userService.authenticate(password, currentUser.getPassword())) {
+				loggedIn = true;
+
+				try {
+					Player player1 = playerService.createPlayer(new Player("Elias","Schildknecht","test@test.ch"));
+					Player player2 = playerService.createPlayer(new Player("Alexander","Palmitessa","test@test2.ch"));
+					Club club = teamClubService.createClub(new Club("Verein 1"));
+					Team team = teamClubService.createTeam(new Team("Team 1",club));
+					HashSet<Player> players = new HashSet<Player>();
+					players.add(player1);
+					players.add(player2);
+					team.setPlayers(players);
+					teamClubService.updateTeam(team);
+					club.addTeam(team);
+					teamClubService.updateClub(club);
+					currentUser.setTeam(team);
+					userService.updateUser(currentUser);
+					userTeam = team.getName();
+				} catch (PlayerAlreadyExistsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (TeamAlreadyExistsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ClubAlreadyExistsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				if(currentUser.getTeam() != null) {
+					hasUserAssignedTeam = true;
+					return navigationBean.redirectToHome();
+				} else {
+					return navigationBean.redirectToUserSettings();
+				}
 			}
 		}
-		
+
 		return navigationBean.redirectToLogin();
 	}
-	
+
 	public String doLogout() {
 		loggedIn = false;
 		return navigationBean.toLogin();
 	}
-	
+
 	public boolean isLoggedIn() {
 		return loggedIn;
 	}

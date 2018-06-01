@@ -12,24 +12,7 @@ import com.coachingeleven.coachingsoftware.persistence.enumeration.Draft;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Role;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -125,7 +108,11 @@ public class Player implements Serializable {
 	private Set<EvaluationTalk> evaluationTalks;
 	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
 	private String avatarUrl;
-	@ManyToMany(mappedBy = "currentPlayers")
+  @OneToMany(mappedBy = "player")
+  private Set<ObserveTIPS> observeTIPS;
+  @OneToMany(mappedBy = "player")
+  private Set<ExtendedTIPS> extendedTIPS;
+  @ManyToMany(mappedBy = "currentPlayers")
     private Set<Team> currentTeams;
 	@ManyToMany
 	@JoinTable(
@@ -265,77 +252,89 @@ public class Player implements Serializable {
 		return weight;
 	}
 
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
+    public int getWeight() {
+        return weight;
+    }
 
-	public Contract getContract() {
-		return contract;
-	}
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 
-	public void setContract(Contract contract) {
-		this.contract = contract;
-	}
+    public Contract getContract() {
+        return contract;
+    }
 
-	public Country getCountryPermission() {
-		return countryPermission;
-	}
+    public void setContract(Contract contract) {
+        this.contract = contract;
+    }
 
-	public void setCountryPermission(Country countryPermission) {
-		this.countryPermission = countryPermission;
-	}
+    public Country getCountryPermission() {
+        return countryPermission;
+    }
+  
+    public Set<Game> getGames() {
+      return games;
+    }
+  
+    public void setCountryPermission(Country countryPermission) {
+        this.countryPermission = countryPermission;
+    }
 
-	public Set<Game> getGames() {
-		return games;
-	}
+    public Set<Team> getTeams() {
+        return teams;
+    }
 
-	public void setGames(Set<Game> games) {
-		this.games = games;
-	}
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
+    }
 
-	public Set<LineUp> getLineUps() {
-		return lineUps;
-	}
+    public Set<PlayerGameStats> getGameStats() {
+        return gameStats;
+    }
 
-	public void setLineUps(Set<LineUp> lineUps) {
-		this.lineUps = lineUps;
-	}
+    public void setGameStats(Set<PlayerGameStats> gameStats) {
+        this.gameStats = gameStats;
+    }
 
-	public Set<PlayerGameStats> getGameStats() {
-		return gameStats;
-	}
+    public Set<PerformanceDiagnostics> getPerformanceDiagnostics() {
+        return performanceDiagnostics;
+    }
 
-	public void setGameStats(Set<PlayerGameStats> gameStats) {
-		this.gameStats = gameStats;
-	}
+    public void setPerformanceDiagnostics(Set<PerformanceDiagnostics> performanceDiagnostics) {
+        this.performanceDiagnostics = performanceDiagnostics;
+    }
 
-	public Set<PerformanceDiagnostics> getPerformanceDiagnostics() {
-		return performanceDiagnostics;
-	}
+    public Set<EvaluationTalk> getEvaluationTalks() {
+        return evaluationTalks;
+    }
 
-	public void setPerformanceDiagnostics(Set<PerformanceDiagnostics> performanceDiagnostics) {
-		this.performanceDiagnostics = performanceDiagnostics;
-	}
+    public void setEvaluationTalks(Set<EvaluationTalk> evaluationTalks) {
+        this.evaluationTalks = evaluationTalks;
+    }
 
-	public Set<EvaluationTalk> getEvaluationTalks() {
-		return evaluationTalks;
-	}
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
 
-	public void setEvaluationTalks(Set<EvaluationTalk> evaluationTalks) {
-		this.evaluationTalks = evaluationTalks;
-	}
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
 
-	public String getAvatarUrl() {
-		return avatarUrl;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setAvatarUrl(String avatarUrl) {
-		this.avatarUrl = avatarUrl;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public Set<ObserveTIPS> getObserveTIPS() {
+        return observeTIPS;
+    }
+
+    public void setObserveTIPS(Set<ObserveTIPS> observeTIPS) {
+        this.observeTIPS = observeTIPS;
+    }
 
 	public void setEmail(String email) {
 		this.email = email;
@@ -356,4 +355,12 @@ public class Player implements Serializable {
 	public void setCurrentTeams(Set<Team> currentTeams) {
 		this.currentTeams = currentTeams;
 	}
+  
+  public Set<ExtendedTIPS> getExtendedTIPS() {
+      return extendedTIPS;
+  }
+
+  public void setExtendedTIPS(Set<ExtendedTIPS> extendedTIPS) {
+      this.extendedTIPS = extendedTIPS;
+  }
 }

@@ -1,19 +1,13 @@
-/*
- * Copyright (c) 2018 Schildknecht Elias & Palmitessa Alexander, Berner Fachhochschule, Switzerland.
- *
- * Project 'com.coachingeleven.coachingsoftware Coaching Administration System'
- *
- * Distributable under GPL license. See terms of license at gnu.org.
- */
-
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 
 @Embeddable
-public class AdditionalDiagnostic {
+public class FunctionalMovementScreen implements Serializable {
+
 	@Column(name = "LEG_RAISE_L")
 	@Min(value = 0)
 	private int legRaiseL;
@@ -51,7 +45,7 @@ public class AdditionalDiagnostic {
 	/**
 	 * JPA required default constructor
 	 */
-	public AdditionalDiagnostic() {
+	public FunctionalMovementScreen() {
 
 	}
 
@@ -70,9 +64,9 @@ public class AdditionalDiagnostic {
 	 * @param inLineLungeR      score for right in-line lunges
 	 * @param inLineLungeL      score for left in-line lunges
 	 */
-	public AdditionalDiagnostic(int legRaiseL, int legRaiseR, int pushUp, int rotaryStabilityR, int rotaryStabilityL,
-								int hurdleStepR, int hurdleStepL, int shoulderMobilityR, int shoulderMobilityL,
-								int inLineLungeR, int inLineLungeL) {
+	public FunctionalMovementScreen(int legRaiseL, int legRaiseR, int pushUp, int rotaryStabilityR, int rotaryStabilityL,
+									int hurdleStepR, int hurdleStepL, int shoulderMobilityR, int shoulderMobilityL,
+									int inLineLungeR, int inLineLungeL) {
 		this.legRaiseL = legRaiseL;
 		this.legRaiseR = legRaiseR;
 		this.pushUp = pushUp;
