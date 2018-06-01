@@ -22,7 +22,9 @@ import java.util.Set;
 	@NamedQuery(name = "findTeamsByClubId",
 			query = "SELECT t FROM Team t WHERE t.club.ID = :clubId"),
 	@NamedQuery(name = "findTeamsBySeasonID",
-			query = "SELECT t FROM Team t JOIN t.seasons s WHERE s.ID = :seasonID")
+			query = "SELECT t FROM Team t JOIN t.seasons s WHERE s.ID = :seasonID"),
+	@NamedQuery(name = "findPreviousTeam",
+			query = "SELECT t FROM Team t WHERE t.previousTeam.ID = :teamID")
 })
 public class Team implements Serializable {
 

@@ -29,6 +29,8 @@ public class UserSettingsBean {
     
     @Inject
 	private LoginBean loginBean;
+    @Inject
+	private NavigationBean navigationBean;
     
     @PostConstruct
     public void init() {
@@ -41,6 +43,22 @@ public class UserSettingsBean {
 		} catch (UserNotFoundException e) {
 			// TODO
 		}
+    }
+    
+    // TODO: In further requirements
+    public String persistUserTeamSeason(String teamname, int seasonID) {
+    	List<Team> seasonTeams = teamClubService.findTeamsBySeasonID(seasonID);
+    	UserAccount currentUser = loginBean.getLoggedInUser();
+    	for(Team team : seasonTeams) {
+    		if(team.getName().equals(teamname)) {
+    			if(currentUser.getTeam() == null || currentUser.getTeam().getID() != team.getID()) {
+    				currentUser.setTeam(team);
+    			}
+    		}
+    	}
+    	loginBean.setHasUserAssignedTeam(true);
+		userService.updateUser(currentUser);
+    	return navigationBean.toTeamDataOverview();
     }
     
     public void persistUserTeam() {

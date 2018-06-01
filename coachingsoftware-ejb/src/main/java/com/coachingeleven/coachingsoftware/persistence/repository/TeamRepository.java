@@ -18,7 +18,9 @@ import javax.persistence.TypedQuery;
 
 import static javax.ejb.TransactionAttributeType.SUPPORTS;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Stateless
 public class TeamRepository extends Repository<Team> {
@@ -64,22 +66,34 @@ public class TeamRepository extends Repository<Team> {
 	}
     
     @TransactionAttribute(SUPPORTS)
-	public Team addCurrentPlayersToTeam(int oldTeamID, int newTeamID) {
-		Team oldTeam = entityManager.find(Team.class, oldTeamID);
-		Team newTeam = entityManager.find(Team.class, newTeamID);
-		for(Player player : oldTeam.getCurrentPlayers()) {
-			newTeam.getCurrentPlayers().add(player);
-		}
-		return entityManager.merge(newTeam);
-	}
+    public List<Player> getCurrentPlayers(int teamID) {
+    	List<Player> players = new ArrayList<Player>();
+    	for(Player player : entityManager.find(Team.class, teamID).getCurrentPlayers()) {
+    		players.add(player);
+    	}
+    	
+    	return players;
+    }
     
     @TransactionAttribute(SUPPORTS)
-	public Team addHistoryPlayersToTeam(int oldTeamID, int newTeamID) {
-		Team oldTeam = entityManager.find(Team.class, oldTeamID);
-		Team newTeam = entityManager.find(Team.class, newTeamID);
-		for(Player player : oldTeam.getHistoryPlayers()) {
-			newTeam.getHistoryPlayers().add(player);
+    public List<Player> getHistoryPlayers(int teamID) {
+    	List<Player> players = new ArrayList<Player>();
+    	for(Player player : entityManager.find(Team.class, teamID).getHistoryPlayers()) {
+    		players.add(player);
+    	}
+    	
+    	return players;
+    }
+    
+    @TransactionAttribute(SUPPORTS)
+    public Team getPreviousTeam(int teamID) {
+    	try {
+			TypedQuery<Team> query = entityManager.createNamedQuery("findPreviousTeam", Team.class);
+			query.setParameter("teamID", teamID);
+			return query.getSingleResult();
+		} catch (NoResultException ex) {
+			return null;
 		}
-		return entityManager.merge(newTeam);
-	}
+    }
+    
 }

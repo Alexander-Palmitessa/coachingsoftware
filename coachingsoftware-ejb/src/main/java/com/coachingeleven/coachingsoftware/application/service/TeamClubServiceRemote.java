@@ -28,6 +28,8 @@ public interface TeamClubServiceRemote {
     public List<Team> findTeamsByClubId(int clubId);
     public List<Team> findTeamsBySeasonID(int seasonID);
     public Team addPlayerToTeam(int teamID, Player player);
-    public Team addCurrentPlayersToTeam(int oldTeamID, int newTeamID);
-    public Team addHistoryPlayersToTeam(int oldTeamID, int newTeamID);
+    public List<Team> getAllPreviousTeams(int teamID);
+    public List<Team> getAllPreviousTeamsOfSeason(int seasonID);
+    public List<Player> getCurrentPlayers(int teamID);
+    public List<Player> getHistoryPlayers(int teamID);
 }

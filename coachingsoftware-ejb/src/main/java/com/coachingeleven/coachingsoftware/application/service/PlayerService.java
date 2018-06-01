@@ -14,6 +14,7 @@ import javax.ejb.TransactionAttribute;
 import com.coachingeleven.coachingsoftware.application.exception.PlayerAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.PlayerNotFoundException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
+import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.repository.PlayerRepository;
 
 @LocalBean
@@ -84,6 +85,11 @@ public class PlayerService implements PlayerServiceRemote {
 	@Override
 	public List<Player> findHistoryPlayersByTeam(int teamId) {
 		return playerRepository.findHistoryPlayersByTeam(teamId);
+	}
+
+	@Override
+	public Player addHistoryTeamToPlayer(int playerID, Team team) {
+		return playerRepository.addHistoryTeamToPlayer(playerID, team);
 	}
 
 }

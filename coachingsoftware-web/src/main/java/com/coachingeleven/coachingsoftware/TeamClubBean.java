@@ -5,7 +5,6 @@ import com.coachingeleven.coachingsoftware.application.exception.ClubNotFoundExc
 import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
 import com.coachingeleven.coachingsoftware.application.exception.TeamAlreadyExistsException;
-import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.SeasonServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
@@ -56,32 +55,29 @@ public class TeamClubBean {
     	newCountry = new Country();
         allClubs = teamClubService.findAllClubs();
         for (Club club : allClubs) {
-        	HashSet<Team> teams = new HashSet<Team>();
-        	HashMap<Integer,List<Season>> teamSeasons = new HashMap<Integer,List<Season>>();
-        	for (Team team : teamClubService.findTeamsByClubId(club.getID())) {
-        		for(Season season : seasonService.findSeasonsByTeam(team.getID())) {
-        			if(teamSeasons.get(team.getID()) != null) {
-        				List<Season> tempSeasons = teamSeasons.get(team.getID());
-            			tempSeasons.add(season);
-        			} else {
-        				List<Season> tempListSeasons = new ArrayList<Season>();
-        				tempListSeasons.add(season);
-        				teamSeasons.put(team.getID(), tempListSeasons);
-        			}
+        	List<Team> allClubTeams = teamClubService.findTeamsByClubId(club.getID());
+        	HashMap<String, List<Team>> groupedTeams = new HashMap<String, List<Team>>();
+        	// Group teams by teamname (TODO: Make teamname unique -> must be discussed with Francesco)
+        	for(Team team : allClubTeams) {
+        		if(groupedTeams.get(team.getName()) != null) {
+        			groupedTeams.get(team.getName()).add(team);
+        		} else {
+        			List<Team> teamsOfGroupedTeam = new ArrayList<Team>();
+        			teamsOfGroupedTeam.add(team);
+        			groupedTeams.put(team.getName(), teamsOfGroupedTeam);
         		}
-			}
-        	for(Integer teamID : teamSeasons.keySet()) {
-				try {
-					Team team = teamClubService.findTeam(teamID);
-					HashSet<Season> seasons = new HashSet<Season>();
-	        		for(Season season : teamSeasons.get(teamID)) {
-	        			seasons.add(season);
-	        		}
-	        		team.setSeasons(seasons);
-	        		teams.add(team);
-				} catch (TeamNotFoundException e) {
-					// TODO 
-				}
+        	}
+        	// Generate List of teams (grouped by teamname) for the sidebar
+        	HashSet<Team> teams = new HashSet<Team>();
+        	for(String teamName : groupedTeams.keySet()) {
+        		Team addedTeam = new Team();
+        		addedTeam.setName(teamName);
+        		HashSet<Season> seasons = new HashSet<Season>();
+        		for(Team teamsOfGroupedTeams : groupedTeams.get(teamName)) {
+        			seasons.addAll(seasonService.findSeasonsByTeam(teamsOfGroupedTeams.getID()));
+        		}
+        		addedTeam.setSeasons(seasons);
+        		teams.add(addedTeam);
         	}
         	club.setTeams(teams);
 		}

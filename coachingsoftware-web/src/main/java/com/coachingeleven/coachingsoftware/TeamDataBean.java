@@ -1,5 +1,6 @@
 package com.coachingeleven.coachingsoftware;
 
+import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,7 +14,6 @@ import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyE
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
 import com.coachingeleven.coachingsoftware.application.exception.SeasonNotFoundException;
 import com.coachingeleven.coachingsoftware.application.exception.TeamAlreadyExistsException;
-import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.SeasonServiceRemote;
@@ -22,6 +22,7 @@ import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Club;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
+import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
@@ -72,6 +73,30 @@ public class TeamDataBean {
 		selectedCountry.setName(selectedClub.getAddress().getCountry().getName());
     }
 	
+	private Team copyTeam(Team team) throws TeamAlreadyExistsException {
+		Team newTeam = new Team();
+		newTeam.setName(team.getName());
+		newTeam.setPreviousTeam(team);
+		newTeam.setTeamLogoURL(team.getTeamLogoURL());
+		newTeam.setTeamPictureURL(team.getTeamPictureURL());
+		
+		HashSet<Player> currentPlayers = new HashSet<Player>();
+		for(Player player : teamClubService.getCurrentPlayers(team.getID())) {
+			Player newCurrentPlayer = new Player();
+			newCurrentPlayer.setID(player.getID());
+			currentPlayers.add(newCurrentPlayer);
+		}
+		newTeam.setCurrentPlayers(currentPlayers);
+		
+		newTeam = teamClubService.createTeam(newTeam);
+		
+		for(Player player : playerService.findHistoryPlayersByTeam(team.getID())) {
+			playerService.addHistoryTeamToPlayer(player.getID(), newTeam);
+		}
+		
+		return newTeam;
+	}
+	
 	public String updateTeam() throws CountryAlreadyExistsException {
 		try {
 			selectedCountry = countryService.findCountry(selectedCountry.getName());
@@ -80,86 +105,67 @@ public class TeamDataBean {
     	}
 		
 		try {
-			// Assign new season to team only if the new season doesn't have the team (current teamID and previous team IDs).
-			// Otherwise search for previous team which references the current team for the new season.
-			// If there are no previous assigned teams for the new season and the new season doesn't have the current team
-			// -> Create new team which references the current team
+			// Assign new season to team only if the new season team is not the current team or a child of the current team
 			Season newActiveSeason = seasonService.findSeason(selectedSeasonID);
-			boolean isCurrentTeamInNewSeason = false;
-			List<Team> teamsOfNewSeason = teamClubService.findTeamsBySeasonID(newActiveSeason.getID());
-			for(Team teamOfSeason : teamsOfNewSeason) {
-				if(teamOfSeason.getID() == currentTeam.getID()) {
-					isCurrentTeamInNewSeason = true;
-					break;
-				}
-			}
+			List<Team> newSeasonTeams = teamClubService.findTeamsBySeasonID(newActiveSeason.getID());
 			
-			if(!isCurrentTeamInNewSeason) {
-				// Check if a previous team of season teams is already assigned to the current team
-				boolean isPrevTeamAssigned = false;
-				for(Team seasonTeam : teamsOfNewSeason) {
-					// Check if the current team has previous teams
-					Team prevTeam = currentTeam.getPreviousTeam() != null ? teamClubService.findTeam(currentTeam.getPreviousTeam().getID()) : null;
-					while(prevTeam != null) {
-						if(prevTeam.getID() == seasonTeam.getID()) {
-							// If a previous team was already assigned to the new season
-							// -> the previous team is the current team
-							isPrevTeamAssigned = true;
-							currentTeam = prevTeam;
-							break;
+			// If a team is already assigned to the new season
+			Team newCurrentTeam = null;
+			if(newSeasonTeams != null) {
+				for(Team newSeasonTeam : newSeasonTeams) {
+					if(newSeasonTeam.getID() == currentTeam.getID()) {
+						// Check if the team of the new season is already the current team
+						newCurrentTeam = newSeasonTeam;
+						break;
+					} else {
+						// Check if a previous teams of the new season team is equals to the current team
+						List<Team> newSeasonTeamPreviousTeams = teamClubService.getAllPreviousTeams(newSeasonTeam.getID());
+						for(Team newSeasonPreviousTeam : newSeasonTeamPreviousTeams) {
+							if(newSeasonPreviousTeam.getID() == currentTeam.getID()) {
+								newCurrentTeam = newSeasonTeam;
+								break;
+							}
 						}
-						if(isPrevTeamAssigned) break;
-						try {
-							prevTeam = prevTeam.getPreviousTeam() != null ? teamClubService.findTeam(prevTeam.getPreviousTeam().getID()) : null;
-						} catch (TeamNotFoundException e) {
-							prevTeam = null;
-						}
-					}
-					// Check if the season team has previous teams who references the current team
-					Team prevSeasonTeam = seasonTeam.getPreviousTeam() != null ? teamClubService.findTeam(seasonTeam.getPreviousTeam().getID()) : null;
-					while(prevSeasonTeam != null) {
-						if(prevSeasonTeam.getID() == currentTeam.getID()) {
-							// If a previous team was already assigned to the new season
-							// -> the previous team is the current team
-							isPrevTeamAssigned = true;
-							currentTeam = prevSeasonTeam;
-							break;
-						}
-						if(isPrevTeamAssigned) break;
-						try {
-							prevSeasonTeam = prevSeasonTeam.getPreviousTeam() != null ? teamClubService.findTeam(prevSeasonTeam.getPreviousTeam().getID()) : null;
-						} catch (TeamNotFoundException e) {
-							prevSeasonTeam = null;
+						// Check if a previous team of the current team is equals the new season team
+						List<Team> currentTeamPreviousTeams = teamClubService.getAllPreviousTeams(currentTeam.getID());
+						for(Team currentTeamPreviousTeam : currentTeamPreviousTeams) {
+							if(currentTeamPreviousTeam.getID() == newSeasonTeam.getID()) {
+								newCurrentTeam = newSeasonTeam;
+								break;
+							}
 						}
 					}
 				}
-				
-				if(!isPrevTeamAssigned) {
-					// Team is not yet assigned to the new season and there is also no previous assigned team for the new season
-					// -> Create new team(same attributes, but without games and seasons) which references the old team
-					Team newTeam = new Team();
-					newTeam.setName(currentTeam.getName());
-					newTeam.setPreviousTeam(currentTeam);
-					newTeam.setTeamLogoURL(currentTeam.getTeamLogoURL());
-					newTeam.setTeamPictureURL(currentTeam.getTeamPictureURL());
-					
-					int oldTeamID = currentTeam.getID();
-					currentTeam = teamClubService.createTeam(newTeam);
-					seasonService.addTeamToSeason(newActiveSeason.getID(), currentTeam);
-					teamClubService.addCurrentPlayersToTeam(oldTeamID, currentTeam.getID());
-					teamClubService.addCurrentPlayersToTeam(oldTeamID, currentTeam.getID());
-				}
+			} else {
+				// Add the new team to the selected season
+				seasonService.addTeamToSeason(newActiveSeason.getID(), currentTeam);
 			}
 			
+			// If the current team is not a previous team of the new season team
+			if(newCurrentTeam == null) {
+				// The current team is not yet assigned to the new season
+				// -> Create new season with a copy of the current team
+				currentTeam = copyTeam(currentTeam);
+				// Add the new team to the selected season
+				seasonService.addTeamToSeason(newActiveSeason.getID(), currentTeam);
+			} else {
+				String teamName = currentTeam.getName();
+				currentTeam = newCurrentTeam;
+				currentTeam.setName(teamName);
+			}
+			
+			// Update address of the club of the team
 			Address newAddress = selectedClub.getAddress();
 			selectedClub = teamClubService.findClub(selectedClubID);
 			selectedClub.setAddress(newAddress);
 			selectedClub.getAddress().setCountry(selectedCountry);
 			teamClubService.updateClub(selectedClub);
+			
+			// Set the (new) club
 			currentTeam.setClub(selectedClub);
 			teamClubService.updateTeam(currentTeam);
 			
-			// Assign new team to user
+			// Assign team to user
 			loginBean.getLoggedInUser().setTeam(currentTeam);
 			userService.updateUser(loginBean.getLoggedInUser());
 			
@@ -168,11 +174,9 @@ public class TeamDataBean {
 			// TODO 
 		} catch (ClubNotFoundException e) {
 			// TODO 
-		} catch (TeamNotFoundException e1) {
-			// TODO 
 		} catch (TeamAlreadyExistsException e) {
 			// TODO 
-		} 
+		}
 		return navigationBean.toTeamDataOverview();
 	}
 	

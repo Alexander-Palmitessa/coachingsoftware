@@ -7,6 +7,7 @@ import javax.ejb.Remote;
 import com.coachingeleven.coachingsoftware.application.exception.PlayerAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.PlayerNotFoundException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
+import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
 @Remote
 public interface PlayerServiceRemote {
@@ -26,4 +27,5 @@ public interface PlayerServiceRemote {
     public Player update(Player player);
     public List<Player> findCurrentPlayersByTeam(int teamId);
     public List<Player> findHistoryPlayersByTeam(int teamId);
+    public Player addHistoryTeamToPlayer(int playerID, Team team);
 }
