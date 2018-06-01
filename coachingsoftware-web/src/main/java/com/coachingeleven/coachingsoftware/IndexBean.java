@@ -92,7 +92,7 @@ public class IndexBean {
             LineUp lineUp = new LineUp();
             lineUp.setGame(game);
             lineUp.setLineUpPlayers(new HashSet<LineUpPlayer>());
-            for (Player p : players) {
+            for (Player p : currentPlayers) {
                 LineUpPlayer lup = new LineUpPlayer();
                 lup.setPlayer(p);
                 lup.setLineUp(lineUp);

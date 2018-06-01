@@ -252,10 +252,6 @@ public class Player implements Serializable {
 		return weight;
 	}
 
-    public int getWeight() {
-        return weight;
-    }
-
     public void setWeight(int weight) {
         this.weight = weight;
     }
@@ -278,14 +274,6 @@ public class Player implements Serializable {
   
     public void setCountryPermission(Country countryPermission) {
         this.countryPermission = countryPermission;
-    }
-
-    public Set<Team> getTeams() {
-        return teams;
-    }
-
-    public void setTeams(Set<Team> teams) {
-        this.teams = teams;
     }
 
     public Set<PlayerGameStats> getGameStats() {
@@ -335,10 +323,6 @@ public class Player implements Serializable {
     public void setObserveTIPS(Set<ObserveTIPS> observeTIPS) {
         this.observeTIPS = observeTIPS;
     }
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	public Set<Team> getHistoryTeams() {
 		return historyTeams;

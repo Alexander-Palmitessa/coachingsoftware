@@ -2,6 +2,7 @@ package com.coachingeleven.coachingsoftware;
 
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.HashSet;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -13,6 +14,9 @@ import com.coachingeleven.coachingsoftware.application.exception.*;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
+import com.coachingeleven.coachingsoftware.persistence.entity.Club;
+import com.coachingeleven.coachingsoftware.persistence.entity.Player;
+import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
 
 @Named(value = "loginBean")
@@ -24,7 +28,7 @@ public class LoginBean implements Serializable {
 	private String username;
 	private String password;
 	private UserAccount loggedInUser;
-  private String userTeam;
+	private String userTeam;
 	private boolean loggedIn;
 
 	private boolean hasUserAssignedTeam;
@@ -93,6 +97,9 @@ public class LoginBean implements Serializable {
 					return navigationBean.redirectToUserSettings();
 				}
 			}
+		} catch (UserNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 
 		return navigationBean.redirectToLogin();
@@ -141,6 +148,14 @@ public class LoginBean implements Serializable {
 
 	public void setLoggedIn(boolean loggedIn) {
 		this.loggedIn = loggedIn;
+	}
+
+	public String getUserTeam() {
+		return userTeam;
+	}
+
+	public void setUserTeam(String userTeam) {
+		this.userTeam = userTeam;
 	}
 
 }
