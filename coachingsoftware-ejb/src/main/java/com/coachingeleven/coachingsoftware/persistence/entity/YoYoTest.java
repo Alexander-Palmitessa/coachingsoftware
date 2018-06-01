@@ -11,7 +11,6 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
