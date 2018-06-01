@@ -30,3 +30,17 @@ If you need to redeploy the application run:</br>
 and type: <em>coachingsoftware-app</em>
 
 Open your browser and go to: http://localhost:8080/coachingsoftware/
+
+To run all tests, install TestNG on your preferred IDE and run them after the deployment of the application.
+
+Version 1.0.0:
+	Features:
+		* Create Teams
+		* Create Seasons
+		* Create Clubs
+		* Create Games (4 types)
+		* Create players
+		* Add statistics to players and games
+		* List players and teams
+		* Manage teams, seasons, clubs, games and players
+		* IMPORTANT: Currently there are default values set when deploying the application, to log use the credentials username: "elias", password: "elias"
