@@ -1,19 +1,23 @@
 package com.coachingeleven.coachingsoftware;
 
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
+import com.coachingeleven.coachingsoftware.application.exception.PlayerAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.PlayerNotFoundException;
 import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
-import com.coachingeleven.coachingsoftware.application.exception.UserNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
@@ -22,7 +26,6 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
-import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
 
 @Named(value = "playerBean")
@@ -38,174 +41,123 @@ public class PlayerBean {
 	@EJB
 	private PlayerServiceRemote playerService;
 	@EJB
-	private TeamClubServiceRemote teamClubService;
+    private CountryServiceRemote countryService;
 	@EJB
-	private CountryServiceRemote countryService;
+	private TeamClubServiceRemote teamClubService;
 	
-	private List<Player> playersOfCurrentUser;
+	private List<Player> currentPlayers;
+	private List<Player> historyPlayers;
+	
 	private Player currentPlayer;
+	private Player newPlayer;
+	private Address newPlayerAddress;
+	private Country newPlayerCountry;
 	
-	private String playerFirstName;
-	private String playerLastName;
-	private String playerEmail;
-	private String playerMobileNumber;
-	private String playerCity;
-	private String playerStreet;
-	private String playerStreetNr;
-	private int playerZip;
-	private String playerCountry;
-	private Position position;
+	private Integer playerID;
+	
+	private String playerBirthday;
+	
+	private SimpleDateFormat dateFormatter;
 	
 	@PostConstruct
     public void init() {
-		playersOfCurrentUser = new ArrayList<Player>();
-		try {
-			UserAccount currentUser = userService.findUser(loginBean.getUsername());
-			Team team = teamClubService.findTeam(currentUser.getTeam().getID());
-			playersOfCurrentUser.addAll(team.getPlayers());
-		} catch (UserNotFoundException e) {
-			// TODO 
-		} catch (TeamNotFoundException e) {
-			// TODO 
-		}
+		newPlayer = new Player();
+		newPlayerAddress = new Address();
+		newPlayerCountry = new Country();
+		currentPlayers = playerService.findCurrentPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
+		historyPlayers = playerService.findHistoryPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
+		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
     }
 	
-	public void createPlayer() {
-		Country selectedCountry = null;
-		try {
-			selectedCountry = countryService.createCountry(new Country(playerCountry));
-		} catch (CountryAlreadyExistsException e1) {
+	public void setRequestParameters() {
+		if(playerID != null) {
 			try {
-				selectedCountry = countryService.findCountry(playerCountry);
-			} catch (CountryNotFounException e) {
-				// TODO 
+				HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+				playerID = Integer.parseInt(request.getParameter("playerID"));
+				currentPlayer = playerService.findPlayer(playerID);
+			} catch (PlayerNotFoundException e) {
+				// TODO
 			}
-		}
-		Address address = new Address(playerCity,playerStreet,playerStreetNr,playerZip,selectedCountry);
-		Player newPlayer = new Player(playerFirstName,playerLastName,playerEmail,playerMobileNumber,address,position);
-		
-		// Add new player to the current team of the logged in user
-		try {
-			UserAccount currentUser = userService.findUser(loginBean.getUsername());
-			Team team = teamClubService.findTeam(currentUser.getTeam().getID());
-			team.getPlayers().add(newPlayer);
-			teamClubService.updateTeam(team);
-			playersOfCurrentUser.add(newPlayer);
-		} catch (UserNotFoundException e) {
-			// TODO 
-		} catch (TeamNotFoundException e) {
-			// TODO 
 		}
 	}
 	
-	public String showPlayer(int playerId) {
+	public String createPlayer() throws CountryAlreadyExistsException, PlayerNotFoundException {
 		try {
-			currentPlayer = playerService.findPlayer(playerId);
-			// TODO: Reload player content via ajax
-			return navigationBean.toPlayer();
-		} catch (PlayerNotFoundException e) {
-			return navigationBean.toPlayerOverview();
+			newPlayerCountry = countryService.findCountry(newPlayerCountry.getName());
+		} catch (CountryNotFounException e1) {
+			newPlayerCountry = countryService.createCountry(newPlayerCountry);
 		}
+		
+		newPlayerAddress.setCountry(newPlayerCountry);
+		newPlayer.setAddress(newPlayerAddress);
+		
+		try {
+			Calendar playerBirthdayCalendar = Calendar.getInstance();
+			playerBirthdayCalendar.setTime(dateFormatter.parse(playerBirthday));
+			newPlayer.setBirthdate(playerBirthdayCalendar);
+		} catch (ParseException e1) {
+			// TODO 
+		}
+		
+		try {
+			newPlayer = playerService.createPlayer(newPlayer);
+		} catch (PlayerAlreadyExistsException e) {
+			newPlayer = playerService.findPlayer(newPlayer.getID());
+		}
+		
+		// Add created player to the managed team of the logged in user
+		try {
+			Team team = teamClubService.findTeam(loginBean.getLoggedInUser().getTeam().getID());
+			teamClubService.addPlayerToTeam(team.getID(), newPlayer);
+		} catch (TeamNotFoundException e) {
+			// TODO 
+		}
+		
+		return navigationBean.toPlayerForm();
 	}
-
-	public List<Player> getPlayersOfCurrentUser() {
-		return playersOfCurrentUser;
-	}
-
-	public String getPlayerFirstName() {
-		return playerFirstName;
-	}
-
-	public void setPlayerFirstName(String playerFirstName) {
-		this.playerFirstName = playerFirstName;
-	}
-
-	public String getPlayerLastName() {
-		return playerLastName;
-	}
-
-	public void setPlayerLastName(String playerLastName) {
-		this.playerLastName = playerLastName;
-	}
-
-	public String getPlayerEmail() {
-		return playerEmail;
-	}
-
-	public void setPlayerEmail(String playerEmail) {
-		this.playerEmail = playerEmail;
-	}
-
-	public String getPlayerMobileNumber() {
-		return playerMobileNumber;
-	}
-
-	public void setPlayerMobileNumber(String playerMobileNumber) {
-		this.playerMobileNumber = playerMobileNumber;
-	}
-
-	public PlayerServiceRemote getPlayerService() {
-		return playerService;
-	}
-
-	public void setPlayerService(PlayerServiceRemote playerService) {
-		this.playerService = playerService;
-	}
-
-	public String getPlayerCity() {
-		return playerCity;
-	}
-
-	public void setPlayerCity(String playerCity) {
-		this.playerCity = playerCity;
-	}
-
-	public String getPlayerStreet() {
-		return playerStreet;
-	}
-
-	public void setPlayerStreet(String playerStreet) {
-		this.playerStreet = playerStreet;
-	}
-
-	public String getPlayerStreetNr() {
-		return playerStreetNr;
-	}
-
-	public void setPlayerStreetNr(String playerStreetNr) {
-		this.playerStreetNr = playerStreetNr;
-	}
-
-	public int getPlayerZip() {
-		return playerZip;
-	}
-
-	public void setPlayerZip(int playerZip) {
-		this.playerZip = playerZip;
-	}
-
-	public Position getPosition() {
-		return position;
-	}
-
-	public void setPosition(Position position) {
-		this.position = position;
-	}
-
-	public void setPlayersOfCurrentUser(List<Player> playersOfCurrentUser) {
-		this.playersOfCurrentUser = playersOfCurrentUser;
-	}
-
+	
 	public Position[] getPositions() {
 		return Position.values();
 	}
 
-	public String getPlayerCountry() {
-		return playerCountry;
+	public Player getNewPlayer() {
+		return newPlayer;
 	}
 
-	public void setPlayerCountry(String playerCountry) {
-		this.playerCountry = playerCountry;
+	public void setNewPlayer(Player newPlayer) {
+		this.newPlayer = newPlayer;
+	}
+
+	public Address getNewPlayerAddress() {
+		return newPlayerAddress;
+	}
+
+	public void setNewPlayerAddress(Address newPlayerAddress) {
+		this.newPlayerAddress = newPlayerAddress;
+	}
+
+	public Country getNewPlayerCountry() {
+		return newPlayerCountry;
+	}
+
+	public void setNewPlayerCountry(Country newPlayerCountry) {
+		this.newPlayerCountry = newPlayerCountry;
+	}
+
+	public List<Player> getCurrentPlayers() {
+		return currentPlayers;
+	}
+
+	public void setCurrentPlayers(List<Player> currentPlayers) {
+		this.currentPlayers = currentPlayers;
+	}
+
+	public List<Player> getHistoryPlayers() {
+		return historyPlayers;
+	}
+
+	public void setHistoryPlayers(List<Player> historyPlayers) {
+		this.historyPlayers = historyPlayers;
 	}
 
 	public Player getCurrentPlayer() {
@@ -214,5 +166,21 @@ public class PlayerBean {
 
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
+	}
+
+	public Integer getPlayerID() {
+		return playerID;
+	}
+
+	public void setPlayerID(Integer playerID) {
+		this.playerID = playerID;
+	}
+
+	public String getPlayerBirthday() {
+		return playerBirthday;
+	}
+
+	public void setPlayerBirthday(String playerBirthday) {
+		this.playerBirthday = playerBirthday;
 	}
 }

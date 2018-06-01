@@ -7,7 +7,7 @@ body {
 }
 
 #content {
-	padding: 0.5rem 0;
+	padding: 1.5rem 0;
 }
 
 .outer-wrapper {
@@ -33,4 +33,8 @@ body {
 .player-overview-container .card-user-profile-content::before {
 	top: -3rem;
 	border-width: 3rem 0 0 31.25rem;
+}
+
+.image-container img {
+	width: 100%;
 }

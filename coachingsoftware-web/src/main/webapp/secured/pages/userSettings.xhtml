@@ -13,7 +13,7 @@
 	</ui:define>
 
     <ui:define name="content">
-        <h:form>
+        <h:form class="translucent-form-overlay">
 	    	<div class="row">
 	    		<div class="small-12 column">
 			    	<label><h:outputText value="#{msg['setUserTeam']}"/></label>
@@ -23,7 +23,7 @@
 			   		</h:selectOneMenu>
 		    	</div>
 		    	<div class="small-12 column">
-			    	<h:commandButton class="primary-button" action="#{userSettingsBean.persistUserTeam}" value="#{msg['save']}" />
+			    	<h:commandButton action="#{userSettingsBean.persistUserTeam}" value="#{msg['save']}" />
 			    </div>
 	    	</div>
 	    </h:form>

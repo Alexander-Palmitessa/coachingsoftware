@@ -4,46 +4,66 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
                 
+	<f:metadata>
+        <f:viewParam name="playerID" value="#{playerBean.playerID}" />
+        <f:event type="preRenderView" listener="#{playerBean.setRequestParameters}" />
+    </f:metadata>
+    
 	<ui:define name="title">
-        <h:outputText value="#{playerBean.currentPlayer.firstName}"/><h:outputText value=" "/><h:outputText value="#{playerBean.currentPlayer.lastName}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+		<h:panelGroup rendered="#{playerBean.currentPlayer == null}">
+			<h:outputText value="#{msg['noPlayerFound']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{playerBean.currentPlayer != null}">
+			<h:outputText value="#{playerBean.currentPlayer.firstName} #{playerBean.currentPlayer.lastName}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+		</h:panelGroup>
     </ui:define>
 	
 	<ui:define name="contentTitle">
-		<h:outputText value="#{playerBean.currentPlayer.firstName}"/><h:outputText value=" "/><h:outputText value="#{playerBean.currentPlayer.lastName}"/>
+		<h:panelGroup rendered="#{playerBean.currentPlayer == null}">
+			<h:outputText value="#{msg['noPlayerFound']}"/>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{playerBean.currentPlayer != null}">
+			<h:outputText value="#{playerBean.currentPlayer.firstName} #{playerBean.currentPlayer.lastName}"/>
+		</h:panelGroup>
 	</ui:define>
-	
+		
 	<ui:define name="content">
-		<div class="row">
-			<div class="small-12 column">
-				<ul class="menu menu-hover-lines player-menu">
-					<li class="active">
-						<h:outputLink value="#"><h:outputText value="#{msg['details']}"/></h:outputLink>
-					</li>
-					<li>
-						<h:outputLink value="#"><h:outputText value="#{msg['statistic']}"/></h:outputLink>
-					</li>
-					<li>
-						<h:outputLink value="#"><h:outputText value="#{msg['ranking']}"/></h:outputLink>
-					</li>
-					<li>
-						<h:outputLink value="#"><h:outputText value="#{msg['conversation']}"/></h:outputLink>
-					</li>
-				</ul>
-			</div>
-			<div class="small-12 column card-user-profile">
-				<div class="card-container">
-					<div class="grey-background"></div>
-					<div class="card-user-profile-content card-section">
-						<div class="card-user-profile-avatar">
-							<h:graphicImage name="images/Default-avatar.jpg" />
+		<h:panelGroup rendered="#{playerBean.currentPlayer != null}">
+			<div class="row">
+				<div class="small-12 column">
+					<ul class="menu menu-hover-lines player-menu">
+						<li class="active">
+							<h:outputLink value="#"><h:outputText value="#{msg['details']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#"><h:outputText value="#{msg['statistic']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#"><h:outputText value="#{msg['ranking']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#"><h:outputText value="#{msg['conversation']}"/></h:outputLink>
+						</li>
+					</ul>
+				</div>
+				<div class="small-12 column card-user-profile">
+					<div class="card-container">
+						<div class="grey-background"></div>
+						<div class="card-user-profile-content card-section">
+							<div class="card-user-profile-avatar">
+								<h:graphicImage name="images/Default-avatar.jpg" />
+							</div>
+							<p class="card-user-profile-name"><h:outputText value="#{playerBean.currentPlayer.firstName} #{playerBean.currentPlayer.lastName}"/></p>
+							<p class="card-user-profile-status">Still a Player</p>
+							<p class="card-user-profile-info">More Player informations...</p>
 						</div>
-						<p class="card-user-profile-name"><h:outputText value="#{player.firstName}"/><h:outputText value=" "/><h:outputText value="#{player.lastName}"/></p>
-						<p class="card-user-profile-status">Still a Player</p>
-						<p class="card-user-profile-info">More Player informations...</p>
 					</div>
 				</div>
 			</div>
-		</div>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{playerBean.currentPlayer == null}">
+			<h:outputText value="#{msg['noPlayerFound']}"/>
+		</h:panelGroup>
     </ui:define>
-
+    
 </ui:composition>

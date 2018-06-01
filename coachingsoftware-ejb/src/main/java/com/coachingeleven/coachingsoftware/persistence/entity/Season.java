@@ -9,6 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,6 +23,10 @@ import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "SEASON")
+@NamedQueries({
+	@NamedQuery(name = "findSeasonByTeamID",
+			query = "SELECT s FROM Season s JOIN s.teams t WHERE t.ID = :teamId")
+})
 public class Season implements Serializable {
 	
 	private static final long serialVersionUID = 771259565903073462L;
@@ -30,20 +39,31 @@ public class Season implements Serializable {
 	@NotNull
 	private String name;
 	@Column(name = "STARTDATE")
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.DATE)
     private Calendar startDate;
 	@Column(name = "ENDDATE")
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.DATE)
     private Calendar endDate;
 	@OneToMany(mappedBy = "season")
 	private Set<Game> games;
-	@OneToMany(mappedBy = "season")
+	@ManyToMany
+	@JoinTable(
+			name = "SEASON_TEAM",
+			joinColumns = @JoinColumn(name = "SEASON_ID", referencedColumnName = "SEASON_ID"),
+			inverseJoinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID")
+	)
 	private Set<Team> teams;
 	
 	/**
      * JPA required default constructor
      */
     public Season() {}
+    
+    public Season(String name, Calendar startDate, Calendar endDate) {
+    	this.name = name;
+    	this.startDate = startDate;
+    	this.endDate = endDate;
+    }
 
 	public int getID() {
 		return ID;

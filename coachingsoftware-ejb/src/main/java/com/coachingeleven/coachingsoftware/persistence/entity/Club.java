@@ -31,7 +31,10 @@ import java.util.Set;
                 query = "SELECT c FROM Club c WHERE LOWER(c.name) = LOWER(:clubname)")
 })
 public class Club implements Serializable {
-    @Id
+	
+	private static final long serialVersionUID = 4581691492524160542L;
+	
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CLUB_ID")
     private int ID;
@@ -41,6 +44,8 @@ public class Club implements Serializable {
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "club", orphanRemoval = true)
     private Set<Team> teams;
+    @Embedded
+	private Address address;
 
     /**
      * Class constructor
@@ -83,4 +88,12 @@ public class Club implements Serializable {
         teams.add(team);
         team.setClub(this);
     }
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 }

@@ -10,12 +10,15 @@ package com.coachingeleven.coachingsoftware.persistence.repository;
 
 import static javax.ejb.TransactionAttributeType.SUPPORTS;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
+import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
 @Stateless
 public class PlayerRepository extends Repository<Player> {
@@ -34,6 +37,35 @@ public class PlayerRepository extends Repository<Player> {
 		} catch (NoResultException ex) {
 			return null;
 		}
+	}
+	
+	@TransactionAttribute(SUPPORTS)
+	public List<Player> findCurrentPlayersByTeam(int teamId) {
+		try {
+			TypedQuery<Player> query = entityManager.createNamedQuery("findPlayerByCurrentTeamId", Player.class);
+			query.setParameter("teamId", teamId);
+			return query.getResultList();
+		} catch (NoResultException ex) {
+			return null;
+		}
+	}
+	
+	@TransactionAttribute(SUPPORTS)
+	public List<Player> findHistoryPlayersByTeam(int teamId) {
+		try {
+			TypedQuery<Player> query = entityManager.createNamedQuery("findHistoryPlayerByTeamId", Player.class);
+			query.setParameter("teamId", teamId);
+			return query.getResultList();
+		} catch (NoResultException ex) {
+			return null;
+		}
+	}
+	
+	@TransactionAttribute(SUPPORTS)
+	public Player addHistoryTeamToPlayer(int playerID, Team team) {
+		Player player = entityManager.find(Player.class, playerID);
+		player.getHistoryTeams().add(team);
+		return entityManager.merge(player);
 	}
 	
 }

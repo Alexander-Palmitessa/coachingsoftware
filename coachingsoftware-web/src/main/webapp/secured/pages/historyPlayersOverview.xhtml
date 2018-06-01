@@ -5,18 +5,20 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
                 
 	<ui:define name="title">
-        <h:outputText value="#{msg['teamOverview']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+        <h:outputText value="#{msg['historyPlayers']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
     </ui:define>
 	
 	<ui:define name="contentTitle">
-		<h:outputText value="#{loginBean.loggedInUser.team.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['overview']}"/>
+		<h:outputText value="#{msg['historyPlayers']}"/>
 	</ui:define>
 	
 	<ui:define name="content">
-		<div class="row">
-			<div class="small-12 column">
-				<ui:include src="/secured/cards/teamCard.xhtml" />
-			</div>
+		<div class="row player-overview-container">
+			<ui:repeat var="player" value="#{playerBean.historyPlayers}">
+				<div class="small-12 medium-4 column">
+					<ui:include src="/secured/cards/playerCard.xhtml" />
+				</div>
+			</ui:repeat>
 		</div>
     </ui:define>
 

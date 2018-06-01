@@ -20,7 +20,11 @@ import java.util.Set;
 	@NamedQuery(name = "findTeam",
 			query = "SELECT c FROM Team c WHERE LOWER(c.name) = LOWER(:teamname)"),
 	@NamedQuery(name = "findTeamsByClubId",
-			query = "SELECT t FROM Team t WHERE t.club.ID = :clubId")
+			query = "SELECT t FROM Team t WHERE t.club.ID = :clubId"),
+	@NamedQuery(name = "findTeamsBySeasonID",
+			query = "SELECT t FROM Team t JOIN t.seasons s WHERE s.ID = :seasonID"),
+	@NamedQuery(name = "findPreviousTeam",
+			query = "SELECT t FROM Team t WHERE t.previousTeam.ID = :teamID")
 })
 public class Team implements Serializable {
 
@@ -37,6 +41,13 @@ public class Team implements Serializable {
 	@JoinColumn(name = "CLUB_ID")
 	@ManyToOne
 	private Club club;
+  @ManyToMany
+	@JoinTable(
+			name = "TEAM_GAME",
+			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID"),
+			inverseJoinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID"))
+	private Set<Game> games;
+	@OneToOne(mappedBy="team")
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "TEAM_PLAYER",
@@ -49,8 +60,25 @@ public class Team implements Serializable {
 	private Set<Game> gamesAway;
 	@OneToOne(mappedBy = "team")
 	private UserAccount user;
-	@ManyToOne
-	private Season season;
+	@JoinColumn(name = "PREVIOUS_TEAM_ID")
+	@OneToOne
+	private Team previousTeam;
+	@ManyToMany
+	@JoinTable(
+			name = "TEAM_CURRENT_PLAYERS",
+			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID"),
+			inverseJoinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID")
+	)
+	private Set<Player> currentPlayers;
+	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+	private String teamPictureURL;
+	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+	private String teamLogoURL;
+	@ManyToMany(mappedBy = "teams")
+    private Set<Season> seasons;
+	@ManyToMany(mappedBy = "historyTeams")
+    private Set<Player> historyPlayers;
+	
 
 	public Team(String name, Club club) {
 		this.name = name;
@@ -83,8 +111,16 @@ public class Team implements Serializable {
 	public void setClub(Club club) {
 		this.club = club;
 	}
+  
+	public Set<Game> getGames() {
+		return games;
+	}
 
-	public Set<Player> getPlayers() {
+	public void setGames(Set<Game> games) {
+		this.games = games;
+  }
+  
+  public Set<Player> getPlayers() {
 		return players;
 	}
 
@@ -100,7 +136,54 @@ public class Team implements Serializable {
 		this.user = user;
 	}
 
-	public Set<Game> getGamesHome() {
+	public String getTeamPictureURL() {
+		return teamPictureURL;
+	}
+
+	public void setTeamPictureURL(String teamPictureURL) {
+		this.teamPictureURL = teamPictureURL;
+	}
+
+	public String getTeamLogoURL() {
+		return teamLogoURL;
+	}
+
+	public void setTeamLogoURL(String teamLogoURL) {
+		this.teamLogoURL = teamLogoURL;
+	}
+
+	public Team getPreviousTeam() {
+		return previousTeam;
+	}
+
+	public void setPreviousTeam(Team previousTeam) {
+		this.previousTeam = previousTeam;
+	}
+
+	public Set<Season> getSeasons() {
+		return seasons;
+	}
+
+	public void setSeasons(Set<Season> seasons) {
+		this.seasons = seasons;
+	}
+
+	public Set<Player> getCurrentPlayers() {
+		return currentPlayers;
+	}
+
+	public void setCurrentPlayers(Set<Player> currentPlayers) {
+		this.currentPlayers = currentPlayers;
+	}
+
+	public Set<Player> getHistoryPlayers() {
+		return historyPlayers;
+	}
+
+	public void setHistoryPlayers(Set<Player> historyPlayers) {
+		this.historyPlayers = historyPlayers;
+  }
+  public Set<Game> getGamesHome() {
 		return gamesHome;
 	}
 

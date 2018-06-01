@@ -1,7 +1,7 @@
 package com.coachingeleven.coachingsoftware;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.text.ParseException;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -13,9 +13,6 @@ import com.coachingeleven.coachingsoftware.application.exception.*;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
-import com.coachingeleven.coachingsoftware.persistence.entity.Club;
-import com.coachingeleven.coachingsoftware.persistence.entity.Player;
-import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
 
 @Named(value = "loginBean")
@@ -26,8 +23,8 @@ public class LoginBean implements Serializable {
 
 	private String username;
 	private String password;
-	private String userTeam;
-
+	private UserAccount loggedInUser;
+  private String userTeam;
 	private boolean loggedIn;
 
 	private boolean hasUserAssignedTeam;
@@ -47,15 +44,14 @@ public class LoginBean implements Serializable {
 
 	@PostConstruct
     public void init() {
+		if(loggedInUser == null) loggedInUser = new UserAccount();
 		try {
-			userService.createUser(new UserAccount("elias","elias","elias.schildknecht@students.bfh.ch"));
+			loggedInUser = userService.createUser(new UserAccount("elias","elias","elias.schildknecht@students.bfh.ch"));
 			indexBean.init();
-		} catch (UserAlreadyExistsException e) {
+		} catch (UserAlreadyExistsException | ArenaAlreadyExistsException | ClubAlreadyExistsException | TeamAlreadyExistsException | PlayerAlreadyExistsException | GameAlreadyExistsException | CountryAlreadyExistsException | SeasonAlreadyExistsException | ParseException e) {
 			// TODO 
-		} catch (ClubAlreadyExistsException | ArenaAlreadyExistsException | TeamAlreadyExistsException |
-				PlayerAlreadyExistsException | GameAlreadyExistsException e) {
-			e.printStackTrace();
 		}
+		
 	}
 
 	public String doLogin() {
@@ -97,8 +93,6 @@ public class LoginBean implements Serializable {
 					return navigationBean.redirectToUserSettings();
 				}
 			}
-		} catch (UserNotFoundException e) {
-			loggedIn = false;
 		}
 
 		return navigationBean.redirectToLogin();
@@ -137,12 +131,16 @@ public class LoginBean implements Serializable {
 		this.hasUserAssignedTeam = hasUserAssignedTeam;
 	}
 
-	public String getUserTeam() {
-		return userTeam;
+	public UserAccount getLoggedInUser() {
+		return loggedInUser;
 	}
 
-	public void setUserTeam(String userTeam) {
-		this.userTeam = userTeam;
+	public void setLoggedInUser(UserAccount loggedInUser) {
+		this.loggedInUser = loggedInUser;
+	}
+
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
 	}
 
 }
