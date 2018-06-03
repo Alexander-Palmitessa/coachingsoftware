@@ -13,6 +13,7 @@
   background: #fefefe;
   box-shadow: none;
   color: #0a0a0a;
+  height: 100%;
 }
 
 .card-user-profile .card-container {
@@ -61,6 +62,14 @@
   display: flex;
 }
 
+.card-user-profile-actions:not(:last-child) {
+	padding-bottom: 0;
+}
+
+.card-user-profile-actions:first-child {
+	padding-top: 0;
+}
+
 .card-user-profile-actions > :last-child {
   margin-bottom: 0;
 }
@@ -88,6 +97,7 @@
   margin-bottom: 0;
   font-weight: 300;
   font-size: 1.5rem;
+  min-height: 90px;
 }
 
 .card-user-profile-button {
@@ -117,4 +127,8 @@
 
 .card-team .card-user-profile-info p {
 	margin-bottom: 0;
+}
+
+.card-user-profile form, .card-user-profile input {
+	width: 100%;
 }

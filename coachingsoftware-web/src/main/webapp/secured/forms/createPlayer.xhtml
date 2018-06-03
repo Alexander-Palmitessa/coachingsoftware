@@ -27,7 +27,9 @@
 		        </div>
 		        <div class="small-12 medium-6 column">
 		        	<label><h:outputText value="#{msg['email']}"/></label>
-				    <h:inputText id="player_email" value="#{playerBean.newPlayer.email}"/>
+					<h:inputText id="player_email" value="#{playerBean.newPlayer.email}">
+						<f:validator binding="#{duplicateMailValidator}"/>
+					</h:inputText>
 					<h:message for="player_email" style="color: red"/>
 		        </div>
 		        <div class="small-12 medium-6 column">

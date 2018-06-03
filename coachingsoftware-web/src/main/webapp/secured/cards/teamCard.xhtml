@@ -7,7 +7,7 @@
     <div class="card-team card-user-profile">
 		<div class="card-container">
 			<div class="image-container">
-				<h:graphicImage name="images/sfv_u19.jpg" />
+				<h:graphicImage id="teamPicture" name="#{loginBean.loggedInUser.team.teamPictureURL}" />
 			</div>
 			<div class="card-user-profile-content card-section">
 				<h:outputLabel class="card-user-profile-name" value="#{msg['myTeamInformations']}" />

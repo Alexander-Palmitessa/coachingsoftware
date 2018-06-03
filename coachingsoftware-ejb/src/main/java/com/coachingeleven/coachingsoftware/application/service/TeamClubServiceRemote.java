@@ -13,23 +13,41 @@ import java.util.List;
 
 @Remote
 public interface TeamClubServiceRemote {
-	public Team createTeam(Team team) throws TeamAlreadyExistsException;
-	public Club createClub(Club club) throws ClubAlreadyExistsException;
-	public Team findTeam(String name) throws TeamNotFoundException;
-    public Team findTeam(int id) throws TeamNotFoundException;
-    public Club findClub(String name) throws ClubNotFoundException;
-    public Club findClub(int id) throws ClubNotFoundException;
-    public boolean deleteTeam(Team team);
-    public boolean deleteClub(Club club);
-    public List<Club> findAllClubs();
-    public List<Team> findAllTeams();
-    public Club updateClub(Club club);
-    public Team updateTeam(Team team);
-    public List<Team> findTeamsByClubId(int clubId);
-    public List<Team> findTeamsBySeasonID(int seasonID);
-    public Team addPlayerToTeam(int teamID, Player player);
-    public List<Team> getAllPreviousTeams(int teamID);
-    public List<Team> getAllPreviousTeamsOfSeason(int seasonID);
-    public List<Player> getCurrentPlayers(int teamID);
-    public List<Player> getHistoryPlayers(int teamID);
+	Team createTeam(Team team) throws TeamAlreadyExistsException;
+
+	Club createClub(Club club) throws ClubAlreadyExistsException;
+
+	Team findTeam(String name) throws TeamNotFoundException;
+
+	Team findTeam(int id) throws TeamNotFoundException;
+
+	Club findClub(String name) throws ClubNotFoundException;
+
+	Club findClub(int id) throws ClubNotFoundException;
+
+	boolean deleteTeam(Team team);
+
+	boolean deleteClub(Club club);
+
+	List<Club> findAllClubs();
+
+	List<Team> findAllTeams();
+
+	Club updateClub(Club club);
+
+	Team updateTeam(Team team);
+
+	List<Team> findTeamsByClubId(int clubId);
+
+	List<Team> findTeamsBySeasonID(int seasonID);
+
+	Team addPlayerToTeam(int teamID, Player player);
+
+	List<Team> getAllPreviousTeams(int teamID);
+
+	List<Team> getAllPreviousTeamsOfSeason(int seasonID);
+
+	List<Player> getCurrentPlayers(int teamID);
+
+	List<Player> getHistoryPlayers(int teamID);
 }

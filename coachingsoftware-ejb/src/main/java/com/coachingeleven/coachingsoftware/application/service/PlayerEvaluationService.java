@@ -41,7 +41,7 @@ public class PlayerEvaluationService implements PlayerEvaluationServiceRemote {
 			logger.log(Level.INFO, "Evaluation talk with same id already exists");
 			throw new EvaluationTalkAlreadyExistsException();
 		}
-		return evaluationTalkRepository.persist(new EvaluationTalk());
+		return evaluationTalkRepository.persist(evaluationTalk);
 	}
 
 	@Override

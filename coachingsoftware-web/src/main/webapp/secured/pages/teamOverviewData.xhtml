@@ -64,14 +64,26 @@
 						                       itemLabel="#{c.countryLabel}"/>
 						    </h:selectOneMenu>
 				        </div>
-				        <div class="small-12 column">
+				        <div class="small-12 column text-center">
 				        	<h:commandButton action="#{teamDataBean.updateTeam}" value="#{msg['save']}"/>
 				        </div>
 			        </div>
 				</h:form>
 			</div>
-			<div class="small-5 column">
-				<h:graphicImage name="images/sfv_u19.jpg" />
+			<div class="small-12 medium-5 column">
+				<div class="row">
+					<div class="small-12 column">
+						<h:graphicImage id="teamPicture" name="#{teamDataBean.currentTeam.teamPictureURL}" />
+					</div>
+					<div class="small-12 medium-6 column">
+						<h:form enctype="multipart/form-data">
+							<h:outputLabel for="uploadTeamPicture" value="#{msg['chooseFile']}" styleClass="secondary-button upload" />
+						    <h:inputFile id="uploadTeamPicture" value="#{uploadBean.file}" styleClass="upload">
+						        <f:ajax listener="#{uploadBean.saveTeamPicture}" render="teamPicture" />
+						    </h:inputFile>
+						</h:form>
+					</div>
+				</div>
 			</div>
 		</div>
     </ui:define>

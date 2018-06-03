@@ -16,16 +16,17 @@
 				<p class="card-user-profile-name"><h:outputText value="#{player.firstName} #{player.lastName}"/></p>
 				<label><h:outputText value="#{msg['email']}"/></label>
 				<p class="card-user-profile-info"><h:outputText value="#{player.email}"/></p>
-				<h:panelGroup rendered="#{not empty player.birthdateFormatted}">
-					<label><h:outputText value="#{msg['birthday']}"/></label>
-					<p class="card-user-profile-info"><h:outputText value="#{player.birthdateFormatted}"/></p>
-				</h:panelGroup>
 			</div>
 			
 			<div class="card-user-profile-actions">
-				<h:outputLink class="card-user-profile-button secondary-button" value="#{request.contextPath}/secured/pages/playerView.xhtml"><h:outputText value="#{msg['moreInfo']}"/>
-					<f:param name="playerID" value="#{player.ID}" />
-				</h:outputLink>
+				<h:form>
+					<h:commandButton action="#{currentPlayerBean.resetCurrentPlayer(player.ID)}" value="#{msg['moreInfo']}"/>
+				</h:form>
+			</div>
+			<div class="card-user-profile-actions">
+				<h:form>
+					<h:commandButton class="deleteButton" action="#{currentPlayerBean.deletePlayer(player.ID)}" value="#{msg['delete']}"/>
+				</h:form>
 			</div>
 		</div>
 	</div>

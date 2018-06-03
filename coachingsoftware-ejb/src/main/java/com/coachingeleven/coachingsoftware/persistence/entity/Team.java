@@ -35,7 +35,7 @@ public class Team implements Serializable {
 	@Column(name = "TEAM_ID")
 	private int ID;
 	@Column(name = "TEAM_NAME")
-	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "{pattern.letter.number.space}")
+	@Pattern(regexp = "^[a-zA-Z0-9.äöüàé\\s]+$", message = "{pattern.letter.number.space}")
 	@NotNull
 	private String name;
 	@JoinColumn(name = "CLUB_ID")
@@ -69,9 +69,7 @@ public class Team implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID")
 	)
 	private Set<Player> currentPlayers;
-	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
 	private String teamPictureURL;
-	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
 	private String teamLogoURL;
 	@ManyToMany(mappedBy = "teams")
 	private Set<Season> seasons;

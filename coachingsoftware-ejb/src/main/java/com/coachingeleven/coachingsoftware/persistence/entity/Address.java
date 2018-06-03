@@ -19,7 +19,7 @@ import java.io.Serializable;
 
 @Embeddable
 public class Address implements Serializable {
-
+	
 	private static final long serialVersionUID = -1351895022038783357L;
 	
 	@Column(name = "CITY")

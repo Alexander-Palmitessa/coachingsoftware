@@ -18,7 +18,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -110,8 +109,8 @@ public class Player implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID")
 	)
 	private Set<Team> historyTeams;
-	
-	private String birthdateFormatted;
+	@OneToMany(mappedBy = "player")
+    private Set<LineUpPlayer> lineUps;
 
 
 	/**
@@ -247,7 +246,7 @@ public class Player implements Serializable {
         this.weight = weight;
     }
 
-    public Contract getContract() {
+	public Contract getContract() {
         return contract;
     }
 
@@ -335,16 +334,20 @@ public class Player implements Serializable {
 		this.extendedTIPS = extendedTIPS;
 	}
 
-	public String getBirthdateFormatted() {
-		if(birthdate != null) {
-			SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-			birthdateFormatted = formatter.format(birthdate.getTime());
-		}
-		return birthdateFormatted;
+	public Set<Team> getTeams() {
+		return teams;
 	}
 
-	public void setBirthdateFormatted(String birthdateFormatted) {
-		this.birthdateFormatted = birthdateFormatted;
+	public void setTeams(Set<Team> teams) {
+		this.teams = teams;
+	}
+
+	public Set<LineUpPlayer> getLineUps() {
+		return lineUps;
+	}
+
+	public void setLineUps(Set<LineUpPlayer> lineUps) {
+		this.lineUps = lineUps;
 	}
 	
 }
