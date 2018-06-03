@@ -124,7 +124,7 @@ public class PlayerBean {
 			// TODO 
 		}
 		
-		return navigationBean.toPlayerForm();
+		return navigationBean.redirectToCurrentPlayersOverview();
 	}
 	
 	public void createPlayerTalk() {

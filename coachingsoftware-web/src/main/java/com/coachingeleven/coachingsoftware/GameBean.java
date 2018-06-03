@@ -190,7 +190,7 @@ public class GameBean implements Serializable {
 		try {
 			Team currentTeam = teamClubService.findTeam(loginBean.getUserTeam());
 			if (currentTeam.getPlayers() != null)
-				players = new ArrayList<>(currentTeam.getPlayers());
+				players = new ArrayList<>(currentTeam.getCurrentPlayers());
 			else players = new ArrayList<>();
 			if (currentTeam.getGamesHome() != null)
 				allGames = new ArrayList<>(currentTeam.getGamesHome());
@@ -233,8 +233,13 @@ public class GameBean implements Serializable {
 		} catch (GameAlreadyExistsException e) {
 			currentGame = gameService.update(newGame);
 		}
-		allGames = gameService.findAllGames();
-		resetDateTime();
+		try {
+			allGames = new ArrayList<>(teamClubService.findTeam(loginBean.getUserTeam()).getGamesHome());
+			allGames.addAll(teamClubService.findTeam(loginBean.getUserTeam()).getGamesAway());
+		} catch (TeamNotFoundException e) {
+			e.printStackTrace();
+		}
+		reset();
 		return navigationBean.redirectToGameOverview();
 	}
 
@@ -338,8 +343,9 @@ public class GameBean implements Serializable {
 		currentGame = gameService.update(currentGame);
 		try {
 			teamClubService.findTeam(teamHome).getGamesHome().add(currentGame);
+			teamClubService.updateTeam(teamClubService.findTeam(teamHome));
 			teamClubService.findTeam(teamAway).getGamesAway().add(currentGame);
-
+			teamClubService.updateTeam(teamClubService.findTeam(teamAway));
 		} catch (TeamNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -426,7 +432,7 @@ public class GameBean implements Serializable {
 		return timeString;
 	}
 
-	public void resetDateTime() {
+	public void reset() {
 		newYear = newMonth = newDay = newHour = newMinute = 0;
 	}
 

@@ -5,9 +5,8 @@
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 	<f:metadata>
-		<f:viewAction action="#{gameBean.init}" onPostback="true"/>
+		<f:viewAction action="#{gameBean.init}" onPostback="true" immediate="true"/>
 	</f:metadata>
-
 
 	<ui:define name="title">
 		#{msg['gameOverview']} - Coaching Eleven
