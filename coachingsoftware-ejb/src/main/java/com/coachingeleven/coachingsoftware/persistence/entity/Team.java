@@ -17,14 +17,14 @@ import java.util.Set;
 @Entity
 @Table(name = "TEAM")
 @NamedQueries({
-	@NamedQuery(name = "findTeam",
-			query = "SELECT c FROM Team c WHERE LOWER(c.name) = LOWER(:teamname)"),
-	@NamedQuery(name = "findTeamsByClubId",
-			query = "SELECT t FROM Team t WHERE t.club.ID = :clubId"),
-	@NamedQuery(name = "findTeamsBySeasonID",
-			query = "SELECT t FROM Team t JOIN t.seasons s WHERE s.ID = :seasonID"),
-	@NamedQuery(name = "findPreviousTeam",
-			query = "SELECT t FROM Team t WHERE t.previousTeam.ID = :teamID")
+		@NamedQuery(name = "findTeam",
+				query = "SELECT c FROM Team c WHERE LOWER(c.name) = LOWER(:teamname)"),
+		@NamedQuery(name = "findTeamsByClubId",
+				query = "SELECT t FROM Team t WHERE t.club.ID = :clubId"),
+		@NamedQuery(name = "findTeamsBySeasonID",
+				query = "SELECT t FROM Team t JOIN t.seasons s WHERE s.ID = :seasonID"),
+		@NamedQuery(name = "findPreviousTeam",
+				query = "SELECT t FROM Team t WHERE t.previousTeam.ID = :teamID")
 })
 public class Team implements Serializable {
 
@@ -41,13 +41,12 @@ public class Team implements Serializable {
 	@JoinColumn(name = "CLUB_ID")
 	@ManyToOne
 	private Club club;
-  @ManyToMany
+	@ManyToMany
 	@JoinTable(
 			name = "TEAM_GAME",
 			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID"),
 			inverseJoinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID"))
 	private Set<Game> games;
-	@OneToOne(mappedBy="team")
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "TEAM_PLAYER",
@@ -63,7 +62,7 @@ public class Team implements Serializable {
 	@JoinColumn(name = "PREVIOUS_TEAM_ID")
 	@OneToOne
 	private Team previousTeam;
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "TEAM_CURRENT_PLAYERS",
 			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID"),
@@ -75,10 +74,10 @@ public class Team implements Serializable {
 	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
 	private String teamLogoURL;
 	@ManyToMany(mappedBy = "teams")
-    private Set<Season> seasons;
+	private Set<Season> seasons;
 	@ManyToMany(mappedBy = "historyTeams")
-    private Set<Player> historyPlayers;
-	
+	private Set<Player> historyPlayers;
+
 
 	public Team(String name, Club club) {
 		this.name = name;
@@ -111,16 +110,16 @@ public class Team implements Serializable {
 	public void setClub(Club club) {
 		this.club = club;
 	}
-  
+
 	public Set<Game> getGames() {
 		return games;
 	}
 
 	public void setGames(Set<Game> games) {
 		this.games = games;
-  }
-  
-  public Set<Player> getPlayers() {
+	}
+
+	public Set<Player> getPlayers() {
 		return players;
 	}
 
@@ -182,8 +181,9 @@ public class Team implements Serializable {
 
 	public void setHistoryPlayers(Set<Player> historyPlayers) {
 		this.historyPlayers = historyPlayers;
-  }
-  public Set<Game> getGamesHome() {
+	}
+
+	public Set<Game> getGamesHome() {
 		return gamesHome;
 	}
 

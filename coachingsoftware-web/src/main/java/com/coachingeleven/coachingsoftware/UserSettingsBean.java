@@ -68,6 +68,7 @@ public class UserSettingsBean {
 				UserAccount currentUser = loginBean.getLoggedInUser();
 				currentUser.setTeam(team);
 				loginBean.setHasUserAssignedTeam(true);
+				loginBean.setUserTeam(team.getName());
 				userService.updateUser(currentUser);
 			}
 		} catch (TeamNotFoundException e) {

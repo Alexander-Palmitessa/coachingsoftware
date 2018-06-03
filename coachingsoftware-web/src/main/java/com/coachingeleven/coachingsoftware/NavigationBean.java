@@ -27,6 +27,10 @@ public class NavigationBean implements Serializable {
 		return "/secured/pages/playerOverview.xhtml?faces-redirect=true";
 	}
 
+	public String redirectToCurrentPlayersOverview() {
+		return "/secured/pages/currentPlayersOverview.xhtml?faces-redirect=true";
+	}
+
 	public String toUserSettings() {
 		return "/secured/pages/userSettings.xhtml";
 	}
