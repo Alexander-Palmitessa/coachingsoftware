@@ -18,7 +18,7 @@ import javax.inject.Named;
 @Named("duplicateMailValidator")
 public class DuplicateEmailValidator implements Validator {
 
-	@Inject
+	@EJB
 	private PlayerService playerService;
 
 	@Override
