@@ -8,10 +8,10 @@ import javax.ejb.Remote;
 
 @Remote
 public interface UserServiceRemote {
-	public UserAccount createUser(UserAccount userAccount) throws UserAlreadyExistsException;
-    public UserAccount findUser(String username) throws UserNotFoundException;
-    public boolean authenticate(String password, String token);
-    public UserAccount changePassword(String username, String oldPassword, String newPassword);
-    public String hashPassword(String plainPassword);
-    public void updateUser(UserAccount user);
+    UserAccount createUser(UserAccount userAccount) throws UserAlreadyExistsException;
+    UserAccount findUser(String username) throws UserNotFoundException;
+    boolean authenticate(String password, String token);
+    UserAccount changePassword(String username, String oldPassword, String newPassword);
+    String hashPassword(String plainPassword);
+    void updateUser(UserAccount user);
 }

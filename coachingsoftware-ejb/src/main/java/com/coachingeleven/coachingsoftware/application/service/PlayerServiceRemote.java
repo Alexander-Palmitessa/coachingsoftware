@@ -18,14 +18,14 @@ public interface PlayerServiceRemote {
 	 * @param player The player to create.
 	 * @throws PlayerAlreadyExistsException If a player with the same ID, email or second email already exists.
 	 * */
-	public Player createPlayer(Player player) throws PlayerAlreadyExistsException;
+	Player createPlayer(Player player) throws PlayerAlreadyExistsException;
 	
-	public Player findPlayer(int id) throws PlayerNotFoundException;
-	public Player findPlayer(String email) throws PlayerNotFoundException;
-	public List<Player> findAllPlayers();
-	public void deletePlayer(Player player);
-    public Player update(Player player);
-    public List<Player> findCurrentPlayersByTeam(int teamId);
-    public List<Player> findHistoryPlayersByTeam(int teamId);
-    public Player addHistoryTeamToPlayer(int playerID, Team team);
+	Player findPlayer(int id) throws PlayerNotFoundException;
+	Player findPlayer(String email) throws PlayerNotFoundException;
+	List<Player> findAllPlayers();
+	void deletePlayer(Player player);
+	Player update(Player player);
+	List<Player> findCurrentPlayersByTeam(int teamId);
+	List<Player> findHistoryPlayersByTeam(int teamId);
+	Player addHistoryTeamToPlayer(int playerID, Team team);
 }
