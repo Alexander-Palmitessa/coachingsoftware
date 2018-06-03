@@ -109,6 +109,8 @@ public class Player implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID")
 	)
 	private Set<Team> historyTeams;
+	@OneToMany(mappedBy = "player")
+    private Set<LineUpPlayer> lineUps;
 
 
 	/**
@@ -244,7 +246,7 @@ public class Player implements Serializable {
         this.weight = weight;
     }
 
-    public Contract getContract() {
+	public Contract getContract() {
         return contract;
     }
 
@@ -330,6 +332,22 @@ public class Player implements Serializable {
 
 	public void setExtendedTIPS(Set<ExtendedTIPS> extendedTIPS) {
 		this.extendedTIPS = extendedTIPS;
+	}
+
+	public Set<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(Set<Team> teams) {
+		this.teams = teams;
+	}
+
+	public Set<LineUpPlayer> getLineUps() {
+		return lineUps;
+	}
+
+	public void setLineUps(Set<LineUpPlayer> lineUps) {
+		this.lineUps = lineUps;
 	}
 	
 }

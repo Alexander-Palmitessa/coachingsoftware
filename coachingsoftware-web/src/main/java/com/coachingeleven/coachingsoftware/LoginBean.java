@@ -73,6 +73,7 @@ public class LoginBean implements Serializable {
 					players.add(player1);
 					players.add(player2);
 					team.setPlayers(players);
+					team.setCurrentPlayers(players);
 					teamClubService.updateTeam(team);
 					club.addTeam(team);
 					teamClubService.updateClub(club);
