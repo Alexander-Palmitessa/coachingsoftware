@@ -5,7 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -18,12 +21,13 @@ import com.coachingeleven.coachingsoftware.persistence.entity.EvaluationTalk;
 public class EvaluationTalkBean {
 	
 	@Inject
-	private PlayerViewBean playerViewBean;
+	private CurrentPlayerBean currentPlayerBean;
 	
+	@EJB
 	private PlayerEvaluationServiceRemote evaluationTalkService;
 	
 	private EvaluationTalk newTalk;
-	private String newTalkDate;
+	private String newTalkDateFormatted;
 	
 	private SimpleDateFormat dateFormatter;
 	
@@ -35,16 +39,38 @@ public class EvaluationTalkBean {
 	
 	public void createPlayerTalk() {
 		try {
-			Calendar startDateCalendar = Calendar.getInstance();
-			startDateCalendar.setTime(dateFormatter.parse(newTalkDate));
-			newTalk.setPlayer(playerViewBean.getCurrentPlayer());
-			evaluationTalkService.createEvaluationTalk(newTalk);
+			// Set new birthday for current player
+			if(newTalkDateFormatted != null && !newTalkDateFormatted.isEmpty()) {
+				Calendar startDateCalendar = Calendar.getInstance();
+				startDateCalendar.setTime(dateFormatter.parse(newTalkDateFormatted));
+				newTalk.setDate(startDateCalendar);
+				newTalk.setPlayer(currentPlayerBean.getCurrentPlayer());
+				evaluationTalkService.createEvaluationTalk(newTalk);
+			}
 		} catch (ParseException e) {
-			// TODO 
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			// TODO: localization
+			FacesMessage facesMessage = new FacesMessage("Invalid date format", "Date format must be in dd.MM.yyyy!");
+			facesContext.addMessage("createPlayerTalk:datePickerPlayerTalkDate", facesMessage);
 		} catch (EvaluationTalkAlreadyExistsException e) {
 			// TODO 
 		}
-		
+	}
+
+	public EvaluationTalk getNewTalk() {
+		return newTalk;
+	}
+
+	public void setNewTalk(EvaluationTalk newTalk) {
+		this.newTalk = newTalk;
+	}
+
+	public String getNewTalkDateFormatted() {
+		return newTalkDateFormatted;
+	}
+
+	public void setNewTalkDateFormatted(String newTalkDateFormatted) {
+		this.newTalkDateFormatted = newTalkDateFormatted;
 	}
 
 }

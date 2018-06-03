@@ -1,13 +1,12 @@
 package com.coachingeleven.coachingsoftware;
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -24,13 +23,11 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
 
 @Named(value = "playerViewBean")
-@SessionScoped
-public class PlayerViewBean implements Serializable {
-	
-	private static final long serialVersionUID = -4038586817749078253L;
+@RequestScoped
+public class PlayerViewBean {
 
 	@Inject
-	private NavigationBean navigationBean;
+	private CurrentPlayerBean currentPlayerBean;
 	
 	@EJB
 	private PlayerServiceRemote playerService;
@@ -46,23 +43,15 @@ public class PlayerViewBean implements Serializable {
 	
 	@PostConstruct
 	public void init() {
+		currentPlayer = currentPlayerBean.getCurrentPlayer();
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
-	}
-	
-	public String resetCurrentPlayer(int playerID) {
-		try {
-			currentPlayer = playerService.findPlayer(playerID);
-			// Format date for GUI
-			if(currentPlayer.getBirthdate() != null) birthdayFormatted = dateFormatter.format(currentPlayer.getBirthdate().getTime());
-			// Create empty address if player doesn't have one
-			if(currentPlayer.getAddress() == null) currentPlayer.setAddress(new Address());
-			// Create new country if player doesn't have one assigned
-			if(currentPlayer.getAddress().getCountry() == null) currentPlayer.getAddress().setCountry(new Country());
-			oldEmailAddress = currentPlayer.getEmail();
-			return navigationBean.redirectToPlayer();
-		} catch (PlayerNotFoundException e) {
-			return navigationBean.redirectToCurrentPlayersOverview();
-		}
+		// Format date for GUI
+		if(currentPlayer.getBirthdate() != null) birthdayFormatted = dateFormatter.format(currentPlayer.getBirthdate().getTime());
+		// Create empty address if player doesn't have one
+		if(currentPlayer.getAddress() == null) currentPlayer.setAddress(new Address());
+		// Create new country if player doesn't have one assigned
+		if(currentPlayer.getAddress().getCountry() == null) currentPlayer.getAddress().setCountry(new Country());
+		oldEmailAddress = currentPlayer.getEmail();
 	}
 	
 	public void updateCurrentPlayer() {

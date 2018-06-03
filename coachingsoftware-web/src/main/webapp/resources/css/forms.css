@@ -1,8 +1,12 @@
-form input[type="text"], form input[type="password"], form select {
+form input[type="text"], form input[type="password"], form select, form textarea {
 	border: 1px solid #3D5998;
 	background-color: #F4F4F4 !important;
 	border-radius: 4px;
 	color: #5D82A7;
+}
+
+form textarea {
+	min-height: 150px;
 }
 
 form label {
