@@ -62,3 +62,16 @@ form input[type="submit"]:hover, form input[type="reset"]:hover {
 .margintop-05 {
 	margin-top: 0.5rem;
 }
+
+form label.upload {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    padding: 0.2375rem 0.55rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+form input.upload {
+    display: none;
+}

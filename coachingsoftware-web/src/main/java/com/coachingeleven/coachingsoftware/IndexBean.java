@@ -62,6 +62,7 @@ public class IndexBean {
         
         Team team = new Team();
         team.setName("Team One");
+        team.setTeamPictureURL("images/sfv_u19.jpg");
         team.setClub(club);
         HashSet<Player> currentPlayers = new HashSet<Player>();
         currentPlayers.add(player1);

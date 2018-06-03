@@ -69,9 +69,7 @@ public class Team implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID")
 	)
 	private Set<Player> currentPlayers;
-	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
 	private String teamPictureURL;
-	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
 	private String teamLogoURL;
 	@ManyToMany(mappedBy = "teams")
 	private Set<Season> seasons;
