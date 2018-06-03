@@ -36,9 +36,6 @@ public class ArenaService implements ArenaServiceRemote {
 	@EJB
 	private ArenaRepository arenaRepository;
 
-	@EJB
-
-
 	@Override
 	public Arena createArena(Arena arena) throws ArenaAlreadyExistsException {
 		logger.log(Level.INFO, "Creating arena with name " + arena.getName());

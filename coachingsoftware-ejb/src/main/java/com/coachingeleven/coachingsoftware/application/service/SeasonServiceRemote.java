@@ -11,10 +11,10 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
 @Remote
 public interface SeasonServiceRemote {
-	public Season findSeason(int id) throws SeasonNotFoundException;
-	public Season createSeason(Season season) throws SeasonAlreadyExistsException;
-	public List<Season> findAllSeasons();
-	public List<Season> findSeasonsByTeam(int teamID);
-	public Season updateSeason(Season season);
-	public Season addTeamToSeason(int seasonID, Team team);
+	Season findSeason(int id) throws SeasonNotFoundException;
+	Season createSeason(Season season) throws SeasonAlreadyExistsException;
+	List<Season> findAllSeasons();
+	List<Season> findSeasonsByTeam(int teamID);
+	Season updateSeason(Season season);
+	Season addTeamToSeason(int seasonID, Team team);
 }
