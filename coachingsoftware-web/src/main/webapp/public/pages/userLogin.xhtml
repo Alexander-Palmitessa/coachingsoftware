@@ -17,14 +17,18 @@
 	    	<div class="row">
 	    		<div class="small-12 medium-6 column">
 			    	<label><h:outputText value="#{msg['username']}"/></label>
-			    	<h:inputText value="#{loginBean.username}"/>
+			    	<h:inputText id="username" value="#{loginBean.username}" required="true"
+								 requiredMessage="#{msg['required.username']}"/>
+					<h:message for="username" style="color: red"/>
 		    	</div>
 		    	<div class="small-12 medium-6 column">
 			    	<label><h:outputText value="#{msg['password']}"/></label>
-			    	<h:inputSecret value="#{loginBean.password}"/>
+			    	<h:inputSecret id="password" value="#{loginBean.password}" required="true"
+								   requiredMessage="#{msg['required.password']}"/>
+					<h:message for="password" style="color: red"/>
 		    	</div>
 		    	<div class="small-12 column text-center">
-			    	<h:commandButton action="#{loginBean.doLogin}" value="#{msg['login']}" />
+			    	<h:commandButton action="#{loginBean.doLogin}" value="#{msg['login']}"/>
 			    </div>
 	    	</div>
 	    </h:form>

@@ -34,7 +34,7 @@ import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
 @Named(value = "playerBean")
 @RequestScoped
 public class PlayerBean {
-	
+
 	@Inject
 	private LoginBean loginBean;
 	@Inject
@@ -44,31 +44,31 @@ public class PlayerBean {
 	@EJB
 	private PlayerServiceRemote playerService;
 	@EJB
-    private CountryServiceRemote countryService;
+	private CountryServiceRemote countryService;
 	@EJB
 	private TeamClubServiceRemote teamClubService;
 	@EJB
 	private PlayerEvaluationServiceRemote evaluationTalkService;
-	
+
 	private List<Player> currentPlayers;
 	private List<Player> historyPlayers;
-	
+
 	private Player currentPlayer;
 	private Player newPlayer;
 	private Address newPlayerAddress;
 	private Country newPlayerCountry;
-	
+
 	private Integer playerID;
-	
+
 	private String playerBirthday;
-	
+
 	private SimpleDateFormat dateFormatter;
-	
+
 	private EvaluationTalk newTalk;
 	private String newTalkDate;
-	
+
 	@PostConstruct
-    public void init() {
+	public void init() {
 		newTalk = new EvaluationTalk();
 		newPlayer = new Player();
 		newPlayerAddress = new Address();
@@ -76,13 +76,13 @@ public class PlayerBean {
 		currentPlayers = playerService.findCurrentPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
 		historyPlayers = playerService.findHistoryPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
-    }
-	
+	}
+
 	public void setRequestParameters() {
-		if(playerID != null) {
+		if (playerID != null) {
 			try {
 				HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-				if(request.getParameter("playerID") != null) {
+				if (request.getParameter("playerID") != null) {
 					playerID = Integer.parseInt(request.getParameter("playerID"));
 					currentPlayer = playerService.findPlayer(playerID);
 				}
@@ -91,17 +91,17 @@ public class PlayerBean {
 			}
 		}
 	}
-	
+
 	public String createPlayer() throws CountryAlreadyExistsException, PlayerNotFoundException {
 		try {
 			newPlayerCountry = countryService.findCountry(newPlayerCountry.getName());
 		} catch (CountryNotFounException e1) {
 			newPlayerCountry = countryService.createCountry(newPlayerCountry);
 		}
-		
+
 		newPlayerAddress.setCountry(newPlayerCountry);
 		newPlayer.setAddress(newPlayerAddress);
-		
+
 		try {
 			Calendar playerBirthdayCalendar = Calendar.getInstance();
 			playerBirthdayCalendar.setTime(dateFormatter.parse(playerBirthday));
@@ -109,13 +109,13 @@ public class PlayerBean {
 		} catch (ParseException e1) {
 			// TODO 
 		}
-		
+
 		try {
 			newPlayer = playerService.createPlayer(newPlayer);
 		} catch (PlayerAlreadyExistsException e) {
 			newPlayer = playerService.findPlayer(newPlayer.getID());
 		}
-		
+
 		// Add created player to the managed team of the logged in user
 		try {
 			Team team = teamClubService.findTeam(loginBean.getLoggedInUser().getTeam().getID());
@@ -123,12 +123,12 @@ public class PlayerBean {
 		} catch (TeamNotFoundException e) {
 			// TODO 
 		}
-		
+
 		return navigationBean.redirectToCurrentPlayersOverview();
 	}
-	
+
 	public void createPlayerTalk() {
-		if(currentPlayer != null) {
+		if (currentPlayer != null) {
 			try {
 				Calendar startDateCalendar = Calendar.getInstance();
 				startDateCalendar.setTime(dateFormatter.parse(newTalkDate));
@@ -141,7 +141,7 @@ public class PlayerBean {
 			}
 		}
 	}
-	
+
 	public Position[] getPositions() {
 		return Position.values();
 	}
