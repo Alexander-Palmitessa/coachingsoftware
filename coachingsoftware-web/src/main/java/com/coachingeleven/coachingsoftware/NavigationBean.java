@@ -103,11 +103,19 @@ public class NavigationBean implements Serializable {
 		return "/secured/pages/teamOverviewData.xhtml?faces-redirect=true";
 	}
   
-  public String redirectToGameOverview() { return "/secured/pages/gameList.xhtml?faces-redirect=true"; }
+	public String redirectToGameOverview() {
+		return "/secured/pages/gameList.xhtml?faces-redirect=true";
+	}
 
-	public String toUpdateGameForm(int id) { return "/secured/forms/updateGameForm.xhtml?faces-redirect=true&id="+ id; }
+	public String toUpdateGameForm(int id) {
+		return "/secured/forms/updateGameForm.xhtml?faces-redirect=true&id="+ id;
+	}
 
-	public String toNewGameForm() { return "/coachingsoftware/secured/forms/newGameForm.xhtml"; }
+	public String toNewGameForm() {
+		return "/coachingsoftware/secured/forms/newGameForm.xhtml";
+	}
 
-	public String toLineUpForm() { return "/secured/forms/lineUpForm.xhtml"; }
+	public String toLineUpForm() {
+		return "/secured/forms/lineUpForm.xhtml";
+	}
 }

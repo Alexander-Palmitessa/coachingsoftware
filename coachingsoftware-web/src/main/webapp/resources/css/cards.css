@@ -118,3 +118,7 @@
 .card-team .card-user-profile-info p {
 	margin-bottom: 0;
 }
+
+.card-user-profile form, .card-user-profile input {
+	width: 100%;
+}
