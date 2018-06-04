@@ -15,7 +15,7 @@
 	</servlet-mapping>
 
 	<welcome-file-list>
-		<welcome-file>public/pages/home.xhtml</welcome-file>
+		<welcome-file>public/pages/userLogin.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<context-param>
