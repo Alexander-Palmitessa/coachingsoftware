@@ -75,3 +75,8 @@ form label.upload {
 form input.upload {
     display: none;
 }
+
+form label.upload.playerAvatarUpload {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
