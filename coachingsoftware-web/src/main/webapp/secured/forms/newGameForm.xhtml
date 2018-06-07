@@ -46,21 +46,21 @@
 					<div class="medium-6 small-12 columns">
 						<label><h:outputText value="#{msg['arena']}"/></label>
 						<h:selectOneMenu value="#{gameBean.selectedArena}">
-							<f:selectItems value="#{gameBean.arenas}" var="a" itemValue="#{a.name}"
+							<f:selectItems value="#{gameBean.arenas}" var="a" itemValue="#{a.ID}"
 										   itemLabel="#{a.name}"/>
 						</h:selectOneMenu>
 					</div>
 					<div class="medium-6 small-12 columns">
 						<label><h:outputText value="#{msg['teamHome']}"/></label>
 						<h:selectOneMenu value="#{gameBean.teamHome}">
-							<f:selectItems value="#{gameBean.teams}" var="t" itemValue="#{t.name}"
+							<f:selectItems value="#{gameBean.teams}" var="t" itemValue="#{t.ID}"
 										   itemLabel="#{t.name}"/>
 						</h:selectOneMenu>
 					</div>
 					<div class="medium-6 small-12 columns">
 						<label><h:outputText value="#{msg['teamAway']}"/></label>
 						<h:selectOneMenu value="#{gameBean.teamAway}">
-							<f:selectItems value="#{gameBean.teams}" var="t" itemValue="#{t.name}"
+							<f:selectItems value="#{gameBean.teams}" var="t" itemValue="#{t.ID}"
 										   itemLabel="#{t.name}"/>
 						</h:selectOneMenu>
 					</div>
