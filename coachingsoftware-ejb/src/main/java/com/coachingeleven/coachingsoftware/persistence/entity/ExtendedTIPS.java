@@ -36,9 +36,9 @@ public class ExtendedTIPS {
     @Column(name = "T_BALL_C")
     private String techBallComment;
     @Column(name = "T_PRESSURE_G")
-    private int techPressureGrade;
     @Min(value = 1, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
+    private int techPressureGrade;
     @Column(name = "T_PRESSURE_C")
     private String techPressureComment;
 
