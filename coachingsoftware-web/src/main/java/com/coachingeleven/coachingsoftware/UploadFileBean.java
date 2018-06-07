@@ -38,7 +38,8 @@ public class UploadFileBean {
 	        Files.copy(input, new File("C:\\Users\\Elias\\Desktop\\Programs\\glassfish5\\glassfish\\domains\\coachingeleven\\applications\\coachingsoftware-app\\coachingsoftware-web_war\\resources\\images", file.getSubmittedFileName()).toPath());
 	        Team currentTeam = loginBean.getLoggedInUser().getTeam();
 	        currentTeam.setTeamPictureURL("images/" + file.getSubmittedFileName());
-	        teamClubService.updateTeam(currentTeam);
+	        currentTeam = teamClubService.updateTeam(currentTeam);
+	        loginBean.getLoggedInUser().setTeam(currentTeam);
 	    } catch (IOException e) {
 	        // Show faces message?
 	    }

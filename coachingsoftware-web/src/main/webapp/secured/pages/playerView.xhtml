@@ -49,7 +49,7 @@
 								<h:graphicImage id="playerPicture" name="#{playerViewBean.currentPlayer.avatarUrl}" />
 							</div>
 							<p class="card-user-profile-name playerView"><h:outputText value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/></p>
-							<div class="row">
+							<div class="row" style="display: none">
 					    		<div class="small-12 medium-3 column">
 					    			<h:form enctype="multipart/form-data">
 										<h:outputLabel for="uploadPlayerPicture" value="#{msg['changeAvatar']}" styleClass="secondary-button upload playerAvatarUpload" />

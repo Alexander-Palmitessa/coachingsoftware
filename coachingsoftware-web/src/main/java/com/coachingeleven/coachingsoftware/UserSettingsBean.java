@@ -61,7 +61,7 @@ public class UserSettingsBean {
     	return navigationBean.toTeamDataOverview();
     }
     
-    public void persistUserTeam() {
+    public String persistUserTeam() {
     	try {
 			Team team = teamClubService.findTeam(selectedTeamID);
 			if(team != null) {
@@ -70,10 +70,12 @@ public class UserSettingsBean {
 				loginBean.setHasUserAssignedTeam(true);
 				loginBean.setUserTeam(team.getName());
 				userService.updateUser(currentUser);
+				return navigationBean.redirectToTeamDataOverview();
 			}
 		} catch (TeamNotFoundException e) {
 			// TODO
 		}
+    	return navigationBean.redirectToUserSettings();
     }
     
     public List<Team> getTeams() {
