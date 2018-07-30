@@ -64,9 +64,9 @@ public class GameBean implements Serializable {
 	@Inject
 	private LoginBean loginBean;
 
-	private String teamAway;
-	private String teamHome;
-	private String selectedArena;
+	private int teamAway;
+	private int teamHome;
+	private int selectedArena;
 	private List<Team> teams;
 	private List<Arena> arenas;
 	private int day;
@@ -98,9 +98,6 @@ public class GameBean implements Serializable {
 
 	private Game currentGame;
 	private Game newGame;
-
-	private Team homeTeam;
-	private Team awayTeam;
 
 	private int resGoalsHome;
 	private int resGoalsAway;
@@ -168,9 +165,9 @@ public class GameBean implements Serializable {
 			day = currentGame.getDate().get(Calendar.DATE);
 			minute = currentGame.getTime().get(Calendar.MINUTE);
 			hour = currentGame.getTime().get(Calendar.HOUR_OF_DAY);
-			teamAway = currentGame.getTeamAway().getName();
-			teamHome = currentGame.getTeamHome().getName();
-			selectedArena = currentGame.getArena().getName();
+			teamAway = currentGame.getTeamAway().getID();
+			teamHome = currentGame.getTeamHome().getID();
+			selectedArena = currentGame.getArena().getID();
 			selectedSystem = currentGame.getLineUp().getSystem();
 			resGoalsHome = currentGame.getResultGoalsHome();
 			resGoalsAway = currentGame.getResultGoalsAway();
@@ -188,7 +185,7 @@ public class GameBean implements Serializable {
 		teams = teamClubService.findAllTeams();
 		arenas = arenaService.findAll();
 		try {
-			Team currentTeam = teamClubService.findTeam(loginBean.getUserTeam());
+			Team currentTeam = teamClubService.findTeam(loginBean.getUserTeamID());
 			if (currentTeam.getPlayers() != null)
 				players = new ArrayList<>(currentTeam.getCurrentPlayers());
 			else players = new ArrayList<>();
@@ -215,6 +212,7 @@ public class GameBean implements Serializable {
 
 	/**
 	 * Create a new Game and store it in the database
+	 * Update the list of all games of the current Team
 	 *
 	 * @return redirect to the game overview
 	 */
@@ -234,8 +232,8 @@ public class GameBean implements Serializable {
 			currentGame = gameService.update(newGame);
 		}
 		try {
-			allGames = new ArrayList<>(teamClubService.findTeam(loginBean.getUserTeam()).getGamesHome());
-			allGames.addAll(teamClubService.findTeam(loginBean.getUserTeam()).getGamesAway());
+			allGames = new ArrayList<>(teamClubService.findTeam(loginBean.getUserTeamID()).getGamesHome());
+			allGames.addAll(teamClubService.findTeam(loginBean.getUserTeamID()).getGamesAway());
 		} catch (TeamNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -251,9 +249,9 @@ public class GameBean implements Serializable {
 	 */
 	private Game setArenaAndTeam(Game game) {
 		try {
-			homeTeam = teamClubService.findTeam(teamHome);
+			Team homeTeam = teamClubService.findTeam(teamHome);
 			homeTeam.getGamesHome().add(newGame);
-			awayTeam = teamClubService.findTeam(teamAway);
+			Team awayTeam = teamClubService.findTeam(teamAway);
 			awayTeam.getGamesAway().add(game);
 			game.setArena(arenaService.findArena(selectedArena));
 			game.setTeamHome(homeTeam);
@@ -436,27 +434,27 @@ public class GameBean implements Serializable {
 		newYear = newMonth = newDay = newHour = newMinute = 0;
 	}
 
-	public String getTeamAway() {
+	public int getTeamAway() {
 		return teamAway;
 	}
 
-	public void setTeamAway(String teamAway) {
+	public void setTeamAway(int teamAway) {
 		this.teamAway = teamAway;
 	}
 
-	public String getTeamHome() {
+	public int getTeamHome() {
 		return teamHome;
 	}
 
-	public void setTeamHome(String teamHome) {
+	public void setTeamHome(int teamHome) {
 		this.teamHome = teamHome;
 	}
 
-	public String getSelectedArena() {
+	public int getSelectedArena() {
 		return selectedArena;
 	}
 
-	public void setSelectedArena(String selectedArena) {
+	public void setSelectedArena(int selectedArena) {
 		this.selectedArena = selectedArena;
 	}
 

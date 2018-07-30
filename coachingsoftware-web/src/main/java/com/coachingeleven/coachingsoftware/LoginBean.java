@@ -29,6 +29,7 @@ public class LoginBean implements Serializable {
 	private String password;
 	private UserAccount loggedInUser;
 	private String userTeam;
+	private int userTeamID;
 	private boolean loggedIn;
 
 	private boolean hasUserAssignedTeam;
@@ -79,6 +80,7 @@ public class LoginBean implements Serializable {
 					teamClubService.updateClub(club);
 					userService.updateUser(currentUser);
 					userTeam = team.getName();
+					userTeamID = team.getID();
 				} catch (PlayerAlreadyExistsException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -158,4 +160,11 @@ public class LoginBean implements Serializable {
 		this.userTeam = userTeam;
 	}
 
+	public int getUserTeamID() {
+		return userTeamID;
+	}
+
+	public void setUserTeamID(int userTeamID) {
+		this.userTeamID = userTeamID;
+	}
 }
