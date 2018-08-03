@@ -35,7 +35,7 @@ public class Team implements Serializable {
 	@Column(name = "TEAM_ID")
 	private int ID;
 	@Column(name = "TEAM_NAME")
-	@Pattern(regexp = "^[a-zA-Z0-9.äöüàé\\s]+$", message = "{pattern.letter.number.space}")
+	@Pattern(regexp = "^[a-zA-Z0-9äöüÄÖÜéèêâà.\\s]+$", message = "{pattern.letter.number.space}")
 	@NotNull
 	private String name;
 	@JoinColumn(name = "CLUB_ID")

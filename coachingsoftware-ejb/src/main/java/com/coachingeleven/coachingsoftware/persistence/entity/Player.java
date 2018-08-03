@@ -40,11 +40,11 @@ public class Player implements Serializable {
     @Column(name = "PLAYER_ID")
     private int ID;
     @Column(name = "FIRST_NAME", nullable = false)
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+    @Pattern(regexp = "^[a-zA-ZäöüÄÖÜéèêâà\\s]+$", message = "{pattern.letter.space}")
     @NotNull
     private String firstName;
     @Column(name = "LAST_NAME", nullable = false)
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+    @Pattern(regexp = "^[a-zA-ZäöüÄÖÜéèêâà\\s]+$", message = "{pattern.letter.space}")
     @NotNull
     private String lastName;
     @Embedded

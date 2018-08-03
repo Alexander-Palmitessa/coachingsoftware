@@ -24,118 +24,118 @@ public class ExtendedTIPS {
     private int ID;
 
     @Column(name = "T_PASSES_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int techPassesGrade;
     @Column(name = "T_PASSES_C")
     private String techPassesComment;
     @Column(name = "T_BALL_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int techBallGrade;
     @Column(name = "T_BALL_C")
     private String techBallComment;
     @Column(name = "T_PRESSURE_G")
     private int techPressureGrade;
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     @Column(name = "T_PRESSURE_C")
     private String techPressureComment;
 
     @Column(name = "I_ORIENTATION_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int intellOrientationGrade;
     @Column(name = "I_ORIENTATION_C")
     private String intellOrientationComment;
     @Column(name = "I_OFF_DEF_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int intellOffToDefGrade;
     @Column(name = "I_OFF_DEF_C")
     private String intellOffToDefComment;
     @Column(name = "I_DEF_OFF_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int intellDefToOfGrade;
     @Column(name = "I_DEF_OFF_C")
     private String intellDefToOfComment;
     @Column(name = "I_OFF_DUELS_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int intellOffDuelsGrade;
     @Column(name = "I_OFF_DUELS_C")
     private String intellOffDuelsComment;
     @Column(name = "I_DEF_DUELS_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int intellDefDuelsGrade;
     @Column(name = "I_DEF_DUELS_C")
     private String intellDefDuelsComment;
     @Column(name = "I_OFF_BEHAVE_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int intellOffBehaviorGrade;
     @Column(name = "I_OFF_BEHAVE_C")
     private String intellOffBehaviorComment;
     @Column(name = "I_DEF_BEHAVE_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int intellDefBehaviorGrade;
     @Column(name = "I_DEF_BEHAVE_C")
     private String intellDefBehaviorComment;
 
     @Column(name = "S_SPEED_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int speedSpeedGrade;
     @Column(name = "S_SPEED_C")
     private String speedSpeedComment;
     @Column(name = "S_POWER_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int speedPowerGrade;
     @Column(name = "S_POWER_C")
     private String speedPowerComment;
     @Column(name = "S_ENDURANCE_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int speedEnduranceGrade;
     @Column(name = "S_ENDURANCE_C")
     private String speedEnduranceComment;
 
     @Column(name = "P_EMOTIONS_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int persEmotionsGrade;
     @Column(name = "P_EMOTIONS_C")
     private String persEmotionsComment;
     @Column(name = "P_CONFIDENCE_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int persConfidenceGrade;
     @Column(name = "P_CONFIDENCE_C")
     private String persConfidenceComment;
     @Column(name = "P_ENGAGEMENT_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int persEngagementGrade;
     @Column(name = "P_ENGAGEMENT_C")
     private String persEngagementComment;
     @Column(name = "P_CONCENTRATION_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int persConcentrationGrade;
     @Column(name = "P_CONCENTRATION_C")
     private String persConcentrationComment;
     @Column(name = "P_COMMUNICATION_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int persCommunicationGrade;
     @Column(name = "P_COMMUNICATION_C")
     private String persCommunicationComment;
     @Column(name = "P_ADAPT_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int persAdaptGrade;
     @Column(name = "P_ADAPT_C")

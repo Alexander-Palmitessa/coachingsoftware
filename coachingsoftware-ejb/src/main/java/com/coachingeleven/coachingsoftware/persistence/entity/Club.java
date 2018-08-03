@@ -40,7 +40,7 @@ public class Club implements Serializable {
     @Column(name = "CLUB_ID")
     private int ID;
     @Column(name = "CLUB_NAME", nullable = false, unique = true)
-    @Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "{pattern.letter.number.space}")
+    @Pattern(regexp = "^[a-zA-Z0-9äöüÄÖÜéèêâà.\\s]+$", message = "{pattern.letter.number.space}")
     @NotNull(message = "{not.null}")
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "club", orphanRemoval = true)
