@@ -94,7 +94,6 @@ public class Player implements Serializable {
     private Set<PerformanceDiagnostics> performanceDiagnostics;
     @OneToMany(mappedBy = "player")
     private Set<EvaluationTalk> evaluationTalks;
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
     private String avatarUrl;
     @OneToMany(mappedBy = "player")
     private Set<ObserveTIPS> observeTIPS;

@@ -67,9 +67,14 @@ public class LoginBean implements Serializable {
 
 				try {
 					Player player1 = playerService.createPlayer(new Player("Elias","Schildknecht","test@test.ch"));
+					player1.setAvatarUrl("images/Default-avatar.jpg");
+					playerService.update(player1);
 					Player player2 = playerService.createPlayer(new Player("Alexander","Palmitessa","test@test2.ch"));
+					player2.setAvatarUrl("images/Default-avatar.jpg");
+					playerService.update(player2);
 					Club club = teamClubService.createClub(new Club("Verein 1"));
 					Team team = teamClubService.createTeam(new Team("Team 1",club));
+					team.setTeamPictureURL("images/sfv_u19.jpg");
 					HashSet<Player> players = new HashSet<Player>();
 					players.add(player1);
 					players.add(player2);

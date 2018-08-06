@@ -58,6 +58,7 @@ public class IndexBean {
         player1.setFirstName("Hans");
         player1.setLastName("Muller");
         player1.setEmail("hans@muller.com");
+        player1.setAvatarUrl("images/Default-avatar.jpg");
         player1 = playerServiceRemote.createPlayer(player1);
         
         Team team = new Team();
@@ -76,6 +77,7 @@ public class IndexBean {
         HashSet<Team> historyTeams = new HashSet<Team>();
         historyTeams.add(team);
         player2.setHistoryTeams(historyTeams);
+        player2.setAvatarUrl("images/Default-avatar.jpg");
         player2 = playerServiceRemote.createPlayer(player2);
         
 		club.addTeam(team);
