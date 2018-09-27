@@ -10,9 +10,7 @@ package com.coachingeleven.coachingsoftware.application.service;
 
 import com.coachingeleven.coachingsoftware.application.exception.ArenaAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.ArenaNotFoundException;
-import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Arena;
-import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.repository.ArenaRepository;
 
 import javax.ejb.EJB;
