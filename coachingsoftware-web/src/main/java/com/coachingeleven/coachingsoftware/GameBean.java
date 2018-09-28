@@ -177,7 +177,7 @@ public class GameBean implements Serializable {
 			resGoalsAway = currentGame.getResultGoalsAway();
 		} catch (GameNotFoundException e) {
 			createGame();
-			logger.log(Level.INFO, e.toString());
+			logger.log(Level.INFO, e.getMessage());
 			//TODO: DISPLAY ERROR PAGE?
 		}
 	}
@@ -199,7 +199,7 @@ public class GameBean implements Serializable {
 			if (currentTeam.getGamesAway() != null)
 				allGames.addAll(currentTeam.getGamesAway());
 		} catch (TeamNotFoundException e) {
-			logger.log(Level.INFO, e.toString());
+			logger.log(Level.INFO, e.getMessage());
 			//TODO: DISPLAY ERROR PAGE?
 		}
 
@@ -239,7 +239,7 @@ public class GameBean implements Serializable {
 			allGames = new ArrayList<>(teamClubService.findTeam(loginBean.getUserTeamID()).getGamesHome());
 			allGames.addAll(teamClubService.findTeam(loginBean.getUserTeamID()).getGamesAway());
 		} catch (TeamNotFoundException e) {
-			logger.log(Level.INFO, e.toString());
+			logger.log(Level.INFO, e.getMessage());
 			//TODO: DISPLAY ERROR PAGE
 		}
 		reset();
@@ -261,7 +261,7 @@ public class GameBean implements Serializable {
 			game.setTeamHome(homeTeam);
 			game.setTeamAway(awayTeam);
 		} catch (ArenaNotFoundException | TeamNotFoundException e) {
-			logger.log(Level.INFO, e.toString());
+			logger.log(Level.INFO, e.getMessage());
 			//TODO: DISPLAY ERROR PAGE?
 		}
 	}
@@ -314,7 +314,7 @@ public class GameBean implements Serializable {
 						goal.setScorer(playerService.findPlayer(goal.getScorer().getID()));
 					} catch (PlayerNotFoundException e) {
 						//TODO: DISPLAY ERROR PAGE?
-						logger.log(Level.INFO, e.toString());
+						logger.log(Level.INFO, e.getMessage());
 					}
 				} else if (goal.getScorer().getID() == 0) goal.setScorer(null);
 			}
@@ -324,7 +324,7 @@ public class GameBean implements Serializable {
 						goal.setAssistant(playerService.findPlayer(goal.getAssistant().getID()));
 					} catch (PlayerNotFoundException e) {
 						//TODO: DISPLAY ERROR PAGE?
-						logger.log(Level.INFO, e.toString());
+						logger.log(Level.INFO, e.getMessage());
 					}
 				} else if (goal.getAssistant().getID() == 0) goal.setAssistant(null);
 			}
@@ -340,7 +340,7 @@ public class GameBean implements Serializable {
 		try {
 			currentGame.setArena(arenaService.findArena(selectedArena));
 		} catch (ArenaNotFoundException e) {
-			logger.log(Level.INFO, e.toString());
+			logger.log(Level.INFO, e.getMessage());
 			//TODO: ERROR PAGE
 		}
 		currentGame = gameService.update(currentGame);
@@ -350,7 +350,7 @@ public class GameBean implements Serializable {
 			teamClubService.findTeam(teamAway).getGamesAway().add(currentGame);
 			teamClubService.updateTeam(teamClubService.findTeam(teamAway));
 		} catch (TeamNotFoundException e) {
-			logger.log(Level.INFO, e.toString());
+			logger.log(Level.INFO, e.getMessage());
 			//TODO: ERROR PAGE
 		}
 		allGames = gameService.findAllGames();
