@@ -292,6 +292,7 @@ public class GameBean implements Serializable {
 	 * Set to Scorer and/or Assistant of the Goal to a new Player if they are null
 	 * to avoid unreachable Player.ID
 	 */
+	//TODO: --> JSF CONVERTER
 	private void setNullPlayersToNewPlayers() {
 		for (Goal goal : currentGame.getGoals()) {
 			if (goal.getScorer() == null) goal.setScorer(new Player());
@@ -304,7 +305,7 @@ public class GameBean implements Serializable {
 	 *
 	 * @return redirect to the same page
 	 */
-	//TODO: Reduce cognitive complexity
+	//TODO: Reduce cognitive complexity, --> JSF CONVERTER
 	public String updateGame() {
 		//Prepare Goals
 		for (Goal goal : currentGame.getGoals()) {

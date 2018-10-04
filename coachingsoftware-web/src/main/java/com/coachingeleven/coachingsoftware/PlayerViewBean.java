@@ -51,7 +51,9 @@ public class PlayerViewBean {
 		if(currentPlayer.getAddress() == null) currentPlayer.setAddress(new Address());
 		// Create new country if player doesn't have one assigned
 		if(currentPlayer.getAddress().getCountry() == null) currentPlayer.getAddress().setCountry(new Country());
-		oldEmailAddress = currentPlayer.getEmail();
+		//assign empty string if email is null
+		if(currentPlayer.getEmail() == null) oldEmailAddress = "";
+		else oldEmailAddress = currentPlayer.getEmail();
 	}
 	
 	public void updateCurrentPlayer() {
