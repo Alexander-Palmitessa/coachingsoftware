@@ -23,10 +23,10 @@ public class Address implements Serializable {
 	private static final long serialVersionUID = -1351895022038783357L;
 	
 	@Column(name = "CITY")
-	@Pattern(regexp = "[a-zA-ZäöüÄÖÜéèêâà\\s]+$", message = "{pattern.letter.space}")
+	@Pattern(regexp = "[a-zA-Z0-9äöüÄÖÜéÉèÈàÀîÎâÂêÊôÔûÛ\\s]+$", message = "{pattern.letter.space}")
 	private String city;
 	@Column(name = "STREET")
-	@Pattern(regexp = "^[a-zA-Z0-9äöüÄÖÜéèêâà.\\s]+$", message = "{pattern.letter.space}")
+	@Pattern(regexp = "^[a-zA-Z0-9äöüÄÖÜéÉèÈàÀîÎâÂêÊôÔûÛ.\\s]+$", message = "{pattern.letter.space}")
 	private String street;
 	@Column(name = "STREET_NR")
 	@Pattern(regexp = "^[\\w\\s]+$", message = "{pattern.letter.number.space}")

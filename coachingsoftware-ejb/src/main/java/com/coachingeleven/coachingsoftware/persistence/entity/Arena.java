@@ -28,7 +28,7 @@ public class Arena implements Serializable {
 	private int ID;
 	@Column(name = "NAME", nullable = false)
 	@NotNull(message = "{not.null}")
-	@Pattern(regexp = "^[a-zA-Z0-9äöüÄÖÜéèêâà.\\s]+$", message = "{pattern.letter.number.space")
+	@Pattern(regexp = "^[a-zA-Z0-9äöüÄÖÜéÉèÈàÀîÎâÂêÊôÔûÛ.\\s]+$", message = "{pattern.letter.number.space")
 	private String name;
 	@Embedded
 	private Address address;
