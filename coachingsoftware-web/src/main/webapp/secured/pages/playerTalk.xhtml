@@ -71,6 +71,11 @@
 									    <h:inputTextarea id="playerTalkGoals" value="#{evaluationTalkBean.newTalk.goals}"/>
 										<h:message for="playerTalkGoals" style="color: red"/>
 							        </div>
+									<div class="small-12 column">
+										<label><h:outputText value="#{msg['measures']}"/></label>
+										<h:inputTextarea id="playerTalkMeasures" value="#{evaluationTalkBean.newTalk.measures}"/>
+										<h:message for="playerTalkMeasures" style="color: red"/>
+									</div>
 								    <div class="small-12 column text-center">
 							        	<h:commandButton action="#{evaluationTalkBean.createPlayerTalk}" value="#{msg['createTalk']}"/>
 							        </div>
