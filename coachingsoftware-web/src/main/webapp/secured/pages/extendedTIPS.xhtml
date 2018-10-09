@@ -51,13 +51,14 @@
 							<p class="card-user-profile-name"><h:outputText value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/></p>
 							<h:form id="createPlayerTalk">
 								<div class="row">
-									<div class="small-12 medium-6 column">
+									<div class="small-12 medium-4 column">
 										<label><h:outputText value="#{msg['dateColumn']}"/></label>
 										<h:inputText id="datePickerExtendedTIPSDate" class="js-datepicker" value="#{extendedTIPSBean.newExtendedTIPSDateFormatted}"/>
 										<h:message for="datePickerExtendedTIPSDate" style="color: red"/>
 									</div>
 									<!-- TITLE T PASSES-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['t_passes']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="tpassesgrade" value="#{extendedTIPSBean.newExtendedTIPS.techPassesGrade}"/>
 										<h:message for="tpassesgrade" style="color: red"/>
@@ -68,7 +69,8 @@
 										<h:message for="tpassescomment" style="color: red"/>
 									</div>
 									<!-- TITLE T BALL-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['t_ball']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="tballgrade" value="#{extendedTIPSBean.newExtendedTIPS.techBallGrade}"/>
 										<h:message for="tballgrade" style="color: red"/>
@@ -79,7 +81,8 @@
 										<h:message for="tballcomment" style="color: red"/>
 									</div>
 									<!-- TITLE T PRESSURE-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['t_pressure']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="tpressuregrade" value="#{extendedTIPSBean.newExtendedTIPS.techPressureGrade}"/>
 										<h:message for="tpressuregrade" style="color: red"/>
@@ -90,7 +93,8 @@
 										<h:message for="tpressurecomment" style="color: red"/>
 									</div>
 									<!-- TITLE I ORIENTATION-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['i_orientation']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="iorientationgrade" value="#{extendedTIPSBean.newExtendedTIPS.intellOrientationGrade}"/>
 										<h:message for="iorientationgrade" style="color: red"/>
@@ -101,7 +105,8 @@
 										<h:message for="iorientationcomment" style="color: red"/>
 									</div>
 									<!-- TITLE I OFF TO DEF-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['i_offToDef']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="iofftodefgrade" value="#{extendedTIPSBean.newExtendedTIPS.intellOffToDefGrade}"/>
 										<h:message for="iofftodefgrade" style="color: red"/>
@@ -112,7 +117,8 @@
 										<h:message for="iofftodefcomment" style="color: red"/>
 									</div>
 									<!-- TITLE I DEF TO OFF-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['i_defToOff']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="ideftooffgrade" value="#{extendedTIPSBean.newExtendedTIPS.intellDefToOffGrade}"/>
 										<h:message for="ideftooffgrade" style="color: red"/>
@@ -123,7 +129,8 @@
 										<h:message for="idefotooffcomment" style="color: red"/>
 									</div>
 									<!-- TITLE I OFF DUELS-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['i_offDuels']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="ioffduelsgrade" value="#{extendedTIPSBean.newExtendedTIPS.intellOffDuelsGrade}"/>
 										<h:message for="ioffduelsgrade" style="color: red"/>
@@ -134,7 +141,8 @@
 										<h:message for="ioffduelscomment" style="color: red"/>
 									</div>
 									<!-- TITLE I DEF DUELS-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['i_defDuels']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="idefduelsgrade" value="#{extendedTIPSBean.newExtendedTIPS.intellDefDuelsGrade}"/>
 										<h:message for="idefduelsgrade" style="color: red"/>
@@ -145,7 +153,8 @@
 										<h:message for="idefduelscomment" style="color: red"/>
 									</div>
 									<!-- TITLE I OFF BEHAVE-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['i_offBehave']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="ioffbehavegrade" value="#{extendedTIPSBean.newExtendedTIPS.intellOffBehaviorGrade}"/>
 										<h:message for="ioffbehavegrade" style="color: red"/>
@@ -156,7 +165,8 @@
 										<h:message for="ioffbehavecommnet" style="color: red"/>
 									</div>
 									<!-- TITLE I DEF BEHAVE-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['i_defBehave']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="idefbehavegrade" value="#{extendedTIPSBean.newExtendedTIPS.intellDefBehaviorGrade}"/>
 										<h:message for="idefbehavegrade" style="color: red"/>
@@ -167,7 +177,8 @@
 										<h:message for="idefbehavecommnet" style="color: red"/>
 									</div>
 									<!-- TITLE P EMOTIONS-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['p_emotions']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="pemotionsgrade" value="#{extendedTIPSBean.newExtendedTIPS.persEmotionsGrade}"/>
 										<h:message for="pemotionsgrade" style="color: red"/>
@@ -178,7 +189,8 @@
 										<h:message for="pemotionscomment" style="color: red"/>
 									</div>
 									<!-- TITLE P CONFIDENCE-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['p_confidence']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="pconfgrade" value="#{extendedTIPSBean.newExtendedTIPS.persConfidenceGrade}"/>
 										<h:message for="pconfgrade" style="color: red"/>
@@ -189,7 +201,8 @@
 										<h:message for="pconfcomment" style="color: red"/>
 									</div>
 									<!-- TITLE P ENGAGEMENT-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['p_engagement']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="pengagegrade" value="#{extendedTIPSBean.newExtendedTIPS.persEngagementGrade}"/>
 										<h:message for="pengagegrade" style="color: red"/>
@@ -200,7 +213,8 @@
 										<h:message for="pengagecomment" style="color: red"/>
 									</div>
 									<!-- TITLE P CONCENTRATION-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['p_concentration']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="pconcentrationgrade" value="#{extendedTIPSBean.newExtendedTIPS.persConcentrationGrade}"/>
 										<h:message for="pconcentrationgrade" style="color: red"/>
@@ -211,7 +225,8 @@
 										<h:message for="pconcentrationcomment" style="color: red"/>
 									</div>
 									<!-- TITLE P COMMUNICATION-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['p_communication']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="pcommgrade" value="#{extendedTIPSBean.newExtendedTIPS.persCommunicationGrade}"/>
 										<h:message for="pcommgrade" style="color: red"/>
@@ -222,7 +237,8 @@
 										<h:message for="pcommcomment" style="color: red"/>
 									</div>
 									<!-- TITLE P ADPATABILITY-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['p_adaptability']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="padaptgrade" value="#{extendedTIPSBean.newExtendedTIPS.persAdaptGrade}"/>
 										<h:message for="padaptgrade" style="color: red"/>
@@ -233,7 +249,8 @@
 										<h:message for="padaptcomment" style="color: red"/>
 									</div>
 									<!-- TITLE S SPEED-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['s_speed']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="sspeedgrade" value="#{extendedTIPSBean.newExtendedTIPS.speedSpeedGrade}"/>
 										<h:message for="sspeedgrade" style="color: red"/>
@@ -244,7 +261,8 @@
 										<h:message for="sspeedcomment" style="color: red"/>
 									</div>
 									<!-- TITLE S POWER-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['s_power']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="spowergrade" value="#{extendedTIPSBean.newExtendedTIPS.speedPowerGrade}"/>
 										<h:message for="spowergrade" style="color: red"/>
@@ -255,7 +273,8 @@
 										<h:message for="spowercomment" style="color: red"/>
 									</div>
 									<!-- TITLE S ENDURANCE-->
-									<div class="small-12 medium-6 column">
+									<div class="small-12 column"><h2>#{msg['s_endurance']}</h2></div>
+									<div class="small-6 medium-2 column">
 										<label><h:outputText value="#{msg['grade']}"/></label>
 										<h:inputText id="sendurancegrade" value="#{extendedTIPSBean.newExtendedTIPS.speedEnduranceGrade}"/>
 										<h:message for="sendurancegrade" style="color: red"/>
@@ -266,14 +285,14 @@
 										<h:message for="sendurancecomment" style="color: red"/>
 									</div>
 									<!-- TITLE STRENGTHS-->
+									<div class="small-12 column"><h2>#{msg['strengths']}</h2></div>
 									<div class="small-12 column">
-										<label><h:outputText value="#{msg['comment']}"/></label>
 										<h:inputTextarea id="strengths" value="#{extendedTIPSBean.newExtendedTIPS.strengths}"/>
 										<h:message for="strengths" style="color: red"/>
 									</div>
 									<!-- TITLE WEAKNESSES-->
+									<div class="small-12 column"><h2>#{msg['weaknesses']}</h2></div>
 									<div class="small-12 column">
-										<label><h:outputText value="#{msg['comment']}"/></label>
 										<h:inputTextarea id="weaknesses" value="#{extendedTIPSBean.newExtendedTIPS.weaknesses}"/>
 										<h:message for="weaknesses" style="color: red"/>
 									</div>
