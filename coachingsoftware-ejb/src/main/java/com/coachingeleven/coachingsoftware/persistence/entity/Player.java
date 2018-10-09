@@ -92,7 +92,7 @@ public class Player implements Serializable {
     private Set<PlayerGameStats> gameStats;
     @OneToMany(mappedBy = "player")
     private Set<PerformanceDiagnostics> performanceDiagnostics;
-    @OneToMany(mappedBy = "player")
+    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     private Set<EvaluationTalk> evaluationTalks;
     @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
     private String avatarUrl;
@@ -348,6 +348,10 @@ public class Player implements Serializable {
 
 	public void setLineUps(Set<LineUpPlayer> lineUps) {
 		this.lineUps = lineUps;
+	}
+
+	public void addEvaluationTalk (EvaluationTalk evaluationTalk){
+		this.evaluationTalks.add(evaluationTalk);
 	}
 	
 }

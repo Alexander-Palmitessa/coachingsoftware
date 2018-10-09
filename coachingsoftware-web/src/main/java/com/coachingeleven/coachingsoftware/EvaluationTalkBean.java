@@ -3,6 +3,7 @@ package com.coachingeleven.coachingsoftware;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -14,6 +15,7 @@ import javax.inject.Named;
 
 import com.coachingeleven.coachingsoftware.application.exception.EvaluationTalkAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.service.PlayerEvaluationServiceRemote;
+import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.EvaluationTalk;
 
 @Named(value = "evaluationTalkBean")
@@ -25,6 +27,8 @@ public class EvaluationTalkBean {
 	
 	@EJB
 	private PlayerEvaluationServiceRemote evaluationTalkService;
+	@EJB
+	private PlayerServiceRemote playerService;
 	
 	private EvaluationTalk newTalk;
 	private String newTalkDateFormatted;
@@ -39,21 +43,21 @@ public class EvaluationTalkBean {
 	
 	public void createPlayerTalk() {
 		try {
-			// Set new birthday for current player
+			// Set new date for the evaluation talk
 			if(newTalkDateFormatted != null && !newTalkDateFormatted.isEmpty()) {
 				Calendar startDateCalendar = Calendar.getInstance();
 				startDateCalendar.setTime(dateFormatter.parse(newTalkDateFormatted));
 				newTalk.setDate(startDateCalendar);
 				newTalk.setPlayer(currentPlayerBean.getCurrentPlayer());
-				evaluationTalkService.createEvaluationTalk(newTalk);
+				currentPlayerBean.getCurrentPlayer().addEvaluationTalk(newTalk);
+				playerService.update(currentPlayerBean.getCurrentPlayer());
+				newTalk = new EvaluationTalk();
 			}
 		} catch (ParseException e) {
 			FacesContext facesContext = FacesContext.getCurrentInstance();
 			// TODO: localization
 			FacesMessage facesMessage = new FacesMessage("Invalid date format", "Date format must be in dd.MM.yyyy!");
 			facesContext.addMessage("createPlayerTalk:datePickerPlayerTalkDate", facesMessage);
-		} catch (EvaluationTalkAlreadyExistsException e) {
-			// TODO 
 		}
 	}
 
@@ -71,6 +75,11 @@ public class EvaluationTalkBean {
 
 	public void setNewTalkDateFormatted(String newTalkDateFormatted) {
 		this.newTalkDateFormatted = newTalkDateFormatted;
+	}
+
+	public String formatDate(Calendar date){
+		return Integer.toString(date.get(Calendar.DATE)) + "." + Integer.toString(date.get(Calendar.MONTH)) + "." +
+				Integer.toString(date.get(Calendar.YEAR));
 	}
 
 }

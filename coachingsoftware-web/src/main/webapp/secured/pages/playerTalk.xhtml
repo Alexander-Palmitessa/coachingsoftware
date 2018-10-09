@@ -84,6 +84,41 @@
 						</div>
 					</div>
 				</div>
+
+				<!-- List of all evaluation talks-->
+				<ui:repeat value="#{currentPlayerBean.currentPlayer.evaluationTalks}" var="eval_talk">
+					<div class="small-12 column card-user-profile">
+						<div class="card-container">
+							<div class="card-user-profile-content card-section">
+								<h:form>
+									<div class="row">
+										<div class="small-12 medium-6 column">
+											<label><h:outputText value="#{msg['dateColumn']}"/></label>
+											<h:outputText value="#{evaluationTalkBean.formatDate(eval_talk.date)}"/>
+										</div>
+										<div class="small-12 medium-6 column">
+											<label><h:outputText value="#{msg['timeHorizon']}"/></label>
+											<h:outputText value="#{eval_talk.timeHorizon}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['situationalAnalysis']}"/></label>
+											<h:outputText value="#{eval_talk.situationalAnalysis}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['goals']}"/></label>
+											<h:outputText value="#{eval_talk.goals}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['measures']}"/></label>
+											<h:outputText value="#{eval_talk.measures}"/>
+										</div>
+									</div>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</ui:repeat>
+
 			</div>
 		</h:panelGroup>
 		<h:panelGroup rendered="#{playerViewBean.currentPlayer == null}">
