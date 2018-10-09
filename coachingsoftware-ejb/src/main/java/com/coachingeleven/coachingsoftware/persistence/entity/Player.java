@@ -98,7 +98,7 @@ public class Player implements Serializable {
     private String avatarUrl;
     @OneToMany(mappedBy = "player")
     private Set<ObserveTIPS> observeTIPS;
-    @OneToMany(mappedBy = "player")
+    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     private Set<ExtendedTIPS> extendedTIPS;
 	@ManyToMany(mappedBy = "currentPlayers")
     private Set<Team> currentTeams;
@@ -353,5 +353,8 @@ public class Player implements Serializable {
 	public void addEvaluationTalk (EvaluationTalk evaluationTalk){
 		this.evaluationTalks.add(evaluationTalk);
 	}
-	
+
+	public void addExtendedTIPS(ExtendedTIPS ExtendedTIPS) {
+		this.extendedTIPS.add(ExtendedTIPS);
+	}
 }

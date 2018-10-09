@@ -57,9 +57,9 @@ public class ExtendedTIPS {
     @Column(name = "I_DEF_OFF_G")
     @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
-    private int intellDefToOfGrade;
+    private int intellDefToOffGrade;
     @Column(name = "I_DEF_OFF_C")
-    private String intellDefToOfComment;
+    private String intellDefToOffComment;
     @Column(name = "I_OFF_DUELS_G")
     @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
@@ -142,7 +142,7 @@ public class ExtendedTIPS {
     private String persAdaptComment;
 
     @Column(name = "STRENGTHS")
-    private String strenghts;
+    private String strengths;
     @Column(name = "WEAKNESSES")
     private String weaknesses;
 
@@ -153,8 +153,6 @@ public class ExtendedTIPS {
     @ManyToOne
     @JoinColumn(name = "PLAYER_ID")
     private Player player;
-
-    //TODO: PLAYER -> SET OF EXTENDED TIPS
 
     /**
      * JPA required default constructor
@@ -251,20 +249,20 @@ public class ExtendedTIPS {
         this.intellOffToDefComment = intellOffToDefComment;
     }
 
-    public int getIntellDefToOfGrade() {
-        return intellDefToOfGrade;
+    public int getIntellDefToOffGrade() {
+        return intellDefToOffGrade;
     }
 
-    public void setIntellDefToOfGrade(int intellDefToOfGrade) {
-        this.intellDefToOfGrade = intellDefToOfGrade;
+    public void setIntellDefToOffGrade(int intellDefToOfGrade) {
+        this.intellDefToOffGrade = intellDefToOfGrade;
     }
 
-    public String getIntellDefToOfComment() {
-        return intellDefToOfComment;
+    public String getIntellDefToOffComment() {
+        return intellDefToOffComment;
     }
 
-    public void setIntellDefToOfComment(String intellDefToOfComment) {
-        this.intellDefToOfComment = intellDefToOfComment;
+    public void setIntellDefToOffComment(String intellDefToOfComment) {
+        this.intellDefToOffComment = intellDefToOfComment;
     }
 
     public int getIntellOffDuelsGrade() {
@@ -475,12 +473,12 @@ public class ExtendedTIPS {
         this.persAdaptComment = persAdaptComment;
     }
 
-    public String getStrenghts() {
-        return strenghts;
+    public String getStrengths() {
+        return strengths;
     }
 
-    public void setStrenghts(String strenghts) {
-        this.strenghts = strenghts;
+    public void setStrengths(String strenghts) {
+        this.strengths = strenghts;
     }
 
     public String getWeaknesses() {
