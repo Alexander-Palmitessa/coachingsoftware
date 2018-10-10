@@ -8,6 +8,7 @@ import com.coachingeleven.coachingsoftware.persistence.repository.UserAccountRep
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.ejb.EJB;
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
@@ -142,6 +143,10 @@ public class UserService implements UserServiceRemote {
 
 	@Override
 	public void updateUser(UserAccount user) {
-		userRepository.update(user);
+        try{
+            userRepository.update(user);
+        } catch (EJBTransactionRolledbackException e){
+            // TODO: THIS IS JUST A WORKAROUND FOR THE EXCEPTION AFTER THE TEAMSELECTION AFTER THE LOGIN
+        }
 	}
 }
