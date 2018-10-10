@@ -75,3 +75,19 @@ form label.upload {
 form input.upload {
     display: none;
 }
+
+form label.upload.playerAvatarUpload {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+form .divider {
+	border-top: 1px solid #5D82A7;
+	border-bottom: 1px solid #5D82A7;
+	margin: 0 0 1rem 0;
+	text-align: center;
+}
+
+form .divider h3 {
+	margin: 0;
+}

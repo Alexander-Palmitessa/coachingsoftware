@@ -34,7 +34,7 @@
 							<h:outputLink value="#"><h:outputText value="#{msg['statistic']}"/></h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/extendedTIPS.xhtml"><h:outputText value="#{msg['ranking']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/playerRanking.xhtml"><h:outputText value="#{msg['ranking']}"/></h:outputLink>
 						</li>
 						<li>
 							<h:outputLink value="#{request.contextPath}/secured/pages/playerTalk.xhtml"><h:outputText value="#{msg['conversation']}"/></h:outputLink>
@@ -46,9 +46,19 @@
 						<div class="grey-background"></div>
 						<div class="card-user-profile-content card-section">
 							<div class="card-user-profile-avatar">
-								<h:graphicImage name="images/Default-avatar.jpg" />
+								<h:graphicImage id="playerPicture" name="#{playerViewBean.currentPlayer.avatarUrl}" />
 							</div>
-							<p class="card-user-profile-name"><h:outputText value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/></p>
+							<p class="card-user-profile-name playerView"><h:outputText value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/></p>
+							<div class="row" style="display: none">
+					    		<div class="small-12 medium-3 column">
+					    			<h:form enctype="multipart/form-data">
+										<h:outputLabel for="uploadPlayerPicture" value="#{msg['changeAvatar']}" styleClass="secondary-button upload playerAvatarUpload" />
+									    <h:inputFile id="uploadPlayerPicture" value="#{uploadBean.file}" styleClass="upload">
+									        <f:ajax listener="#{uploadBean.updatePlayerPicture}" render="playerPicture" />
+									    </h:inputFile>
+									</h:form>
+					    		</div>
+					    	</div>
 							<h:form id="updatePlayerForm">
 					        	<div class="row">
 							        <div class="small-12 medium-6 column">

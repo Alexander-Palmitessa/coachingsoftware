@@ -14,6 +14,7 @@ import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyE
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
 import com.coachingeleven.coachingsoftware.application.exception.SeasonNotFoundException;
 import com.coachingeleven.coachingsoftware.application.exception.TeamAlreadyExistsException;
+import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.SeasonServiceRemote;
@@ -60,7 +61,11 @@ public class TeamDataBean {
 	
 	@PostConstruct
     public void init() {
-		currentTeam = loginBean.getLoggedInUser().getTeam();
+		try {
+			currentTeam = teamClubService.findTeam(loginBean.getLoggedInUser().getTeam().getID());
+		} catch (TeamNotFoundException e) {
+			// TODO
+		}
 		allClubs = teamClubService.findAllClubs();
 		selectedClubID = currentTeam.getClub().getID();
 		selectedClub = currentTeam.getClub();
