@@ -30,7 +30,7 @@ public class Objective implements Serializable {
 	@JoinColumn(name = "GAME_ID", nullable = false)
 	private Game game;
 	@Column(name = "NAME")
-	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "{pattern.letter.number.space}")
+	@Pattern(regexp = "^[a-zA-Z0-9äöüÄÖÜéèêâà.\\s]+$", message = "{pattern.letter.number.space}")
 	private String name;
 	@Column(name = "GOALS")
 	private String goals;

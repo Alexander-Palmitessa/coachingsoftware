@@ -40,11 +40,11 @@ public class Player implements Serializable {
     @Column(name = "PLAYER_ID")
     private int ID;
     @Column(name = "FIRST_NAME", nullable = false)
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+    @Pattern(regexp = "^[a-zA-ZäöüÄÖÜéÉèÈàÀîÎâÂêÊôÔûÛ\\s]+$", message = "{pattern.letter.space}")
     @NotNull
     private String firstName;
     @Column(name = "LAST_NAME", nullable = false)
-    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+    @Pattern(regexp = "^[a-zA-ZäöüÄÖÜéÉèÈàÀîÎâÂêÊôÔûÛ\\s]+$", message = "{pattern.letter.space}")
     @NotNull
     private String lastName;
     @Embedded
@@ -92,12 +92,12 @@ public class Player implements Serializable {
     private Set<PlayerGameStats> gameStats;
     @OneToMany(mappedBy = "player")
     private Set<PerformanceDiagnostics> performanceDiagnostics;
-    @OneToMany(mappedBy = "player")
+    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     private Set<EvaluationTalk> evaluationTalks;
     private String avatarUrl;
     @OneToMany(mappedBy = "player")
     private Set<ObserveTIPS> observeTIPS;
-    @OneToMany(mappedBy = "player")
+    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     private Set<ExtendedTIPS> extendedTIPS;
 	@ManyToMany(mappedBy = "currentPlayers")
     private Set<Team> currentTeams;
@@ -348,5 +348,12 @@ public class Player implements Serializable {
 	public void setLineUps(Set<LineUpPlayer> lineUps) {
 		this.lineUps = lineUps;
 	}
-	
+
+	public void addEvaluationTalk (EvaluationTalk evaluationTalk){
+		this.evaluationTalks.add(evaluationTalk);
+	}
+
+	public void addExtendedTIPS(ExtendedTIPS ExtendedTIPS) {
+		this.extendedTIPS.add(ExtendedTIPS);
+	}
 }

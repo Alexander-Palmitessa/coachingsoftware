@@ -8,7 +8,6 @@ import com.coachingeleven.coachingsoftware.persistence.entity.*;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import java.util.HashSet;
 import java.util.Set;
 
 @Named("playerGameStatsBean")

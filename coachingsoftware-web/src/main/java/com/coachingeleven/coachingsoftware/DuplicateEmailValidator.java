@@ -21,16 +21,18 @@ public class DuplicateEmailValidator implements Validator {
 
 	@Override
 	public void validate(FacesContext facesContext, UIComponent uiComponent, Object value) throws ValidatorException {
-		try {
-			playerService.findPlayer(value.toString());
-			FacesMessage msg =
-					new FacesMessage("Email already exists",
-							"Email already exists!");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+		if(value != null) {
+			try {
+				playerService.findPlayer(value.toString());
+				FacesMessage msg =
+						new FacesMessage("Email already exists",
+								"Email already exists!");
+				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 
-			throw new ValidatorException(msg);
-		} catch (PlayerNotFoundException e) {
-			//do nothing
+				throw new ValidatorException(msg);
+			} catch (PlayerNotFoundException e) {
+				//do nothing
+			}
 		}
 	}
 }
