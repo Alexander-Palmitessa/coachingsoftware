@@ -118,4 +118,12 @@ public class NavigationBean implements Serializable {
 	public String toLineUpForm() {
 		return "/secured/forms/lineUpForm.xhtml";
 	}
+
+	public String redirectToEvaluationTalkForm() {
+		return "/secured/pages/playerTalk.xhtml?faces-redirect=true";
+	}
+
+	public String toEvaluationTalkForm() {
+		return "/secured/pages/playerTalk.xhtml";
+	}
 }

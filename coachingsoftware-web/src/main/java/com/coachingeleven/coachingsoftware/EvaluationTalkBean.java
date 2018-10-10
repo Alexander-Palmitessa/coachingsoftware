@@ -29,6 +29,8 @@ public class EvaluationTalkBean {
 	private PlayerEvaluationServiceRemote evaluationTalkService;
 	@EJB
 	private PlayerServiceRemote playerService;
+	@Inject
+	private NavigationBean navigationBean;
 	
 	private EvaluationTalk newTalk;
 	private String newTalkDateFormatted;
@@ -41,7 +43,7 @@ public class EvaluationTalkBean {
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 	}
 	
-	public void createPlayerTalk() {
+	public String createPlayerTalk() {
 		try {
 			// Set new date for the evaluation talk
 			if(newTalkDateFormatted != null && !newTalkDateFormatted.isEmpty()) {
@@ -49,6 +51,7 @@ public class EvaluationTalkBean {
 				startDateCalendar.setTime(dateFormatter.parse(newTalkDateFormatted));
 				newTalk.setDate(startDateCalendar);
 				newTalk.setPlayer(currentPlayerBean.getCurrentPlayer());
+				newTalk = evaluationTalkService.createEvaluationTalk(newTalk);
 				currentPlayerBean.getCurrentPlayer().addEvaluationTalk(newTalk);
 				playerService.update(currentPlayerBean.getCurrentPlayer());
 				newTalk = new EvaluationTalk();
@@ -58,7 +61,11 @@ public class EvaluationTalkBean {
 			// TODO: localization
 			FacesMessage facesMessage = new FacesMessage("Invalid date format", "Date format must be in dd.MM.yyyy!");
 			facesContext.addMessage("createPlayerTalk:datePickerPlayerTalkDate", facesMessage);
+		} catch (EvaluationTalkAlreadyExistsException e) {
+			e.printStackTrace();
+			//TODO: Logger
 		}
+		return navigationBean.redirectToEvaluationTalkForm();
 	}
 
 	public EvaluationTalk getNewTalk() {

@@ -1,5 +1,7 @@
 package com.coachingeleven.coachingsoftware;
 
+import com.coachingeleven.coachingsoftware.application.exception.ExtendedTIPSNotFoundException;
+import com.coachingeleven.coachingsoftware.application.service.ExtendedTIPSServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.EvaluationTalk;
 import com.coachingeleven.coachingsoftware.persistence.entity.ExtendedTIPS;
@@ -26,6 +28,9 @@ public class ExtendedTIPSBean {
 	@EJB
 	private PlayerServiceRemote playerService;
 
+	@EJB
+	private ExtendedTIPSServiceRemote extendedTIPSService;
+
 	private ExtendedTIPS newExtendedTIPS;
 	private String newExtendedTIPSDateFormatted;
 	private SimpleDateFormat dateFormatter;
@@ -45,6 +50,7 @@ public class ExtendedTIPSBean {
 				startDateCalendar.setTime(dateFormatter.parse(newExtendedTIPSDateFormatted));
 				newExtendedTIPS.setDate(startDateCalendar);
 				newExtendedTIPS.setPlayer(currentPlayerBean.getCurrentPlayer());
+				newExtendedTIPS = extendedTIPSService.createExtendedTIPS(newExtendedTIPS);
 				currentPlayerBean.getCurrentPlayer().addExtendedTIPS(newExtendedTIPS);
 				playerService.update(currentPlayerBean.getCurrentPlayer());
 				newExtendedTIPS = new ExtendedTIPS();
@@ -54,6 +60,9 @@ public class ExtendedTIPSBean {
 			// TODO: localization
 			FacesMessage facesMessage = new FacesMessage("Invalid date format", "Date format must be in dd.MM.yyyy!");
 			facesContext.addMessage("createExtendedTIPS:datePickerExtendedTIPSDate", facesMessage);
+		} catch (ExtendedTIPSNotFoundException e) {
+			e.printStackTrace();
+			//TODO: Logger
 		}
 	}
 
