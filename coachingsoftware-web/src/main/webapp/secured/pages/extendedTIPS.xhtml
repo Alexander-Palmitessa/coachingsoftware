@@ -297,7 +297,7 @@
 										<h:message for="weaknesses" style="color: red"/>
 									</div>
 									<div class="small-12 column text-center">
-										<h:commandButton action="#{evaluationTalkBean.createPlayerTalk}" value="#{msg['createExtTIPS']}"/>
+										<h:commandButton action="#{extendedTIPSBean.createExtendedTIPS}" value="#{msg['createExtTIPS']}"/>
 									</div>
 								</div>
 							</h:form>
@@ -306,8 +306,221 @@
 				</div>
 
 				<!-- List of all extend TIPS -->
-				<ui:repeat value="#{currentPlayerBean.currentPlayer.extendedTIPS}" var="ext_tips">
-					<!-- TODO LIST + TITLES ABOVE-->
+				<ui:repeat value="#{currentPlayerBean.currentPlayer.extendedTIPS}" var="etips">
+					<div class="small-12 column card-user-profile">
+						<div class="card-container">
+							<div class="card-user-profile-content card-section">
+								<h:form>
+									<div class="row">
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['dateColumn']}"/></label>
+											<h:outputText value="#{extendedTIPSBean.formatDate(etips.date)}"/>
+										</div>
+										<!-- TITLE T PASSES-->
+										<div class="small-12 column"><h2>#{msg['t_passes']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText  value="#{etips.techPassesGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.techPassesComment}"/>
+										</div>
+										<!-- TITLE T BALL-->
+										<div class="small-12 column"><h2>#{msg['t_ball']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.techBallGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.techBallComment}"/>
+										</div>
+										<!-- TITLE T PRESSURE-->
+										<div class="small-12 column"><h2>#{msg['t_pressure']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.techPressureGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText  value="#{etips.techPressureComment}"/>
+										</div>
+										<!-- TITLE I ORIENTATION-->
+										<div class="small-12 column"><h2>#{msg['i_orientation']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.intellOrientationGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.intellOrientationComment}"/>
+										</div>
+										<!-- TITLE I OFF TO DEF-->
+										<div class="small-12 column"><h2>#{msg['i_offToDef']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.intellOffToDefGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.intellOffToDefComment}"/>
+										</div>
+										<!-- TITLE I DEF TO OFF-->
+										<div class="small-12 column"><h2>#{msg['i_defToOff']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText  value="#{etips.intellDefToOffGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.intellDefToOffComment}"/>
+										</div>
+										<!-- TITLE I OFF DUELS-->
+										<div class="small-12 column"><h2>#{msg['i_offDuels']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.intellOffDuelsGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.intellOffDuelsComment}"/>
+										</div>
+										<!-- TITLE I DEF DUELS-->
+										<div class="small-12 column"><h2>#{msg['i_defDuels']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.intellDefDuelsGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.intellDefDuelsComment}"/>
+										</div>
+										<!-- TITLE I OFF BEHAVE-->
+										<div class="small-12 column"><h2>#{msg['i_offBehave']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.intellOffBehaviorGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.intellOffBehaviorComment}"/>
+										</div>
+										<!-- TITLE I DEF BEHAVE-->
+										<div class="small-12 column"><h2>#{msg['i_defBehave']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.intellDefBehaviorGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.intellDefBehaviorComment}"/>
+										</div>
+										<!-- TITLE P EMOTIONS-->
+										<div class="small-12 column"><h2>#{msg['p_emotions']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.persEmotionsGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.persEmotionsComment}"/>
+										</div>
+										<!-- TITLE P CONFIDENCE-->
+										<div class="small-12 column"><h2>#{msg['p_confidence']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.persConfidenceGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.persConfidenceComment}"/>
+										</div>
+										<!-- TITLE P ENGAGEMENT-->
+										<div class="small-12 column"><h2>#{msg['p_engagement']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.persEngagementGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.persEngagementComment}"/>
+										</div>
+										<!-- TITLE P CONCENTRATION-->
+										<div class="small-12 column"><h2>#{msg['p_concentration']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.persConcentrationGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.persConcentrationComment}"/>
+										</div>
+										<!-- TITLE P COMMUNICATION-->
+										<div class="small-12 column"><h2>#{msg['p_communication']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.persCommunicationGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.persCommunicationComment}"/>
+										</div>
+										<!-- TITLE P ADPATABILITY-->
+										<div class="small-12 column"><h2>#{msg['p_adaptability']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.persAdaptGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.persAdaptComment}"/>
+										</div>
+										<!-- TITLE S SPEED-->
+										<div class="small-12 column"><h2>#{msg['s_speed']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.speedSpeedGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.speedSpeedComment}"/>
+										</div>
+										<!-- TITLE S POWER-->
+										<div class="small-12 column"><h2>#{msg['s_power']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.speedPowerGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.speedPowerComment}"/>
+										</div>
+										<!-- TITLE S ENDURANCE-->
+										<div class="small-12 column"><h2>#{msg['s_endurance']}</h2></div>
+										<div class="small-6 medium-2 column">
+											<label><h:outputText value="#{msg['grade']}"/></label>
+											<h:outputText value="#{etips.speedEnduranceGrade}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['comment']}"/></label>
+											<h:outputText value="#{etips.speedEnduranceComment}"/>
+										</div>
+										<!-- TITLE STRENGTHS-->
+										<div class="small-12 column"><h2>#{msg['strengths']}</h2></div>
+										<div class="small-12 column">
+											<h:outputText value="#{etips.strengths}"/>
+										</div>
+										<!-- TITLE WEAKNESSES-->
+										<div class="small-12 column"><h2>#{msg['weaknesses']}</h2></div>
+										<div class="small-12 column">
+											<h:outputText value="#{etips.weaknesses}"/>
+										</div>
+									</div>
+								</h:form>
+							</div>
+						</div>
+					</div>
 				</ui:repeat>
 
 			</div>

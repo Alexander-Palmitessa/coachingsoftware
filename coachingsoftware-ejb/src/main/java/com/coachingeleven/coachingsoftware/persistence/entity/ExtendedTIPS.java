@@ -12,11 +12,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 import java.util.Calendar;
 
 @Entity
 @Table(name = "EXTENDED_TIPS")
-public class ExtendedTIPS {
+public class ExtendedTIPS implements Serializable {
 
     @Id
     @Column(name = "EXTENDED_TIPS_ID")
@@ -36,9 +37,9 @@ public class ExtendedTIPS {
     @Column(name = "T_BALL_C")
     private String techBallComment;
     @Column(name = "T_PRESSURE_G")
-    private int techPressureGrade;
     @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
+    private int techPressureGrade;
     @Column(name = "T_PRESSURE_C")
     private String techPressureComment;
 
