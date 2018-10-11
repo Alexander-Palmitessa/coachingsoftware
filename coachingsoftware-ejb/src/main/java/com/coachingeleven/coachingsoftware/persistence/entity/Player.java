@@ -356,4 +356,8 @@ public class Player implements Serializable {
 	public void addExtendedTIPS(ExtendedTIPS ExtendedTIPS) {
 		this.extendedTIPS.add(ExtendedTIPS);
 	}
+
+	public void addPerformanceDiagnostics(PerformanceDiagnostics performanceDiagnostics) {
+		this.performanceDiagnostics.add(performanceDiagnostics);
+	}
 }

@@ -20,10 +20,14 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Named("teamContactBean")
 @RequestScoped
 public class TeamContactBean {
+
+	private static final Logger logger = Logger.getLogger(TeamContactBean.class.getName());
 
 	@Inject
 	private LoginBean loginBean;
@@ -61,8 +65,7 @@ public class TeamContactBean {
 				teamContacts.addAll(currentTeam.getTeamContacts());
 			}
 		} catch (TeamNotFoundException e) {
-			e.printStackTrace();
-			//TODO: LOGGER
+			logger.log(Level.INFO, e.getMessage());
 		}
 	}
 
@@ -81,8 +84,7 @@ public class TeamContactBean {
 			teamClubService.updateTeam(currentTeam);
 
 		} catch (TeamContactAlreadyExistsException e) {
-			e.printStackTrace();
-			//TODO: LOGGER
+			logger.log(Level.INFO, e.getMessage());
 		}
 		return navigationBean.redirectToAddressOverview();
 	}

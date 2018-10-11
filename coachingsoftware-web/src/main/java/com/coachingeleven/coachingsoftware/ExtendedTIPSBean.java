@@ -17,10 +17,14 @@ import javax.inject.Named;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Named(value = "extendedTIPSBean")
 @RequestScoped
 public class ExtendedTIPSBean {
+
+	private static final Logger logger = Logger.getLogger(ExtendedTIPSBean.class.getName());
 
 	@Inject
 	private CurrentPlayerBean currentPlayerBean;
@@ -44,7 +48,6 @@ public class ExtendedTIPSBean {
 
 	public void createExtendedTIPS() {
 		try {
-			// Set new date for the extended TIPS
 			if(newExtendedTIPSDateFormatted != null && !newExtendedTIPSDateFormatted.isEmpty()) {
 				Calendar startDateCalendar = Calendar.getInstance();
 				startDateCalendar.setTime(dateFormatter.parse(newExtendedTIPSDateFormatted));
@@ -61,8 +64,7 @@ public class ExtendedTIPSBean {
 			FacesMessage facesMessage = new FacesMessage("Invalid date format", "Date format must be in dd.MM.yyyy!");
 			facesContext.addMessage("createExtendedTIPS:datePickerExtendedTIPSDate", facesMessage);
 		} catch (ExtendedTIPSNotFoundException e) {
-			e.printStackTrace();
-			//TODO: Logger
+			logger.log(Level.INFO, e.getMessage());
 		}
 	}
 
