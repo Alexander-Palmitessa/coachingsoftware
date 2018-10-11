@@ -2,12 +2,14 @@ package com.coachingeleven.coachingsoftware.persistence.repository;
 
 import com.coachingeleven.coachingsoftware.persistence.entity.TeamContact;
 
+import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import static javax.ejb.TransactionAttributeType.SUPPORTS;
 
+@Stateless
 public class TeamContactRepository extends Repository<TeamContact> {
 
 	@TransactionAttribute(SUPPORTS)

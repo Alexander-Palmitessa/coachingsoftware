@@ -16,13 +16,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "TEAM_CONTACT")
 @NamedQueries({
 		@NamedQuery(name = "findTeamContact",
 				query = "SELECT tc FROM TeamContact tc WHERE LOWER(tc.email) = LOWER(:email)")})
-public class TeamContact {
+public class TeamContact implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

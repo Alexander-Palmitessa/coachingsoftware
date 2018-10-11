@@ -198,4 +198,16 @@ public class Team implements Serializable {
 	public void setGamesAway(Set<Game> gamesAway) {
 		this.gamesAway = gamesAway;
 	}
+
+	public Set<TeamContact> getTeamContacts() {
+		return teamContacts;
+	}
+
+	public void setTeamContacts(Set<TeamContact> teamContacts) {
+		this.teamContacts = teamContacts;
+	}
+
+	public void addTeamContact(TeamContact teamContact){
+		teamContacts.add(teamContact);
+	}
 }

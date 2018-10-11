@@ -6,9 +6,17 @@ import com.coachingeleven.coachingsoftware.persistence.entity.TeamContact;
 import com.coachingeleven.coachingsoftware.persistence.repository.TeamContactRepository;
 
 import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static javax.ejb.TransactionAttributeType.REQUIRED;
+
+@LocalBean
+@Stateless(name = "teamContactService")
+@TransactionAttribute(REQUIRED)
 public class TeamContactService implements TeamContactServiceRemote {
 
 	private static final Logger logger = Logger.getLogger(TeamContactService.class.getName());

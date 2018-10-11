@@ -126,4 +126,12 @@ public class NavigationBean implements Serializable {
 	public String toEvaluationTalkForm() {
 		return "/secured/pages/playerTalk.xhtml";
 	}
+
+	public String redirectToAddressOverview() {
+		return "/secured/pages/addressOverview.xhtml?faces-redirect=true";
+	}
+
+	public String toAddressOverview() {
+		return "/secured/pages/addressOverview.xhtml";
+	}
 }

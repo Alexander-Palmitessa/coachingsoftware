@@ -4,6 +4,9 @@ import com.coachingeleven.coachingsoftware.application.exception.TeamContactAlre
 import com.coachingeleven.coachingsoftware.application.exception.TeamContactNotFoundException;
 import com.coachingeleven.coachingsoftware.persistence.entity.TeamContact;
 
+import javax.ejb.Remote;
+
+@Remote
 public interface TeamContactServiceRemote {
 	TeamContact createTeamContact(TeamContact teamContact) throws TeamContactAlreadyExistsException;
 	TeamContact findTeamContact(int id) throws TeamContactNotFoundException;
