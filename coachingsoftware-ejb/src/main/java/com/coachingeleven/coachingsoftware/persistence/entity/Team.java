@@ -75,6 +75,8 @@ public class Team implements Serializable {
 	private Set<Season> seasons;
 	@ManyToMany(mappedBy = "historyTeams")
 	private Set<Player> historyPlayers;
+	@OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<TeamContact> teamContacts;
 
 
 	public Team(String name, Club club) {
