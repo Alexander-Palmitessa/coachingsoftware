@@ -84,7 +84,7 @@ public class PerformanceDiagnosticsBean {
 		} catch (PerformanceDiagnosticsAlreadyExistsException e) {
 			logger.log(Level.INFO, e.getMessage());
 		}
-		return navigationBean.redirectToEvaluationTalkForm();
+		return navigationBean.redirectToPerformanceDiagnosticsForm();
 	}
 
 	public PerformanceDiagnostics getNewPerfDiag() {
