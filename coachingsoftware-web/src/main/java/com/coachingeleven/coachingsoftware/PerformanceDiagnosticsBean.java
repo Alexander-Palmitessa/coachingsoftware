@@ -3,7 +3,12 @@ package com.coachingeleven.coachingsoftware;
 import com.coachingeleven.coachingsoftware.application.exception.PerformanceDiagnosticsAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.service.PlayerEvaluationServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
+import com.coachingeleven.coachingsoftware.persistence.entity.FunctionalMovementScreen;
+import com.coachingeleven.coachingsoftware.persistence.entity.JumpDiagnostic;
 import com.coachingeleven.coachingsoftware.persistence.entity.PerformanceDiagnostics;
+import com.coachingeleven.coachingsoftware.persistence.entity.SpeedDiagnostic;
+import com.coachingeleven.coachingsoftware.persistence.entity.TrunkDiagnostic;
+import com.coachingeleven.coachingsoftware.persistence.entity.YoYoTest;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -34,6 +39,11 @@ public class PerformanceDiagnosticsBean {
 	private NavigationBean navigationBean;
 
 	private PerformanceDiagnostics newPerfDiag;
+	private SpeedDiagnostic newSpeedDiag;
+	private JumpDiagnostic newJumpDiag;
+	private TrunkDiagnostic newTrunkDiag;
+	private FunctionalMovementScreen newFunctionalMove;
+	private YoYoTest newYoyoTest;
 	private String newTalkDateFormatted;
 
 	private SimpleDateFormat dateFormatter;
@@ -41,6 +51,11 @@ public class PerformanceDiagnosticsBean {
 	@PostConstruct
 	public void init() {
 		newPerfDiag = new PerformanceDiagnostics();
+		newSpeedDiag = new SpeedDiagnostic();
+		newJumpDiag = new JumpDiagnostic();
+		newTrunkDiag = new TrunkDiagnostic();
+		newYoyoTest = new YoYoTest();
+		newFunctionalMove = new FunctionalMovementScreen();
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 	}
 
@@ -50,6 +65,11 @@ public class PerformanceDiagnosticsBean {
 				Calendar startDateCalendar = Calendar.getInstance();
 				startDateCalendar.setTime(dateFormatter.parse(newTalkDateFormatted));
 				newPerfDiag.setDate(startDateCalendar);
+				newPerfDiag.setSpeedDiagnostic(newSpeedDiag);
+				newPerfDiag.setJumpDiagnostic(newJumpDiag);
+				newPerfDiag.setTrunkDiagnostic(newTrunkDiag);
+				newPerfDiag.setYoYoTest(newYoyoTest);
+				newPerfDiag.setFunctionalMovementScreen(newFunctionalMove);
 				newPerfDiag.setPlayer(currentPlayerBean.getCurrentPlayer());
 				newPerfDiag = evaluationService.createPerformanceDiagnostics(newPerfDiag);
 				currentPlayerBean.getCurrentPlayer().addPerformanceDiagnostics(newPerfDiag);
@@ -71,6 +91,46 @@ public class PerformanceDiagnosticsBean {
 		return newPerfDiag;
 	}
 
+	public SpeedDiagnostic getNewSpeedDiag() {
+		return newSpeedDiag;
+	}
+
+	public void setNewSpeedDiag(SpeedDiagnostic newSpeedDiag) {
+		this.newSpeedDiag = newSpeedDiag;
+	}
+
+	public JumpDiagnostic getNewJumpDiag() {
+		return newJumpDiag;
+	}
+
+	public void setNewJumpDiag(JumpDiagnostic newJumpDiag) {
+		this.newJumpDiag = newJumpDiag;
+	}
+
+	public TrunkDiagnostic getNewTrunkDiag() {
+		return newTrunkDiag;
+	}
+
+	public void setNewTrunkDiag(TrunkDiagnostic newTrunkDiag) {
+		this.newTrunkDiag = newTrunkDiag;
+	}
+
+	public YoYoTest getNewYoyoTest() {
+		return newYoyoTest;
+	}
+
+	public void setNewYoyoTest(YoYoTest newYoyoTest) {
+		this.newYoyoTest = newYoyoTest;
+	}
+
+	public FunctionalMovementScreen getNewFunctionalMove() {
+		return newFunctionalMove;
+	}
+
+	public void setNewFunctionalMove(FunctionalMovementScreen newFunctionalMove) {
+		this.newFunctionalMove = newFunctionalMove;
+	}
+
 	public void setNewPerfDiag(PerformanceDiagnostics newPerfDiag) {
 		this.newPerfDiag = newPerfDiag;
 	}
@@ -79,7 +139,7 @@ public class PerformanceDiagnosticsBean {
 		return newTalkDateFormatted;
 	}
 
-	public void setPerfDiagDateFormatted(String newTalkDateFormatted) {
+	public void setNewPerfDiagDateFormatted(String newTalkDateFormatted) {
 		this.newTalkDateFormatted = newTalkDateFormatted;
 	}
 

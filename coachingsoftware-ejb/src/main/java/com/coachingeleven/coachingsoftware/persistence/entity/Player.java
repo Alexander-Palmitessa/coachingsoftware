@@ -90,7 +90,7 @@ public class Player implements Serializable {
     private Set<Team> teams;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<PlayerGameStats> gameStats;
-    @OneToMany(mappedBy = "player")
+    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     private Set<PerformanceDiagnostics> performanceDiagnostics;
     @OneToMany(mappedBy = "player", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<EvaluationTalk> evaluationTalks;
