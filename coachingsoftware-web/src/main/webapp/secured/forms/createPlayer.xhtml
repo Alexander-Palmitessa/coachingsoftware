@@ -62,6 +62,13 @@
 				    <h:inputText id="player_playerZip" value="#{playerBean.newPlayerAddress.zip}"/>
 					<h:message for="player_playerZip" style="color: red"/>
 		        </div>
+				<div class="small-12 medium-6 column">
+					<label><h:outputText value="#{msg['country']}"/></label>
+					<h:selectOneMenu value="#{playerBean.newPlayerCountry.name}">
+						<f:selectItems value="#{addressBean.countryValue}" var="c" itemValue="#{c.countryValue}"
+									   itemLabel="#{c.countryLabel}"/>
+					</h:selectOneMenu>
+				</div>
 		        <div class="small-12 medium-6 column">
 		        	<label><h:outputText value="#{msg['position']}"/></label>
 			    	<h:selectOneMenu value="#{playerBean.newPlayer.position}">
@@ -69,8 +76,8 @@
 			   		</h:selectOneMenu>
 		        </div>
 		        <div class="small-12 medium-6 column">
-			    	<label><h:outputText value="#{msg['country']}"/></label>
-				    <h:selectOneMenu value="#{playerBean.newPlayerCountry.name}">
+			    	<label><h:outputText value="#{msg['countryPermission']}"/></label>
+				    <h:selectOneMenu value="#{playerBean.newPlayerCountryPermission.name}">
 				        <f:selectItems value="#{addressBean.countryValue}" var="c" itemValue="#{c.countryValue}"
 				                       itemLabel="#{c.countryLabel}"/>
 				    </h:selectOneMenu>

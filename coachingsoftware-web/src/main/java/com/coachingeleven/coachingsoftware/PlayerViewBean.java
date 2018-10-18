@@ -78,6 +78,17 @@ public class PlayerViewBean {
 						// TODO: Initialize all country's on DB creation
 					}
 				}
+				// Get country by name -> if there is no country yet, create one
+				try {
+					currentPlayer.setCountryPermission(countryService.findCountry(currentPlayer.getCountryPermission().getName()));
+				} catch (CountryNotFounException e1) {
+					try {
+						Country newCountry = new Country(currentPlayer.getCountryPermission().getName());
+						currentPlayer.setCountryPermission(countryService.createCountry(newCountry));
+					} catch (CountryAlreadyExistsException e) {
+						// TODO: Initialize all country's on DB creation
+					}
+				}
 				// Update current player and reset the old email address to the persisted one (used to check for duplicate emails)
 				currentPlayer = playerService.update(currentPlayer);
 				oldEmailAddress = currentPlayer.getEmail();

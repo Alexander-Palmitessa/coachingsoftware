@@ -48,6 +48,7 @@ public class PlayerBean {
 	private Player newPlayer;
 	private Address newPlayerAddress;
 	private Country newPlayerCountry;
+	private Country newPlayerCountryPermission;
 
 	private String playerBirthday;
 
@@ -58,6 +59,7 @@ public class PlayerBean {
 		newPlayer = new Player();
 		newPlayerAddress = new Address();
 		newPlayerCountry = new Country();
+		newPlayerCountryPermission = new Country();
 		currentPlayers = playerService.findCurrentPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
 		historyPlayers = playerService.findHistoryPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
@@ -67,10 +69,16 @@ public class PlayerBean {
 	public String createPlayer() throws CountryAlreadyExistsException, PlayerNotFoundException {
 		try {
 			newPlayerCountry = countryService.findCountry(newPlayerCountry.getName());
+			newPlayerCountryPermission = countryService.findCountry(newPlayerCountryPermission.getName());
 		} catch (CountryNotFounException e1) {
 			newPlayerCountry = countryService.createCountry(newPlayerCountry);
 		}
-
+		try {
+			newPlayerCountryPermission = countryService.findCountry(newPlayerCountryPermission.getName());
+		} catch (CountryNotFounException e1) {
+			newPlayerCountryPermission = countryService.createCountry(newPlayerCountryPermission);
+		}
+		newPlayer.setCountryPermission(newPlayerCountryPermission);
 		newPlayerAddress.setCountry(newPlayerCountry);
 		newPlayer.setAddress(newPlayerAddress);
 
@@ -150,5 +158,12 @@ public class PlayerBean {
 	public Position[] getPositions() {
 		return Position.values();
 	}
-	
+
+	public Country getNewPlayerCountryPermission() {
+		return newPlayerCountryPermission;
+	}
+
+	public void setNewPlayerCountryPermission(Country newPlayerCountryPermission) {
+		this.newPlayerCountryPermission = newPlayerCountryPermission;
+	}
 }

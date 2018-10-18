@@ -1,18 +1,19 @@
 <ui:composition template="/templates/main.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
 	<ui:define name="title">
 		<h:panelGroup rendered="#{playerViewBean.currentPlayer == null}">
 			<h:outputText value="#{msg['noPlayerFound']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
 		</h:panelGroup>
 		<h:panelGroup rendered="#{playerViewBean.currentPlayer != null}">
-			<h:outputText value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+			<h:outputText value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/> -
+			<h:outputText value="#{msg['coachingeleven']}"/>
 		</h:panelGroup>
-    </ui:define>
-	
+	</ui:define>
+
 	<ui:define name="contentTitle">
 		<h:panelGroup rendered="#{playerViewBean.currentPlayer == null}">
 			<h:outputText value="#{msg['noPlayerFound']}"/>
@@ -21,26 +22,31 @@
 			<h:outputText value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/>
 		</h:panelGroup>
 	</ui:define>
-		
+
 	<ui:define name="content">
 		<h:panelGroup rendered="#{playerViewBean.currentPlayer != null}">
 			<div class="row">
 				<div class="small-12 column">
 					<ul class="menu menu-hover-lines player-menu">
 						<li class="active">
-							<h:outputLink value="#{request.contextPath}/secured/pages/playerView.xhtml"><h:outputText value="#{msg['details']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/playerView.xhtml"><h:outputText
+									value="#{msg['details']}"/></h:outputLink>
 						</li>
 						<li>
 							<h:outputLink value="#"><h:outputText value="#{msg['statistic']}"/></h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/playerRanking.xhtml"><h:outputText value="#{msg['ranking']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/playerRanking.xhtml"><h:outputText
+									value="#{msg['ranking']}"/></h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/playerTalk.xhtml"><h:outputText value="#{msg['conversation']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/playerTalk.xhtml"><h:outputText
+									value="#{msg['conversation']}"/></h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/performanceDiagnostics.xhtml"><h:outputText value="#{msg['perfDiag']}"/></h:outputLink>
+							<h:outputLink
+									value="#{request.contextPath}/secured/pages/performanceDiagnostics.xhtml"><h:outputText
+									value="#{msg['perfDiag']}"/></h:outputLink>
 						</li>
 					</ul>
 				</div>
@@ -49,83 +55,106 @@
 						<div class="grey-background"></div>
 						<div class="card-user-profile-content card-section">
 							<div class="card-user-profile-avatar">
-								<h:graphicImage id="playerPicture" name="#{playerViewBean.currentPlayer.avatarUrl}" />
+								<h:graphicImage id="playerPicture" name="#{playerViewBean.currentPlayer.avatarUrl}"/>
 							</div>
-							<p class="card-user-profile-name playerView"><h:outputText value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/></p>
+							<p class="card-user-profile-name playerView"><h:outputText
+									value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/>
+							</p>
 							<div class="row" style="display: none">
-					    		<div class="small-12 medium-3 column">
-					    			<h:form enctype="multipart/form-data">
-										<h:outputLabel for="uploadPlayerPicture" value="#{msg['changeAvatar']}" styleClass="secondary-button upload playerAvatarUpload" />
-									    <h:inputFile id="uploadPlayerPicture" value="#{uploadBean.file}" styleClass="upload">
-									        <f:ajax listener="#{uploadBean.updatePlayerPicture}" render="playerPicture" />
-									    </h:inputFile>
+								<div class="small-12 medium-3 column">
+									<h:form enctype="multipart/form-data">
+										<h:outputLabel for="uploadPlayerPicture" value="#{msg['changeAvatar']}"
+													   styleClass="secondary-button upload playerAvatarUpload"/>
+										<h:inputFile id="uploadPlayerPicture" value="#{uploadBean.file}"
+													 styleClass="upload">
+											<f:ajax listener="#{uploadBean.updatePlayerPicture}"
+													render="playerPicture"/>
+										</h:inputFile>
 									</h:form>
-					    		</div>
-					    	</div>
+								</div>
+							</div>
 							<h:form id="updatePlayerForm">
-					        	<div class="row">
-							        <div class="small-12 medium-6 column">
-							        	<label><h:outputText value="#{msg['firstName']}"/></label>
-									    <h:inputText id="player_firstName" value="#{playerViewBean.currentPlayer.firstName}"/>
+								<div class="row">
+									<div class="small-12 medium-6 column">
+										<label><h:outputText value="#{msg['firstName']}"/></label>
+										<h:inputText id="player_firstName"
+													 value="#{playerViewBean.currentPlayer.firstName}"/>
 										<h:message for="player_firstName" style="color: red"/>
-							        </div>
-							        <div class="small-12 medium-6 column">
-							        	<label><h:outputText value="#{msg['lastName']}"/></label>
-									    <h:inputText id="player_lastName" value="#{playerViewBean.currentPlayer.lastName}"/>
+									</div>
+									<div class="small-12 medium-6 column">
+										<label><h:outputText value="#{msg['lastName']}"/></label>
+										<h:inputText id="player_lastName"
+													 value="#{playerViewBean.currentPlayer.lastName}"/>
 										<h:message for="player_lastName" style="color: red"/>
-							        </div>
-							        <div class="small-12 medium-6 column">
-							        	<label><h:outputText value="#{msg['email']}"/></label>
-									    <h:inputText id="player_email" value="#{playerViewBean.currentPlayer.email}" />
+									</div>
+									<div class="small-12 medium-6 column">
+										<label><h:outputText value="#{msg['email']}"/></label>
+										<h:inputText id="player_email" value="#{playerViewBean.currentPlayer.email}"/>
 										<h:message for="player_email" style="color: red"/>
-							        </div>
-							        <div class="small-12 medium-6 column">
-							        	<label><h:outputText value="#{msg['birthday']}"/></label>
-							        	<h:inputText id="datePickerPlayerBirthday" class="js-datepicker" value="#{playerViewBean.birthdayFormatted}"/>
-							        	<h:message for="datePickerPlayerBirthday" style="color: red"/>
-							        </div>
-							        <div class="small-12 medium-6 column">
-							        	<label><h:outputText value="#{msg['mobileNumber']}"/></label>
-									    <h:inputText id="player_mobileNumber" value="#{playerViewBean.currentPlayer.mobileNumber}"/>
+									</div>
+									<div class="small-12 medium-6 column">
+										<label><h:outputText value="#{msg['birthday']}"/></label>
+										<h:inputText id="datePickerPlayerBirthday" class="js-datepicker"
+													 value="#{playerViewBean.birthdayFormatted}"/>
+										<h:message for="datePickerPlayerBirthday" style="color: red"/>
+									</div>
+									<div class="small-12 medium-6 column">
+										<label><h:outputText value="#{msg['mobileNumber']}"/></label>
+										<h:inputText id="player_mobileNumber"
+													 value="#{playerViewBean.currentPlayer.mobileNumber}"/>
 										<h:message for="player_mobileNumber" style="color: red"/>
-							        </div>
-							        <div class="small-12 medium-6 column">
-							        	<label><h:outputText value="#{msg['city']}"/></label>
-									    <h:inputText id="player_city" value="#{playerViewBean.currentPlayer.address.city}"/>
+									</div>
+									<div class="small-12 medium-6 column">
+										<label><h:outputText value="#{msg['city']}"/></label>
+										<h:inputText id="player_city"
+													 value="#{playerViewBean.currentPlayer.address.city}"/>
 										<h:message for="player_city" style="color: red"/>
-							        </div>
-							        <div class="small-12 medium-6 column">
-							        	<label><h:outputText value="#{msg['street']}"/></label>
-									    <h:inputText id="player_street" value="#{playerViewBean.currentPlayer.address.street}"/>
+									</div>
+									<div class="small-12 medium-6 column">
+										<label><h:outputText value="#{msg['street']}"/></label>
+										<h:inputText id="player_street"
+													 value="#{playerViewBean.currentPlayer.address.street}"/>
 										<h:message for="player_street" style="color: red"/>
-							        </div>
-							        <div class="small-12 medium-6 column">
-							        	<label><h:outputText value="#{msg['streetNr']}"/></label>
-									    <h:inputText id="player_streetNr" value="#{playerViewBean.currentPlayer.address.streetNr}"/>
+									</div>
+									<div class="small-12 medium-6 column">
+										<label><h:outputText value="#{msg['streetNr']}"/></label>
+										<h:inputText id="player_streetNr"
+													 value="#{playerViewBean.currentPlayer.address.streetNr}"/>
 										<h:message for="player_streetNr" style="color: red"/>
-							        </div>
-							        <div class="small-12 medium-6 column">
-							        	<label><h:outputText value="#{msg['zip']}"/></label>
-									    <h:inputText id="player_playerZip" value="#{playerViewBean.currentPlayer.address.zip}"/>
+									</div>
+									<div class="small-12 medium-6 column">
+										<label><h:outputText value="#{msg['zip']}"/></label>
+										<h:inputText id="player_playerZip"
+													 value="#{playerViewBean.currentPlayer.address.zip}"/>
 										<h:message for="player_playerZip" style="color: red"/>
-							        </div>
-							        <div class="small-12 medium-6 column">
-							        	<label><h:outputText value="#{msg['position']}"/></label>
-								    	<h:selectOneMenu value="#{playerViewBean.currentPlayer.position}">
-								   			<f:selectItems value="#{playerViewBean.positions}" var="position" />
-								   		</h:selectOneMenu>
-							        </div>
-							        <div class="small-12 medium-6 column">
-								    	<label><h:outputText value="#{msg['country']}"/></label>
-									    <h:selectOneMenu value="#{playerViewBean.currentPlayer.address.country.name}">
-									        <f:selectItems value="#{addressBean.countryValue}" var="c" itemValue="#{c.countryValue}"
-									                       itemLabel="#{c.countryLabel}"/>
-									    </h:selectOneMenu>
-								    </div>
-								    <div class="small-12 column text-center">
-							        	<h:commandButton action="#{playerViewBean.updateCurrentPlayer}" value="#{msg['updatePlayer']}"/>
-							        </div>
-						        </div>
+									</div>
+									<div class="small-12 medium-6 column">
+										<label><h:outputText value="#{msg['country']}"/></label>
+										<h:selectOneMenu value="#{playerViewBean.currentPlayer.address.country.name}">
+											<f:selectItems value="#{addressBean.countryValue}" var="c"
+														   itemValue="#{c.countryValue}"
+														   itemLabel="#{c.countryLabel}"/>
+										</h:selectOneMenu>
+									</div>
+									<div class="small-12 medium-6 column">
+										<label><h:outputText value="#{msg['position']}"/></label>
+										<h:selectOneMenu value="#{playerViewBean.currentPlayer.position}">
+											<f:selectItems value="#{playerViewBean.positions}" var="position"/>
+										</h:selectOneMenu>
+									</div>
+									<div class="small-12 medium-6 column">
+										<label><h:outputText value="#{msg['countryPermission']}"/></label>
+										<h:selectOneMenu value="#{playerViewBean.currentPlayer.countryPermission.name}">
+											<f:selectItems value="#{addressBean.countryValue}" var="c"
+														   itemValue="#{c.countryValue}"
+														   itemLabel="#{c.countryLabel}"/>
+										</h:selectOneMenu>
+									</div>
+									<div class="small-12 column text-center">
+										<h:commandButton action="#{playerViewBean.updateCurrentPlayer}"
+														 value="#{msg['updatePlayer']}"/>
+									</div>
+								</div>
 							</h:form>
 						</div>
 					</div>
@@ -135,6 +164,6 @@
 		<h:panelGroup rendered="#{playerViewBean.currentPlayer == null}">
 			<h:outputText value="#{msg['noPlayerFound']}"/>
 		</h:panelGroup>
-    </ui:define>
-    
+	</ui:define>
+
 </ui:composition>
