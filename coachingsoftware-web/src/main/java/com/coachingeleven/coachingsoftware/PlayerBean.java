@@ -3,6 +3,8 @@ package com.coachingeleven.coachingsoftware;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -59,6 +61,7 @@ public class PlayerBean {
 		currentPlayers = playerService.findCurrentPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
 		historyPlayers = playerService.findHistoryPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
+		Collections.sort(currentPlayers, new Player());
 	}
 
 	public String createPlayer() throws CountryAlreadyExistsException, PlayerNotFoundException {

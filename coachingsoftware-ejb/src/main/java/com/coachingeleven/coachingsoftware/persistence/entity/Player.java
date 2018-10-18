@@ -19,6 +19,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Set;
 
 @Entity
@@ -31,7 +32,7 @@ import java.util.Set;
 	@NamedQuery(name = "findHistoryPlayerByTeamId",
 			query = "SELECT p FROM Player p JOIN p.historyTeams t WHERE t.ID = :teamId")
 })
-public class Player implements Serializable {
+public class Player implements Serializable, Comparator<Player> {
 	
 	private static final long serialVersionUID = -645290838661524061L;
 
@@ -359,5 +360,10 @@ public class Player implements Serializable {
 
 	public void addPerformanceDiagnostics(PerformanceDiagnostics performanceDiagnostics) {
 		this.performanceDiagnostics.add(performanceDiagnostics);
+	}
+
+	@Override
+	public int compare(Player p1, Player p2) {
+		return p1.lastName.compareTo(p2.lastName);
 	}
 }
