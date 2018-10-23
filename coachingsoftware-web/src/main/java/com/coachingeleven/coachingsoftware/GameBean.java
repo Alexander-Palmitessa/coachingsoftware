@@ -15,7 +15,6 @@ import com.coachingeleven.coachingsoftware.persistence.entity.ChangeIn;
 import com.coachingeleven.coachingsoftware.persistence.entity.ChangeOut;
 import com.coachingeleven.coachingsoftware.persistence.entity.Game;
 import com.coachingeleven.coachingsoftware.persistence.entity.Goal;
-import com.coachingeleven.coachingsoftware.persistence.entity.LineUp;
 import com.coachingeleven.coachingsoftware.persistence.entity.LineUpPlayer;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.PlayerGameStats;
@@ -117,23 +116,18 @@ public class GameBean implements Serializable {
 		newGame = new Game();
 
 		//add LineUp to the game and LineUpPlayers to the LineUp
-		if (newGame.getLineUp() == null) {
-			LineUp lineUp = new LineUp();
-			lineUp.setGame(newGame);
-			lineUp.setLineUpPlayers(new LinkedHashSet<LineUpPlayer>());
-			for (Player p : players) {
-				LineUpPlayer lup = new LineUpPlayer();
-				lup.setPlayer(p);
-				lup.setLineUp(lineUp);
-				lineUp.getLineUpPlayers().add(lup);
-			}
-			newGame.setLineUp(lineUp);
+		newGame.setLineUpPlayers(new LinkedHashSet<LineUpPlayer>());
+		for (Player p : players) {
+			LineUpPlayer lup = new LineUpPlayer();
+			lup.setPlayer(p);
+			lup.setGame(newGame);
+			newGame.getLineUpPlayers().add(lup);
 		}
 
 		//add PlayerGameStats to the Game
 		if (newGame.getPlayerGameStats() == null) {
 			newGame.setPlayerGameStats(new LinkedHashSet<PlayerGameStats>());
-			for (LineUpPlayer lineUpPlayer : newGame.getLineUp().getLineUpPlayers()) {
+			for (LineUpPlayer lineUpPlayer : newGame.getLineUpPlayers()) {
 				PlayerGameStats playerGameStats = new PlayerGameStats();
 				playerGameStats.setGame(newGame);
 				playerGameStats.setChangeIn(new ChangeIn());

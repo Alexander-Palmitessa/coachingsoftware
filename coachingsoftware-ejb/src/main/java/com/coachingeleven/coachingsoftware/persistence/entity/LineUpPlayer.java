@@ -21,78 +21,78 @@ import java.io.Serializable;
 @Entity
 @Table(name = "LINEUP_PLAYERS")
 public class LineUpPlayer implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "LINEUP_PLAYER_ID")
-    private int ID;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "LINEUP_ID")
-    private LineUp lineUp;
-    @ManyToOne
-    @JoinColumn(name = "PLAYER_ID")
-    private Player player;
-    @Column(name = "LINEUP_TYPE")
-    @Enumerated(EnumType.STRING)
-    private LineUpType lineUpType;
-    @Column(name = "MISSING_TYPE")
-    @Enumerated(EnumType.STRING)
-    private MissingType missingType;
-    @Column(name = "POSITION")
-    @Enumerated(EnumType.STRING)
-    private Position position;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "LINEUP_PLAYER_ID")
+	private int ID;
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "LINEUP_ID")
+	private Game game;
+	@ManyToOne
+	@JoinColumn(name = "PLAYER_ID")
+	private Player player;
+	@Column(name = "LINEUP_TYPE")
+	@Enumerated(EnumType.STRING)
+	private LineUpType lineUpType;
+	@Column(name = "MISSING_TYPE")
+	@Enumerated(EnumType.STRING)
+	private MissingType missingType;
+	@Column(name = "POSITION")
+	@Enumerated(EnumType.STRING)
+	private Position position;
 
-    /**
-     * JPA required default constructor
-     */
-    public LineUpPlayer() {
+	/**
+	 * JPA required default constructor
+	 */
+	public LineUpPlayer() {
 
-    }
+	}
 
-    public int getID() {
-        return ID;
-    }
+	public int getID() {
+		return ID;
+	}
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
+	public void setID(int ID) {
+		this.ID = ID;
+	}
 
-    public LineUp getLineUp() {
-        return lineUp;
-    }
+	public Game getGame() {
+		return game;
+	}
 
-    public void setLineUp(LineUp lineUp) {
-        this.lineUp = lineUp;
-    }
+	public void setGame(Game game) {
+		this.game = game;
+	}
 
-    public Player getPlayer() {
-        return player;
-    }
+	public Player getPlayer() {
+		return player;
+	}
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 
-    public LineUpType getLineUpType() {
-        return lineUpType;
-    }
+	public LineUpType getLineUpType() {
+		return lineUpType;
+	}
 
-    public void setLineUpType(LineUpType lineUpType) {
-        this.lineUpType = lineUpType;
-    }
+	public void setLineUpType(LineUpType lineUpType) {
+		this.lineUpType = lineUpType;
+	}
 
-    public MissingType getMissingType() {
-        return missingType;
-    }
+	public MissingType getMissingType() {
+		return missingType;
+	}
 
-    public void setMissingType(MissingType missingType) {
-        this.missingType = missingType;
-    }
+	public void setMissingType(MissingType missingType) {
+		this.missingType = missingType;
+	}
 
-    public Position getPosition() {
-        return position;
-    }
+	public Position getPosition() {
+		return position;
+	}
 
-    public void setPosition(Position position) {
-        this.position = position;
-    }
+	public void setPosition(Position position) {
+		this.position = position;
+	}
 }

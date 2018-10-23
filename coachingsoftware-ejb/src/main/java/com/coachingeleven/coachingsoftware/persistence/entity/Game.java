@@ -36,199 +36,199 @@ import java.util.Set;
 public class Game implements Serializable {
 
 	private static final long serialVersionUID = 8831699747010806773L;
-	
+
 	@Id
-    @Column(name = "GAME_ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ID;
-    @Column(name = "DATE")
-    @Temporal(TemporalType.DATE)
-    private Calendar date;
-    @Column(name = "TIME")
-    @Temporal(TemporalType.TIME)
-    private Calendar time;
-    @ManyToOne
-    @JoinColumn(name = "ARENA_ID")
-    private Arena arena;
-    @JoinColumn(name = "TEAM_HOME_ID")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Team teamHome;
-    @JoinColumn(name = "TEAM_AWAY_ID")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Team teamAway;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "game")
-    private Set<Goal> goals;
-    @OneToOne(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private PostGameReport postGameReport;
-    @OneToOne(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private PreGameReport preGameReport;
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "GAME_TYPE")
-    private GameType gameType;
-    @Column(name = "RES_GOALS_HOME")
-    @Min(value = 0)
-    private int resultGoalsHome;
-    @Column(name = "RES_GOALS_AWAY")
-    @Min(value = 0)
-    private int resultGoalsAway;
-    @OneToMany(mappedBy = "game", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<PlayerGameStats> playerGameStats;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "LINE_UP_ID")
-    private LineUp lineUp;
-    @JoinColumn(name = "ID_SEASON")
-    @ManyToOne
-    private Season season;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "game")
-    private Set<GameSystem> gameSystems;
+	@Column(name = "GAME_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int ID;
+	@Column(name = "DATE")
+	@Temporal(TemporalType.DATE)
+	private Calendar date;
+	@Column(name = "TIME")
+	@Temporal(TemporalType.TIME)
+	private Calendar time;
+	@ManyToOne
+	@JoinColumn(name = "ARENA_ID")
+	private Arena arena;
+	@JoinColumn(name = "TEAM_HOME_ID")
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Team teamHome;
+	@JoinColumn(name = "TEAM_AWAY_ID")
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Team teamAway;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "game")
+	private Set<Goal> goals;
+	@OneToOne(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private PostGameReport postGameReport;
+	@OneToOne(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private PreGameReport preGameReport;
+	@Enumerated(value = EnumType.STRING)
+	@Column(name = "GAME_TYPE")
+	private GameType gameType;
+	@Column(name = "RES_GOALS_HOME")
+	@Min(value = 0)
+	private int resultGoalsHome;
+	@Column(name = "RES_GOALS_AWAY")
+	@Min(value = 0)
+	private int resultGoalsAway;
+	@OneToMany(mappedBy = "game", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<PlayerGameStats> playerGameStats;
+	@JoinColumn(name = "ID_SEASON")
+	@ManyToOne
+	private Season season;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "game")
+	private Set<GameSystem> gameSystems;
+	@OneToMany(mappedBy = "game", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<LineUpPlayer> lineUpPlayers;
 
-    /**
-     * JPA required default constructor
-     */
-    public Game() {
+	/**
+	 * JPA required default constructor
+	 */
+	public Game() {
 
-    }
+	}
 
-    public int getID() {
-        return ID;
-    }
-
-
-    public void setID(int iD) {
-        ID = iD;
-    }
+	public int getID() {
+		return ID;
+	}
 
 
-    public Calendar getDate() {
-        return date;
-    }
+	public void setID(int iD) {
+		ID = iD;
+	}
 
 
-    public void setDate(Calendar date) {
-        this.date = date;
-    }
+	public Calendar getDate() {
+		return date;
+	}
 
 
-    public Calendar getTime() {
-        return time;
-    }
+	public void setDate(Calendar date) {
+		this.date = date;
+	}
 
 
-    public void setTime(Calendar time) {
-        this.time = time;
-    }
+	public Calendar getTime() {
+		return time;
+	}
 
 
-    public Arena getArena() {
-        return arena;
-    }
+	public void setTime(Calendar time) {
+		this.time = time;
+	}
 
 
-    public void setArena(Arena arena) {
-        this.arena = arena;
-    }
+	public Arena getArena() {
+		return arena;
+	}
 
 
-    public Team getTeamHome() {
-        return teamHome;
-    }
+	public void setArena(Arena arena) {
+		this.arena = arena;
+	}
 
 
-    public void setTeamHome(Team teamHome) {
-        this.teamHome = teamHome;
-    }
+	public Team getTeamHome() {
+		return teamHome;
+	}
 
 
-    public Team getTeamAway() {
-        return teamAway;
-    }
+	public void setTeamHome(Team teamHome) {
+		this.teamHome = teamHome;
+	}
 
 
-    public void setTeamAway(Team teamAway) {
-        this.teamAway = teamAway;
-    }
+	public Team getTeamAway() {
+		return teamAway;
+	}
 
-    public LineUp getLineUp() {
-        return lineUp;
-    }
 
-    public void setLineUp(LineUp lineUp) {
-        this.lineUp = lineUp;
-    }
+	public void setTeamAway(Team teamAway) {
+		this.teamAway = teamAway;
+	}
 
-    public PostGameReport getPostGameReport() {
-        return postGameReport;
-    }
+	public PostGameReport getPostGameReport() {
+		return postGameReport;
+	}
 
-    public void setPostGameReport(PostGameReport postGameReport) {
-        this.postGameReport = postGameReport;
-    }
+	public void setPostGameReport(PostGameReport postGameReport) {
+		this.postGameReport = postGameReport;
+	}
 
-    public PreGameReport getPreGameReport() {
-        return preGameReport;
-    }
+	public PreGameReport getPreGameReport() {
+		return preGameReport;
+	}
 
-    public void setPreGameReport(PreGameReport preGameReport) {
-        this.preGameReport = preGameReport;
-    }
+	public void setPreGameReport(PreGameReport preGameReport) {
+		this.preGameReport = preGameReport;
+	}
 
-    public Season getSeason() {
-        return season;
-    }
+	public Season getSeason() {
+		return season;
+	}
 
-    public void setSeason(Season season) {
-        this.season = season;
-    }
+	public void setSeason(Season season) {
+		this.season = season;
+	}
 
-    public GameType getGameType() {
-        return gameType;
-    }
+	public GameType getGameType() {
+		return gameType;
+	}
 
-    public void setGameType(GameType gameType) {
-        this.gameType = gameType;
-    }
+	public void setGameType(GameType gameType) {
+		this.gameType = gameType;
+	}
 
-    public int getResultGoalsHome() {
-        return resultGoalsHome;
-    }
+	public int getResultGoalsHome() {
+		return resultGoalsHome;
+	}
 
-    public void setResultGoalsHome(int resultGoalsHome) {
-        this.resultGoalsHome = resultGoalsHome;
-    }
+	public void setResultGoalsHome(int resultGoalsHome) {
+		this.resultGoalsHome = resultGoalsHome;
+	}
 
-    public Set<Goal> getGoals() {
-        return goals;
-    }
+	public Set<Goal> getGoals() {
+		return goals;
+	}
 
-    public void setGoals(Set<Goal> goals) {
-        this.goals = goals;
-    }
+	public void setGoals(Set<Goal> goals) {
+		this.goals = goals;
+	}
 
-    public int getResultGoalsAway() {
-        return resultGoalsAway;
-    }
+	public int getResultGoalsAway() {
+		return resultGoalsAway;
+	}
 
-    public void setResultGoalsAway(int resultGoalsAway) {
-        this.resultGoalsAway = resultGoalsAway;
-    }
+	public void setResultGoalsAway(int resultGoalsAway) {
+		this.resultGoalsAway = resultGoalsAway;
+	}
 
-    public Set<PlayerGameStats> getPlayerGameStats() {
-        return playerGameStats;
-    }
+	public Set<PlayerGameStats> getPlayerGameStats() {
+		return playerGameStats;
+	}
 
-    public void setPlayerGameStats(Set<PlayerGameStats> playerGameStats) {
-        this.playerGameStats = playerGameStats;
-    }
+	public void setPlayerGameStats(Set<PlayerGameStats> playerGameStats) {
+		this.playerGameStats = playerGameStats;
+	}
 
-    public Set<GameSystem> getGameSystems() {
-        return gameSystems;
-    }
+	public Set<GameSystem> getGameSystems() {
+		return gameSystems;
+	}
 
-    public void setGameSystems(Set<GameSystem> gameSystems) {
-        this.gameSystems = gameSystems;
-    }
+	public void setGameSystems(Set<GameSystem> gameSystems) {
+		this.gameSystems = gameSystems;
+	}
 
-    public void addGameSystem(GameSystem gameSystem){
-        this.gameSystems.add(gameSystem);
-    }
+	public void addGameSystem(GameSystem gameSystem) {
+		this.gameSystems.add(gameSystem);
+	}
+
+	public Set<LineUpPlayer> getLineUpPlayers() {
+		return lineUpPlayers;
+	}
+
+	public void setLineUpPlayers(Set<LineUpPlayer> lineUpPlayers) {
+		this.lineUpPlayers = lineUpPlayers;
+	}
+
 }

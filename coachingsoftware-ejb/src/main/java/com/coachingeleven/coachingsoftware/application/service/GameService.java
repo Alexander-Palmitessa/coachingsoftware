@@ -13,7 +13,6 @@ import javax.ejb.TransactionAttribute;
 
 import com.coachingeleven.coachingsoftware.application.exception.GameAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.GameNotFoundException;
-import com.coachingeleven.coachingsoftware.application.exception.LineUpAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.LineUpPlayerAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.persistence.entity.*;
 import com.coachingeleven.coachingsoftware.persistence.repository.*;
@@ -37,8 +36,7 @@ public class GameService implements GameServiceRemote {
     private ObjectiveRepository objectiveRepository;
     @EJB
     private GameReportRepository gameReportRepository;
-    @EJB
-    private LineUpRepository lineUpRepository;
+
     @EJB
     private LineUpPlayerRepository lineUpPlayerRepository;
     @EJB
@@ -109,24 +107,9 @@ public class GameService implements GameServiceRemote {
     }
 
     @Override
-    public LineUp createLineUp(LineUp lineUp) throws LineUpAlreadyExistsException {
-        logger.log(Level.INFO, "Creating lineup with id ''{0}''", lineUp.getID());
-        if (lineUpRepository.find(LineUp.class, lineUp.getID()) != null) {
-            logger.log(Level.INFO, "Lineup with same id already exists");
-            throw new LineUpAlreadyExistsException();
-        }
-        return lineUpRepository.persist(lineUp);
-    }
-
-    @Override
     public Game update(Game game) {
         logger.log(Level.INFO, "Updating game with id ''{0}''", game.getID());
         return gameRepository.update(game);
-    }
-
-    @Override
-    public LineUp update(LineUp lineUp) {
-        return lineUpRepository.update(lineUp);
     }
 
     @Override

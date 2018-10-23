@@ -59,7 +59,7 @@
 					</tr>
 					</thead>
 					<tbody>
-					<ui:repeat value="#{gameBean.currentGame.lineUp.lineUpPlayers}" var="lup">
+					<ui:repeat value="#{gameBean.currentGame.lineUpPlayers}" var="lup">
 						<tr>
 							<td data-label="#{msg['name']}">#{lup.player.firstName.charAt(0)}. #{lup.player.lastName}</td>
 							<td data-label="#{msg['position']}">
