@@ -14,6 +14,7 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Arena;
 import com.coachingeleven.coachingsoftware.persistence.entity.ChangeIn;
 import com.coachingeleven.coachingsoftware.persistence.entity.ChangeOut;
 import com.coachingeleven.coachingsoftware.persistence.entity.Game;
+import com.coachingeleven.coachingsoftware.persistence.entity.GameSystem;
 import com.coachingeleven.coachingsoftware.persistence.entity.Goal;
 import com.coachingeleven.coachingsoftware.persistence.entity.LineUpPlayer;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
@@ -404,6 +405,13 @@ public class GameBean implements Serializable {
 				newGame.setGameType(GameType.TEST);
 				break;
 		}
+	}
+
+
+	public void addAnotherSystem() {
+		GameSystem newGameSystem = new GameSystem();
+		newGameSystem.setGame(currentGame);
+		currentGame.addGameSystem(newGameSystem);
 	}
 
 	/**
