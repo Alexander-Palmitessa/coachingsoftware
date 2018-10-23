@@ -47,11 +47,6 @@
 		<h:form>
 			<div class="row">
 				<div class="small-12 medium-6 column">
-					<label><h:outputText value="#{msg['system']}"/></label>
-					<h:selectOneMenu value="#{gameBean.selectedSystem}">
-						<f:selectItems value="#{gameBean.systems}" var="s" itemValue="#{s}"
-									   itemLabel="#{msg['systemType.'.concat(s)]}"/>
-					</h:selectOneMenu>
 					<label><h:outputText value="#{msg['players']}"/></label>
 				</div>
 				<table class="responsive-card-table unstriped">

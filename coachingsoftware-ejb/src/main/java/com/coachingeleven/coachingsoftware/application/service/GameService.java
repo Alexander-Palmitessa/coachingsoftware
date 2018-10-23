@@ -49,6 +49,8 @@ public class GameService implements GameServiceRemote {
 	private PostGameReportRepository postGameReportRepository;
     @EJB
     private GoalRepository goalRepository;
+    @EJB
+    private GameSystemRepository gameSystemRepository;
 
     @Override
     public Game createGame(Game game) throws GameAlreadyExistsException {
@@ -160,6 +162,21 @@ public class GameService implements GameServiceRemote {
     @Override
     public void delete(Goal goal) {
         goalRepository.delete(Goal.class, goal.getID());
+    }
+
+    @Override
+    public GameSystem createGameSystem(GameSystem gameSystem) throws GameAlreadyExistsException {
+        logger.log(Level.INFO, "Creating GameSystem with id ''{0}''", gameSystem.getID());
+        if (gameSystemRepository.find(GameSystem.class, gameSystem.getID()) != null) {
+            logger.log(Level.INFO, "GameSystem with same id already exists");
+            throw new GameAlreadyExistsException();
+        }
+        return gameSystemRepository.persist(gameSystem);
+    }
+
+    @Override
+    public GameSystem updateGameSystem(GameSystem gameSystem) {
+        return gameSystemRepository.update(gameSystem);
     }
 
     @Override

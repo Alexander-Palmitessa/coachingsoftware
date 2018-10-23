@@ -13,8 +13,6 @@ import com.coachingeleven.coachingsoftware.persistence.enumeration.System;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,9 +34,6 @@ public class LineUp implements Serializable {
     private int ID;
     @OneToMany(mappedBy = "lineUp", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<LineUpPlayer> lineUpPlayers;
-    @Column(name = "SYSTEM")
-    @Enumerated(EnumType.STRING)
-    private System system;
     @JoinColumn(name = "GAME_ID")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "lineUp")
     private Game game;
@@ -56,14 +51,6 @@ public class LineUp implements Serializable {
 
     public void setID(int ID) {
         this.ID = ID;
-    }
-
-    public System getSystem() {
-        return system;
-    }
-
-    public void setSystem(System system) {
-        this.system = system;
     }
 
     public Set<LineUpPlayer> getLineUpPlayers() {

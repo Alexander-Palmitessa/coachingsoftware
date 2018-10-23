@@ -49,4 +49,8 @@ public interface GameServiceRemote {
 	void update(Goal goal);
 
 	void delete(Goal goal);
+
+	GameSystem createGameSystem(GameSystem gameSystem) throws GameAlreadyExistsException;
+
+	GameSystem updateGameSystem(GameSystem gameSystem);
 }

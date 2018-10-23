@@ -172,7 +172,6 @@ public class GameBean implements Serializable {
 			teamAway = currentGame.getTeamAway().getID();
 			teamHome = currentGame.getTeamHome().getID();
 			selectedArena = currentGame.getArena().getID();
-			selectedSystem = currentGame.getLineUp().getSystem();
 			resGoalsHome = currentGame.getResultGoalsHome();
 			resGoalsAway = currentGame.getResultGoalsAway();
 		} catch (GameNotFoundException e) {

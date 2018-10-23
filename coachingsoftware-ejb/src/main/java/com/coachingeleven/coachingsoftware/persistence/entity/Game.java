@@ -79,6 +79,8 @@ public class Game implements Serializable {
     @JoinColumn(name = "ID_SEASON")
     @ManyToOne
     private Season season;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "game")
+    private Set<GameSystem> gameSystems;
 
     /**
      * JPA required default constructor
@@ -216,5 +218,17 @@ public class Game implements Serializable {
 
     public void setPlayerGameStats(Set<PlayerGameStats> playerGameStats) {
         this.playerGameStats = playerGameStats;
+    }
+
+    public Set<GameSystem> getGameSystems() {
+        return gameSystems;
+    }
+
+    public void setGameSystems(Set<GameSystem> gameSystems) {
+        this.gameSystems = gameSystems;
+    }
+
+    public void addGameSystem(GameSystem gameSystem){
+        this.gameSystems.add(gameSystem);
     }
 }
