@@ -48,4 +48,6 @@ public interface GameServiceRemote {
 	GameSystem createGameSystem(GameSystem gameSystem) throws GameAlreadyExistsException;
 
 	GameSystem updateGameSystem(GameSystem gameSystem);
+
+	void deleteCard(Card card);
 }

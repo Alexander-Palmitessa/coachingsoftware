@@ -11,6 +11,7 @@ import com.coachingeleven.coachingsoftware.application.service.GameServiceRemote
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.Arena;
+import com.coachingeleven.coachingsoftware.persistence.entity.Card;
 import com.coachingeleven.coachingsoftware.persistence.entity.ChangeIn;
 import com.coachingeleven.coachingsoftware.persistence.entity.ChangeOut;
 import com.coachingeleven.coachingsoftware.persistence.entity.Game;
@@ -42,6 +43,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.TreeSet;
@@ -707,5 +709,16 @@ public class GameBean implements Serializable {
 
 	public void setNewHour(int newHour) {
 		this.newHour = newHour;
+	}
+
+	public void addAnotherCard(PlayerGameStats playerGameStats) {
+		Card newCard = new Card();
+		newCard.setPlayerGameStats(playerGameStats);
+		playerGameStats.addCard(newCard);
+	}
+
+	public void removeCard(Card card, PlayerGameStats playerGameStats) {
+		playerGameStats.removeCard(card);
+		gameService.deleteCard(card);
 	}
 }
