@@ -14,13 +14,14 @@
 	
 	<ui:define name="content">
 	    <h:form>
-	    	<div class="row">
+	    	<div class="row align-center">
 	    		<div class="small-12 medium-6 column">
 			    	<label><h:outputText value="#{msg['username']}"/></label>
 			    	<h:inputText id="username" value="#{loginBean.username}" required="true"
 								 requiredMessage="#{msg['required.username']}"/>
 					<h:message for="username" style="color: red"/>
-		    	</div>
+				</div></div>
+			<div class="row align-center">
 		    	<div class="small-12 medium-6 column">
 			    	<label><h:outputText value="#{msg['password']}"/></label>
 			    	<h:inputSecret id="password" value="#{loginBean.password}" required="true"
