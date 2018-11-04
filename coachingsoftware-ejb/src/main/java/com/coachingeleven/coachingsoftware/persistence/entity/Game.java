@@ -73,9 +73,6 @@ public class Game implements Serializable {
 	private int resultGoalsAway;
 	@OneToMany(mappedBy = "game", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<PlayerGameStats> playerGameStats;
-	@JoinColumn(name = "ID_SEASON")
-	@ManyToOne
-	private Season season;
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "game")
 	private Set<GameSystem> gameSystems;
 	@OneToMany(mappedBy = "game", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -161,14 +158,6 @@ public class Game implements Serializable {
 
 	public void setPreGameReport(PreGameReport preGameReport) {
 		this.preGameReport = preGameReport;
-	}
-
-	public Season getSeason() {
-		return season;
-	}
-
-	public void setSeason(Season season) {
-		this.season = season;
 	}
 
 	public GameType getGameType() {

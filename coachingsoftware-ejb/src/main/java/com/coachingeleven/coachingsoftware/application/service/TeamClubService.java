@@ -5,7 +5,6 @@ import com.coachingeleven.coachingsoftware.application.exception.ClubNotFoundExc
 import com.coachingeleven.coachingsoftware.application.exception.TeamAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Club;
-import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.repository.ClubRepository;
 import com.coachingeleven.coachingsoftware.persistence.repository.TeamRepository;
@@ -15,7 +14,6 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -129,46 +127,5 @@ public class TeamClubService implements TeamClubServiceRemote {
 	@Override
 	public Club findClub(int id) throws ClubNotFoundException {
 		return clubRepository.find(Club.class, id);
-	}
-
-	@Override
-	public List<Team> findTeamsBySeasonID(int seasonID) {
-		return teamRepository.findTeamsBySeasonID(seasonID);
-	}
-
-	@Override
-	public Team addPlayerToTeam(int teamID, Player player) {
-		return teamRepository.addPlayerToTeam(teamID, player);
-	}
-	
-	@Override
-	public List<Team> getAllPreviousTeams(int teamID) {
-		List<Team> previousTeams = new ArrayList<Team>();
-		Team previousTeam = teamRepository.getPreviousTeam(teamID);
-		while(previousTeam != null) {
-			previousTeams.add(previousTeam);
-			previousTeam = teamRepository.getPreviousTeam(previousTeam.getID());
-		}
-		return previousTeams;
-	}
-
-	@Override
-	public List<Team> getAllPreviousTeamsOfSeason(int seasonID) {
-		List<Team> previousTeams = new ArrayList<Team>();
-		previousTeams.addAll(teamRepository.findTeamsBySeasonID(seasonID));
-		for(Team previousTeam : previousTeams) {
-			previousTeams.addAll(getAllPreviousTeams(previousTeam.getID()));
-		}
-		return previousTeams;
-	}
-
-	@Override
-	public List<Player> getCurrentPlayers(int teamID) {
-		return teamRepository.getCurrentPlayers(teamID);
-	}
-
-	@Override
-	public List<Player> getHistoryPlayers(int teamID) {
-		return teamRepository.getHistoryPlayers(teamID);
 	}
 }

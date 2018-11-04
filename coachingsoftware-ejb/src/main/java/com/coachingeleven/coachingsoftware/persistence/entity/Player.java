@@ -25,12 +25,8 @@ import java.util.Set;
 @Entity
 @Table(name = "PLAYER")
 @NamedQueries({
-	@NamedQuery(name = "findPlayer",
-			query = "SELECT p FROM Player p WHERE LOWER(p.email) = LOWER(:email)"),
-	@NamedQuery(name = "findPlayerByCurrentTeamId",
-			query = "SELECT p FROM Player p JOIN p.currentTeams t WHERE t.ID = :teamId"),
-	@NamedQuery(name = "findHistoryPlayerByTeamId",
-			query = "SELECT p FROM Player p JOIN p.historyTeams t WHERE t.ID = :teamId")
+	@NamedQuery(name = "findPlayerByEmail",
+			query = "SELECT p FROM Player p WHERE LOWER(p.email) = LOWER(:email)")
 })
 public class Player implements Serializable, Comparator<Player> {
 	
@@ -87,8 +83,6 @@ public class Player implements Serializable, Comparator<Player> {
     @JoinColumn(name = "COUNTRY_PERMISSION_ID")
     @ManyToOne
     private Country countryPermission;
-    @ManyToMany(mappedBy = "players")
-    private Set<Team> teams;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<PlayerGameStats> gameStats;
     @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
@@ -100,15 +94,6 @@ public class Player implements Serializable, Comparator<Player> {
     private Set<ObserveTIPS> observeTIPS;
     @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     private Set<ExtendedTIPS> extendedTIPS;
-	@ManyToMany(mappedBy = "currentPlayers")
-    private Set<Team> currentTeams;
-	@ManyToMany
-	@JoinTable(
-			name = "PLAYER_TEAM_HISTORY",
-			joinColumns = @JoinColumn(name = "PLAYER_ID", referencedColumnName = "PLAYER_ID"),
-			inverseJoinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID")
-	)
-	private Set<Team> historyTeams;
 	@OneToMany(mappedBy = "player")
     private Set<LineUpPlayer> lineUps;
 
@@ -309,22 +294,6 @@ public class Player implements Serializable, Comparator<Player> {
     public void setObserveTIPS(Set<ObserveTIPS> observeTIPS) {
         this.observeTIPS = observeTIPS;
     }
-
-	public Set<Team> getHistoryTeams() {
-		return historyTeams;
-	}
-
-	public void setHistoryTeams(Set<Team> historyTeams) {
-		this.historyTeams = historyTeams;
-	}
-
-	public Set<Team> getCurrentTeams() {
-		return currentTeams;
-	}
-
-	public void setCurrentTeams(Set<Team> currentTeams) {
-		this.currentTeams = currentTeams;
-	}
   
 	public Set<ExtendedTIPS> getExtendedTIPS() {
 		return extendedTIPS;
@@ -332,14 +301,6 @@ public class Player implements Serializable, Comparator<Player> {
 
 	public void setExtendedTIPS(Set<ExtendedTIPS> extendedTIPS) {
 		this.extendedTIPS = extendedTIPS;
-	}
-
-	public Set<Team> getTeams() {
-		return teams;
-	}
-
-	public void setTeams(Set<Team> teams) {
-		this.teams = teams;
 	}
 
 	public Set<LineUpPlayer> getLineUps() {
