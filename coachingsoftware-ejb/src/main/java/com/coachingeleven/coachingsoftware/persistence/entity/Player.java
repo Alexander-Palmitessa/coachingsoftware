@@ -18,8 +18,10 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -96,6 +98,8 @@ public class Player implements Serializable, Comparator<Player> {
     private Set<ExtendedTIPS> extendedTIPS;
 	@OneToMany(mappedBy = "player")
     private Set<LineUpPlayer> lineUps;
+	@OneToMany(mappedBy = "player", fetch=FetchType.LAZY)
+    private List<PlayerTeam> playerTeams = new ArrayList<>();
 
 
 	/**

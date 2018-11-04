@@ -12,6 +12,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -53,7 +55,8 @@ public class Team implements Serializable {
 	private String teamLogoURL;
 	@OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<TeamContact> teamContacts;
-
+	@OneToMany(mappedBy = "team", fetch=FetchType.LAZY)
+    private List<PlayerTeam> teamPlayers = new ArrayList<>();
 
 	public Team(String name, Club club) {
 		this.name = name;
