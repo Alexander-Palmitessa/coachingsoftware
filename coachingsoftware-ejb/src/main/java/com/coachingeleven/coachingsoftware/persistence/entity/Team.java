@@ -149,4 +149,12 @@ public class Team implements Serializable {
 	public void addTeamContact(TeamContact teamContact){
 		teamContacts.add(teamContact);
 	}
+
+	public List<PlayerTeam> getTeamPlayers() {
+		return teamPlayers;
+	}
+
+	public void setTeamPlayers(List<PlayerTeam> teamPlayers) {
+		this.teamPlayers = teamPlayers;
+	}
 }

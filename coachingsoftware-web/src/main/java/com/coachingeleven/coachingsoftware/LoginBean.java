@@ -2,7 +2,8 @@ package com.coachingeleven.coachingsoftware;
 
 import java.io.Serializable;
 import java.text.ParseException;
-import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -14,9 +15,6 @@ import com.coachingeleven.coachingsoftware.application.exception.*;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
-import com.coachingeleven.coachingsoftware.persistence.entity.Club;
-import com.coachingeleven.coachingsoftware.persistence.entity.Player;
-import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
 
 @Named(value = "loginBean")
@@ -25,6 +23,8 @@ public class LoginBean implements Serializable {
 
 	private static final long serialVersionUID = 3548028163173684077L;
 
+	private static final Logger logger = Logger.getLogger(LoginBean.class.getName());
+	
 	private String username;
 	private String password;
 	private UserAccount loggedInUser;
@@ -51,7 +51,7 @@ public class LoginBean implements Serializable {
     public void init() {
 		if(loggedInUser == null) loggedInUser = new UserAccount();
 		try {
-			loggedInUser = userService.createUser(new UserAccount("elias","elias","elias.schildknecht@students.bfh.ch"));
+			userService.createUser(new UserAccount("elias","elias","elias.schildknecht@students.bfh.ch"));
 			indexBean.init();
 		} catch (UserAlreadyExistsException | ArenaAlreadyExistsException | ClubAlreadyExistsException | TeamAlreadyExistsException | PlayerAlreadyExistsException | GameAlreadyExistsException | CountryAlreadyExistsException | SeasonAlreadyExistsException | ParseException e) {
 			// TODO 
@@ -64,39 +64,7 @@ public class LoginBean implements Serializable {
 			UserAccount currentUser = userService.findUser(username);
 			if(userService.authenticate(password, currentUser.getPassword())) {
 				loggedIn = true;
-
-				try {
-					Player player1 = playerService.createPlayer(new Player("Elias","Schildknecht","test@test.ch"));
-					player1.setAvatarUrl("images/Default-avatar.jpg");
-					playerService.update(player1);
-					Player player2 = playerService.createPlayer(new Player("Alexander","Palmitessa","test@test2.ch"));
-					player2.setAvatarUrl("images/Default-avatar.jpg");
-					playerService.update(player2);
-					Club club = teamClubService.createClub(new Club("Verein 1"));
-					Team team = teamClubService.createTeam(new Team("Team 1",club));
-					team.setTeamPictureURL("images/sfv_u19.jpg");
-					HashSet<Player> players = new HashSet<Player>();
-					players.add(player1);
-					players.add(player2);
-					team.setPlayers(players);
-					team.setCurrentPlayers(players);
-					teamClubService.updateTeam(team);
-					club.addTeam(team);
-					teamClubService.updateClub(club);
-					userService.updateUser(currentUser);
-					userTeam = team.getName();
-					userTeamID = team.getID();
-				} catch (PlayerAlreadyExistsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (TeamAlreadyExistsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ClubAlreadyExistsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
+				loggedInUser = currentUser;
 				if(currentUser.getTeam() != null) {
 					hasUserAssignedTeam = true;
 					return navigationBean.redirectToHome();
@@ -104,9 +72,9 @@ public class LoginBean implements Serializable {
 					return navigationBean.redirectToUserSettings();
 				}
 			}
-		} catch (UserNotFoundException e1) {
+		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			logger.log(Level.INFO, e.getMessage());
 		}
 
 		return navigationBean.redirectToLogin();

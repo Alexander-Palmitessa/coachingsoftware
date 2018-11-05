@@ -67,7 +67,6 @@ public class IndexBean {
 		team.setClub(club);
 		HashSet<Player> currentPlayers = new HashSet<Player>();
 		currentPlayers.add(player1);
-		team.setCurrentPlayers(currentPlayers);
 		team = teamClubService.createTeam(team);
 
 		Player player2 = new Player();
@@ -76,7 +75,6 @@ public class IndexBean {
 		player2.setEmail("ruedi@meier.com");
 		HashSet<Team> historyTeams = new HashSet<Team>();
 		historyTeams.add(team);
-		player2.setHistoryTeams(historyTeams);
 		player2.setAvatarUrl("images/Default-avatar.jpg");
 		player2 = playerServiceRemote.createPlayer(player2);
 
@@ -123,8 +121,6 @@ public class IndexBean {
 		Season season1 = new Season("Season One", startDate1Calendar, endDate1Calendar);
 		Season season2 = new Season("Season Two", startDate2Calendar, endDate2Calendar);
 		Season season3 = new Season("Season Three", startDate3Calendar, endDate3Calendar);
-		season3.setTeams(season1Teams);
-		season3.setGames(season1Games);
 		season1 = seasonService.createSeason(season1);
 		season2 = seasonService.createSeason(season2);
 		season3 = seasonService.createSeason(season3);

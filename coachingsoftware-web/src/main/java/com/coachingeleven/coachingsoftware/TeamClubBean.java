@@ -6,12 +6,10 @@ import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyE
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
 import com.coachingeleven.coachingsoftware.application.exception.TeamAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
-import com.coachingeleven.coachingsoftware.application.service.SeasonServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Club;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
-import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
 import javax.annotation.PostConstruct;
@@ -33,8 +31,6 @@ public class TeamClubBean {
     private TeamClubServiceRemote teamClubService;
     @EJB
     private CountryServiceRemote countryService;
-    @EJB
-    private SeasonServiceRemote seasonService;
     
     @Inject
 	private NavigationBean navigationBean;
@@ -72,11 +68,6 @@ public class TeamClubBean {
         	for(String teamName : groupedTeams.keySet()) {
         		Team addedTeam = new Team();
         		addedTeam.setName(teamName);
-        		HashSet<Season> seasons = new HashSet<Season>();
-        		for(Team teamsOfGroupedTeams : groupedTeams.get(teamName)) {
-        			seasons.addAll(seasonService.findSeasonsByTeam(teamsOfGroupedTeams.getID()));
-        		}
-        		addedTeam.setSeasons(seasons);
         		teams.add(addedTeam);
         	}
         	club.setTeams(teams);

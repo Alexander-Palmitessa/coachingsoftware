@@ -3,6 +3,7 @@ package com.coachingeleven.coachingsoftware;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -31,10 +32,13 @@ public class SeasonBean {
 	
 	private SimpleDateFormat dateFormatter;
 	
+	private List<Season> seasons;
+	
 	@PostConstruct
     public void init() {
 		if(season == null) season = new Season();
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
+		seasons = seasonService.findAllSeasons();
     }
 	
 	public String createSeason() {
@@ -78,6 +82,14 @@ public class SeasonBean {
 
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+
+	public List<Season> getSeasons() {
+		return seasons;
+	}
+
+	public void setSeasons(List<Season> seasons) {
+		this.seasons = seasons;
 	}
    
 }

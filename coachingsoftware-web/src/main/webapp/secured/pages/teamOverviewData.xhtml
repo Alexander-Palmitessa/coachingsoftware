@@ -30,13 +30,6 @@
 						    <h:inputText id="team_name" value="#{teamDataBean.currentTeam.name}"/>
 							<h:message for="team_name" style="color: red"/>
 				        </div>
-				        <div class="small-12 medium-6 column">
-				        	<label><h:outputText value="#{msg['season']}"/></label>
-				        	<h:selectOneMenu value="#{teamDataBean.selectedSeasonID}">
-					   			<f:selectItems value="#{teamDataBean.seasons}" var="season"
-					   				itemLabel="#{season.name}" itemValue="#{season.ID}" />
-					   		</h:selectOneMenu>
-					   	</div>
 					   	<div class="small-12 medium-6 column">
 				        	<label><h:outputText value="#{msg['street']}"/></label>
 						    <h:inputText id="club_street" value="#{teamDataBean.selectedClub.address.street}"/>

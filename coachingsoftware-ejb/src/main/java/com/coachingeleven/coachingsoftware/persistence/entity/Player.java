@@ -327,6 +327,14 @@ public class Player implements Serializable, Comparator<Player> {
 		this.performanceDiagnostics.add(performanceDiagnostics);
 	}
 
+	public List<PlayerTeam> getPlayerTeams() {
+		return playerTeams;
+	}
+
+	public void setPlayerTeams(List<PlayerTeam> playerTeams) {
+		this.playerTeams = playerTeams;
+	}
+
 	@Override
 	public int compare(Player p1, Player p2) {
 		return p1.lastName.compareTo(p2.lastName);

@@ -3,7 +3,6 @@ package com.coachingeleven.coachingsoftware;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,22 +16,18 @@ import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyE
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
 import com.coachingeleven.coachingsoftware.application.exception.PlayerAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.PlayerNotFoundException;
-import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
-import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
 
 @Named(value = "playerBean")
 @RequestScoped
 public class PlayerBean {
 
-	@Inject
-	private LoginBean loginBean;
 	@Inject
 	private NavigationBean navigationBean;
 	@EJB
@@ -60,8 +55,9 @@ public class PlayerBean {
 		newPlayerAddress = new Address();
 		newPlayerCountry = new Country();
 		newPlayerCountryPermission = new Country();
-		currentPlayers = playerService.findCurrentPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
-		historyPlayers = playerService.findHistoryPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
+		// TODO: Elias
+//		currentPlayers = playerService.findCurrentPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
+//		historyPlayers = playerService.findHistoryPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 		Collections.sort(currentPlayers, new Player());
 	}
@@ -94,14 +90,6 @@ public class PlayerBean {
 			newPlayer = playerService.createPlayer(newPlayer);
 		} catch (PlayerAlreadyExistsException e) {
 			newPlayer = playerService.findPlayer(newPlayer.getID());
-		}
-
-		// Add created player to the managed team of the logged in user
-		try {
-			Team team = teamClubService.findTeam(loginBean.getLoggedInUser().getTeam().getID());
-			teamClubService.addPlayerToTeam(team.getID(), newPlayer);
-		} catch (TeamNotFoundException e) {
-			// TODO 
 		}
 
 		return navigationBean.redirectToCurrentPlayersOverview();

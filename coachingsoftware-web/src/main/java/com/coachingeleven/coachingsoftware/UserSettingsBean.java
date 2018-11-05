@@ -47,15 +47,14 @@ public class UserSettingsBean {
     
     // TODO: In further requirements
     public String persistUserTeamSeason(String teamname, int seasonID) {
-    	List<Team> seasonTeams = teamClubService.findTeamsBySeasonID(seasonID);
     	UserAccount currentUser = loginBean.getLoggedInUser();
-    	for(Team team : seasonTeams) {
-    		if(team.getName().equals(teamname)) {
-    			if(currentUser.getTeam() == null || currentUser.getTeam().getID() != team.getID()) {
-    				currentUser.setTeam(team);
-    			}
-    		}
-    	}
+		try {
+			Team team = teamClubService.findTeam(teamname);
+			currentUser.setTeam(team);
+		} catch (TeamNotFoundException e) {
+			// TODO Auto-generated catch block
+		}
+    	
     	loginBean.setHasUserAssignedTeam(true);
 		userService.updateUser(currentUser);
     	return navigationBean.toTeamDataOverview();

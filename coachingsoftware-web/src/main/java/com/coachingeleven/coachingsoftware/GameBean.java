@@ -1,6 +1,5 @@
 package com.coachingeleven.coachingsoftware;
 
-
 import com.coachingeleven.coachingsoftware.application.exception.ArenaNotFoundException;
 import com.coachingeleven.coachingsoftware.application.exception.GameAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.GameNotFoundException;
@@ -43,7 +42,6 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.TreeSet;
@@ -54,6 +52,8 @@ import java.util.logging.Logger;
 @Named("gameBean")
 @SessionScoped
 public class GameBean implements Serializable {
+
+	private static final long serialVersionUID = 5882022000372307828L;
 
 	private static final Logger logger = Logger.getLogger(GameBean.class.getName());
 
@@ -186,9 +186,10 @@ public class GameBean implements Serializable {
 		arenas = arenaService.findAll();
 		try {
 			Team currentTeam = teamClubService.findTeam(loginBean.getUserTeamID());
-			if (currentTeam.getPlayers() != null)
-				players = new ArrayList<>(currentTeam.getCurrentPlayers());
-			else players = new ArrayList<>();
+			// TODO: Elias
+//			if (currentTeam.getPlayers() != null)
+//				players = new ArrayList<>(currentTeam.getCurrentPlayers());
+//			else players = new ArrayList<>();
 			if (currentTeam.getGamesHome() != null)
 				allGames = new ArrayList<>(currentTeam.getGamesHome());
 			else allGames = new ArrayList<>();
