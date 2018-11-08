@@ -5,18 +5,17 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <ui:define name="title">
-		<h:outputText value="#{msg['userSettings']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+		<h:outputText value="#{msg['setUserTeam']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
 	</ui:define>
 
 	<ui:define name="contentTitle">
-		<h:outputText value="#{msg['userSettings']}"/>
+		<h:outputText value="#{msg['setUserTeam']}"/>
 	</ui:define>
 
     <ui:define name="content">
         <h:form class="translucent-form-overlay">
 	    	<div class="row">
 	    		<div class="small-12 column">
-			    	<label><h:outputText value="#{msg['setUserTeam']}"/></label>
 			    	<h:selectOneMenu value="#{userSettingsBean.selectedTeamID}">
 			   			<f:selectItems value="#{userSettingsBean.teams}" var="team"
 			   				itemLabel="#{team.name}" itemValue="#{team.ID}" />

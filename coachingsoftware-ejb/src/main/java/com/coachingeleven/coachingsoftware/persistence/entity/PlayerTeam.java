@@ -30,7 +30,7 @@ public class PlayerTeam {
     @Temporal(TemporalType.DATE)
     private Calendar joinDate;
 	
-	@Column(name = "STARTDATE")
+	@Column(name = "STARTDATE", updatable=false, insertable=false)
     @Temporal(TemporalType.DATE)
     private Calendar leaveDate;
 	
