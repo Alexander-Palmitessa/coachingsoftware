@@ -18,6 +18,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
 
+/**
+ * TODO: No longer used
+ * */
 @Named
 @RequestScoped
 public class IndexBean {

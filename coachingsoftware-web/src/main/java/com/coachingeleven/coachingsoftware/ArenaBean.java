@@ -16,7 +16,9 @@ import java.io.Serializable;
 @RequestScoped
 public class ArenaBean implements Serializable {
 
-    private Arena arena;
+	private static final long serialVersionUID = -1619226320759939284L;
+
+	private Arena arena;
 
     @EJB
     private ArenaServiceRemote arenaService;

@@ -1,26 +1,26 @@
 package com.coachingeleven.coachingsoftware.persistence.repository;
 
-import com.coachingeleven.coachingsoftware.persistence.entity.TeamContact;
-
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
+import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
+
 import static javax.ejb.TransactionAttributeType.SUPPORTS;
 
 @Stateless
-public class TeamContactRepository extends Repository<TeamContact> {
+public class ContactRepository extends Repository<Contact> {
 
 	@TransactionAttribute(SUPPORTS)
-	public TeamContact find(int id) {
-		return super.find(TeamContact.class, id);
+	public Contact find(int id) {
+		return super.find(Contact.class, id);
 	}
 
 	@TransactionAttribute(SUPPORTS)
-	public TeamContact find(String email) {
+	public Contact find(String email) {
 		try {
-			TypedQuery<TeamContact> query = entityManager.createNamedQuery("findTeamContact", TeamContact.class);
+			TypedQuery<Contact> query = entityManager.createNamedQuery("findContactByEmail", Contact.class);
 			query.setParameter("email", email);
 			return query.getSingleResult();
 		} catch (NoResultException ex) {

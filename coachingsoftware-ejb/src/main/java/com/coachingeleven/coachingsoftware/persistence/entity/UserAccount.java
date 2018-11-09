@@ -18,9 +18,7 @@ import java.io.Serializable;
 @Table(name = "USERACCOUNT")
 @NamedQueries({
         @NamedQuery(name = "findUserByUsername",
-                query = "SELECT u FROM UserAccount u WHERE LOWER(u.username) = LOWER(:username)"),
-        @NamedQuery(name = "findUserByMail",
-        		query = "SELECT u FROM UserAccount u WHERE LOWER(u.email) = LOWER(:email)")
+                query = "SELECT u FROM UserAccount u WHERE LOWER(u.username) = LOWER(:username)")
 })
 public class UserAccount implements Serializable {
 
@@ -33,10 +31,9 @@ public class UserAccount implements Serializable {
     @Column(name = "PASSWORD", nullable = false)
     @NotNull(message = "{not.null}")
     private String password;
-    @Column(name = "USER_EMAIL", nullable = false, unique = true)
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "{pattern.email}")
-    @NotNull(message = "{not.null}")
-    private String email;
+    @OneToOne
+    @JoinColumn(name = "CONTACT_ID")
+    private Contact contact;
     @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
@@ -45,10 +42,9 @@ public class UserAccount implements Serializable {
 
     }
 
-    public UserAccount(String username, String password, String email) {
+    public UserAccount(String username, String password) {
         this.username = username;
         this.password = password;
-        this.email = email;
     }
 
     public String getUsername() {
@@ -67,14 +63,6 @@ public class UserAccount implements Serializable {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public Team getTeam() {
         return team;
     }
@@ -82,4 +70,12 @@ public class UserAccount implements Serializable {
     public void setTeam(Team team) {
         this.team = team;
     }
+
+	public Contact getContact() {
+		return contact;
+	}
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
 }

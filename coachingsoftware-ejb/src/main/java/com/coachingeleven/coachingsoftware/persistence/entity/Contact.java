@@ -10,24 +10,23 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "TEAM_CONTACT")
+@Table(name = "CONTACT")
 @NamedQueries({
-		@NamedQuery(name = "findTeamContact",
-				query = "SELECT tc FROM TeamContact tc WHERE LOWER(tc.email) = LOWER(:email)")})
-public class TeamContact implements Serializable {
+		@NamedQuery(name = "findContactByEmail",
+				query = "SELECT c FROM Contact c WHERE LOWER(c.email) = LOWER(:email)")})
+public class Contact implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "TEAMCONTACT_ID")
+	@Column(name = "CONTACT_ID")
 	private int ID;
 	@Column(name = "FIRSTNAME", nullable = false)
 	private String firstName;
@@ -50,11 +49,10 @@ public class TeamContact implements Serializable {
 	@Column(name = "EMAIL", unique = true)
 	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "{pattern.email}")
 	private String email;
-	@ManyToOne
-	@JoinColumn(name = "TEAM")
-	private Team team;
+	@OneToOne
+	private UserAccount userAccount;
 
-	public TeamContact(){
+	public Contact(){
 
 	}
 
@@ -130,11 +128,11 @@ public class TeamContact implements Serializable {
 		this.email = email;
 	}
 
-	public Team getTeam() {
-		return team;
+	public UserAccount getUserAccount() {
+		return userAccount;
 	}
 
-	public void setTeam(Team team) {
-		this.team = team;
+	public void setUserAccount(UserAccount userAccount) {
+		this.userAccount = userAccount;
 	}
 }

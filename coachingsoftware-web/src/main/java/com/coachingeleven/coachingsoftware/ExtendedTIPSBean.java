@@ -3,7 +3,6 @@ package com.coachingeleven.coachingsoftware;
 import com.coachingeleven.coachingsoftware.application.exception.ExtendedTIPSNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.ExtendedTIPSServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
-import com.coachingeleven.coachingsoftware.persistence.entity.EvaluationTalk;
 import com.coachingeleven.coachingsoftware.persistence.entity.ExtendedTIPS;
 
 import javax.annotation.PostConstruct;
@@ -14,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,7 +22,9 @@ import java.util.logging.Logger;
 
 @Named(value = "extendedTIPSBean")
 @RequestScoped
-public class ExtendedTIPSBean {
+public class ExtendedTIPSBean implements Serializable {
+
+	private static final long serialVersionUID = 4007139222547846498L;
 
 	private static final Logger logger = Logger.getLogger(ExtendedTIPSBean.class.getName());
 

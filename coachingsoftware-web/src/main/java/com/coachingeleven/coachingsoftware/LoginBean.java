@@ -1,7 +1,6 @@
 package com.coachingeleven.coachingsoftware;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,19 +43,14 @@ public class LoginBean implements Serializable {
 	@EJB
 	private PlayerServiceRemote playerService;
 
-	@Inject
-	private IndexBean indexBean;
-
 	@PostConstruct
     public void init() {
 		if(loggedInUser == null) loggedInUser = new UserAccount();
 		try {
-			userService.createUser(new UserAccount("elias","elias","elias.schildknecht@students.bfh.ch"));
-			indexBean.init();
-		} catch (UserAlreadyExistsException | ArenaAlreadyExistsException | ClubAlreadyExistsException | TeamAlreadyExistsException | PlayerAlreadyExistsException | GameAlreadyExistsException | CountryAlreadyExistsException | SeasonAlreadyExistsException | ParseException e) {
+			userService.createUser(new UserAccount("elias","elias"));
+		} catch (UserAlreadyExistsException e) {
 			// TODO 
 		}
-		
 	}
 
 	public String doLogin() {
@@ -76,7 +70,6 @@ public class LoginBean implements Serializable {
 			// TODO Auto-generated catch block
 			logger.log(Level.INFO, e.getMessage());
 		}
-
 		return navigationBean.redirectToLogin();
 	}
 

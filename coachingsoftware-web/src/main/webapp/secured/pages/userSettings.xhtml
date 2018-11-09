@@ -22,7 +22,7 @@
 			   		</h:selectOneMenu>
 		    	</div>
 		    	<div class="small-12 column">
-			    	<h:commandButton action="#{userSettingsBean.persistUserTeam}" value="#{msg['save']}" />
+			    	<h:commandButton action="#{userSettingsBean.persistUserTeam}" value="#{msg['save']}" disabled="#{empty userSettingsBean.teams}"/>
 			    </div>
 	    	</div>
 	    </h:form>

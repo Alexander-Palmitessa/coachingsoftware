@@ -1,9 +1,9 @@
 package com.coachingeleven.coachingsoftware;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -22,14 +22,19 @@ import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRe
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
+import com.coachingeleven.coachingsoftware.persistence.entity.PlayerTeam;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
 
 @Named(value = "playerBean")
 @RequestScoped
-public class PlayerBean {
+public class PlayerBean implements Serializable {
 
+	private static final long serialVersionUID = 362437179842480504L;
+	
 	@Inject
 	private NavigationBean navigationBean;
+	@Inject
+	private LoginBean loginBean;
 	@EJB
 	private PlayerServiceRemote playerService;
 	@EJB
@@ -37,8 +42,7 @@ public class PlayerBean {
 	@EJB
 	private TeamClubServiceRemote teamClubService;
 
-	private List<Player> currentPlayers;
-	private List<Player> historyPlayers;
+	private List<PlayerTeam> currentUserTeamPlayers;
 
 	private Player newPlayer;
 	private Address newPlayerAddress;
@@ -55,11 +59,8 @@ public class PlayerBean {
 		newPlayerAddress = new Address();
 		newPlayerCountry = new Country();
 		newPlayerCountryPermission = new Country();
-		// TODO: Elias
-//		currentPlayers = playerService.findCurrentPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
-//		historyPlayers = playerService.findHistoryPlayersByTeam(loginBean.getLoggedInUser().getTeam().getID());
+		currentUserTeamPlayers = loginBean.getLoggedInUser().getTeam().getTeamPlayers();
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
-		Collections.sort(currentPlayers, new Player());
 	}
 
 	public String createPlayer() throws CountryAlreadyExistsException, PlayerNotFoundException {
@@ -119,22 +120,6 @@ public class PlayerBean {
 		this.newPlayerCountry = newPlayerCountry;
 	}
 
-	public List<Player> getCurrentPlayers() {
-		return currentPlayers;
-	}
-
-	public void setCurrentPlayers(List<Player> currentPlayers) {
-		this.currentPlayers = currentPlayers;
-	}
-
-	public List<Player> getHistoryPlayers() {
-		return historyPlayers;
-	}
-
-	public void setHistoryPlayers(List<Player> historyPlayers) {
-		this.historyPlayers = historyPlayers;
-	}
-
 	public String getPlayerBirthday() {
 		return playerBirthday;
 	}
@@ -153,5 +138,9 @@ public class PlayerBean {
 
 	public void setNewPlayerCountryPermission(Country newPlayerCountryPermission) {
 		this.newPlayerCountryPermission = newPlayerCountryPermission;
+	}
+
+	public List<PlayerTeam> getCurrentUserTeamPlayers() {
+		return currentUserTeamPlayers;
 	}
 }

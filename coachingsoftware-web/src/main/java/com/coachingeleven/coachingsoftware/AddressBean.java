@@ -3,6 +3,8 @@ package com.coachingeleven.coachingsoftware;
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
+import com.coachingeleven.coachingsoftware.persistence.entity.Country;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -18,19 +20,19 @@ public class AddressBean {
 
     private Address address;
 
-    private com.coachingeleven.coachingsoftware.persistence.entity.Country country;
+    private Country country;
 
     @PostConstruct
     public void init(){
         address = new Address();
-        country = new com.coachingeleven.coachingsoftware.persistence.entity.Country();
+        country = new Country();
     }
 
     public Address getAddress() {
         return address;
     }
 
-    public com.coachingeleven.coachingsoftware.persistence.entity.Country getCountry() {
+    public Country getCountry() {
         return country;
     }
 

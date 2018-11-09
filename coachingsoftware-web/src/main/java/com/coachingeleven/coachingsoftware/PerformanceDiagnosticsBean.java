@@ -17,6 +17,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -25,7 +27,10 @@ import java.util.logging.Logger;
 
 @Named(value = "performanceDiagnosticsBean")
 @RequestScoped
-public class PerformanceDiagnosticsBean {
+public class PerformanceDiagnosticsBean implements Serializable {
+	
+	private static final long serialVersionUID = 2006175968559337409L;
+
 	private static final Logger logger = Logger.getLogger(EvaluationTalkBean.class.getName());
 
 	@Inject

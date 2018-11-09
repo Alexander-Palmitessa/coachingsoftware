@@ -20,6 +20,9 @@ form input[type="submit"], form input[type="reset"] {
 	padding: 0.9375rem 1.25rem;
 	color: #3D5998;
 	background-color: transparent;
+}
+
+form input[type="submit"]:not(:disabled), form input[type="reset"]:not(:disabled) {
 	cursor: pointer;
 }
 

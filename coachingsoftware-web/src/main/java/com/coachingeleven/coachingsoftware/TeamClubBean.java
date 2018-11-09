@@ -18,16 +18,16 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.io.Serializable;
 import java.util.List;
 
 @Named("teamClubBean")
 @RequestScoped
-public class TeamClubBean {
+public class TeamClubBean implements Serializable {
 
-    @EJB
+	private static final long serialVersionUID = -4782216097643588629L;
+	
+	@EJB
     private TeamClubServiceRemote teamClubService;
     @EJB
     private CountryServiceRemote countryService;
@@ -50,28 +50,6 @@ public class TeamClubBean {
     	newAddress = new Address();
     	newCountry = new Country();
         allClubs = teamClubService.findAllClubs();
-        for (Club club : allClubs) {
-        	List<Team> allClubTeams = teamClubService.findTeamsByClubId(club.getID());
-        	HashMap<String, List<Team>> groupedTeams = new HashMap<String, List<Team>>();
-        	// Group teams by teamname (TODO: Make teamname unique -> must be discussed with Francesco)
-        	for(Team team : allClubTeams) {
-        		if(groupedTeams.get(team.getName()) != null) {
-        			groupedTeams.get(team.getName()).add(team);
-        		} else {
-        			List<Team> teamsOfGroupedTeam = new ArrayList<Team>();
-        			teamsOfGroupedTeam.add(team);
-        			groupedTeams.put(team.getName(), teamsOfGroupedTeam);
-        		}
-        	}
-        	// Generate List of teams (grouped by teamname) for the sidebar
-        	HashSet<Team> teams = new HashSet<Team>();
-        	for(String teamName : groupedTeams.keySet()) {
-        		Team addedTeam = new Team();
-        		addedTeam.setName(teamName);
-        		teams.add(addedTeam);
-        	}
-        	club.setTeams(teams);
-		}
     }
 
     public String createClub() throws ClubNotFoundException, CountryAlreadyExistsException {

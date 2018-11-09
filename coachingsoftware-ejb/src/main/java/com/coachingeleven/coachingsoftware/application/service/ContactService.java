@@ -2,8 +2,8 @@ package com.coachingeleven.coachingsoftware.application.service;
 
 import com.coachingeleven.coachingsoftware.application.exception.TeamContactAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.TeamContactNotFoundException;
-import com.coachingeleven.coachingsoftware.persistence.entity.TeamContact;
-import com.coachingeleven.coachingsoftware.persistence.repository.TeamContactRepository;
+import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
+import com.coachingeleven.coachingsoftware.persistence.repository.ContactRepository;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -17,17 +17,17 @@ import static javax.ejb.TransactionAttributeType.REQUIRED;
 @LocalBean
 @Stateless(name = "teamContactService")
 @TransactionAttribute(REQUIRED)
-public class TeamContactService implements TeamContactServiceRemote {
+public class ContactService implements ContactServiceRemote {
 
-	private static final Logger logger = Logger.getLogger(TeamContactService.class.getName());
+	private static final Logger logger = Logger.getLogger(ContactService.class.getName());
 
 	@EJB
-	private TeamContactRepository teamContactRepository;
+	private ContactRepository teamContactRepository;
 
 	@Override
-	public TeamContact createTeamContact(TeamContact teamContact) throws TeamContactAlreadyExistsException {
+	public Contact createTeamContact(Contact teamContact) throws TeamContactAlreadyExistsException {
 		logger.log(Level.INFO, "Creating teamcontact with id ''{0}''", teamContact.getID());
-		if (teamContactRepository.find(TeamContact.class, teamContact.getID()) != null) {
+		if (teamContactRepository.find(Contact.class, teamContact.getID()) != null) {
 			logger.log(Level.INFO, "Teamcontact with same id already exists");
 			throw new TeamContactAlreadyExistsException();
 		} else if(teamContact.getEmail() != null){
@@ -40,9 +40,9 @@ public class TeamContactService implements TeamContactServiceRemote {
 	}
 
 	@Override
-	public TeamContact findTeamContact(int id) throws TeamContactNotFoundException {
+	public Contact findTeamContact(int id) throws TeamContactNotFoundException {
 		logger.log(Level.INFO, "Finding teamcontact with ID ''{0}''", id);
-		TeamContact teamContact = teamContactRepository.find(id);
+		Contact teamContact = teamContactRepository.find(id);
 		if (teamContact == null) {
 			logger.log(Level.INFO, "Teamcontact not found");
 			throw new TeamContactNotFoundException();
@@ -51,9 +51,9 @@ public class TeamContactService implements TeamContactServiceRemote {
 	}
 
 	@Override
-	public TeamContact findTeamContact(String email) throws TeamContactNotFoundException {
+	public Contact findTeamContact(String email) throws TeamContactNotFoundException {
 		logger.log(Level.INFO, "Finding teamcontact with email ''{0}''", email);
-		TeamContact teamContact = teamContactRepository.find(email);
+		Contact teamContact = teamContactRepository.find(email);
 		if (teamContact == null) {
 			logger.log(Level.INFO, "Player not found");
 			throw new TeamContactNotFoundException();

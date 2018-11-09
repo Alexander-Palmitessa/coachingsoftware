@@ -28,7 +28,7 @@
 				    </h:selectOneMenu>
 		        </div>
 		        <div class="small-12 column text-center">
-		        	<h:commandButton action="#{teamClubBean.createTeam()}" value="#{msg['createTeam']}"/>
+		        	<h:commandButton action="#{teamClubBean.createTeam()}" value="#{msg['createTeam']}" disabled="#{empty teamClubBean.allClubs}"/>
 		        </div>
 	        </div>
 		</h:form>

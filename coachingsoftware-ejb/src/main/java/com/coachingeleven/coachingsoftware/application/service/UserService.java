@@ -58,12 +58,9 @@ public class UserService implements UserServiceRemote {
 
     @Override
     public UserAccount createUser(UserAccount userAccount) throws UserAlreadyExistsException {
-        logger.log(Level.INFO, "Creating userAccount with username " + userAccount.getUsername() + " and email " + userAccount.getEmail());
+        logger.log(Level.INFO, "Creating userAccount with username " + userAccount.getUsername());
         if (userRepository.find(userAccount.getUsername()) != null) {
             logger.log(Level.INFO, "UserAccount with username " + userAccount.getUsername() + " already exists");
-            throw new UserAlreadyExistsException();
-        } else if (userRepository.findByMail(userAccount.getEmail()) != null) {
-            logger.log(Level.INFO, "UserAccount with email " + userAccount.getEmail() + " already exists");
             throw new UserAlreadyExistsException();
         }
         userAccount.setPassword(hashPassword(userAccount.getPassword()));

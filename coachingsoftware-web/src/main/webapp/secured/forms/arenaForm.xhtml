@@ -4,9 +4,13 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
                 
-	<ui:define name="title">
-        Arena - Coaching Eleven
+    <ui:define name="title">
+        <h:outputText value="#{msg['createArena']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
     </ui:define>
+    
+    <ui:define name="contentTitle">
+		<h:outputText value="#{msg['createArena']}"/>
+	</ui:define>
     
     <ui:define name="content">
         <h:form class="create-form">
@@ -44,7 +48,7 @@
 				    </h:selectOneMenu>
 			    </div>
 			    <div class="small-12 column text-center">
-			    	<h:commandButton class="primary-button" action="#{arenaBean.createArena(addressBean.createAddress())}" value="submit"/>
+			    	<h:commandButton action="#{arenaBean.createArena(addressBean.createAddress())}" value="#{msg['createArena']}"/>
 			    </div>
 	        </div>
 		</h:form>
