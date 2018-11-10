@@ -42,6 +42,8 @@ public class TeamClubBean implements Serializable {
     
     private List<Club> allClubs;
     private int selectedClubId;
+    
+    private List<Team> allTeams;
 
     @PostConstruct
     public void init() {
@@ -50,6 +52,7 @@ public class TeamClubBean implements Serializable {
     	newAddress = new Address();
     	newCountry = new Country();
         allClubs = teamClubService.findAllClubs();
+        allTeams = teamClubService.findAllTeams();
     }
 
     public String createClub() throws ClubNotFoundException, CountryAlreadyExistsException {
@@ -121,5 +124,13 @@ public class TeamClubBean implements Serializable {
 
 	public void setSelectedClubId(int selectedClubId) {
 		this.selectedClubId = selectedClubId;
+	}
+
+	public List<Team> getAllTeams() {
+		return allTeams;
+	}
+
+	public void setAllTeams(List<Team> allTeams) {
+		this.allTeams = allTeams;
 	}
 }

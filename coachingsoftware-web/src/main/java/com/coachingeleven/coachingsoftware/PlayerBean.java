@@ -43,6 +43,8 @@ public class PlayerBean implements Serializable {
 	private TeamClubServiceRemote teamClubService;
 
 	private List<TeamContact> currentUserTeamPlayers;
+	
+	private List<Player> allPlayers;
 
 	private Player newPlayer;
 	private Address newPlayerAddress;
@@ -61,6 +63,7 @@ public class PlayerBean implements Serializable {
 		newPlayerCountryPermission = new Country();
 //		currentUserTeamPlayers = loginBean.getLoggedInUser().getTeam().getTeamPlayers();
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
+		allPlayers = playerService.findAllPlayers();
 	}
 
 	public String createPlayer() throws CountryAlreadyExistsException, PlayerNotFoundException {
@@ -142,5 +145,13 @@ public class PlayerBean implements Serializable {
 
 	public List<TeamContact> getCurrentUserTeamPlayers() {
 		return currentUserTeamPlayers;
+	}
+
+	public List<Player> getAllPlayers() {
+		return allPlayers;
+	}
+
+	public void setAllPlayers(List<Player> allPlayers) {
+		this.allPlayers = allPlayers;
 	}
 }

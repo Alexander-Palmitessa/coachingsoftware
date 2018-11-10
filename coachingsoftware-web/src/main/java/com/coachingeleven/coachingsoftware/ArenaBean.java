@@ -11,6 +11,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.List;
 
 @Named("arenaBean")
 @RequestScoped
@@ -19,6 +20,8 @@ public class ArenaBean implements Serializable {
 	private static final long serialVersionUID = -1619226320759939284L;
 
 	private Arena arena;
+	
+	private List<Arena> allArenas;
 
     @EJB
     private ArenaServiceRemote arenaService;
@@ -30,6 +33,7 @@ public class ArenaBean implements Serializable {
     @PostConstruct
     public void init() {
         arena = new Arena();
+        allArenas = arenaService.findAll();
     }
 
     public Arena getArena() {
@@ -48,4 +52,16 @@ public class ArenaBean implements Serializable {
             addressBean.init();
         }
     }
+
+	public List<Arena> getAllArenas() {
+		return allArenas;
+	}
+
+	public void setAllArenas(List<Arena> allArenas) {
+		this.allArenas = allArenas;
+	}
+
+	public void setArena(Arena arena) {
+		this.arena = arena;
+	}
 }

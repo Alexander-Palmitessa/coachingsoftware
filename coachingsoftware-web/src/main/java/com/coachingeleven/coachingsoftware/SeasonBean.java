@@ -32,13 +32,13 @@ public class SeasonBean {
 	
 	private SimpleDateFormat dateFormatter;
 	
-	private List<Season> seasons;
+	private List<Season> allSeasons;
 	
 	@PostConstruct
     public void init() {
 		if(season == null) season = new Season();
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
-		seasons = seasonService.findAllSeasons();
+		allSeasons = seasonService.findAllSeasons();
     }
 	
 	public String createSeason() {
@@ -84,12 +84,12 @@ public class SeasonBean {
 		this.endDate = endDate;
 	}
 
-	public List<Season> getSeasons() {
-		return seasons;
+	public List<Season> getAllSeasons() {
+		return allSeasons;
 	}
 
-	public void setSeasons(List<Season> seasons) {
-		this.seasons = seasons;
+	public void setAllSeasons(List<Season> allSeasons) {
+		this.allSeasons = allSeasons;
 	}
    
 }
