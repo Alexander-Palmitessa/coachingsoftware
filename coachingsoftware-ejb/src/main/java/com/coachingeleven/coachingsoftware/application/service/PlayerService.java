@@ -32,11 +32,6 @@ public class PlayerService implements PlayerServiceRemote {
 		if (playerRepository.find(Player.class, player.getID()) != null) {
 			logger.log(Level.INFO, "Player with same id already exists");
 			throw new PlayerAlreadyExistsException();
-		} else if(player.getEmail() != null){
-			if(playerRepository.find(player.getEmail()) != null) {
-				logger.log(Level.INFO, "Player with same email already exists");
-				throw new PlayerAlreadyExistsException();
-			}
 		}
 		return playerRepository.persist(player);
 	}

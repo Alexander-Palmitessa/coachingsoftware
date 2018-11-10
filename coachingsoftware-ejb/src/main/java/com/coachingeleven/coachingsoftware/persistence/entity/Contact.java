@@ -7,15 +7,23 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.List;
 
 @Entity
 @Table(name = "CONTACT")
@@ -24,14 +32,20 @@ import java.io.Serializable;
 				query = "SELECT c FROM Contact c WHERE LOWER(c.email) = LOWER(:email)")})
 public class Contact implements Serializable {
 
+	private static final long serialVersionUID = -7440605309484763232L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CONTACT_ID")
 	private int ID;
-	@Column(name = "FIRSTNAME", nullable = false)
-	private String firstName;
-	@Column(name = "LASTNAME", nullable = false)
-	private String lastName;
+	@Column(name = "FIRST_NAME", nullable = false)
+    @Pattern(regexp = "^[a-zA-ZäöüÄÖÜéÉèÈàÀîÎâÂêÊôÔûÛ\\s]+$", message = "{pattern.letter.space}")
+    @NotNull
+    private String firstName;
+    @Column(name = "LAST_NAME", nullable = false)
+    @Pattern(regexp = "^[a-zA-ZäöüÄÖÜéÉèÈàÀîÎâÂêÊôÔûÛ\\s]+$", message = "{pattern.letter.space}")
+    @NotNull
+    private String lastName;
 	@Embedded
 	private Address address;
 	@Column(name = "ROLE")
@@ -49,11 +63,24 @@ public class Contact implements Serializable {
 	@Column(name = "EMAIL", unique = true)
 	@Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "{pattern.email}")
 	private String email;
-	@OneToOne
+	@Column(name = "BIRTHDATE")
+    @Temporal(TemporalType.DATE)
+    private Calendar birthdate;
+	@Column(name = "AVATARURL")
+	private String avatarUrl;
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="contact")
+	@JoinColumn(name = "USERACCOUNT", unique = true)
 	private UserAccount userAccount;
+	@OneToMany(mappedBy = "contact", fetch=FetchType.LAZY)
+	private List<TeamContact> teamContacts;
 
 	public Contact(){
 
+	}
+	
+	public Contact(String firstname, String lastname) {
+		this.firstName = firstname;
+		this.lastName = lastname;
 	}
 
 	public int getID() {
@@ -128,11 +155,35 @@ public class Contact implements Serializable {
 		this.email = email;
 	}
 
+	public Calendar getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(Calendar birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	public String getAvatarUrl() {
+		return avatarUrl;
+	}
+
+	public void setAvatarUrl(String avatarUrl) {
+		this.avatarUrl = avatarUrl;
+	}
+
 	public UserAccount getUserAccount() {
 		return userAccount;
 	}
 
 	public void setUserAccount(UserAccount userAccount) {
 		this.userAccount = userAccount;
+	}
+
+	public List<TeamContact> getTeamContacts() {
+		return teamContacts;
+	}
+
+	public void setTeamContacts(List<TeamContact> teamContacts) {
+		this.teamContacts = teamContacts;
 	}
 }

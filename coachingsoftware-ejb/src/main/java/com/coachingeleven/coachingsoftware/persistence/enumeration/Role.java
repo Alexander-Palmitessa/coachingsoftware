@@ -10,5 +10,5 @@ package com.coachingeleven.coachingsoftware.persistence.enumeration;
 
 public enum Role {
 	FUNCTIONARY, DOCTOR, ASSISTANT, GK_TRAINER, TRAINER, FW_TRAINER,
-	PHYSIOTHERAPIST, TEAMMANAGER, SIGHTING
+	PHYSIOTHERAPIST, TEAMMANAGER, SIGHTING, PLAYER
 }

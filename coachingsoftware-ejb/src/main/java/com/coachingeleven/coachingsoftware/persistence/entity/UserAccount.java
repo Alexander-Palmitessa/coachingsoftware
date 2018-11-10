@@ -31,12 +31,9 @@ public class UserAccount implements Serializable {
     @Column(name = "PASSWORD", nullable = false)
     @NotNull(message = "{not.null}")
     private String password;
-    @OneToOne
-    @JoinColumn(name = "CONTACT_ID")
+    @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "CONTACT_ID", nullable = false)
     private Contact contact;
-    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
 
     public UserAccount() {
 
@@ -61,14 +58,6 @@ public class UserAccount implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
 
 	public Contact getContact() {

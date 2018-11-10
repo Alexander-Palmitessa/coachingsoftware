@@ -11,9 +11,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.coachingeleven.coachingsoftware.application.exception.*;
-import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
-import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
+import com.coachingeleven.coachingsoftware.application.service.ContactService;
 import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
+import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
+import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
 
 @Named(value = "loginBean")
@@ -27,8 +28,7 @@ public class LoginBean implements Serializable {
 	private String username;
 	private String password;
 	private UserAccount loggedInUser;
-	private String userTeam;
-	private int userTeamID;
+	private Team loggedInUserTeam;
 	private boolean loggedIn;
 
 	private boolean hasUserAssignedTeam;
@@ -39,17 +39,21 @@ public class LoginBean implements Serializable {
 	@EJB
 	private UserServiceRemote userService;
 	@EJB
-	private TeamClubServiceRemote teamClubService;
-	@EJB
-	private PlayerServiceRemote playerService;
+	private ContactService contactService;
 
 	@PostConstruct
     public void init() {
-		if(loggedInUser == null) loggedInUser = new UserAccount();
 		try {
-			userService.createUser(new UserAccount("elias","elias"));
-		} catch (UserAlreadyExistsException e) {
-			// TODO 
+			userService.findUser("elias");
+		} catch (UserNotFoundException e) {
+			logger.info("Creating default user account elias - elias");
+			loggedInUser = new UserAccount("elias","elias");
+			loggedInUser.setContact(new Contact("Elias","Schildknecht"));
+			try {
+				userService.createUser(loggedInUser);
+			} catch (UserAlreadyExistsException e1) {
+				logger.warning("Could not create user account: " + e1.getMessage());
+			}
 		}
 	}
 
@@ -59,14 +63,15 @@ public class LoginBean implements Serializable {
 			if(userService.authenticate(password, currentUser.getPassword())) {
 				loggedIn = true;
 				loggedInUser = currentUser;
-				if(currentUser.getTeam() != null) {
+				loggedInUserTeam = contactService.findAssignedTeam(currentUser.getContact());
+				if(loggedInUserTeam != null) {
 					hasUserAssignedTeam = true;
 					return navigationBean.redirectToHome();
 				} else {
 					return navigationBean.redirectToUserSettings();
 				}
 			}
-		} catch (UserNotFoundException e) {
+		} catch (UserNotFoundException | NoTeamAssignedException e) {
 			// TODO Auto-generated catch block
 			logger.log(Level.INFO, e.getMessage());
 		}
@@ -118,19 +123,11 @@ public class LoginBean implements Serializable {
 		this.loggedIn = loggedIn;
 	}
 
-	public String getUserTeam() {
-		return userTeam;
+	public Team getLoggedInUserTeam() {
+		return loggedInUserTeam;
 	}
 
-	public void setUserTeam(String userTeam) {
-		this.userTeam = userTeam;
-	}
-
-	public int getUserTeamID() {
-		return userTeamID;
-	}
-
-	public void setUserTeamID(int userTeamID) {
-		this.userTeamID = userTeamID;
+	public void setLoggedInUserTeam(Team loggedInUserTeam) {
+		this.loggedInUserTeam = loggedInUserTeam;
 	}
 }

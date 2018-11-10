@@ -56,11 +56,7 @@ public class TeamDataBean {
 	
 	@PostConstruct
     public void init() {
-		try {
-			currentTeam = teamClubService.findTeam(loginBean.getLoggedInUser().getTeam().getID());
-		} catch (TeamNotFoundException e) {
-			// TODO
-		}
+		currentTeam = loginBean.getLoggedInUserTeam();
 		allClubs = teamClubService.findAllClubs();
 		selectedClubID = currentTeam.getClub().getID();
 		selectedClub = currentTeam.getClub();
@@ -90,7 +86,7 @@ public class TeamDataBean {
 			teamClubService.updateTeam(currentTeam);
 			
 			// Assign team to user
-			loginBean.getLoggedInUser().setTeam(currentTeam);
+//			loginBean.getLoggedInUser().setTeam(currentTeam);
 			userService.updateUser(loginBean.getLoggedInUser());
 			
 			return navigationBean.redirectToTeamDataOverview();

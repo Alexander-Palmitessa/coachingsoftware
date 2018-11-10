@@ -10,26 +10,16 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Draft;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
-import com.coachingeleven.coachingsoftware.persistence.enumeration.Role;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "PLAYER")
-@NamedQueries({
-	@NamedQuery(name = "findPlayerByEmail",
-			query = "SELECT p FROM Player p WHERE LOWER(p.email) = LOWER(:email)")
-})
 public class Player implements Serializable, Comparator<Player> {
 	
 	private static final long serialVersionUID = -645290838661524061L;
@@ -38,40 +28,12 @@ public class Player implements Serializable, Comparator<Player> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PLAYER_ID")
     private int ID;
-    @Column(name = "FIRST_NAME", nullable = false)
-    @Pattern(regexp = "^[a-zA-ZäöüÄÖÜéÉèÈàÀîÎâÂêÊôÔûÛ\\s]+$", message = "{pattern.letter.space}")
-    @NotNull
-    private String firstName;
-    @Column(name = "LAST_NAME", nullable = false)
-    @Pattern(regexp = "^[a-zA-ZäöüÄÖÜéÉèÈàÀîÎâÂêÊôÔûÛ\\s]+$", message = "{pattern.letter.space}")
-    @NotNull
-    private String lastName;
-    @Embedded
-    private Address address;
-    @Column(name = "FIRST_EMAIL", unique = true)
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "{pattern.email}")
-    private String email;
-    @Column(name = "TYPE")
-    @Enumerated(EnumType.STRING)
-    private Role type;
     @Column(name = "DRAFT")
     @Enumerated(EnumType.STRING)
     private Draft draft;
     @Column(name = "POSITION")
     @Enumerated(EnumType.STRING)
     private Position position;
-    @Column(name = "PRIVATE_NUMBER")
-    @Pattern(regexp = "^[0-9\\s]+$", message = "{pattern.number.space}")
-    private String privateNumber;
-    @Column(name = "WORKING_NUMBER")
-    @Pattern(regexp = "^[0-9\\s]+$", message = "{pattern.number.space}")
-    private String workingNumber;
-    @Column(name = "MOBILE_NUMBER")
-    @Pattern(regexp = "^[0-9\\s]+$", message = "{pattern.number.space}")
-    private String mobileNumber;
-    @Column(name = "BIRTHDATE")
-    @Temporal(TemporalType.DATE)
-    private Calendar birthdate;
     @Column(name = "SIZE_CM")
     @Min(value = 0, message = "{min.zero}")
     @Max(value = 300, message = "{max.value}")
@@ -91,15 +53,14 @@ public class Player implements Serializable, Comparator<Player> {
     private Set<PerformanceDiagnostics> performanceDiagnostics;
     @OneToMany(mappedBy = "player", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<EvaluationTalk> evaluationTalks;
-    private String avatarUrl;
     @OneToMany(mappedBy = "player")
     private Set<ObserveTIPS> observeTIPS;
     @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     private Set<ExtendedTIPS> extendedTIPS;
 	@OneToMany(mappedBy = "player")
     private Set<LineUpPlayer> lineUps;
-	@OneToMany(mappedBy = "player", fetch=FetchType.LAZY)
-    private List<PlayerTeam> playerTeams = new ArrayList<>();
+	@OneToOne
+	private Contact contact;
 
 
 	/**
@@ -109,23 +70,7 @@ public class Player implements Serializable, Comparator<Player> {
 
 	}
 	
-	/**
-	 * @param firstName first name of player
-	 * @param lastName last name of player
-	 * @param email email of player
-	 * */
-	public Player(String firstName, String lastName, String email) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-	}
-	
-	public Player(String firstName, String lastName, String email, String mobilePhone, Address address, Position position) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.mobileNumber = mobilePhone;
-		this.address = address;
+	public Player(Position position) {
 		this.position = position;
 	}
 	
@@ -137,38 +82,6 @@ public class Player implements Serializable, Comparator<Player> {
 
 	public void setID(int ID) {
 		this.ID = ID;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	public Role getType() {
-		return type;
-	}
-
-	public void setType(Role type) {
-		this.type = type;
 	}
 
 	public Draft getDraft() {
@@ -185,38 +98,6 @@ public class Player implements Serializable, Comparator<Player> {
 
 	public void setPosition(Position position) {
 		this.position = position;
-	}
-
-	public String getPrivateNumber() {
-		return privateNumber;
-	}
-
-	public void setPrivateNumber(String privateNumber) {
-		this.privateNumber = privateNumber;
-	}
-
-	public String getWorkingNumber() {
-		return workingNumber;
-	}
-
-	public void setWorkingNumber(String workingNumber) {
-		this.workingNumber = workingNumber;
-	}
-
-	public String getMobileNumber() {
-		return mobileNumber;
-	}
-
-	public void setMobileNumber(String mobileNumber) {
-		this.mobileNumber = mobileNumber;
-	}
-
-	public Calendar getBirthdate() {
-		return birthdate;
-	}
-
-	public void setBirthdate(Calendar birthdate) {
-		this.birthdate = birthdate;
 	}
 
 	public int getSize() {
@@ -275,22 +156,6 @@ public class Player implements Serializable, Comparator<Player> {
         this.evaluationTalks = evaluationTalks;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public Set<ObserveTIPS> getObserveTIPS() {
         return observeTIPS;
     }
@@ -327,16 +192,16 @@ public class Player implements Serializable, Comparator<Player> {
 		this.performanceDiagnostics.add(performanceDiagnostics);
 	}
 
-	public List<PlayerTeam> getPlayerTeams() {
-		return playerTeams;
+	public Contact getContact() {
+		return contact;
 	}
 
-	public void setPlayerTeams(List<PlayerTeam> playerTeams) {
-		this.playerTeams = playerTeams;
+	public void setContact(Contact contact) {
+		this.contact = contact;
 	}
 
 	@Override
 	public int compare(Player p1, Player p2) {
-		return p1.lastName.compareTo(p2.lastName);
+		return p1.contact.getLastName().compareTo(p2.contact.getLastName());
 	}
 }

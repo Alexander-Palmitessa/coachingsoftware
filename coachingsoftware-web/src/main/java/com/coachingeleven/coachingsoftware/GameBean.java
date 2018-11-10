@@ -184,21 +184,16 @@ public class GameBean implements Serializable {
 	public void init() {
 		teams = teamClubService.findAllTeams();
 		arenas = arenaService.findAll();
-		try {
-			Team currentTeam = teamClubService.findTeam(loginBean.getUserTeamID());
-			// TODO: Elias
-//			if (currentTeam.getPlayers() != null)
-//				players = new ArrayList<>(currentTeam.getCurrentPlayers());
-//			else players = new ArrayList<>();
-			if (currentTeam.getGamesHome() != null)
-				allGames = new ArrayList<>(currentTeam.getGamesHome());
-			else allGames = new ArrayList<>();
-			if (currentTeam.getGamesAway() != null)
-				allGames.addAll(currentTeam.getGamesAway());
-		} catch (TeamNotFoundException e) {
-			logger.log(Level.INFO, e.getMessage());
-			//TODO: DISPLAY ERROR PAGE?
-		}
+		Team currentTeam = loginBean.getLoggedInUserTeam();
+		// TODO: Elias
+//		if (currentTeam.getPlayers() != null)
+//			players = new ArrayList<>(currentTeam.getCurrentPlayers());
+//		else players = new ArrayList<>();
+		if (currentTeam.getGamesHome() != null)
+			allGames = new ArrayList<>(currentTeam.getGamesHome());
+		else allGames = new ArrayList<>();
+		if (currentTeam.getGamesAway() != null)
+			allGames.addAll(currentTeam.getGamesAway());
 
 		systems = System.values();
 		lineUpTypes = LineUpType.values();
@@ -232,13 +227,8 @@ public class GameBean implements Serializable {
 		} catch (GameAlreadyExistsException e) {
 			currentGame = gameService.update(newGame);
 		}
-		try {
-			allGames = new ArrayList<>(teamClubService.findTeam(loginBean.getUserTeamID()).getGamesHome());
-			allGames.addAll(teamClubService.findTeam(loginBean.getUserTeamID()).getGamesAway());
-		} catch (TeamNotFoundException e) {
-			logger.log(Level.INFO, e.getMessage());
-			//TODO: DISPLAY ERROR PAGE
-		}
+		allGames = new ArrayList<>(loginBean.getLoggedInUserTeam().getGamesHome());
+		allGames.addAll(loginBean.getLoggedInUserTeam().getGamesAway());
 		reset();
 		return navigationBean.redirectToGameOverview();
 	}
@@ -307,7 +297,7 @@ public class GameBean implements Serializable {
 		//Prepare Goals
 		for (Goal goal : currentGame.getGoals()) {
 			if (goal.getScorer() != null) {
-				if (goal.getScorer().getLastName() == null && goal.getScorer().getID() != 0) {
+				if (goal.getScorer().getContact().getLastName() == null && goal.getScorer().getID() != 0) {
 					try {
 						goal.setScorer(playerService.findPlayer(goal.getScorer().getID()));
 					} catch (PlayerNotFoundException e) {
@@ -317,7 +307,7 @@ public class GameBean implements Serializable {
 				} else if (goal.getScorer().getID() == 0) goal.setScorer(null);
 			}
 			if (goal.getAssistant() != null) {
-				if (goal.getAssistant().getLastName() == null && goal.getAssistant().getID() != 0) {
+				if (goal.getAssistant().getContact().getLastName() == null && goal.getAssistant().getID() != 0) {
 					try {
 						goal.setAssistant(playerService.findPlayer(goal.getAssistant().getID()));
 					} catch (PlayerNotFoundException e) {

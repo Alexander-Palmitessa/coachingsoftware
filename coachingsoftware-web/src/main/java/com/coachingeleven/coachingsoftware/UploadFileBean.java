@@ -36,10 +36,10 @@ public class UploadFileBean {
 		try (InputStream input = file.getInputStream()) {
 			// TODO: Filepath must be changed according to the operating system on which the application will be deployed
 	        Files.copy(input, new File("C:\\Users\\Elias\\Desktop\\Programs\\glassfish5\\glassfish\\domains\\coachingeleven\\applications\\coachingsoftware-app\\coachingsoftware-web_war\\resources\\images", file.getSubmittedFileName()).toPath());
-	        Team currentTeam = loginBean.getLoggedInUser().getTeam();
-	        currentTeam.setTeamPictureURL("images/" + file.getSubmittedFileName());
-	        currentTeam = teamClubService.updateTeam(currentTeam);
-	        loginBean.getLoggedInUser().setTeam(currentTeam);
+//	        Team currentTeam = loginBean.getLoggedInUser().getTeam();
+//	        currentTeam.setTeamPictureURL("images/" + file.getSubmittedFileName());
+//	        currentTeam = teamClubService.updateTeam(currentTeam);
+//	        loginBean.getLoggedInUser().setTeam(currentTeam);
 	    } catch (IOException e) {
 	        // Show faces message?
 	    }
@@ -50,7 +50,7 @@ public class UploadFileBean {
 			// TODO: Filepath must be changed according to the operating system on which the application will be deployed
 	        Files.copy(input, new File("C:\\Users\\Elias\\Desktop\\Programs\\glassfish5\\glassfish\\domains\\coachingeleven\\applications\\coachingsoftware-app\\coachingsoftware-web_war\\resources\\images", file.getSubmittedFileName()).toPath());
 	        Player currentPlayer = currentPlayerBean.getCurrentPlayer();
-	        currentPlayer.setAvatarUrl("images/" + file.getSubmittedFileName());
+//	        currentPlayer.setAvatarUrl("images/" + file.getSubmittedFileName());
 	        playerService.update(currentPlayer);
 	    } catch (IOException e) {
 	        // Show faces message?

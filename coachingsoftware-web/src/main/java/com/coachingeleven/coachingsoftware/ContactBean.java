@@ -2,7 +2,7 @@ package com.coachingeleven.coachingsoftware;
 
 import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
-import com.coachingeleven.coachingsoftware.application.exception.TeamContactAlreadyExistsException;
+import com.coachingeleven.coachingsoftware.application.exception.ContactAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.ContactServiceRemote;
@@ -33,7 +33,7 @@ public class ContactBean implements Serializable {
 	private NavigationBean navigationBean;
 
 	@EJB
-	private ContactServiceRemote teamContactService;
+	private ContactServiceRemote contactService;
 	@EJB
 	private TeamClubServiceRemote teamClubService;
 	@EJB
@@ -62,8 +62,8 @@ public class ContactBean implements Serializable {
 		newContactAddress.setCountry(newContactCountry);
 		newContact.setAddress(newContactAddress);
 		try {
-			newContact = teamContactService.createTeamContact(newContact);
-		} catch (TeamContactAlreadyExistsException e) {
+			newContact = contactService.createContact(newContact);
+		} catch (ContactAlreadyExistsException e) {
 			logger.log(Level.INFO, e.getMessage());
 		}
 		return navigationBean.redirectToAddressOverview();

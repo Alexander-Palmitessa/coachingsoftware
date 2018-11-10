@@ -1,5 +1,8 @@
 package com.coachingeleven.coachingsoftware;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,11 +12,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
-import com.coachingeleven.coachingsoftware.application.exception.UserNotFoundException;
+import com.coachingeleven.coachingsoftware.application.service.ContactService;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
-import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
+import com.coachingeleven.coachingsoftware.application.service.TeamContactServiceRemote;
+import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
-import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
+import com.coachingeleven.coachingsoftware.persistence.entity.TeamContact;
 
 @Named("userSettingsBean")
 @RequestScoped
@@ -22,10 +26,16 @@ public class UserSettingsBean {
 	@EJB
     private TeamClubServiceRemote teamClubService;
 	@EJB
-	private UserServiceRemote userService;
+	private ContactService contactService;
+	@EJB
+	private TeamContactServiceRemote teamContactService;
 	
 	private List<Team> teams;
     private int selectedTeamID;
+    
+    private String userTeamJoinDate;
+    private SimpleDateFormat dateFormatter;
+    private Calendar userTeamJoinCalendar;
     
     @Inject
 	private LoginBean loginBean;
@@ -35,44 +45,25 @@ public class UserSettingsBean {
     @PostConstruct
     public void init() {
         teams = teamClubService.findAllTeams();
-		try {
-			UserAccount currentUser = userService.findUser(loginBean.getUsername());
-			if(currentUser.getTeam() != null) {
-	        	selectedTeamID = currentUser.getTeam().getID();
-	        }
-		} catch (UserNotFoundException e) {
-			// TODO
-		}
-    }
-    
-    // TODO: In further requirements
-    public String persistUserTeamSeason(String teamname, int seasonID) {
-    	UserAccount currentUser = loginBean.getLoggedInUser();
-		try {
-			Team team = teamClubService.findTeam(teamname);
-			currentUser.setTeam(team);
-		} catch (TeamNotFoundException e) {
-			// TODO Auto-generated catch block
-		}
-    	
-    	loginBean.setHasUserAssignedTeam(true);
-		userService.updateUser(currentUser);
-    	return navigationBean.toTeamDataOverview();
+        if(loginBean.getLoggedInUserTeam() != null) selectedTeamID = loginBean.getLoggedInUserTeam().getID();
+        dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
+        userTeamJoinCalendar = Calendar.getInstance();
     }
     
     public String persistUserTeam() {
     	try {
 			Team team = teamClubService.findTeam(selectedTeamID);
-			if(team != null) {
-				UserAccount currentUser = loginBean.getLoggedInUser();
-				currentUser.setTeam(team);
+			Team assignedUserTeam = loginBean.getLoggedInUserTeam();
+			if(team != null && (assignedUserTeam == null || team.getID() != assignedUserTeam.getID())) {
+				Contact userContact = loginBean.getLoggedInUser().getContact();
+				userTeamJoinCalendar.setTime(dateFormatter.parse(userTeamJoinDate));
+				TeamContact teamContact = new TeamContact(team, userContact,userTeamJoinCalendar);
+				userContact.getTeamContacts().add(teamContact);
 				loginBean.setHasUserAssignedTeam(true);
-				loginBean.setUserTeam(team.getName());
-				loginBean.setUserTeamID(team.getID());
-				userService.updateUser(currentUser);
+				contactService.update(userContact);
 				return navigationBean.redirectToTeamDataOverview();
 			}
-		} catch (TeamNotFoundException e) {
+		} catch (TeamNotFoundException | ParseException e) {
 			// TODO
 		}
     	return navigationBean.redirectToUserSettings();

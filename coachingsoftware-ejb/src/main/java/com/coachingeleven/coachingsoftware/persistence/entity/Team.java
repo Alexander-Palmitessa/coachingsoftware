@@ -49,12 +49,10 @@ public class Team implements Serializable {
 	private Set<Game> gamesHome;
 	@OneToMany(mappedBy = "teamAway", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Game> gamesAway;
-	@OneToOne(mappedBy = "team")
-	private UserAccount user;
 	private String teamPictureURL;
 	private String teamLogoURL;
 	@OneToMany(mappedBy = "team", fetch=FetchType.LAZY)
-    private List<PlayerTeam> teamPlayers = new ArrayList<>();
+    private List<TeamContact> teamContacts = new ArrayList<>();
 
 	public Team(String name, Club club) {
 		this.name = name;
@@ -96,14 +94,6 @@ public class Team implements Serializable {
 		this.games = games;
 	}
 
-	public UserAccount getUser() {
-		return user;
-	}
-
-	public void setUser(UserAccount user) {
-		this.user = user;
-	}
-
 	public String getTeamPictureURL() {
 		return teamPictureURL;
 	}
@@ -136,11 +126,11 @@ public class Team implements Serializable {
 		this.gamesAway = gamesAway;
 	}
 
-	public List<PlayerTeam> getTeamPlayers() {
-		return teamPlayers;
+	public List<TeamContact> getTeamContacts() {
+		return teamContacts;
 	}
 
-	public void setTeamPlayers(List<PlayerTeam> teamPlayers) {
-		this.teamPlayers = teamPlayers;
+	public void setTeamContacts(List<TeamContact> teamContacts) {
+		this.teamContacts = teamContacts;
 	}
 }

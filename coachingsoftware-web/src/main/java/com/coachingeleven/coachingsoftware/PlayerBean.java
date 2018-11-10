@@ -22,7 +22,7 @@ import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRe
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
-import com.coachingeleven.coachingsoftware.persistence.entity.PlayerTeam;
+import com.coachingeleven.coachingsoftware.persistence.entity.TeamContact;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
 
 @Named(value = "playerBean")
@@ -42,7 +42,7 @@ public class PlayerBean implements Serializable {
 	@EJB
 	private TeamClubServiceRemote teamClubService;
 
-	private List<PlayerTeam> currentUserTeamPlayers;
+	private List<TeamContact> currentUserTeamPlayers;
 
 	private Player newPlayer;
 	private Address newPlayerAddress;
@@ -59,7 +59,7 @@ public class PlayerBean implements Serializable {
 		newPlayerAddress = new Address();
 		newPlayerCountry = new Country();
 		newPlayerCountryPermission = new Country();
-		currentUserTeamPlayers = loginBean.getLoggedInUser().getTeam().getTeamPlayers();
+//		currentUserTeamPlayers = loginBean.getLoggedInUser().getTeam().getTeamPlayers();
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 	}
 
@@ -77,12 +77,12 @@ public class PlayerBean implements Serializable {
 		}
 		newPlayer.setCountryPermission(newPlayerCountryPermission);
 		newPlayerAddress.setCountry(newPlayerCountry);
-		newPlayer.setAddress(newPlayerAddress);
+//		newPlayer.setAddress(newPlayerAddress);
 
 		try {
 			Calendar playerBirthdayCalendar = Calendar.getInstance();
 			playerBirthdayCalendar.setTime(dateFormatter.parse(playerBirthday));
-			newPlayer.setBirthdate(playerBirthdayCalendar);
+//			newPlayer.setBirthdate(playerBirthdayCalendar);
 		} catch (ParseException e1) {
 			// TODO 
 		}
@@ -140,7 +140,7 @@ public class PlayerBean implements Serializable {
 		this.newPlayerCountryPermission = newPlayerCountryPermission;
 	}
 
-	public List<PlayerTeam> getCurrentUserTeamPlayers() {
+	public List<TeamContact> getCurrentUserTeamPlayers() {
 		return currentUserTeamPlayers;
 	}
 }

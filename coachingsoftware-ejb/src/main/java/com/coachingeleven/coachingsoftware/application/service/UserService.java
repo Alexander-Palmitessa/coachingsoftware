@@ -140,10 +140,6 @@ public class UserService implements UserServiceRemote {
 
 	@Override
 	public void updateUser(UserAccount user) {
-        try{
-            userRepository.update(user);
-        } catch (EJBTransactionRolledbackException e){
-            // TODO: THIS IS JUST A WORKAROUND FOR THE EXCEPTION AFTER THE TEAMSELECTION AFTER THE LOGIN
-        }
+		userRepository.update(user);
 	}
 }

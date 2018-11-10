@@ -1,14 +1,18 @@
 package com.coachingeleven.coachingsoftware.application.service;
 
-import com.coachingeleven.coachingsoftware.application.exception.TeamContactAlreadyExistsException;
-import com.coachingeleven.coachingsoftware.application.exception.TeamContactNotFoundException;
+import com.coachingeleven.coachingsoftware.application.exception.ContactAlreadyExistsException;
+import com.coachingeleven.coachingsoftware.application.exception.ContactNotFoundException;
+import com.coachingeleven.coachingsoftware.application.exception.NoTeamAssignedException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
+import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
 import javax.ejb.Remote;
 
 @Remote
 public interface ContactServiceRemote {
-	Contact createTeamContact(Contact teamContact) throws TeamContactAlreadyExistsException;
-	Contact findTeamContact(int id) throws TeamContactNotFoundException;
-	Contact findTeamContact(String email) throws TeamContactNotFoundException;
+	Contact createContact(Contact contact) throws ContactAlreadyExistsException;
+	Contact findContact(int id) throws ContactNotFoundException;
+	Contact findContact(String email) throws ContactNotFoundException;
+	Team findAssignedTeam(Contact contact) throws NoTeamAssignedException;
+	void update(Contact contact);
 }

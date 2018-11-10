@@ -3,20 +3,30 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 import java.io.Serializable;
 import java.util.Calendar;
 
-public class PlayerTeamId implements Serializable {
+public class TeamContactId implements Serializable {
 
 	private static final long serialVersionUID = -9062539073700206859L;
 	
 	private Integer team;
-	private Integer player;
+	private Integer contact;
 	private Calendar joinDate;
+	
+	public TeamContactId() {
+		
+	}
+	
+	public TeamContactId(Integer teamId, Integer contactId, Calendar joinDate) {
+		team = teamId;
+		contact = contactId;
+		this.joinDate = joinDate;
+	}
 	
 	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((team == null) ? 0 : team.hashCode());
-        result = prime * result + ((player == null) ? 0 : player.hashCode());
+        result = prime * result + ((contact == null) ? 0 : contact.hashCode());
         result = prime * result + ((joinDate == null) ? 0 : joinDate.hashCode());
         return result;
     }
@@ -29,16 +39,16 @@ public class PlayerTeamId implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        PlayerTeamId other = (PlayerTeamId) obj;
+        TeamContactId other = (TeamContactId) obj;
         if (team == null) {
             if (other.team != null)
                 return false;
         } else if (!team.equals(other.team))
             return false;
-        if (player == null) {
-            if (other.player != null)
+        if (contact == null) {
+            if (other.contact != null)
                 return false;
-        } else if (!player.equals(other.player))
+        } else if (!contact.equals(other.contact))
             return false;
         if (joinDate == null) {
             if (other.joinDate != null)
