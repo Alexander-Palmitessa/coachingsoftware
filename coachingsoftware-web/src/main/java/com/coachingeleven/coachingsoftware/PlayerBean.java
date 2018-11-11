@@ -20,10 +20,11 @@ import com.coachingeleven.coachingsoftware.application.service.CountryServiceRem
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
+import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
-import com.coachingeleven.coachingsoftware.persistence.entity.TeamContact;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.Role;
 
 @Named(value = "playerBean")
 @RequestScoped
@@ -33,20 +34,17 @@ public class PlayerBean implements Serializable {
 	
 	@Inject
 	private NavigationBean navigationBean;
-	@Inject
-	private LoginBean loginBean;
 	@EJB
 	private PlayerServiceRemote playerService;
 	@EJB
 	private CountryServiceRemote countryService;
 	@EJB
 	private TeamClubServiceRemote teamClubService;
-
-	private List<TeamContact> currentUserTeamPlayers;
 	
 	private List<Player> allPlayers;
 
 	private Player newPlayer;
+	private Contact newPlayerContact;
 	private Address newPlayerAddress;
 	private Country newPlayerCountry;
 	private Country newPlayerCountryPermission;
@@ -58,10 +56,10 @@ public class PlayerBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		newPlayer = new Player();
+		newPlayerContact = new Contact();
 		newPlayerAddress = new Address();
 		newPlayerCountry = new Country();
 		newPlayerCountryPermission = new Country();
-//		currentUserTeamPlayers = loginBean.getLoggedInUser().getTeam().getTeamPlayers();
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 		allPlayers = playerService.findAllPlayers();
 	}
@@ -80,15 +78,20 @@ public class PlayerBean implements Serializable {
 		}
 		newPlayer.setCountryPermission(newPlayerCountryPermission);
 		newPlayerAddress.setCountry(newPlayerCountry);
-//		newPlayer.setAddress(newPlayerAddress);
+		newPlayerContact.setAddress(newPlayerAddress);
 
-		try {
-			Calendar playerBirthdayCalendar = Calendar.getInstance();
-			playerBirthdayCalendar.setTime(dateFormatter.parse(playerBirthday));
-//			newPlayer.setBirthdate(playerBirthdayCalendar);
-		} catch (ParseException e1) {
-			// TODO 
+		if(playerBirthday != null) {
+			try {
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(dateFormatter.parse(playerBirthday));
+				newPlayerContact.setBirthdate(calendar);
+			} catch (ParseException e1) {
+				// TODO 
+			}
 		}
+		
+		newPlayerContact.setRole(Role.PLAYER);
+		newPlayer.setContact(newPlayerContact);
 
 		try {
 			newPlayer = playerService.createPlayer(newPlayer);
@@ -143,15 +146,19 @@ public class PlayerBean implements Serializable {
 		this.newPlayerCountryPermission = newPlayerCountryPermission;
 	}
 
-	public List<TeamContact> getCurrentUserTeamPlayers() {
-		return currentUserTeamPlayers;
-	}
-
 	public List<Player> getAllPlayers() {
 		return allPlayers;
 	}
 
 	public void setAllPlayers(List<Player> allPlayers) {
 		this.allPlayers = allPlayers;
+	}
+
+	public Contact getNewPlayerContact() {
+		return newPlayerContact;
+	}
+
+	public void setNewPlayerContact(Contact newPlayerContact) {
+		this.newPlayerContact = newPlayerContact;
 	}
 }

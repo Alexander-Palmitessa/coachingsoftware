@@ -97,24 +97,24 @@ public class ContactBean implements Serializable {
 						Calendar playerBirthdayCalendar = Calendar.getInstance();
 						playerBirthdayCalendar.setTime(dateFormatter.parse(birthdayFormatted));
 						contact.setBirthdate(playerBirthdayCalendar);
-						try {
-							contact.getAddress().setCountry(countryService.findCountry(contact.getAddress().getCountry().getName()));
-						} catch (CountryNotFounException e1) {
-							try {
-								Country newCountry = new Country(contact.getAddress().getCountry().getName());
-								contact.getAddress().setCountry(countryService.createCountry(newCountry));
-							} catch (CountryAlreadyExistsException e) {
-								// TODO: Initialize all country's on DB creation
-							}
-						}
-						contactService.update(contact);
 					} catch (ParseException e) {
 						FacesContext facesContext = FacesContext.getCurrentInstance();
 						// TODO: localization
 						FacesMessage facesMessage = new FacesMessage("Invalid date format", "Date format must be in dd.MM.yyyy!");
-						facesContext.addMessage("updatePlayerForm:datePickerPlayerBirthday", facesMessage);
+						facesContext.addMessage("updatePlayerForm:datePickerUserAccountBirthday", facesMessage);
 					}
 				}
+				try {
+					contact.getAddress().setCountry(countryService.findCountry(contact.getAddress().getCountry().getName()));
+				} catch (CountryNotFounException e1) {
+					try {
+						Country newCountry = new Country(contact.getAddress().getCountry().getName());
+						contact.getAddress().setCountry(countryService.createCountry(newCountry));
+					} catch (CountryAlreadyExistsException e) {
+						// TODO: Initialize all country's on DB creation
+					}
+				}
+				contactService.update(contact);
 			}
 			
 		}

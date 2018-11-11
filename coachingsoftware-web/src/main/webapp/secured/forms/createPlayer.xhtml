@@ -17,17 +17,17 @@
         	<div class="row">
 		        <div class="small-12 medium-6 column">
 		        	<label><h:outputText value="#{msg['firstName']}"/></label>
-				    <h:inputText id="player_firstName" value="#{playerBean.newPlayer.firstName}"/>
+				    <h:inputText id="player_firstName" value="#{playerBean.newPlayerContact.firstName}"/>
 					<h:message for="player_firstName" style="color: red"/>
 		        </div>
 		        <div class="small-12 medium-6 column">
 		        	<label><h:outputText value="#{msg['lastName']}"/></label>
-				    <h:inputText id="player_lastName" value="#{playerBean.newPlayer.lastName}"/>
+				    <h:inputText id="player_lastName" value="#{playerBean.newPlayerContact.lastName}"/>
 					<h:message for="player_lastName" style="color: red"/>
 		        </div>
 		        <div class="small-12 medium-6 column">
 		        	<label><h:outputText value="#{msg['email']}"/></label>
-					<h:inputText id="player_email" value="#{playerBean.newPlayer.email}">
+					<h:inputText id="player_email" value="#{playerBean.newPlayerContact.email}">
 						<f:validator binding="#{duplicateMailValidator}"/>
 					</h:inputText>
 					<h:message for="player_email" style="color: red"/>
@@ -39,7 +39,7 @@
 		        </div>
 		        <div class="small-12 medium-6 column">
 		        	<label><h:outputText value="#{msg['mobileNumber']}"/></label>
-				    <h:inputText id="player_mobileNumber" value="#{playerBean.newPlayer.mobileNumber}"/>
+				    <h:inputText id="player_mobileNumber" value="#{playerBean.newPlayerContact.mobileNumber}"/>
 					<h:message for="player_mobileNumber" style="color: red"/>
 		        </div>
 		        <div class="small-12 medium-6 column">
