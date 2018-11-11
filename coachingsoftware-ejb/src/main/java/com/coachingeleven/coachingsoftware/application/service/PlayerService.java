@@ -46,17 +46,6 @@ public class PlayerService implements PlayerServiceRemote {
 		}
 		return player;
 	}
-
-	@Override
-	public Player findPlayer(String email) throws PlayerNotFoundException {
-		logger.log(Level.INFO, "Finding player with email ''{0}''", email);
-		Player player = playerRepository.find(email);
-		if (player == null) {
-			logger.log(Level.INFO, "Player not found");
-			throw new PlayerNotFoundException();
-		}
-		return player;
-	}
 	
 	@Override
 	public void deletePlayer(Player player) {

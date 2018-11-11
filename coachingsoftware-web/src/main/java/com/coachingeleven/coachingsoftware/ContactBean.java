@@ -3,6 +3,7 @@ package com.coachingeleven.coachingsoftware;
 import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
 import com.coachingeleven.coachingsoftware.application.exception.ContactAlreadyExistsException;
+import com.coachingeleven.coachingsoftware.application.exception.ContactNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.ContactServiceRemote;
@@ -14,10 +15,16 @@ import com.coachingeleven.coachingsoftware.persistence.enumeration.Role;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,6 +51,9 @@ public class ContactBean implements Serializable {
 	private Country newContactCountry;
 
 	private Role[] roles;
+	
+	private List<Contact> allContacts;
+	private SimpleDateFormat dateFormatter;
 
 	@PostConstruct
 	public void init() {
@@ -51,6 +61,8 @@ public class ContactBean implements Serializable {
 		newContactAddress = new Address();
 		newContactCountry = new Country();
 		roles = Role.values();
+		allContacts = contactService.findAll();
+		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 	}
 
 	public String createContact() throws CountryAlreadyExistsException {
@@ -67,6 +79,63 @@ public class ContactBean implements Serializable {
 			logger.log(Level.INFO, e.getMessage());
 		}
 		return navigationBean.redirectToAddressOverview();
+	}
+	
+	public void updateContact(Contact contact, String birthdayFormatted) {
+		if(contact != null) {
+			String oldEmail = "";
+			try {
+				oldEmail = contactService.findContact(contact.getID()).getEmail();
+				oldEmail = oldEmail != null ? oldEmail : "";
+			} catch (ContactNotFoundException e2) {
+				// Nothing to check here
+			}
+			if(checkForDuplicateEmail(contact.getEmail(), oldEmail)) {
+				if(birthdayFormatted != null && !birthdayFormatted.isEmpty()) {
+					// Parse string of date to date
+					try {
+						Calendar playerBirthdayCalendar = Calendar.getInstance();
+						playerBirthdayCalendar.setTime(dateFormatter.parse(birthdayFormatted));
+						contact.setBirthdate(playerBirthdayCalendar);
+						try {
+							contact.getAddress().setCountry(countryService.findCountry(contact.getAddress().getCountry().getName()));
+						} catch (CountryNotFounException e1) {
+							try {
+								Country newCountry = new Country(contact.getAddress().getCountry().getName());
+								contact.getAddress().setCountry(countryService.createCountry(newCountry));
+							} catch (CountryAlreadyExistsException e) {
+								// TODO: Initialize all country's on DB creation
+							}
+						}
+						contactService.update(contact);
+					} catch (ParseException e) {
+						FacesContext facesContext = FacesContext.getCurrentInstance();
+						// TODO: localization
+						FacesMessage facesMessage = new FacesMessage("Invalid date format", "Date format must be in dd.MM.yyyy!");
+						facesContext.addMessage("updatePlayerForm:datePickerPlayerBirthday", facesMessage);
+					}
+				}
+			}
+			
+		}
+		
+	}
+	
+	private boolean checkForDuplicateEmail(String newEmail, String oldEmail) {
+		// Check if user has a new email and if that email is already occupied
+		if(newEmail != null && !oldEmail.equals(newEmail)) {
+			try {
+				contactService.findContact(newEmail);
+				FacesContext facesContext = FacesContext.getCurrentInstance();
+				FacesMessage facesMessage = new FacesMessage("Email already exists", "Email already exists!");
+				facesContext.addMessage("updateUserAccountContactForm:tc_email", facesMessage);
+				return false;
+			} catch (ContactNotFoundException e) {
+				// Email is free
+				return true;
+			}
+		}
+		return true;
 	}
 
 	public Contact getNewContact() {
@@ -96,4 +165,13 @@ public class ContactBean implements Serializable {
 	public Role[] getRoles() {
 		return roles;
 	}
+
+	public List<Contact> getAllContacts() {
+		return allContacts;
+	}
+
+	public void setAllContacts(List<Contact> allContacts) {
+		this.allContacts = allContacts;
+	}
+
 }

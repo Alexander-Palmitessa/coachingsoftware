@@ -3,6 +3,8 @@ package com.coachingeleven.coachingsoftware.persistence.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -12,6 +14,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+
+import com.coachingeleven.coachingsoftware.persistence.enumeration.AccountRole;
+
 import java.io.Serializable;
 
 @Entity
@@ -32,8 +37,11 @@ public class UserAccount implements Serializable {
     @NotNull(message = "{not.null}")
     private String password;
     @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "CONTACT_ID", nullable = false)
+    @JoinColumn(name = "CONTACT_ID")
     private Contact contact;
+    @Column(name = "ACCOUNTROLE")
+	@Enumerated(value = EnumType.STRING)
+	private AccountRole accountRole;
 
     public UserAccount() {
 
@@ -66,5 +74,13 @@ public class UserAccount implements Serializable {
 
 	public void setContact(Contact contact) {
 		this.contact = contact;
+	}
+
+	public AccountRole getAccountRole() {
+		return accountRole;
+	}
+
+	public void setAccountRole(AccountRole accountRole) {
+		this.accountRole = accountRole;
 	}
 }

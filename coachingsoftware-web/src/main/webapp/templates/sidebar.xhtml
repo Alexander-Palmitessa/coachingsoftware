@@ -6,7 +6,7 @@
 
 	<ul class="vertical menu accordion-menu sidebar-menu" data-accordion-menu="">
 		<li>
-			<a href="#"><h:outputText value="#{msg['admin']}"/></a>
+			<a href="#"><h:outputText value="#{msg['accountRole.'.concat(loginBean.loggedInUser.accountRole)]}"/></a>
 			<ul class="menu vertical nested">
 				<li>
 					<h:outputLink value="#"><h:outputText value="#{msg['create']}"/></h:outputLink>
@@ -22,6 +22,9 @@
 						</li>
 						<li>
 							<h:outputLink value="#{request.contextPath}/secured/forms/arenaForm.xhtml"><h:outputText value="#{msg['createArena']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/forms/createPlayer.xhtml"><h:outputText value="#{msg['createPlayer']}"/></h:outputLink>
 						</li>
 						<li>
 							<h:outputLink value="#{request.contextPath}/secured/forms/contactForm.xhtml"><h:outputText value="#{msg['createContact']}"/></h:outputLink>
@@ -47,7 +50,7 @@
 							<h:outputLink value="#{request.contextPath}/secured/pages/playerList.xhtml"><h:outputText value="#{msg['player']}"/></h:outputLink>
 						</li>
 						<li>
-							<a href="#"><h:outputText value="#{msg['games']}"/></a>
+							<h:outputLink value="#{request.contextPath}/secured/pages/contactList.xhtml"><h:outputText value="#{msg['contact']}"/></h:outputLink>
 						</li>
 					</ul>
 				</li>
@@ -55,8 +58,11 @@
 		</li>
 		
 		<li>
-			<a href="#"><h:outputText value="#{msg['users']}"/><h:outputText value=" - "/><h:outputText value="#{loginBean.username}" /></a>
+			<a href="#"><h:outputText value="#{msg['role.'.concat(loginBean.loggedInUser.contact.role)]}"/><h:outputText value=" - "/><h:outputText value="#{loginBean.loggedInUser.contact.firstName}" /><h:outputText value=" " /><h:outputText value="#{loginBean.loggedInUser.contact.lastName}" /></a>
 			<ul class="menu vertical nested">
+				<li>
+					<h:outputLink value="#{request.contextPath}/secured/forms/updateUserAccountContactForm.xhtml"><h:outputText value="#{msg['baseData']}"/></h:outputLink>
+				</li>
 				<li>
 					<h:outputLink value="#{request.contextPath}/secured/pages/addressOverview.xhtml"><h:outputText value="#{msg['contactsAddress']}"/></h:outputLink>
 				</li>

@@ -18,9 +18,7 @@ public interface PlayerServiceRemote {
 	 * @throws PlayerAlreadyExistsException If a player with the same ID, email or second email already exists.
 	 * */
 	Player createPlayer(Player player) throws PlayerAlreadyExistsException;
-	
 	Player findPlayer(int id) throws PlayerNotFoundException;
-	Player findPlayer(String email) throws PlayerNotFoundException;
 	List<Player> findAllPlayers();
 	void deletePlayer(Player player);
 	Player update(Player player);

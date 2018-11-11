@@ -12,6 +12,8 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
+
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -82,5 +84,10 @@ public class ContactService implements ContactServiceRemote {
 	@Override
 	public void update(Contact contact) {
 		contactRepository.update(contact);
+	}
+	
+	@Override
+	public List<Contact> findAll() {
+		return contactRepository.findAll(Contact.class);
 	}
 }

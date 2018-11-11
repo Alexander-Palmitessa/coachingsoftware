@@ -38,6 +38,11 @@
 					<h:message for="tc_mobileNumber" style="color: red"/>
 				</div>
 				<div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['birthday']}"/></label>
+		        	<h:inputText id="datePickerPlayerBirthday" class="js-datepicker" value="#{contactBean.newContact.birthdate}"/>
+		        	<h:message for="datePickerPlayerBirthday" style="color: red"/>
+		        </div>
+				<div class="small-12 medium-6 column">
 					<label><h:outputText value="#{msg['city']}"/></label>
 					<h:inputText id="tc_city" value="#{contactBean.newContactAddress.city}"/>
 					<h:message for="tc_city" style="color: red"/>

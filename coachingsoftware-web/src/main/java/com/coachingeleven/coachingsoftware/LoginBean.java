@@ -1,6 +1,7 @@
 package com.coachingeleven.coachingsoftware;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,10 +13,15 @@ import javax.inject.Named;
 
 import com.coachingeleven.coachingsoftware.application.exception.*;
 import com.coachingeleven.coachingsoftware.application.service.ContactService;
+import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
+import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
+import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.AccountRole;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.Role;
 
 @Named(value = "loginBean")
 @SessionScoped
@@ -40,18 +46,31 @@ public class LoginBean implements Serializable {
 	private UserServiceRemote userService;
 	@EJB
 	private ContactService contactService;
+	@EJB
+	private CountryServiceRemote countryService;
+	
+	private String userBirthdayFormatted;
+	private SimpleDateFormat dateFormatter;
 
 	@PostConstruct
     public void init() {
+		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 		try {
 			userService.findUser("elias");
 		} catch (UserNotFoundException e) {
-			logger.info("Creating default user account elias - elias");
-			loggedInUser = new UserAccount("elias","elias");
-			loggedInUser.setContact(new Contact("Elias","Schildknecht"));
 			try {
+				logger.info("Creating default user account elias - elias");
+				loggedInUser = new UserAccount("elias","elias");
+				loggedInUser.setAccountRole(AccountRole.ADMINISTRATOR);
+				Contact contact = new Contact("Elias","Schildknecht");
+				contact.setRole(Role.TRAINER);
+				Address address = new Address();
+				address.setCity("Testort");
+				address.setCountry(countryService.createCountry(new Country("CH")));
+				contact.setAddress(address);
+				loggedInUser.setContact(contact);
 				userService.createUser(loggedInUser);
-			} catch (UserAlreadyExistsException e1) {
+			} catch (UserAlreadyExistsException | CountryAlreadyExistsException e1) {
 				logger.warning("Could not create user account: " + e1.getMessage());
 			}
 		}
@@ -63,15 +82,16 @@ public class LoginBean implements Serializable {
 			if(userService.authenticate(password, currentUser.getPassword())) {
 				loggedIn = true;
 				loggedInUser = currentUser;
-				loggedInUserTeam = contactService.findAssignedTeam(currentUser.getContact());
-				if(loggedInUserTeam != null) {
+				try {
+					loggedInUserTeam = contactService.findAssignedTeam(currentUser.getContact());
+					if(loggedInUser.getContact().getBirthdate() != null) userBirthdayFormatted = dateFormatter.format(loggedInUser.getContact().getBirthdate().getTime());
 					hasUserAssignedTeam = true;
 					return navigationBean.redirectToHome();
-				} else {
+				} catch (NoTeamAssignedException e) {
 					return navigationBean.redirectToUserSettings();
 				}
 			}
-		} catch (UserNotFoundException | NoTeamAssignedException e) {
+		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
 			logger.log(Level.INFO, e.getMessage());
 		}
@@ -129,5 +149,13 @@ public class LoginBean implements Serializable {
 
 	public void setLoggedInUserTeam(Team loggedInUserTeam) {
 		this.loggedInUserTeam = loggedInUserTeam;
+	}
+
+	public String getUserBirthdayFormatted() {
+		return userBirthdayFormatted;
+	}
+
+	public void setUserBirthdayFormatted(String userBirthdayFormatted) {
+		this.userBirthdayFormatted = userBirthdayFormatted;
 	}
 }

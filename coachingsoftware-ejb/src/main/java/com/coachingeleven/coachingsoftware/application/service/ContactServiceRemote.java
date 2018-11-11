@@ -6,6 +6,8 @@ import com.coachingeleven.coachingsoftware.application.exception.NoTeamAssignedE
 import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
+import java.util.List;
+
 import javax.ejb.Remote;
 
 @Remote
@@ -15,4 +17,5 @@ public interface ContactServiceRemote {
 	Contact findContact(String email) throws ContactNotFoundException;
 	Team findAssignedTeam(Contact contact) throws NoTeamAssignedException;
 	void update(Contact contact);
+	List<Contact> findAll();
 }

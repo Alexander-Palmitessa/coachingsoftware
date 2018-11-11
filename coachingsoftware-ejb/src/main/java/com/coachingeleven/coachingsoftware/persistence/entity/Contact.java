@@ -48,7 +48,7 @@ public class Contact implements Serializable {
     private String lastName;
 	@Embedded
 	private Address address;
-	@Column(name = "ROLE")
+	@Column(name = "ROLE", nullable = false)
 	@Enumerated(value = EnumType.STRING)
 	private Role role;
 	@Column(name = "PRIVATE_NUMBER")
