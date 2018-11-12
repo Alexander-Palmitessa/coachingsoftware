@@ -32,7 +32,7 @@ public class Team implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "TEAM_ID")
 	private int ID;
-	@Column(name = "TEAM_NAME")
+	@Column(name = "TEAM_NAME", unique = true)
 	@Pattern(regexp = "^[a-zA-Z0-9äöüÄÖÜéÉèÈàÀîÎâÂêÊôÔûÛ.\\s]+$", message = "{pattern.letter.number.space}")
 	@NotNull
 	private String name;

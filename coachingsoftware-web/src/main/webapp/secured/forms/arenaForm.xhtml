@@ -1,58 +1,39 @@
-<ui:composition template="/templates/main.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
                 
-    <ui:define name="title">
-        <h:outputText value="#{msg['createArena']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
-    </ui:define>
-    
-    <ui:define name="contentTitle">
-		<h:outputText value="#{msg['createArena']}"/>
-	</ui:define>
-    
-    <ui:define name="content">
-        <h:form class="create-form">
-	        <div class="row">
-	        	<div class="small-12 medium-6 column">
-	        		<label><h:outputText value="#{msg['arenaName']}"/></label>
-			    	<h:inputText id="arena_name" value="#{arenaBean.arena.name}"/>
-					<h:message for="arena_name" style="color: red"/>
-	        	</div>
-	        	<div class="small-12 medium-6 column">
-	        		<label><h:outputText value="#{msg['street']}"/></label>
-			    	<h:inputText id="addr_street" value="#{addressBean.address.street}"/>
-					<h:message for="addr_street" style="color: red"/>
-	        	</div>
-	        	<div class="small-12 medium-6 column">
-		        	<label><h:outputText value="#{msg['streetNr']}"/></label>
-				    <h:inputText id="addr_streetnr" value="#{addressBean.address.streetNr}"/>
-					<h:message for="addr_streetnr" style="color: red"/>
-			    </div>
-			    <div class="small-12 medium-6 column">
-			    	<label><h:outputText value="#{msg['city']}"/></label>
-			    	<h:inputText id="addr_city" value="#{addressBean.address.city}"/>
-					<h:message for="addr_city" style="color: red"/>
-			    </div>
-			    <div class="small-12 medium-6 column">
-			    	<label><h:outputText value="#{msg['zip']}"/></label>
-			   		<h:inputText id="addr_zip" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" value="#{addressBean.address.zip}"/>
-					<h:message for="addr_zip" style="color: red"/>
-			    </div>
-			    <div class="small-12 medium-6 column">
-			    	<label><h:outputText value="#{msg['country']}"/></label>
-				    <h:selectOneMenu value="#{addressBean.country.name}">
-				        <f:selectItems value="#{addressBean.countryValue}" var="c" itemValue="#{c.countryValue}"
-				                       itemLabel="#{c.countryLabel}"/>
-				    </h:selectOneMenu>
-			    </div>
-			    <div class="small-12 column text-center">
-			    	<h:commandButton action="#{arenaBean.createArena(addressBean.createAddress())}" value="#{msg['createArena']}"/>
-			    </div>
-	        </div>
-		</h:form>
-    </ui:define>
-                
-                
+       	<div class="small-12 medium-6 column">
+       		<label><h:outputText value="#{msg['arenaName']}"/></label>
+	    	<h:inputText id="arena_name" value="#{arenaBean.entity.name}"/>
+			<h:message for="arena_name" style="color: red"/>
+       	</div>
+       	<div class="small-12 medium-6 column">
+       		<label><h:outputText value="#{msg['street']}"/></label>
+	    	<h:inputText id="addr_street" value="#{arenaBean.entity.address.street}"/>
+			<h:message for="addr_street" style="color: red"/>
+       	</div>
+       	<div class="small-12 medium-6 column">
+        	<label><h:outputText value="#{msg['streetNr']}"/></label>
+		    <h:inputText id="addr_streetnr" value="#{arenaBean.entity.address.streetNr}"/>
+			<h:message for="addr_streetnr" style="color: red"/>
+	    </div>
+	    <div class="small-12 medium-6 column">
+	    	<label><h:outputText value="#{msg['city']}"/></label>
+	    	<h:inputText id="addr_city" value="#{arenaBean.entity.address.city}"/>
+			<h:message for="addr_city" style="color: red"/>
+	    </div>
+	    <div class="small-12 medium-6 column">
+	    	<label><h:outputText value="#{msg['zip']}"/></label>
+	   		<h:inputText id="addr_zip" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" value="#{arenaBean.entity.address.zip}"/>
+			<h:message for="addr_zip" style="color: red"/>
+	    </div>
+	    <div class="small-12 medium-6 column">
+	    	<label><h:outputText value="#{msg['country']}"/></label>
+		    <h:selectOneMenu value="#{arenaBean.entity.address.country.ID}">
+		        <f:selectItems value="#{countryBean.entities}" var="c" itemValue="#{c.ID}"
+	                       itemLabel="#{c.name}"/>
+		    </h:selectOneMenu>
+	    </div>
+	    
 </ui:composition>

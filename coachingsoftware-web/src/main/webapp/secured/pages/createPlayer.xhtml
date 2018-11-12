@@ -1,0 +1,38 @@
+<ui:composition template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                
+	<ui:define name="title">
+        <h:outputText value="#{msg['createPlayer']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+    </ui:define>
+    
+    <ui:define name="contentTitle">
+		<h:outputText value="#{msg['createPlayer']}"/>
+	</ui:define>
+
+    <ui:define name="content">
+        <h:form class="create-form #{playerBean.successClass}">
+	        <div class="row">
+	        	<h:panelGroup rendered="#{not empty playerBean.successClass}">
+	        		<div class="small-12 column text-center">
+	        			<label class="information">
+	        				<h:panelGroup rendered="#{playerBean.createSuccess}">
+	        					<h:outputText value="#{msg['createSuccess']}"/><h:outputText value=" : '"/><h:outputText value="#{playerBean.entity.contact.firstName}"/><h:outputText value=" "/><h:outputText value="#{playerBean.entity.contact.lastName}"/><h:outputText value="'"/>
+	        				</h:panelGroup>
+	        				<h:panelGroup rendered="#{!playerBean.createSuccess}">
+	        					<h:outputText value="#{msg['createFailure']}"/><h:outputText value=" : '"/><h:outputText value="#{playerBean.entity.contact.firstName}"/><h:outputText value=" "/><h:outputText value="#{playerBean.entity.contact.lastName}"/><h:outputText value="'"/>
+	        				</h:panelGroup>
+			        	</label>
+			        </div>
+	        	</h:panelGroup>
+		        <ui:include src="/secured/forms/playerForm.xhtml" />
+		        <div class="small-12 column text-center">
+		        	<h:commandButton action="#{playerBean.create(playerBean.entity)}" value="#{msg['createPlayer']}"/>
+		        </div>
+	        </div>
+		</h:form>
+    </ui:define>
+                
+</ui:composition>

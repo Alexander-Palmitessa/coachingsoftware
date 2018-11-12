@@ -28,8 +28,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Named("contactBean")
-@RequestScoped
 public class ContactBean implements Serializable {
 
 	private static final long serialVersionUID = -7088899575105482224L;

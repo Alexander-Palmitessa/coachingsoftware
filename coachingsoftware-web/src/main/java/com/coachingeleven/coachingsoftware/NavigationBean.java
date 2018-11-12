@@ -9,6 +9,8 @@ import javax.inject.Named;
 @SessionScoped
 public class NavigationBean implements Serializable {
 
+	// TODO: Update links
+	
 	private static final long serialVersionUID = -2289682738617915324L;
 
 	public String toLogin() {
@@ -39,12 +41,12 @@ public class NavigationBean implements Serializable {
 		return "/secured/pages/userSettings.xhtml?faces-redirect=true";
 	}
 
-	public String toClubForm() {
-		return "/secured/forms/clubForm.xhtml";
+	public String toCreateClubPage() {
+		return "/secured/pages/createClub.xhtml";
 	}
 
-	public String redirectToClubForm() {
-		return "/secured/forms/clubForm.xhtml?faces-redirect=true";
+	public String redirectToCreateClubPage() {
+		return "/secured/pages/createClub.xhtml?faces-redirect=true";
 	}
 
 	public String toTeamForm() {

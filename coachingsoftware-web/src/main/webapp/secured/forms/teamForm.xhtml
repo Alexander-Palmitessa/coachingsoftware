@@ -1,37 +1,18 @@
-<ui:composition template="/templates/main.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-                
-	<ui:define name="title">
-        <h:outputText value="#{msg['createTeam']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
-    </ui:define>
-    
-    <ui:define name="contentTitle">
-		<h:outputText value="#{msg['createTeam']}"/>
-	</ui:define>
-
-    <ui:define name="content">
-        <h:form class="create-form">
-        	<div class="row">
-		        <div class="small-12 medium-6 column">
-		        	<label><h:outputText value="#{msg['name']}"/></label>
-				    <h:inputText id="team_name" value="#{teamClubBean.newTeam.name}"/>
-					<h:message for="team_name" style="color: red"/>
-		        </div>
-		        <div class="small-12 medium-6 column">
-		        	<label><h:outputText value="#{msg['club']}"/></label>
-				    <h:selectOneMenu value="#{teamClubBean.selectedClubId}">
-				        <f:selectItems value="#{teamClubBean.allClubs}" var="club" itemValue="#{club.ID}"
-				                       itemLabel="#{club.name}"/>
-				    </h:selectOneMenu>
-		        </div>
-		        <div class="small-12 column text-center">
-		        	<h:commandButton action="#{teamClubBean.createTeam()}" value="#{msg['createTeam']}" disabled="#{empty teamClubBean.allClubs}"/>
-		        </div>
-	        </div>
-		</h:form>
-    </ui:define>
-                
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    			xmlns:f="http://xmlns.jcp.org/jsf/core"
+    			xmlns:h="http://xmlns.jcp.org/jsf/html"
+    			xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	
+		<div class="small-12 medium-6 column">
+        	<label><h:outputText value="#{msg['name']}"/></label>
+		    <h:inputText id="team_name" value="#{teamBean.entity.name}"/>
+			<h:message for="team_name" style="color: red"/>
+        </div>
+        <div class="small-12 medium-6 column">
+        	<label><h:outputText value="#{msg['club']}"/></label>
+		    <h:selectOneMenu value="#{teamBean.entity.club.ID}">
+		        <f:selectItems value="#{clubBean.entities}" var="club" itemValue="#{club.ID}"
+		                       itemLabel="#{club.name}"/>
+		    </h:selectOneMenu>
+        </div>
 </ui:composition>

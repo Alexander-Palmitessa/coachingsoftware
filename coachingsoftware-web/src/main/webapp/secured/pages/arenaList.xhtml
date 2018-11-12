@@ -16,7 +16,7 @@
 		<div class="row">
 			<div class="small-12 column">
 				<ul class="list-group">
-					<ui:repeat value="#{arenaBean.allArenas}" var="arena">
+					<ui:repeat value="#{arenaBean.entities}" var="arena">
 						<li class="list-group-item"><h:outputText value="#{arena.name}"/></li>
 					</ui:repeat>
 				</ul>

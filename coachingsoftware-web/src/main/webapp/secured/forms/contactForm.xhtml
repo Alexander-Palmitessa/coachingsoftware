@@ -1,86 +1,68 @@
-<ui:composition template="/templates/main.xhtml"
-				xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:f="http://xmlns.jcp.org/jsf/core"
 				xmlns:h="http://xmlns.jcp.org/jsf/html"
 				xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-	<ui:define name="title">
-		<h:outputText value="#{msg['createContact']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
-	</ui:define>
-
-	<ui:define name="contentTitle">
-		<h:outputText value="#{msg['createContact']}"/>
-	</ui:define>
-
-	<ui:define name="content">
-		<h:form class="create-form">
-			<div class="row">
-				<div class="small-12 medium-6 column">
-					<label><h:outputText value="#{msg['firstName']}"/></label>
-					<h:inputText id="tc_firstname" value="#{contactBean.newContact.firstName}"/>
-					<h:message for="tc_firstname" style="color: red"/>
-				</div>
-				<div class="small-12 medium-6 column">
-					<label><h:outputText value="#{msg['lastName']}"/></label>
-					<h:inputText id="tc_lastname" value="#{contactBean.newContact.lastName}"/>
-					<h:message for="tc_lastname" style="color: red"/>
-				</div>
-				<div class="small-12 medium-6 column">
-					<label><h:outputText value="#{msg['email']}"/></label>
-					<h:inputText id="tc_email" value="#{contactBean.newContact.email}">
-						<f:validator binding="#{duplicateMailValidator}"/>
-					</h:inputText>
-					<h:message for="tc_email" style="color: red"/>
-				</div>
-				<div class="small-12 medium-6 column">
-					<label><h:outputText value="#{msg['mobileNumber']}"/></label>
-					<h:inputText id="tc_mobileNumber" value="#{contactBean.newContact.mobileNumber}"/>
-					<h:message for="tc_mobileNumber" style="color: red"/>
-				</div>
-				<div class="small-12 medium-6 column">
-		        	<label><h:outputText value="#{msg['birthday']}"/></label>
-		        	<h:inputText id="datePickerPlayerBirthday" class="js-datepicker" value="#{contactBean.newContact.birthdate}"/>
-		        	<h:message for="datePickerPlayerBirthday" style="color: red"/>
-		        </div>
-				<div class="small-12 medium-6 column">
-					<label><h:outputText value="#{msg['city']}"/></label>
-					<h:inputText id="tc_city" value="#{contactBean.newContactAddress.city}"/>
-					<h:message for="tc_city" style="color: red"/>
-				</div>
-				<div class="small-12 medium-6 column">
-					<label><h:outputText value="#{msg['street']}"/></label>
-					<h:inputText id="tc_street" value="#{contactBean.newContactAddress.street}"/>
-					<h:message for="tc_street" style="color: red"/>
-				</div>
-				<div class="small-12 medium-6 column">
-					<label><h:outputText value="#{msg['streetNr']}"/></label>
-					<h:inputText id="tc_streetNr" value="#{contactBean.newContactAddress.streetNr}"/>
-					<h:message for="tc_streetNr" style="color: red"/>
-				</div>
-				<div class="small-12 medium-6 column">
-					<label><h:outputText value="#{msg['zip']}"/></label>
-					<h:inputText id="tc_playerZip" value="#{contactBean.newContactAddress.zip}"/>
-					<h:message for="tc_playerZip" style="color: red"/>
-				</div>
-				<div class="small-12 medium-6 column">
-					<label><h:outputText value="#{msg['role']}"/></label>
-					<h:selectOneMenu value="#{contactBean.newContact.role}">
-						<f:selectItems value="#{contactBean.roles}" var="r" itemValue="#{r}"
-									   itemLabel="#{msg['role.'.concat(r)]}"/>
-					</h:selectOneMenu>
-				</div>
-				<div class="small-12 medium-6 column">
-					<label><h:outputText value="#{msg['country']}"/></label>
-					<h:selectOneMenu value="#{contactBean.newContactCountry.name}">
-						<f:selectItems value="#{addressBean.countryValue}" var="c" itemValue="#{c.countryValue}"
-									   itemLabel="#{c.countryLabel}"/>
-					</h:selectOneMenu>
-				</div>
-				<div class="small-12 column text-center">
-					<h:commandButton action="#{contactBean.createContact}" value="#{msg['createContact']}"/>
-				</div>
-			</div>
-		</h:form>
-	</ui:define>
+		<div class="small-12 medium-6 column">
+			<label><h:outputText value="#{msg['firstName']}"/></label>
+			<h:inputText id="tc_firstname" value="#{contactBean.entity.firstName}"/>
+			<h:message for="tc_firstname" style="color: red"/>
+		</div>
+		<div class="small-12 medium-6 column">
+			<label><h:outputText value="#{msg['lastName']}"/></label>
+			<h:inputText id="tc_lastname" value="#{contactBean.entity.lastName}"/>
+			<h:message for="tc_lastname" style="color: red"/>
+		</div>
+		<div class="small-12 medium-6 column">
+			<label><h:outputText value="#{msg['email']}"/></label>
+			<h:inputText id="tc_email" value="#{contactBean.entity.email}">
+				<f:validator binding="#{duplicateMailValidator}"/>
+			</h:inputText>
+			<h:message for="tc_email" style="color: red"/>
+		</div>
+		<div class="small-12 medium-6 column">
+			<label><h:outputText value="#{msg['mobileNumber']}"/></label>
+			<h:inputText id="tc_mobileNumber" value="#{contactBean.entity.mobileNumber}"/>
+			<h:message for="tc_mobileNumber" style="color: red"/>
+		</div>
+		<div class="small-12 medium-6 column">
+        	<label><h:outputText value="#{msg['birthday']}"/></label>
+        	<h:inputText id="datePickerPlayerBirthday" class="js-datepicker" value="#{contactBean.birthday}"/>
+        	<h:message for="datePickerPlayerBirthday" style="color: red"/>
+        </div>
+		<div class="small-12 medium-6 column">
+			<label><h:outputText value="#{msg['city']}"/></label>
+			<h:inputText id="tc_city" value="#{contactBean.entity.address.city}"/>
+			<h:message for="tc_city" style="color: red"/>
+		</div>
+		<div class="small-12 medium-6 column">
+			<label><h:outputText value="#{msg['street']}"/></label>
+			<h:inputText id="tc_street" value="#{contactBean.entity.address.street}"/>
+			<h:message for="tc_street" style="color: red"/>
+		</div>
+		<div class="small-12 medium-6 column">
+			<label><h:outputText value="#{msg['streetNr']}"/></label>
+			<h:inputText id="tc_streetNr" value="#{contactBean.entity.address.streetNr}"/>
+			<h:message for="tc_streetNr" style="color: red"/>
+		</div>
+		<div class="small-12 medium-6 column">
+			<label><h:outputText value="#{msg['zip']}"/></label>
+			<h:inputText id="tc_playerZip" value="#{contactBean.entity.address.zip}"/>
+			<h:message for="tc_playerZip" style="color: red"/>
+		</div>
+		<div class="small-12 medium-6 column">
+			<label><h:outputText value="#{msg['role']}"/></label>
+			<h:selectOneMenu value="#{contactBean.entity.role}">
+				<f:selectItems value="#{contactBean.roles}" var="r" itemValue="#{r}"
+							   itemLabel="#{msg['role.'.concat(r)]}"/>
+			</h:selectOneMenu>
+		</div>
+		<div class="small-12 medium-6 column">
+			<label><h:outputText value="#{msg['country']}"/></label>
+			<h:selectOneMenu value="#{contactBean.entity.address.country.ID}">
+				<f:selectItems value="#{countryBean.entities}" var="c" itemValue="#{c.ID}"
+	                       itemLabel="#{c.name}"/>
+			</h:selectOneMenu>
+		</div>
 
 </ui:composition>

@@ -38,6 +38,9 @@ public class TeamClubService implements TeamClubServiceRemote {
         if(teamRepository.find(Team.class, team.getID()) != null){
             logger.log(Level.INFO, "Team with id " + team.getID()+ " already exists");
             throw new TeamAlreadyExistsException();
+        } else if(teamRepository.find(team.getName()) != null) {
+        	 logger.log(Level.INFO, "Team with name " + team.getName() + " already exists");
+             throw new TeamAlreadyExistsException();
         }
         return teamRepository.persist(team);
     }

@@ -10,6 +10,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -54,4 +55,9 @@ public class CountryService implements CountryServiceRemote{
     public boolean deleteCountry(Country country) {
         return countryRepository.delete(Country.class, country.getID());
     }
+
+	@Override
+	public List<Country> findAll() {
+		return countryRepository.findAll(Country.class);
+	}
 }

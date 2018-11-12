@@ -16,7 +16,7 @@
 		<div class="row">
 			<div class="small-12 column">
 				<ul class="list-group">
-					<ui:repeat value="#{playerBean.allPlayers}" var="player">
+					<ui:repeat value="#{playerBean.entities}" var="player">
 						<li class="list-group-item"><h:outputText value="#{player.name}"/></li>
 					</ui:repeat>
 				</ul>

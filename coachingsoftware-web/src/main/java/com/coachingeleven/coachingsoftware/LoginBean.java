@@ -15,9 +15,7 @@ import com.coachingeleven.coachingsoftware.application.exception.*;
 import com.coachingeleven.coachingsoftware.application.service.ContactService;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
-import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
-import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.AccountRole;
@@ -64,13 +62,9 @@ public class LoginBean implements Serializable {
 				loggedInUser.setAccountRole(AccountRole.ADMINISTRATOR);
 				Contact contact = new Contact("Elias","Schildknecht");
 				contact.setRole(Role.TRAINER);
-				Address address = new Address();
-				address.setCity("Testort");
-				address.setCountry(countryService.createCountry(new Country("CH")));
-				contact.setAddress(address);
 				loggedInUser.setContact(contact);
 				userService.createUser(loggedInUser);
-			} catch (UserAlreadyExistsException | CountryAlreadyExistsException e1) {
+			} catch (UserAlreadyExistsException e1) {
 				logger.warning("Could not create user account: " + e1.getMessage());
 			}
 		}
