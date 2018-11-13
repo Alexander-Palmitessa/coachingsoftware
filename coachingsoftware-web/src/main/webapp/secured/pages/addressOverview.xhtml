@@ -22,7 +22,7 @@
 						</h6>
 					</div>
 					
-					<ui:repeat var="player" value="#{playerBean.currentPlayers}">
+					<ui:repeat var="contact" value="#{contactBean.entities}">
 						<div class="row add-people-section">
 							<div class="small-12 medium-6 columns about-people">
 								<div class="about-people-avatar">
@@ -30,15 +30,15 @@
 								</div>
 								<div class="about-people-author">
 									<p class="author-name">
-										<h:outputText value="#{player.firstName}"/><h:outputText value=" "/><h:outputText value="#{player.lastName}"/>
+										<h:outputText value="#{contact.firstName}"/><h:outputText value=" "/><h:outputText value="#{contact.lastName}"/>
 									</p>
-									<h:panelGroup rendered="#{player.address.city != null}">
+									<h:panelGroup rendered="#{not empty contact.address.city}">
 										<p class="author-location">
 											<i class="fa fa-map-marker" aria-hidden="true"></i>
-											<h:outputText value="#{player.address.city}, #{player.address.country.name}"/>
+											<h:outputText value="#{contact.address.city}, #{contact.address.country.name}"/>
 										</p>
 									</h:panelGroup>
-									<h:panelGroup rendered="#{player.address.city == null}">
+									<h:panelGroup rendered="#{empty contact.address.city}">
 										<p class="author-location">
 											<i class="fa fa-map-marker" aria-hidden="true"></i>
 											<h:outputText value="#{msg['noLocation']}"/>
@@ -49,7 +49,7 @@
 							<div class="small-12 medium-2 columns">
 								<div class="about-people-author">
 									<p class="author-name">
-										<h:outputText value="#{msg['player']}"/>
+										<h:outputText value="#{msg['role.'.concat(contact.role)]}"/>
 									</p>
 								</div>
 							</div>
@@ -63,89 +63,7 @@
 							</div>
 						</div>
 					</ui:repeat>
-					<ui:repeat var="player" value="#{playerBean.historyPlayers}">
-						<div class="row add-people-section">
-							<div class="small-12 medium-6 columns about-people">
-								<div class="about-people-avatar">
-									<h:graphicImage name="images/Default-avatar.jpg" />
-								</div>
-								<div class="about-people-author">
-									<p class="author-name">
-										<h:outputText value="#{player.firstName}"/><h:outputText value=" "/><h:outputText value="#{player.lastName}"/>
-									</p>
-									<h:panelGroup rendered="#{player.address.city != null}">
-										<p class="author-location">
-											<i class="fa fa-map-marker" aria-hidden="true"></i>
-											<h:outputText value="#{player.address.city}, #{player.address.country.name}"/>
-										</p>
-									</h:panelGroup>
-									<h:panelGroup rendered="#{player.address.city == null}">
-										<p class="author-location">
-											<i class="fa fa-map-marker" aria-hidden="true"></i>
-											<h:outputText value="#{msg['noLocation']}"/>
-										</p>
-									</h:panelGroup>
-								</div>    
-							</div>
-							<div class="small-12 medium-2 columns">
-								<div class="about-people-author">
-									<p class="author-name">
-										<h:outputText value="#{msg['historyPlayer']}"/>
-									</p>
-								</div>
-							</div>
-							<div class="small-12 medium-4 columns add-friend">
-								<div class="add-friend-action">
-									<button class="button primary-button" disabled="disabled">
-										<i class="fa fa-user-plus" aria-hidden="true"></i>
-										<h:outputText value="#{msg['addFriend']}"/>
-									</button>
-								</div>
-							</div>
-						</div>
-					</ui:repeat>
-					<!-- TODO: LIST OF TEAMCONTACTS, FORM FOR TEAMCONTACTS(MAYBE IN NEW PAGE)-->
-					<ui:repeat var="tc" value="#{teamContactBean.teamContacts}">
-						<div class="row add-people-section">
-							<div class="small-12 medium-6 columns about-people">
-								<div class="about-people-avatar">
-									<h:graphicImage name="images/Default-avatar.jpg" />
-								</div>
-								<div class="about-people-author">
-									<p class="author-name">
-										<h:outputText value="#{tc.firstName}"/><h:outputText value=" "/><h:outputText value="#{tc.lastName}"/>
-									</p>
-									<h:panelGroup rendered="#{tc.address.city != null}">
-										<p class="author-location">
-											<i class="fa fa-map-marker" aria-hidden="true"></i>
-											<h:outputText value="#{tc.address.city}, #{tc.address.country.name}"/>
-										</p>
-									</h:panelGroup>
-									<h:panelGroup rendered="#{tc.address.city == null}">
-										<p class="author-location">
-											<i class="fa fa-map-marker" aria-hidden="true"></i>
-											<h:outputText value="#{msg['noLocation']}"/>
-										</p>
-									</h:panelGroup>
-								</div>
-							</div>
-							<div class="small-12 medium-2 columns">
-								<div class="about-people-author">
-									<p class="author-name">
-										<h:outputText value="#{msg['role.'.concat(tc.role)]}"/>
-									</p>
-								</div>
-							</div>
-							<div class="small-12 medium-4 columns add-friend">
-								<div class="add-friend-action">
-									<button class="button primary-button" disabled="disabled">
-										<i class="fa fa-user-plus" aria-hidden="true"></i>
-										<h:outputText value="#{msg['addFriend']}"/>
-									</button>
-								</div>
-							</div>
-						</div>
-					</ui:repeat>
+					
 				</div>
 			</div>
 		</div>

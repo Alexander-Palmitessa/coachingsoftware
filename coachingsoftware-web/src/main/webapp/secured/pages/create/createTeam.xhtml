@@ -27,7 +27,9 @@
 			        	</label>
 			        </div>
 	        	</h:panelGroup>
-		        <ui:include src="/secured/forms/teamForm.xhtml" />
+		        <ui:include src="/secured/forms/teamForm.xhtml">
+		        	<ui:param name="team" value="#{teamBean.entity}" />
+		        </ui:include>
 		        <div class="small-12 column text-center">
 		        	<h:commandButton action="#{teamBean.create(teamBean.entity)}" value="#{msg['createTeam']}" disabled="#{empty clubBean.entities}"/>
 		        </div>

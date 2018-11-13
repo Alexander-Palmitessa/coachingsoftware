@@ -5,24 +5,24 @@
 
 		<div class="small-12 medium-6 column">
 			<label><h:outputText value="#{msg['firstName']}"/></label>
-			<h:inputText id="tc_firstname" value="#{contactBean.entity.firstName}"/>
+			<h:inputText id="tc_firstname" value="#{contact.firstName}"/>
 			<h:message for="tc_firstname" style="color: red"/>
 		</div>
 		<div class="small-12 medium-6 column">
 			<label><h:outputText value="#{msg['lastName']}"/></label>
-			<h:inputText id="tc_lastname" value="#{contactBean.entity.lastName}"/>
+			<h:inputText id="tc_lastname" value="#{contact.lastName}"/>
 			<h:message for="tc_lastname" style="color: red"/>
 		</div>
 		<div class="small-12 medium-6 column">
 			<label><h:outputText value="#{msg['email']}"/></label>
-			<h:inputText id="tc_email" value="#{contactBean.entity.email}">
-				<f:validator binding="#{duplicateMailValidator}"/>
+			<h:inputText id="tc_email" value="#{contact.email}">
+				<ui:include src="/secured/util/emailValidator.xhtml" />
 			</h:inputText>
 			<h:message for="tc_email" style="color: red"/>
 		</div>
 		<div class="small-12 medium-6 column">
 			<label><h:outputText value="#{msg['mobileNumber']}"/></label>
-			<h:inputText id="tc_mobileNumber" value="#{contactBean.entity.mobileNumber}"/>
+			<h:inputText id="tc_mobileNumber" value="#{contact.mobileNumber}"/>
 			<h:message for="tc_mobileNumber" style="color: red"/>
 		</div>
 		<div class="small-12 medium-6 column">
@@ -32,34 +32,34 @@
         </div>
 		<div class="small-12 medium-6 column">
 			<label><h:outputText value="#{msg['city']}"/></label>
-			<h:inputText id="tc_city" value="#{contactBean.entity.address.city}"/>
+			<h:inputText id="tc_city" value="#{contact.address.city}"/>
 			<h:message for="tc_city" style="color: red"/>
 		</div>
 		<div class="small-12 medium-6 column">
 			<label><h:outputText value="#{msg['street']}"/></label>
-			<h:inputText id="tc_street" value="#{contactBean.entity.address.street}"/>
+			<h:inputText id="tc_street" value="#{contact.address.street}"/>
 			<h:message for="tc_street" style="color: red"/>
 		</div>
 		<div class="small-12 medium-6 column">
 			<label><h:outputText value="#{msg['streetNr']}"/></label>
-			<h:inputText id="tc_streetNr" value="#{contactBean.entity.address.streetNr}"/>
+			<h:inputText id="tc_streetNr" value="#{contact.address.streetNr}"/>
 			<h:message for="tc_streetNr" style="color: red"/>
 		</div>
 		<div class="small-12 medium-6 column">
 			<label><h:outputText value="#{msg['zip']}"/></label>
-			<h:inputText id="tc_playerZip" value="#{contactBean.entity.address.zip}"/>
+			<h:inputText id="tc_playerZip" value="#{contact.address.zip}"/>
 			<h:message for="tc_playerZip" style="color: red"/>
 		</div>
 		<div class="small-12 medium-6 column">
 			<label><h:outputText value="#{msg['role']}"/></label>
-			<h:selectOneMenu value="#{contactBean.entity.role}">
+			<h:selectOneMenu value="#{contact.role}">
 				<f:selectItems value="#{contactBean.roles}" var="r" itemValue="#{r}"
 							   itemLabel="#{msg['role.'.concat(r)]}"/>
 			</h:selectOneMenu>
 		</div>
 		<div class="small-12 medium-6 column">
 			<label><h:outputText value="#{msg['country']}"/></label>
-			<h:selectOneMenu value="#{contactBean.entity.address.country.ID}">
+			<h:selectOneMenu value="#{contact.address.country.ID}">
 				<f:selectItems value="#{countryBean.entities}" var="c" itemValue="#{c.ID}"
 	                       itemLabel="#{c.name}"/>
 			</h:selectOneMenu>

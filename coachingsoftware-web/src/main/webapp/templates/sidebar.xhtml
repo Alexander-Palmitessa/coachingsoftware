@@ -12,22 +12,22 @@
 					<h:outputLink value="#"><h:outputText value="#{msg['create']}"/></h:outputLink>
 					<ul class="menu vertical nested">
 						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/createClub.xhtml"><h:outputText value="#{msg['createClub']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createClub.xhtml"><h:outputText value="#{msg['createClub']}"/></h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/createTeam.xhtml"><h:outputText value="#{msg['createTeam']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createTeam.xhtml"><h:outputText value="#{msg['createTeam']}"/></h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/createSeason.xhtml"><h:outputText value="#{msg['createSeason']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createSeason.xhtml"><h:outputText value="#{msg['createSeason']}"/></h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/createArena.xhtml"><h:outputText value="#{msg['createArena']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createArena.xhtml"><h:outputText value="#{msg['createArena']}"/></h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/createPlayer.xhtml"><h:outputText value="#{msg['createPlayer']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createPlayer.xhtml"><h:outputText value="#{msg['createPlayer']}"/></h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/createContact.xhtml"><h:outputText value="#{msg['createContact']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createContact.xhtml"><h:outputText value="#{msg['createContact']}"/></h:outputLink>
 						</li>
 					</ul>
 				</li>
@@ -35,22 +35,22 @@
 					<h:outputLink value="#"><h:outputText value="#{msg['overview']}"/></h:outputLink>
 					<ul class="menu vertical nested">
 						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/clubList.xhtml"><h:outputText value="#{msg['club']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/list/clubList.xhtml"><h:outputText value="#{msg['club']}"/></h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/teamList.xhtml"><h:outputText value="#{msg['team']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/list/teamList.xhtml"><h:outputText value="#{msg['team']}"/></h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/seasonList.xhtml"><h:outputText value="#{msg['season']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/list/seasonList.xhtml"><h:outputText value="#{msg['season']}"/></h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/arenaList.xhtml"><h:outputText value="#{msg['arena']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/list/arenaList.xhtml"><h:outputText value="#{msg['arena']}"/></h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/playerList.xhtml"><h:outputText value="#{msg['player']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/list/playerList.xhtml"><h:outputText value="#{msg['player']}"/></h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#{request.contextPath}/secured/pages/contactList.xhtml"><h:outputText value="#{msg['contact']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/list/contactList.xhtml"><h:outputText value="#{msg['contact']}"/></h:outputLink>
 						</li>
 					</ul>
 				</li>
@@ -61,7 +61,7 @@
 			<a href="#"><h:outputText value="#{msg['role.'.concat(loginBean.loggedInUser.contact.role)]}"/><h:outputText value=" - "/><h:outputText value="#{loginBean.loggedInUser.contact.firstName}" /><h:outputText value=" " /><h:outputText value="#{loginBean.loggedInUser.contact.lastName}" /></a>
 			<ul class="menu vertical nested">
 				<li>
-					<h:outputLink value="#{request.contextPath}/secured/forms/updateUserAccountContactForm.xhtml"><h:outputText value="#{msg['baseData']}"/></h:outputLink>
+					<h:outputLink value="#{request.contextPath}/secured/pages/update/updateUserContact.xhtml"><h:outputText value="#{msg['baseData']}"/></h:outputLink>
 				</li>
 				<li>
 					<h:outputLink value="#{request.contextPath}/secured/pages/addressOverview.xhtml"><h:outputText value="#{msg['contactsAddress']}"/></h:outputLink>

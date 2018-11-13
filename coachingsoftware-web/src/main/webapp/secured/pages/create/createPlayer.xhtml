@@ -27,7 +27,9 @@
 			        	</label>
 			        </div>
 	        	</h:panelGroup>
-		        <ui:include src="/secured/forms/playerForm.xhtml" />
+		        <ui:include src="/secured/forms/playerForm.xhtml">
+		        	<ui:param name="player" value="#{playerBean.entity}" />
+		        </ui:include>
 		        <div class="small-12 column text-center">
 		        	<h:commandButton action="#{playerBean.create(playerBean.entity)}" value="#{msg['createPlayer']}"/>
 		        </div>

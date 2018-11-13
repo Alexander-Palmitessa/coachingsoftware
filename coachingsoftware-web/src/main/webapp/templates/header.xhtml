@@ -36,7 +36,7 @@
 				</h:panelGroup>
 				<h:panelGroup rendered="#{loginBean.loggedIn}">
 					<li class="#{view.viewId eq '/secured/pages/userSettings.xhtml' ? 'active-link' : ''}">
-						<h:outputLink value="#{request.contextPath}/secured/pages/userSettings.xhtml"><h:outputText value="#{loginBean.username}" /></h:outputLink>
+						<h:outputLink value="#{request.contextPath}/secured/pages/update/updateUserContact.xhtml"><h:outputText value="#{loginBean.username}" /></h:outputLink>
 					</li>
 					<li>
 						<h:form>

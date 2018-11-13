@@ -27,7 +27,10 @@
 			        	</label>
 			        </div>
 	        	</h:panelGroup>
-		        <ui:include src="/secured/forms/contactForm.xhtml" />
+		        <ui:include src="/secured/forms/contactForm.xhtml">
+		        	<ui:param name="contact" value="#{contactBean.entity}" />
+		        	<ui:param name="type" value="all" />
+		        </ui:include>
 		        <div class="small-12 column text-center">
 		        	<h:commandButton action="#{contactBean.create(contactBean.entity)}" value="#{msg['createContact']}"/>
 		        </div>

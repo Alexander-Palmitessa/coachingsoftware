@@ -5,32 +5,32 @@
 	
 		<div class="small-12 medium-6 column">
 	      	<label><h:outputText value="#{msg['name']}"/></label>
-		    <h:inputText id="club_name" value="#{clubBean.entity.name}"/>
+		    <h:inputText id="club_name" value="#{club.name}"/>
 			<h:message for="club_name" style="color: red"/>
 		</div>
 		<div class="small-12 medium-6 column">
 			<label><h:outputText value="#{msg['city']}"/></label>
-			<h:inputText id="player_city" value="#{clubBean.entity.address.city}"/>
+			<h:inputText id="player_city" value="#{club.address.city}"/>
 			<h:message for="player_city" style="color: red"/>
 		</div>
 		<div class="small-12 medium-6 column">
 			<label><h:outputText value="#{msg['street']}"/></label>
-			<h:inputText id="player_street" value="#{clubBean.entity.address.street}"/>
+			<h:inputText id="player_street" value="#{club.address.street}"/>
 			<h:message for="player_street" style="color: red"/>
 		</div>
 		<div class="small-12 medium-6 column">
 			<label><h:outputText value="#{msg['streetNr']}"/></label>
-			<h:inputText id="player_streetNr" value="#{clubBean.entity.address.streetNr}"/>
+			<h:inputText id="player_streetNr" value="#{club.address.streetNr}"/>
 			<h:message for="player_streetNr" style="color: red"/>
 		</div>
 		<div class="small-12 medium-6 column">
 			<label><h:outputText value="#{msg['zip']}"/></label>
-			<h:inputText id="player_playerZip" value="#{clubBean.entity.address.zip}"/>
+			<h:inputText id="player_playerZip" value="#{club.address.zip}"/>
 			<h:message for="player_playerZip" style="color: red"/>
 		</div>
 		<div class="small-12 medium-6 column">
 			<label><h:outputText value="#{msg['country']}"/></label>
-			<h:selectOneMenu value="#{clubBean.entity.address.country.ID}">
+			<h:selectOneMenu value="#{club.address.country.ID}">
 	        	<f:selectItems value="#{countryBean.entities}" var="c" itemValue="#{c.ID}"
 	                       itemLabel="#{c.name}"/>
 			</h:selectOneMenu>

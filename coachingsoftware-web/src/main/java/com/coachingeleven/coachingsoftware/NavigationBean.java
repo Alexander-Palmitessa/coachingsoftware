@@ -34,11 +34,11 @@ public class NavigationBean implements Serializable {
 	}
 
 	public String toUserSettings() {
-		return "/secured/pages/userSettings.xhtml";
+		return "/secured/pages/update/updateUserContact.xhtml";
 	}
 
 	public String redirectToUserSettings() {
-		return "/secured/pages/userSettings.xhtml?faces-redirect=true";
+		return "/secured/pages/update/updateUserContact.xhtml?faces-redirect=true";
 	}
 
 	public String toCreateClubPage() {

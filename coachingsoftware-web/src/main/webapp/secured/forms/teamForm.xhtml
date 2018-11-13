@@ -5,12 +5,12 @@
 	
 		<div class="small-12 medium-6 column">
         	<label><h:outputText value="#{msg['name']}"/></label>
-		    <h:inputText id="team_name" value="#{teamBean.entity.name}"/>
+		    <h:inputText id="team_name" value="#{team.name}"/>
 			<h:message for="team_name" style="color: red"/>
         </div>
         <div class="small-12 medium-6 column">
         	<label><h:outputText value="#{msg['club']}"/></label>
-		    <h:selectOneMenu value="#{teamBean.entity.club.ID}">
+		    <h:selectOneMenu value="#{team.club.ID}">
 		        <f:selectItems value="#{clubBean.entities}" var="club" itemValue="#{club.ID}"
 		                       itemLabel="#{club.name}"/>
 		    </h:selectOneMenu>

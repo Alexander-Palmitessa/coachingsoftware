@@ -15,6 +15,7 @@ import com.coachingeleven.coachingsoftware.application.exception.ContactAlreadyE
 import com.coachingeleven.coachingsoftware.application.service.ContactServiceRemote;
 import com.coachingeleven.coachingsoftware.entity.base.CreateBean;
 import com.coachingeleven.coachingsoftware.entity.base.EntityBean;
+import com.coachingeleven.coachingsoftware.entity.base.UpdateBean;
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
@@ -22,7 +23,7 @@ import com.coachingeleven.coachingsoftware.persistence.enumeration.Role;
 
 @Named("contactBean")
 @RequestScoped
-public class ContactBean implements EntityBean<Contact>, CreateBean<Contact>, Serializable {
+public class ContactBean implements EntityBean<Contact>, CreateBean<Contact>, UpdateBean<Contact>, Serializable {
 
 	private static final long serialVersionUID = 4964788456617570504L;
 
@@ -69,6 +70,24 @@ public class ContactBean implements EntityBean<Contact>, CreateBean<Contact>, Se
 	        	createSuccess = false;
 	        }
 		}
+	}
+	
+	@Override
+	public void update(Contact entity) {
+		successClass = "create-failure";
+    	createSuccess = false;
+    	if(birthday != null) {
+			try {
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(dateFormatter.parse(birthday));
+				entity.setBirthdate(calendar);
+			} catch (ParseException e) {
+				// TODO: Maybe show specific message?
+			}
+		}
+		contactService.update(entity);
+		successClass = "create-success";
+    	createSuccess = true;
 	}
 
 	@Override

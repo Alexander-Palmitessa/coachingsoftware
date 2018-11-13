@@ -15,7 +15,10 @@ import com.coachingeleven.coachingsoftware.application.exception.*;
 import com.coachingeleven.coachingsoftware.application.service.ContactService;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
+import com.coachingeleven.coachingsoftware.entity.CountryBean;
+import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
+import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.AccountRole;
@@ -39,6 +42,8 @@ public class LoginBean implements Serializable {
 
 	@Inject
 	private NavigationBean navigationBean;
+	@Inject
+	private CountryBean countryBean;
 
 	@EJB
 	private UserServiceRemote userService;
@@ -58,10 +63,16 @@ public class LoginBean implements Serializable {
 		} catch (UserNotFoundException e) {
 			try {
 				logger.info("Creating default user account elias - elias");
+				countryBean.init();
 				loggedInUser = new UserAccount("elias","elias");
 				loggedInUser.setAccountRole(AccountRole.ADMINISTRATOR);
 				Contact contact = new Contact("Elias","Schildknecht");
 				contact.setRole(Role.TRAINER);
+				Address address = new Address();
+				Country country = new Country();
+				country.setID(1);
+				address.setCountry(country);
+				contact.setAddress(address);
 				loggedInUser.setContact(contact);
 				userService.createUser(loggedInUser);
 			} catch (UserAlreadyExistsException e1) {

@@ -27,7 +27,9 @@
 			        	</label>
 			        </div>
 	        	</h:panelGroup>
-		        <ui:include src="/secured/forms/arenaForm.xhtml" />
+		        <ui:include src="/secured/forms/arenaForm.xhtml">
+		        	<ui:param name="arena" value="#{arenaBean.entity}" />
+		        </ui:include>
 		        <div class="small-12 column text-center">
 		        	<h:commandButton action="#{arenaBean.create(arenaBean.entity)}" value="#{msg['createArena']}"/>
 		        </div>
