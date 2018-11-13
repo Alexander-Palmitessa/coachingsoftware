@@ -2,6 +2,7 @@ package com.coachingeleven.coachingsoftware.application.service;
 
 import static javax.ejb.TransactionAttributeType.REQUIRED;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,6 +12,8 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 
 import com.coachingeleven.coachingsoftware.application.exception.TeamContactAlreadyExistsException;
+import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
+import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.TeamContact;
 import com.coachingeleven.coachingsoftware.persistence.entity.TeamContactId;
 import com.coachingeleven.coachingsoftware.persistence.repository.TeamContactRepository;
@@ -36,6 +39,16 @@ public class TeamContactService implements TeamContactServiceRemote {
 	        }
 		}
         return teamContactRepository.persist(teamContact);
+	}
+
+	@Override
+	public List<Team> findTeamsByContact(Contact contact) {
+		return teamContactRepository.findTeamsByContact(contact.getID());
+	}
+
+	@Override
+	public List<Team> findUnmanagedTeamsByContact(Contact contact) {
+		return teamContactRepository.findUnmanagedTeamsByContact(contact.getID());
 	}
 
 }

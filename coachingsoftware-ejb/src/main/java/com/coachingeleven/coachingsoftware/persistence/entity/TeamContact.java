@@ -1,5 +1,6 @@
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,8 +19,14 @@ import javax.persistence.TemporalType;
 @Entity
 @IdClass(TeamContactId.class)
 @Table(name = "TEAM_CONTACT")
-public class TeamContact {
+@NamedQueries({
+	@NamedQuery(name = "findTeamsByContact",
+			query = "SELECT tc.team FROM TeamContact tc WHERE tc.contact.ID = :contactID")
+})
+public class TeamContact implements Serializable {
 	
+	private static final long serialVersionUID = 5086880701411757955L;
+
 	@Id
 	@JoinColumn(name = "TEAM_ID")
 	@ManyToOne(fetch=FetchType.LAZY)

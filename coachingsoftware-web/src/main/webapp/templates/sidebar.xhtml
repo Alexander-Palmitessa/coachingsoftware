@@ -67,14 +67,24 @@
 					<h:outputLink value="#{request.contextPath}/secured/pages/addressOverview.xhtml"><h:outputText value="#{msg['contactsAddress']}"/></h:outputLink>
 				</li>
 				<li>
-					<h:outputLink value="#{request.contextPath}/secured/pages/userSettings.xhtml"><h:outputText value="#{msg['setUserTeam']}" /></h:outputLink>
+					<a href="#"><h:outputText value="#{msg['trainedTeams']}"/></a>
+					<ul class="menu vertical nested">
+						<ui:repeat var="team" value="#{teamContactBean.getTeamsByContact(loginBean.loggedInUser.contact)}">
+							<li>
+								<a href="#"><h:outputText value="#{team.name}"/></a>
+							</li>
+						</ui:repeat>
+					</ul>
+					<li>
+						<h:outputLink value="#{request.contextPath}/secured/pages/create/createTeamContact.xhtml"><h:outputText value="#{msg['addTeam']}"/></h:outputLink>
+					</li>
 				</li>
 			</ul>
 		</li>
 		
-		<h:panelGroup rendered="#{loginBean.hasUserAssignedTeam}">
+		<h:panelGroup rendered="#{not empty teamContactBean.getFirstTeamByContact(loginBean.loggedInUser.contact)}">
 			<li>
-				<a href="#"><h:outputText value="#{loginBean.loggedInUser.team.name}"/></a>
+				<a href="#"><h:outputText value="#{teamContactBean.getFirstTeamByContact(loginBean.loggedInUser.contact).name}"/></a>
 				<ul class="menu vertical nested">
 					<li>
 						<h:outputLink value="#{request.contextPath}/secured/pages/teamOverview.xhtml"><h:outputText value="#{msg['teamOverview']}"/></h:outputLink>
@@ -162,7 +172,7 @@
 			</li>
 			
 			<li>
-				<a href="#"><h:outputText value="#{loginBean.loggedInUser.team.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['statistics']}"/></a>
+				<a href="#"><h:outputText value="#{teamContactBean.getFirstTeamByContact(loginBean.loggedInUser.contact).name}"/><h:outputText value=" - "/><h:outputText value="#{msg['statistics']}"/></a>
 				<ul class="menu vertical nested">
 					<li>
 						<a href="#"><h:outputText value="#{msg['player']}"/></a>
