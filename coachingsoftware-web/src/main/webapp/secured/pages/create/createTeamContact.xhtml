@@ -32,7 +32,7 @@
 		        	<ui:param name="teams" value="#{teamContactBean.getUnmanagedTeamByContact(loginBean.loggedInUser.contact)}" />
 		        </ui:include>
 		        <div class="small-12 column text-center">
-		        	<h:commandButton action="#{teamContactBean.create(teamContactBean.entity,loginBean.loggedInUser.contact)}" value="#{msg['addTeam']}"/>
+		        	<h:commandButton action="#{teamContactBean.create(teamContactBean.entity,loginBean.loggedInUser.contact)}" value="#{msg['addTeam']}" />
 		        </div>
 	        </div>
 		</h:form>

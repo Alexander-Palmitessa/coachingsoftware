@@ -1,14 +1,12 @@
 package com.coachingeleven.coachingsoftware.entity;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.coachingeleven.coachingsoftware.application.exception.PlayerAlreadyExistsException;
@@ -21,12 +19,16 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Role;
+import com.coachingeleven.coachingsoftware.util.DateFormatterBean;
 
 @Named("playerBean")
 @RequestScoped
 public class PlayerBean implements EntityBean<Player>, CreateBean<Player>, Serializable {
 
 	private static final long serialVersionUID = 1019344357166717271L;
+	
+	@Inject
+	private DateFormatterBean dataFormatterBean;
 	
 	@EJB
     private PlayerServiceRemote playerService;
@@ -37,8 +39,6 @@ public class PlayerBean implements EntityBean<Player>, CreateBean<Player>, Seria
 	private boolean createSuccess;
 	
 	private String birthday;
-	
-	private SimpleDateFormat dateFormatter;
 
 	@PostConstruct
 	public void init() {
@@ -52,23 +52,18 @@ public class PlayerBean implements EntityBean<Player>, CreateBean<Player>, Seria
 		entity.setContact(newContact);
 		entity.setCountryPermission(newCountryPermission);
 		entities = playerService.findAllPlayers();
-		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 	}
 	
 	@Override
 	public void create(Player entity) {
 		if(entity != null) {
 			try {
-				if(birthday != null) {
-					Calendar calendar = Calendar.getInstance();
-					calendar.setTime(dateFormatter.parse(birthday));
-					entity.getContact().setBirthdate(calendar);
-				}
+				if(birthday != null) entity.getContact().setBirthdate(dataFormatterBean.getCalendar(birthday));
 				entity.getContact().setRole(Role.PLAYER);
 				playerService.createPlayer(entity);
 	        	successClass = "create-success";
 	        	createSuccess = true;
-	        } catch (PlayerAlreadyExistsException | ParseException e) {
+	        } catch (PlayerAlreadyExistsException e) {
 	        	successClass = "create-failure";
 	        	createSuccess = false;
 	        }

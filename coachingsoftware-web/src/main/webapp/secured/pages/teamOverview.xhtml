@@ -9,13 +9,15 @@
     </ui:define>
 	
 	<ui:define name="contentTitle">
-		<h:outputText value="#{loginBean.loggedInUser.team.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['overview']}"/>
+		<h:outputText value="#{loginBean.loggedInUserTeam.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['overview']}"/>
 	</ui:define>
 	
 	<ui:define name="content">
 		<div class="row">
 			<div class="small-12 column">
-				<ui:include src="/secured/cards/teamCard.xhtml" />
+				<ui:include src="/secured/cards/teamCard.xhtml" >
+					<ui:param name="team" value="#{loginBean.loggedInUserTeam}" />
+				</ui:include>
 			</div>
 		</div>
     </ui:define>

@@ -1,14 +1,12 @@
 package com.coachingeleven.coachingsoftware.entity;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.coachingeleven.coachingsoftware.application.exception.SeasonAlreadyExistsException;
@@ -16,6 +14,7 @@ import com.coachingeleven.coachingsoftware.application.service.SeasonServiceRemo
 import com.coachingeleven.coachingsoftware.entity.base.CreateBean;
 import com.coachingeleven.coachingsoftware.entity.base.EntityBean;
 import com.coachingeleven.coachingsoftware.persistence.entity.Season;
+import com.coachingeleven.coachingsoftware.util.DateFormatterBean;
 
 @Named("seasonBean")
 @RequestScoped
@@ -23,6 +22,9 @@ public class SeasonBean implements EntityBean<Season>, CreateBean<Season>, Seria
 
 	private static final long serialVersionUID = -2990308913039600698L;
 
+	@Inject
+	private DateFormatterBean dataFormatterBean;
+	
 	@EJB
     private SeasonServiceRemote seasonService;
 	
@@ -34,30 +36,22 @@ public class SeasonBean implements EntityBean<Season>, CreateBean<Season>, Seria
 	private String startDate;
 	private String endDate;
 	
-	private SimpleDateFormat dateFormatter;
-	
 	@PostConstruct
 	public void init() {
 		entity = new Season();
 		entities = seasonService.findAllSeasons();
-		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 	}
 	
 	@Override
 	public void create(Season entity) {
 		if(entity != null) {
 			try {
-				Calendar startDateCalendar = Calendar.getInstance();
-				Calendar endDateCalendar = Calendar.getInstance();
-				startDateCalendar.setTime(dateFormatter.parse(startDate));
-				endDateCalendar.setTime(dateFormatter.parse(endDate));
-				
-				entity.setStartDate(startDateCalendar);
-				entity.setEndDate(endDateCalendar);
+				entity.setStartDate(dataFormatterBean.getCalendar(startDate));
+				entity.setEndDate(dataFormatterBean.getCalendar(endDate));
 				seasonService.createSeason(entity);
 	        	successClass = "create-success";
 	        	createSuccess = true;
-	        } catch (SeasonAlreadyExistsException | ParseException e) {
+	        } catch (SeasonAlreadyExistsException e) {
 	        	successClass = "create-failure";
 	        	createSuccess = false;
 	        }

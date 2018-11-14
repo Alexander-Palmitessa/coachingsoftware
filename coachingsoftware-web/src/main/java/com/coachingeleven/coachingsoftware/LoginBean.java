@@ -1,7 +1,7 @@
 package com.coachingeleven.coachingsoftware;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,6 +14,7 @@ import javax.inject.Named;
 import com.coachingeleven.coachingsoftware.application.exception.*;
 import com.coachingeleven.coachingsoftware.application.service.ContactService;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
+import com.coachingeleven.coachingsoftware.application.service.TeamContactServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
 import com.coachingeleven.coachingsoftware.entity.CountryBean;
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
@@ -38,8 +39,6 @@ public class LoginBean implements Serializable {
 	private Team loggedInUserTeam;
 	private boolean loggedIn;
 
-	private boolean hasUserAssignedTeam;
-
 	@Inject
 	private NavigationBean navigationBean;
 	@Inject
@@ -51,13 +50,13 @@ public class LoginBean implements Serializable {
 	private ContactService contactService;
 	@EJB
 	private CountryServiceRemote countryService;
+	@EJB
+	private TeamContactServiceRemote teamContactService;
 	
 	private String userBirthdayFormatted;
-	private SimpleDateFormat dateFormatter;
 
 	@PostConstruct
     public void init() {
-		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 		try {
 			userService.findUser("elias");
 		} catch (UserNotFoundException e) {
@@ -87,14 +86,7 @@ public class LoginBean implements Serializable {
 			if(userService.authenticate(password, currentUser.getPassword())) {
 				loggedIn = true;
 				loggedInUser = currentUser;
-				try {
-					loggedInUserTeam = contactService.findAssignedTeam(currentUser.getContact());
-					if(loggedInUser.getContact().getBirthdate() != null) userBirthdayFormatted = dateFormatter.format(loggedInUser.getContact().getBirthdate().getTime());
-					hasUserAssignedTeam = true;
-					return navigationBean.redirectToHome();
-				} catch (NoTeamAssignedException e) {
-					return navigationBean.redirectToUserSettings();
-				}
+				return navigationBean.redirectToUserSettings();
 			}
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -128,14 +120,6 @@ public class LoginBean implements Serializable {
 		this.password = password;
 	}
 
-	public boolean isHasUserAssignedTeam() {
-		return hasUserAssignedTeam;
-	}
-
-	public void setHasUserAssignedTeam(boolean hasUserAssignedTeam) {
-		this.hasUserAssignedTeam = hasUserAssignedTeam;
-	}
-
 	public UserAccount getLoggedInUser() {
 		return loggedInUser;
 	}
@@ -149,6 +133,10 @@ public class LoginBean implements Serializable {
 	}
 
 	public Team getLoggedInUserTeam() {
+		if(loggedInUser != null && loggedInUserTeam == null) {
+			List<Team> teams = teamContactService.findTeamsByContact(loggedInUser.getContact());
+			if(teams.size() > 0) loggedInUserTeam = teams.get(0);
+		}
 		return loggedInUserTeam;
 	}
 

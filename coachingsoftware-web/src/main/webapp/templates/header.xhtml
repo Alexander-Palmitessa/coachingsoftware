@@ -12,14 +12,14 @@
 	<div class="top-bar show-for-medium row">
 		<div class="top-bar-left small-12 medium-8 column">
 			<ul class="menu">
-				<h:panelGroup rendered="#{!loginBean.hasUserAssignedTeam or !loginBean.loggedIn}">
+				<h:panelGroup rendered="#{loginBean.loggedInUser == null or loginBean.loggedInUserTeam == null}">
 					<li>
 						<h:outputText value="#{msg['coachingeleven']}"/>
 					</li>
 				</h:panelGroup>
-				<h:panelGroup rendered="#{loginBean.hasUserAssignedTeam and loginBean.loggedIn}">
+				<h:panelGroup rendered="#{loginBean.loggedInUser != null and loginBean.loggedInUserTeam != null}">
 					<li>
-						<h:outputText value="#{loginBean.loggedInUser.team.name}"/>
+						<h:outputText value="#{loginBean.loggedInUserTeam.name}"/>
 					</li>
 				</h:panelGroup>
 			</ul>

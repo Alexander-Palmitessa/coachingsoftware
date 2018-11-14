@@ -12,13 +12,14 @@ import com.coachingeleven.coachingsoftware.application.exception.TeamAlreadyExis
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.entity.base.CreateBean;
 import com.coachingeleven.coachingsoftware.entity.base.EntityBean;
+import com.coachingeleven.coachingsoftware.entity.base.UpdateBean;
 import com.coachingeleven.coachingsoftware.persistence.entity.Club;
 import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
 @Named("teamBean")
 @RequestScoped
-public class TeamBean implements EntityBean<Team>, CreateBean<Team>, Serializable {
+public class TeamBean implements EntityBean<Team>, UpdateBean<Team>, CreateBean<Team>, Serializable {
 
 	private static final long serialVersionUID = -4291011729695870803L;
 
@@ -50,6 +51,15 @@ public class TeamBean implements EntityBean<Team>, CreateBean<Team>, Serializabl
 	        	createSuccess = false;
 	        }
 		}
+	}
+	
+	@Override
+	public void update(Team entity) {
+		successClass = "create-failure";
+    	createSuccess = false;
+		teamService.updateTeam(entity);
+    	successClass = "create-success";
+    	createSuccess = true;
 	}
 
 	@Override

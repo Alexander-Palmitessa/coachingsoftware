@@ -82,9 +82,9 @@
 			</ul>
 		</li>
 		
-		<h:panelGroup rendered="#{not empty teamContactBean.getFirstTeamByContact(loginBean.loggedInUser.contact)}">
+		<h:panelGroup rendered="#{loginBean.loggedInUserTeam != null}">
 			<li>
-				<a href="#"><h:outputText value="#{teamContactBean.getFirstTeamByContact(loginBean.loggedInUser.contact).name}"/></a>
+				<a href="#"><h:outputText value="#{loginBean.loggedInUserTeam.name}"/></a>
 				<ul class="menu vertical nested">
 					<li>
 						<h:outputLink value="#{request.contextPath}/secured/pages/teamOverview.xhtml"><h:outputText value="#{msg['teamOverview']}"/></h:outputLink>
@@ -172,7 +172,7 @@
 			</li>
 			
 			<li>
-				<a href="#"><h:outputText value="#{teamContactBean.getFirstTeamByContact(loginBean.loggedInUser.contact).name}"/><h:outputText value=" - "/><h:outputText value="#{msg['statistics']}"/></a>
+				<a href="#"><h:outputText value="#{loginBean.loggedInUserTeam.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['statistics']}"/></a>
 				<ul class="menu vertical nested">
 					<li>
 						<a href="#"><h:outputText value="#{msg['player']}"/></a>
