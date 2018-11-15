@@ -14,7 +14,7 @@
 	
 	<ui:define name="content">
 		<div class="row player-overview-container">
-			<ui:repeat var="player" value="#{playerBean.currentPlayers}">
+			<ui:repeat var="player" value="#{loginBean.loggedInUserTeamPlayers}">
 				<div class="small-12 medium-4 column playerOverview">
 					<ui:include src="/secured/cards/playerCard.xhtml" />
 				</div>

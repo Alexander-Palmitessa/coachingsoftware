@@ -13,9 +13,11 @@ import javax.ejb.TransactionAttribute;
 
 import com.coachingeleven.coachingsoftware.application.exception.TeamContactAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
+import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.TeamContact;
 import com.coachingeleven.coachingsoftware.persistence.entity.TeamContactId;
+import com.coachingeleven.coachingsoftware.persistence.repository.PlayerRepository;
 import com.coachingeleven.coachingsoftware.persistence.repository.TeamContactRepository;
 
 @LocalBean
@@ -27,6 +29,8 @@ public class TeamContactService implements TeamContactServiceRemote {
 	
 	@EJB
     private TeamContactRepository teamContactRepository;
+	@EJB
+	private PlayerRepository playerRepository;
 	
 	@Override
 	public TeamContact createTeamContact(TeamContact teamContact) throws TeamContactAlreadyExistsException {
@@ -49,6 +53,16 @@ public class TeamContactService implements TeamContactServiceRemote {
 	@Override
 	public List<Team> findUnmanagedTeamsByContact(Contact contact) {
 		return teamContactRepository.findUnmanagedTeamsByContact(contact.getID());
+	}
+
+	@Override
+	public List<Contact> findContactsByTeam(Team team) {
+		return teamContactRepository.findContactsByTeam(team.getID());
+	}
+
+	@Override
+	public List<Player> findPlayersByTeam(Team team) {
+		return teamContactRepository.findPlayersByTeam(team.getID());
 	}
 
 }

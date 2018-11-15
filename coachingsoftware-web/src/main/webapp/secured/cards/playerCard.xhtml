@@ -13,9 +13,9 @@
 				<div class="card-user-profile-avatar">
 					<h:graphicImage name="images/Default-avatar.jpg" />
 				</div>
-				<p class="card-user-profile-name"><h:outputText value="#{player.firstName} #{player.lastName}"/></p>
+				<p class="card-user-profile-name"><h:outputText value="#{player.contact.firstName} #{player.contact.lastName}"/></p>
 				<label><h:outputText value="#{msg['email']}"/></label>
-				<p class="card-user-profile-info"><h:outputText value="#{player.email}"/></p>
+				<p class="card-user-profile-info"><h:outputText value="#{player.contact.email}"/></p>
 			</div>
 			
 			<div class="card-user-profile-actions">

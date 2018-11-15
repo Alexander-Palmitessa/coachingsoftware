@@ -20,6 +20,7 @@ import com.coachingeleven.coachingsoftware.entity.CountryBean;
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
+import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.AccountRole;
@@ -37,6 +38,7 @@ public class LoginBean implements Serializable {
 	private String password;
 	private UserAccount loggedInUser;
 	private Team loggedInUserTeam;
+	private List<Player> loggedInUserTeamPlayers;
 	private boolean loggedIn;
 
 	@Inject
@@ -138,6 +140,13 @@ public class LoginBean implements Serializable {
 			if(teams.size() > 0) loggedInUserTeam = teams.get(0);
 		}
 		return loggedInUserTeam;
+	}
+	
+	public List<Player> getLoggedInUserTeamPlayers() {
+		if(loggedInUser != null && loggedInUserTeam != null) {
+			loggedInUserTeamPlayers = teamContactService.findPlayersByTeam(loggedInUserTeam);
+		}
+		return loggedInUserTeamPlayers;
 	}
 
 	public void setLoggedInUserTeam(Team loggedInUserTeam) {
