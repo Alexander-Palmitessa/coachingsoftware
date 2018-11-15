@@ -69,10 +69,12 @@ public class TeamContactBean implements CreateBean<TeamContact>, Serializable {
 	}
 	
 	public void create(TeamContact entity, Team team, Player player) {
-		playerBean.create(player);
-		entity.setTeam(team);
-		entity.setContact(player.getContact());
-		create(entity);
+		if(joinDate != null && joinDate != "") {
+			playerBean.create(player);
+			entity.setTeam(team);
+			entity.setContact(player.getContact());
+			create(entity);
+		}
 	}
 
 	@Override
