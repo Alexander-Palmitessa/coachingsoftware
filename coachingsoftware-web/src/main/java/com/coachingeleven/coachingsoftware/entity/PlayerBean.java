@@ -9,7 +9,9 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.coachingeleven.coachingsoftware.application.exception.ContactAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.PlayerAlreadyExistsException;
+import com.coachingeleven.coachingsoftware.application.service.ContactServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.entity.base.CreateBean;
 import com.coachingeleven.coachingsoftware.entity.base.EntityBean;
@@ -32,6 +34,8 @@ public class PlayerBean implements EntityBean<Player>, CreateBean<Player>, Seria
 	
 	@EJB
     private PlayerServiceRemote playerService;
+	@EJB
+	private ContactServiceRemote contactService;
 	
 	private Player entity;
 	private List<Player> entities;
@@ -60,10 +64,12 @@ public class PlayerBean implements EntityBean<Player>, CreateBean<Player>, Seria
 			try {
 				if(birthday != null) entity.getContact().setBirthdate(dataFormatterBean.getCalendar(birthday));
 				entity.getContact().setRole(Role.PLAYER);
+				Contact newContact = contactService.createContact(entity.getContact());
+				entity.setContact(newContact);
 				playerService.createPlayer(entity);
 	        	successClass = "create-success";
 	        	createSuccess = true;
-	        } catch (PlayerAlreadyExistsException e) {
+	        } catch (PlayerAlreadyExistsException | ContactAlreadyExistsException e) {
 	        	successClass = "create-failure";
 	        	createSuccess = false;
 	        }

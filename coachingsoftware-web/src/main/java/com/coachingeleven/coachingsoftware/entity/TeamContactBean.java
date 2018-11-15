@@ -13,6 +13,7 @@ import com.coachingeleven.coachingsoftware.application.exception.TeamContactAlre
 import com.coachingeleven.coachingsoftware.application.service.TeamContactServiceRemote;
 import com.coachingeleven.coachingsoftware.entity.base.CreateBean;
 import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
+import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.TeamContact;
 import com.coachingeleven.coachingsoftware.util.DateFormatterBean;
@@ -25,6 +26,8 @@ public class TeamContactBean implements CreateBean<TeamContact>, Serializable {
 	
 	@Inject
 	private DateFormatterBean dataFormatterBean;
+	@Inject
+	private PlayerBean playerBean;
 	
 	@EJB
     private TeamContactServiceRemote teamContactService;
@@ -62,6 +65,13 @@ public class TeamContactBean implements CreateBean<TeamContact>, Serializable {
 	
 	public void create(TeamContact entity, Contact contact) {
 		entity.setContact(contact);
+		create(entity);
+	}
+	
+	public void create(TeamContact entity, Team team, Player player) {
+		playerBean.create(player);
+		entity.setTeam(team);
+		entity.setContact(player.getContact());
 		create(entity);
 	}
 

@@ -59,8 +59,8 @@ public class Player implements Serializable, Comparator<Player> {
     private Set<ExtendedTIPS> extendedTIPS;
 	@OneToMany(mappedBy = "player")
     private Set<LineUpPlayer> lineUps;
-	@JoinColumn(name = "CONTACT_ID")
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "CONTACT_ID", unique = true)
+	@OneToOne
 	private Contact contact;
 
 

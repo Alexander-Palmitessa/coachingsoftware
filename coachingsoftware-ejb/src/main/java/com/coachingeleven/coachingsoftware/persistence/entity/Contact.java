@@ -69,10 +69,13 @@ public class Contact implements Serializable {
 	@Column(name = "AVATARURL")
 	private String avatarUrl;
 	@OneToOne(fetch=FetchType.LAZY, mappedBy="contact")
-	@JoinColumn(name = "USERACCOUNT", unique = true)
+	@JoinColumn(name = "USERACCOUNT_ID", unique = true)
 	private UserAccount userAccount;
 	@OneToMany(mappedBy = "contact", fetch=FetchType.LAZY)
 	private List<TeamContact> teamContacts;
+	@OneToOne(mappedBy="contact")
+	@JoinColumn(unique = true)
+	private Player player;
 
 	public Contact(){
 
