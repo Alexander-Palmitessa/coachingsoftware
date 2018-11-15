@@ -25,6 +25,8 @@ public class TeamBean implements EntityBean<Team>, UpdateBean<Team>, CreateBean<
 
 	@EJB
     private TeamClubServiceRemote teamService;
+	@EJB
+    private TeamClubServiceRemote teamClubService;
 	
 	private Team entity;
 	private List<Team> entities;
@@ -58,6 +60,15 @@ public class TeamBean implements EntityBean<Team>, UpdateBean<Team>, CreateBean<
 		successClass = "create-failure";
     	createSuccess = false;
 		teamService.updateTeam(entity);
+    	successClass = "create-success";
+    	createSuccess = true;
+	}
+	
+	public void updateTeamClub(Team entity, Club club) {
+		successClass = "create-failure";
+    	createSuccess = false;
+		teamService.updateTeam(entity);
+		teamClubService.updateClub(club);
     	successClass = "create-success";
     	createSuccess = true;
 	}

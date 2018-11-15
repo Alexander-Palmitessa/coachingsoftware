@@ -26,15 +26,15 @@
 				</div>
 			</div>
 		</h:form>
-        <h:form class="create-form #{teamBean.successClass}">
+        <h:form class="create-form #{clubBean.successClass}">
 	        <div class="row">
-	        	<h:panelGroup rendered="#{not empty teamBean.successClass}">
+	        	<h:panelGroup rendered="#{not empty clubBean.successClass}">
 	        		<div class="small-12 column text-center">
 	        			<label class="information">
-	        				<h:panelGroup rendered="#{teamBean.createSuccess}">
+	        				<h:panelGroup rendered="#{clubBean.createSuccess}">
 	        					<h:outputText value="#{msg['createSuccess']}"/>
 	        				</h:panelGroup>
-	        				<h:panelGroup rendered="#{!teamBean.createSuccess}">
+	        				<h:panelGroup rendered="#{!clubBean.createSuccess}">
 	        					<h:outputText value="#{msg['createFailure']}"/>
 	        				</h:panelGroup>
 			        	</label>
@@ -49,7 +49,7 @@
 		        	<ui:param name="club" value="#{loginBean.loggedInUserTeam.club}" />
 		        </ui:include>
 				<div class="small-12 column text-center">
-		        	<h:commandButton action="#{teamBean.update(loginBean.loggedInUserTeam)}" value="#{msg['save']}" />
+		        	<h:commandButton action="#{teamBean.updateTeamClub(loginBean.loggedInUserTeam,loginBean.loggedInUserTeam.club)}" value="#{msg['save']}" />
 		        </div>
 	        </div>
 		</h:form>

@@ -44,7 +44,7 @@ public class Club implements Serializable {
     @NotNull(message = "{not.null}")
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "club", orphanRemoval = true)
-    private Set<Team> teams;
+    private Set<Team> teams = new HashSet<>();
     @Embedded
 	private Address address;
 
@@ -55,7 +55,6 @@ public class Club implements Serializable {
      */
     public Club(String name) {
         this.name = name;
-        teams = new HashSet<>();
     }
 
     /**

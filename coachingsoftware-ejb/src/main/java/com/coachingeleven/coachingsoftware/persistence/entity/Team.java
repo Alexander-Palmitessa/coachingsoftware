@@ -88,6 +88,7 @@ public class Team implements Serializable {
 
 	public void setClub(Club club) {
 		this.club = club;
+		club.getTeams().add(this);
 	}
 
 	public Set<Game> getGames() {

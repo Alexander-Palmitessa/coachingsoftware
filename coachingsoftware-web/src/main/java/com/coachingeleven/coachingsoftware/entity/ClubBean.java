@@ -12,13 +12,14 @@ import com.coachingeleven.coachingsoftware.application.exception.ClubAlreadyExis
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.entity.base.CreateBean;
 import com.coachingeleven.coachingsoftware.entity.base.EntityBean;
+import com.coachingeleven.coachingsoftware.entity.base.UpdateBean;
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Club;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 
 @Named("clubBean")
 @RequestScoped
-public class ClubBean implements EntityBean<Club>, CreateBean<Club>, Serializable {
+public class ClubBean implements EntityBean<Club>, UpdateBean<Club>, CreateBean<Club>, Serializable {
 
 	private static final long serialVersionUID = 3701685529777074161L;
 	
@@ -54,6 +55,15 @@ public class ClubBean implements EntityBean<Club>, CreateBean<Club>, Serializabl
 	        	createSuccess = false;
 	        }
 		}
+	}
+	
+	@Override
+	public void update(Club entity) {
+		successClass = "create-failure";
+    	createSuccess = false;
+    	teamClubService.updateClub(entity);
+    	successClass = "create-success";
+    	createSuccess = true;
 	}
 
 	@Override
