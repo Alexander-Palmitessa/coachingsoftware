@@ -9,7 +9,7 @@
 			<h:outputText value="#{msg['noPlayerFound']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
 		</h:panelGroup>
 		<h:panelGroup rendered="#{playerViewBean.currentPlayer != null}">
-			<h:outputText value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+			<h:outputText value="#{playerViewBean.currentPlayer.contact.firstName} #{playerViewBean.currentPlayer.contact.lastName}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
 		</h:panelGroup>
     </ui:define>
 	
@@ -18,7 +18,7 @@
 			<h:outputText value="#{msg['noPlayerFound']}"/>
 		</h:panelGroup>
 		<h:panelGroup rendered="#{playerViewBean.currentPlayer != null}">
-			<h:outputText value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/>
+			<h:outputText value="#{playerViewBean.currentPlayer.contact.firstName} #{playerViewBean.currentPlayer.contact.lastName}"/>
 		</h:panelGroup>
 	</ui:define>
 		
@@ -51,7 +51,7 @@
 							<div class="card-user-profile-avatar">
 								<h:graphicImage name="images/Default-avatar.jpg" />
 							</div>
-							<p class="card-user-profile-name"><h:outputText value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/></p>
+							<p class="card-user-profile-name"><h:outputText value="#{playerViewBean.currentPlayer.contact.firstName} #{playerViewBean.currentPlayer.contact.lastName}"/></p>
 							<h:form id="createPlayerTalk">
 					        	<div class="row">
 							        <div class="small-12 medium-6 column">
