@@ -9,7 +9,7 @@
 			<h:outputText value="#{msg['noPlayerFound']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
 		</h:panelGroup>
 		<h:panelGroup rendered="#{playerViewBean.currentPlayer != null}">
-			<h:outputText value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/> -
+			<h:outputText value="#{playerViewBean.currentPlayer.contact.firstName} #{playerViewBean.currentPlayer.contact.lastName}"/> -
 			<h:outputText value="#{msg['coachingeleven']}"/>
 		</h:panelGroup>
 	</ui:define>
@@ -19,7 +19,7 @@
 			<h:outputText value="#{msg['noPlayerFound']}"/>
 		</h:panelGroup>
 		<h:panelGroup rendered="#{playerViewBean.currentPlayer != null}">
-			<h:outputText value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/>
+			<h:outputText value="#{playerViewBean.currentPlayer.contact.firstName} #{playerViewBean.currentPlayer.contact.lastName}"/>
 		</h:panelGroup>
 	</ui:define>
 
@@ -55,10 +55,10 @@
 						<div class="grey-background"></div>
 						<div class="card-user-profile-content card-section">
 							<div class="card-user-profile-avatar">
-								<h:graphicImage id="playerPicture" name="#{playerViewBean.currentPlayer.avatarUrl}"/>
+								<h:graphicImage id="playerPicture" name="#{playerViewBean.currentPlayer.contact.avatarUrl}"/>
 							</div>
 							<p class="card-user-profile-name playerView"><h:outputText
-									value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/>
+									value="#{playerViewBean.currentPlayer.contact.firstName} #{playerViewBean.currentPlayer.contact.lastName}"/>
 							</p>
 							<div class="row" style="display: none">
 								<div class="small-12 medium-3 column">
@@ -78,18 +78,18 @@
 									<div class="small-12 medium-6 column">
 										<label><h:outputText value="#{msg['firstName']}"/></label>
 										<h:inputText id="player_firstName"
-													 value="#{playerViewBean.currentPlayer.firstName}"/>
+													 value="#{playerViewBean.currentPlayer.contact.firstName}"/>
 										<h:message for="player_firstName" style="color: red"/>
 									</div>
 									<div class="small-12 medium-6 column">
 										<label><h:outputText value="#{msg['lastName']}"/></label>
 										<h:inputText id="player_lastName"
-													 value="#{playerViewBean.currentPlayer.lastName}"/>
+													 value="#{playerViewBean.currentPlayer.contact.lastName}"/>
 										<h:message for="player_lastName" style="color: red"/>
 									</div>
 									<div class="small-12 medium-6 column">
 										<label><h:outputText value="#{msg['email']}"/></label>
-										<h:inputText id="player_email" value="#{playerViewBean.currentPlayer.email}"/>
+										<h:inputText id="player_email" value="#{playerViewBean.currentPlayer.contact.email}"/>
 										<h:message for="player_email" style="color: red"/>
 									</div>
 									<div class="small-12 medium-6 column">
@@ -101,36 +101,36 @@
 									<div class="small-12 medium-6 column">
 										<label><h:outputText value="#{msg['mobileNumber']}"/></label>
 										<h:inputText id="player_mobileNumber"
-													 value="#{playerViewBean.currentPlayer.mobileNumber}"/>
+													 value="#{playerViewBean.currentPlayer.contact.mobileNumber}"/>
 										<h:message for="player_mobileNumber" style="color: red"/>
 									</div>
 									<div class="small-12 medium-6 column">
 										<label><h:outputText value="#{msg['city']}"/></label>
 										<h:inputText id="player_city"
-													 value="#{playerViewBean.currentPlayer.address.city}"/>
+													 value="#{playerViewBean.currentPlayer.contact.address.city}"/>
 										<h:message for="player_city" style="color: red"/>
 									</div>
 									<div class="small-12 medium-6 column">
 										<label><h:outputText value="#{msg['street']}"/></label>
 										<h:inputText id="player_street"
-													 value="#{playerViewBean.currentPlayer.address.street}"/>
+													 value="#{playerViewBean.currentPlayer.contact.address.street}"/>
 										<h:message for="player_street" style="color: red"/>
 									</div>
 									<div class="small-12 medium-6 column">
 										<label><h:outputText value="#{msg['streetNr']}"/></label>
 										<h:inputText id="player_streetNr"
-													 value="#{playerViewBean.currentPlayer.address.streetNr}"/>
+													 value="#{playerViewBean.currentPlayer.contact.address.streetNr}"/>
 										<h:message for="player_streetNr" style="color: red"/>
 									</div>
 									<div class="small-12 medium-6 column">
 										<label><h:outputText value="#{msg['zip']}"/></label>
 										<h:inputText id="player_playerZip"
-													 value="#{playerViewBean.currentPlayer.address.zip}"/>
+													 value="#{playerViewBean.currentPlayer.contact.address.zip}"/>
 										<h:message for="player_playerZip" style="color: red"/>
 									</div>
 									<div class="small-12 medium-6 column">
 										<label><h:outputText value="#{msg['country']}"/></label>
-										<h:selectOneMenu value="#{playerViewBean.currentPlayer.address.country.name}">
+										<h:selectOneMenu value="#{playerViewBean.currentPlayer.contact.address.country.name}">
 											<f:selectItems value="#{addressBean.countryValue}" var="c"
 														   itemValue="#{c.countryValue}"
 														   itemLabel="#{c.countryLabel}"/>
