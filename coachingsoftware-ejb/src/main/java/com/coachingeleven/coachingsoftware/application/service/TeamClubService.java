@@ -123,11 +123,6 @@ public class TeamClubService implements TeamClubServiceRemote {
 	}
 
 	@Override
-	public List<Team> findTeamsByClubId(int clubId) {
-		return teamRepository.findTeamsByClubID(clubId);
-	}
-
-	@Override
 	public Club findClub(int id) throws ClubNotFoundException {
 		return clubRepository.find(Club.class, id);
 	}

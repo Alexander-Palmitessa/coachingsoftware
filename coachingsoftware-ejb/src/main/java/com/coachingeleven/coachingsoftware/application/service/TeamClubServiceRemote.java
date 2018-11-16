@@ -35,6 +35,4 @@ public interface TeamClubServiceRemote {
 	Club updateClub(Club club);
 
 	Team updateTeam(Team team);
-
-	List<Team> findTeamsByClubId(int clubId);
 }

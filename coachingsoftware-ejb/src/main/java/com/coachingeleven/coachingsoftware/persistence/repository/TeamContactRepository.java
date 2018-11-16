@@ -31,10 +31,21 @@ public class TeamContactRepository extends Repository<TeamContact> {
 	
 	@SuppressWarnings("unchecked")
 	@TransactionAttribute(SUPPORTS)
-    public List<Team> findUnmanagedTeamsByContact(int contactID) {
+    public List<Team> findUnassingnedTeamsByContact(int trainerContactID) {
     	try {
-    		Query query = entityManager.createNativeQuery("SELECT t.TEAM_ID, t.TEAM_NAME, t.TEAMLOGOURL, t.TEAMPICTUREURL, t.CLUB_ID FROM Team AS t LEFT OUTER JOIN Team_Contact AS tc ON t.TEAM_ID = tc.TEAM_ID WHERE tc.CONTACT_ID IS NULL OR tc.CONTACT_ID != ?", Team.class);
-			query.setParameter(1, contactID);
+    		Query query = entityManager.createNativeQuery("SELECT "
+	    				+ "t.TEAM_ID, "
+	    				+ "t.TEAM_NAME, "
+	    				+ "t.TEAMLOGOURL, "
+	    				+ "t.TEAMPICTUREURL, "
+	    				+ "t.CLUB_ID "
+    				+ "FROM Team AS t "
+    				+ "WHERE t.TEAM_ID "
+    				+ "NOT IN "
+    					+ "(SELECT tc.TEAM_ID "
+    					+ "FROM Team_Contact AS tc "
+    					+ "WHERE tc.CONTACT_ID = ?)", Team.class);
+			query.setParameter(1, trainerContactID);
 			return query.getResultList();
 		} catch (NoResultException ex) {
 			return null;
@@ -69,9 +80,9 @@ public class TeamContactRepository extends Repository<TeamContact> {
 	    				+ "p.CONTACT_ID "
     				+ "FROM Player AS p "
     				+ "JOIN Contact AS c "
-    				+ "ON p.CONTACT_ID = c.CONTACT_ID "
+    					+ "ON p.CONTACT_ID = c.CONTACT_ID "
     				+ "JOIN Team_Contact tc "
-    				+ "ON tc.CONTACT_ID = c.CONTACT_ID "
+    					+ "ON tc.CONTACT_ID = c.CONTACT_ID "
     				+ "WHERE tc.TEAM_ID = ?", Player.class);
 			query.setParameter(1, teamID);
 			return query.getResultList();

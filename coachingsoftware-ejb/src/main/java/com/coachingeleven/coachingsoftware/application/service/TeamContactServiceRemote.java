@@ -15,7 +15,7 @@ public interface TeamContactServiceRemote {
 	
 	TeamContact createTeamContact(TeamContact teamContact) throws TeamContactAlreadyExistsException;
 	List<Team> findTeamsByContact(Contact contact);
-	List<Team> findUnmanagedTeamsByContact(Contact contact);
+	List<Team> findUnassingnedTeamsByContact(Contact contact);
 	List<Contact> findContactsByTeam(Team team);
 	List<Player> findPlayersByTeam(Team team);
 	

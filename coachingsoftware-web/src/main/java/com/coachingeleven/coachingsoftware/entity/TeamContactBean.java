@@ -91,8 +91,8 @@ public class TeamContactBean implements CreateBean<TeamContact>, Serializable {
 		return teamContactService.findTeamsByContact(contact);
 	}
 	
-	public List<Team> getUnmanagedTeamByContact(Contact contact) {
-		return teamContactService.findUnmanagedTeamsByContact(contact);
+	public List<Team> getUnassingnedTeamsByContact(Contact contact) {
+		return teamContactService.findUnassingnedTeamsByContact(contact);
 	}
 
 	public TeamContact getEntity() {

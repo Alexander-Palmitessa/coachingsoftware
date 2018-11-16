@@ -20,9 +20,7 @@ import java.util.Set;
 @Table(name = "TEAM")
 @NamedQueries({
 		@NamedQuery(name = "findTeam",
-				query = "SELECT c FROM Team c WHERE LOWER(c.name) = LOWER(:teamname)"),
-		@NamedQuery(name = "findTeamsByClubId",
-				query = "SELECT t FROM Team t WHERE t.club.ID = :clubId")
+				query = "SELECT c FROM Team c WHERE LOWER(c.name) = LOWER(:teamname)")
 })
 public class Team implements Serializable {
 

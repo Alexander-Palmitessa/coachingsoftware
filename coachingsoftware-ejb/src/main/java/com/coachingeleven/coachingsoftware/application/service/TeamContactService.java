@@ -51,8 +51,8 @@ public class TeamContactService implements TeamContactServiceRemote {
 	}
 
 	@Override
-	public List<Team> findUnmanagedTeamsByContact(Contact contact) {
-		return teamContactRepository.findUnmanagedTeamsByContact(contact.getID());
+	public List<Team> findUnassingnedTeamsByContact(Contact contact) {
+		return teamContactRepository.findUnassingnedTeamsByContact(contact.getID());
 	}
 
 	@Override
