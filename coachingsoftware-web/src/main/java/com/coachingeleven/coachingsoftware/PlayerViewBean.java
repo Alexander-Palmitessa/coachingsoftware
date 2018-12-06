@@ -21,6 +21,7 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
+import com.coachingeleven.coachingsoftware.util.TotalPlayerStats;
 
 @Named(value = "playerViewBean")
 @RequestScoped
@@ -40,11 +41,14 @@ public class PlayerViewBean {
 	
 	private String birthdayFormatted;
 	private String oldEmailAddress;
+
+	private TotalPlayerStats totalPlayerStats;
 	
 	@PostConstruct
 	public void init() {
 		currentPlayer = currentPlayerBean.getCurrentPlayer();
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
+		totalPlayerStats = new TotalPlayerStats(currentPlayer);
 		// Format date for GUI
 //		if(currentPlayer.getBirthdate() != null) birthdayFormatted = dateFormatter.format(currentPlayer.getBirthdate().getTime());
 //		// Create empty address if player doesn't have one
