@@ -19,6 +19,8 @@ public class TotalPlayerStats {
 	private int totalRed;
 	private double TIPSaverage;
 
+	//TODO: ONLY CURRENT SEASON
+
 	public TotalPlayerStats(Player player) {
 		this.player = player;
 		createStats();

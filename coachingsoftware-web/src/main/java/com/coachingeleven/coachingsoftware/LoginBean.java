@@ -1,6 +1,7 @@
 package com.coachingeleven.coachingsoftware;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -145,6 +146,7 @@ public class LoginBean implements Serializable {
 	public List<Player> getLoggedInUserTeamPlayers() {
 		if(loggedInUser != null && loggedInUserTeam != null) {
 			loggedInUserTeamPlayers = teamContactService.findPlayersByTeam(loggedInUserTeam);
+			Collections.sort(loggedInUserTeamPlayers, new Player());
 		}
 		return loggedInUserTeamPlayers;
 	}

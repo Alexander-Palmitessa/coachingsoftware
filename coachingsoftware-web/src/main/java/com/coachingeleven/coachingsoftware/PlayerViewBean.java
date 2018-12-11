@@ -143,4 +143,11 @@ public class PlayerViewBean {
 		this.birthdayFormatted = birthdayFormatted;
 	}
 
+	public TotalPlayerStats getTotalPlayerStats() {
+		return totalPlayerStats;
+	}
+
+	public void setTotalPlayerStats(TotalPlayerStats totalPlayerStats) {
+		this.totalPlayerStats = totalPlayerStats;
+	}
 }
