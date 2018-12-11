@@ -56,9 +56,9 @@
 					<div class="card-container">
 						<div class="grey-background"></div>
 						<div class="card-user-profile-content card-section">
-							<div class="small-12 column">
 
-								<!-- Table of common statistics -->
+							<!-- Table of common statistics -->
+							<div class="small-12 column">
 								<table class="responsive-card-table unstriped">
 									<thead>
 									<tr>
@@ -90,10 +90,23 @@
 									</tbody>
 								</table>
 							</div>
+
+							<!-- Goal Heatmap //TODO: Call js function to set zone values -->
+							<div class="small-12 medium-6 column">
+								<ui:include src="../util/GoalHeatmap.xhtml"/>
+							</div>
+
+							<!-- Assist Heatmap -->
+							<div class="small-12 medium-6 column">
+								<ui:include src="../util/AssistHeatamp.xhtml"/>
+							</div>
+
+
 						</div>
 					</div>
 				</div>
 			</div>
+
 		</h:panelGroup>
 		<h:panelGroup rendered="#{playerViewBean.currentPlayer == null}">
 			<h:outputText value="#{msg['noPlayerFound']}"/>

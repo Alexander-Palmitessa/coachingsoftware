@@ -1,6 +1,7 @@
 package com.coachingeleven.coachingsoftware.util;
 
 import com.coachingeleven.coachingsoftware.persistence.entity.Card;
+import com.coachingeleven.coachingsoftware.persistence.entity.Goal;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.PlayerGameStats;
 
@@ -19,11 +20,15 @@ public class TotalPlayerStats {
 	private int totalRed;
 	private double TIPSaverage;
 
+	private ZoneCount goalZones;
+	private ZoneCount assistZones;
+
 	//TODO: ONLY CURRENT SEASON
 
 	public TotalPlayerStats(Player player) {
 		this.player = player;
 		createStats();
+		countZones();
 	}
 
 	private void createStats() {
@@ -56,6 +61,10 @@ public class TotalPlayerStats {
 			TIPSaverage += pgs.getTips().getAverage();
 		}
 		TIPSaverage = (double) Math.round(TIPSaverage / player.getGameStats().size() * 100) / 100;
+	}
+
+	private void countZones(){
+		//TODO: Count zones
 	}
 
 	public int getTotalGames() {
