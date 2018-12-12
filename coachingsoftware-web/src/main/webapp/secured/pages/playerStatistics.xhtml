@@ -91,17 +91,49 @@
 								</table>
 							</div>
 
-							<!-- Goal Heatmap //TODO: Call js function to set zone values -->
-							<div class="small-12 medium-6 column">
-								<ui:include src="../util/GoalHeatmap.xhtml"/>
+							<!-- goal values for heatmap fields TODO: get real values from bean-->
+							<h:inputHidden id="a1g" value="2" />
+							<h:inputHidden id="a2g" value="4" />
+							<h:inputHidden id="b1g" value="1" />
+							<h:inputHidden id="b2g" value="0" />
+							<h:inputHidden id="c1g" value="2" />
+							<h:inputHidden id="c2g" value="2" />
+							<h:inputHidden id="d1g" value="2" />
+							<h:inputHidden id="d2g" value="2" />
+							<h:inputHidden id="e1g" value="2" />
+							<h:inputHidden id="e2g" value="2" />
+							<h:inputHidden id="f1g" value="2" />
+							<h:inputHidden id="f2g" value="2" />
+
+							<!-- assist values for heatmap fields TODO: get real values from bean-->
+							<h:inputHidden id="a1a" value="2" />
+							<h:inputHidden id="a2a" value="2" />
+							<h:inputHidden id="b1a" value="8" />
+							<h:inputHidden id="b2a" value="4" />
+							<h:inputHidden id="c1a" value="2" />
+							<h:inputHidden id="c2a" value="0" />
+							<h:inputHidden id="d1a" value="2" />
+							<h:inputHidden id="d2a" value="2" />
+							<h:inputHidden id="e1a" value="1" />
+							<h:inputHidden id="e2a" value="2" />
+							<h:inputHidden id="f1a" value="2" />
+							<h:inputHidden id="f2a" value="2" />
+
+							<!-- Goal Heatmap-->
+							<div class="small-12 medium-6 centered">
+								<h1>Goals: </h1><h1 id="goalValue">-</h1>
+								<ui:include src="../util/GoalHeatmap.html"/>
 							</div>
 
 							<!-- Assist Heatmap -->
-							<div class="small-12 medium-6 column">
-								<ui:include src="../util/AssistHeatamp.xhtml"/>
+							<div class="small-12 medium-6 centered">
+								<h1>Assist: </h1><h1 id="assistValue">-</h1>
+								<ui:include src="../util/AssistHeatamp.html"/>
 							</div>
-
-
+							<script>
+								$( document ).ready(setHeatmapGoals());
+								$( document ).ready(setHeatmapAssist());
+							</script>
 						</div>
 					</div>
 				</div>
