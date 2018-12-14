@@ -1,5 +1,9 @@
 package com.coachingeleven.coachingsoftware.util;
 
+import com.coachingeleven.coachingsoftware.application.service.StatisticsServiceRemote;
+import com.coachingeleven.coachingsoftware.persistence.entity.Player;
+import com.coachingeleven.coachingsoftware.persistence.entity.Season;
+
 public class ZoneCount {
 
 	private int a1;
@@ -14,6 +18,26 @@ public class ZoneCount {
 	private int e2;
 	private int f1;
 	private int f2;
+
+	public ZoneCount(StatisticsServiceRemote statisticsService, Season season, Player currentPlayer) {
+		try {
+			this.a1 = statisticsService.getPlayerGoalsA1(season, currentPlayer.getID());
+			this.a2 = statisticsService.getPlayerGoalsA2(season, currentPlayer.getID());
+			this.b1 = statisticsService.getPlayerGoalsB1(season, currentPlayer.getID());
+			this.b2 = statisticsService.getPlayerGoalsB2(season, currentPlayer.getID());
+			this.c1 = statisticsService.getPlayerGoalsC1(season, currentPlayer.getID());
+			this.c2 = statisticsService.getPlayerGoalsC2(season, currentPlayer.getID());
+			this.d1 = statisticsService.getPlayerGoalsD1(season, currentPlayer.getID());
+			this.d2 = statisticsService.getPlayerGoalsD2(season, currentPlayer.getID());
+			this.e1 = statisticsService.getPlayerGoalsE1(season, currentPlayer.getID());
+			this.e2 = statisticsService.getPlayerGoalsE2(season, currentPlayer.getID());
+			this.f1 = statisticsService.getPlayerGoalsF1(season, currentPlayer.getID());
+			this.f2 = statisticsService.getPlayerGoalsF2(season, currentPlayer.getID());
+
+		} catch (Exception e) {
+			//TODO: ...
+		}
+	}
 
 	public int getA1() {
 		return a1;

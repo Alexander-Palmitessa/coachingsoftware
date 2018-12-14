@@ -35,7 +35,9 @@
 									value="#{msg['details']}"/></h:outputLink>
 						</li>
 						<li class="active">
-							<h:outputLink value="#{request.contextPath}/secured/pages/playerStatistics.xhtml"><h:outputText value="#{msg['statistic']}"/></h:outputLink>
+							<h:outputLink
+									value="#{request.contextPath}/secured/pages/playerStatistics.xhtml"><h:outputText
+									value="#{msg['statistic']}"/></h:outputLink>
 						</li>
 						<li>
 							<h:outputLink value="#{request.contextPath}/secured/pages/playerRanking.xhtml"><h:outputText
@@ -75,64 +77,66 @@
 									</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td data-label="#{msg['games']}">#{playerViewBean.totalPlayerStats.totalGames}</td>
-											<td data-label="#{msg['minutesTotal']}">#{playerViewBean.totalPlayerStats.totalMinutes}</td>
-											<td data-label="#{msg['goals']}">#{playerViewBean.totalPlayerStats.totalGoals}</td>
-											<td data-label="#{msg['assists']}">#{playerViewBean.totalPlayerStats.totalAssist}</td>
-											<td data-label="#{msg['changeIn']}">#{playerViewBean.totalPlayerStats.totalIn}</td>
-											<td data-label="#{msg['changeOut']}">#{playerViewBean.totalPlayerStats.totalOut}</td>
-											<td data-label="#{msg['cardType.YELLOW']}">#{playerViewBean.totalPlayerStats.totalYellow}</td>
-											<td data-label="#{msg['cardType.YELLOWRED']}">#{playerViewBean.totalPlayerStats.totalYellowRed}</td>
-											<td data-label="#{msg['cardType.RED']}">#{playerViewBean.totalPlayerStats.totalRed}</td>
-											<td data-label="#{msg['TIPSavg']}">#{playerViewBean.totalPlayerStats.TIPSaverage}</td>
-										</tr>
+									<tr>
+										<td data-label="#{msg['games']}">#{playerViewBean.totalPlayerStats.totalGames}</td>
+										<td data-label="#{msg['minutesTotal']}">#{playerViewBean.totalPlayerStats.totalMinutes}</td>
+										<td data-label="#{msg['goals']}">#{playerViewBean.totalPlayerStats.totalGoals}</td>
+										<td data-label="#{msg['assists']}">#{playerViewBean.totalPlayerStats.totalAssist}</td>
+										<td data-label="#{msg['changeIn']}">#{playerViewBean.totalPlayerStats.totalIn}</td>
+										<td data-label="#{msg['changeOut']}">#{playerViewBean.totalPlayerStats.totalOut}</td>
+										<td data-label="#{msg['cardType.YELLOW']}">#{playerViewBean.totalPlayerStats.totalYellow}</td>
+										<td data-label="#{msg['cardType.YELLOWRED']}">#{playerViewBean.totalPlayerStats.totalYellowRed}</td>
+										<td data-label="#{msg['cardType.RED']}">#{playerViewBean.totalPlayerStats.totalRed}</td>
+										<td data-label="#{msg['TIPSavg']}">#{playerViewBean.totalPlayerStats.TIPSaverage}</td>
+									</tr>
 									</tbody>
 								</table>
 							</div>
 
 							<!-- goal values for heatmap fields TODO: get real values from bean-->
-							<h:inputHidden id="a1g" value="2" />
-							<h:inputHidden id="a2g" value="4" />
-							<h:inputHidden id="b1g" value="1" />
-							<h:inputHidden id="b2g" value="0" />
-							<h:inputHidden id="c1g" value="2" />
-							<h:inputHidden id="c2g" value="2" />
-							<h:inputHidden id="d1g" value="2" />
-							<h:inputHidden id="d2g" value="2" />
-							<h:inputHidden id="e1g" value="2" />
-							<h:inputHidden id="e2g" value="2" />
-							<h:inputHidden id="f1g" value="2" />
-							<h:inputHidden id="f2g" value="2" />
+							<h:inputHidden id="a1g" value="#{playerViewBean.goalsZones.a1}"/>
+							<h:inputHidden id="a2g" value="#{playerViewBean.goalsZones.a2}"/>
+							<h:inputHidden id="b1g" value="#{playerViewBean.goalsZones.b1}"/>
+							<h:inputHidden id="b2g" value="#{playerViewBean.goalsZones.b2}"/>
+							<h:inputHidden id="c1g" value="#{playerViewBean.goalsZones.c1}"/>
+							<h:inputHidden id="c2g" value="#{playerViewBean.goalsZones.c2}"/>
+							<h:inputHidden id="d1g" value="#{playerViewBean.goalsZones.d1}"/>
+							<h:inputHidden id="d2g" value="#{playerViewBean.goalsZones.d2}"/>
+							<h:inputHidden id="e1g" value="#{playerViewBean.goalsZones.e1}"/>
+							<h:inputHidden id="e2g" value="#{playerViewBean.goalsZones.e2}"/>
+							<h:inputHidden id="f1g" value="#{playerViewBean.goalsZones.f1}"/>
+							<h:inputHidden id="f2g" value="#{playerViewBean.goalsZones.f2}"/>
 
 							<!-- assist values for heatmap fields TODO: get real values from bean-->
-							<h:inputHidden id="a1a" value="2" />
-							<h:inputHidden id="a2a" value="2" />
-							<h:inputHidden id="b1a" value="8" />
-							<h:inputHidden id="b2a" value="4" />
-							<h:inputHidden id="c1a" value="2" />
-							<h:inputHidden id="c2a" value="0" />
-							<h:inputHidden id="d1a" value="2" />
-							<h:inputHidden id="d2a" value="2" />
-							<h:inputHidden id="e1a" value="1" />
-							<h:inputHidden id="e2a" value="2" />
-							<h:inputHidden id="f1a" value="2" />
-							<h:inputHidden id="f2a" value="2" />
+							<h:inputHidden id="a1a" value="2"/>
+							<h:inputHidden id="a2a" value="2"/>
+							<h:inputHidden id="b1a" value="8"/>
+							<h:inputHidden id="b2a" value="4"/>
+							<h:inputHidden id="c1a" value="2"/>
+							<h:inputHidden id="c2a" value="0"/>
+							<h:inputHidden id="d1a" value="2"/>
+							<h:inputHidden id="d2a" value="2"/>
+							<h:inputHidden id="e1a" value="1"/>
+							<h:inputHidden id="e2a" value="2"/>
+							<h:inputHidden id="f1a" value="2"/>
+							<h:inputHidden id="f2a" value="2"/>
 
 							<!-- Goal Heatmap-->
 							<div class="small-12 medium-6 centered">
-								<h1>Goals: </h1><h1 id="goalValue">-</h1>
+								<h1>Goals: </h1>
+								<h1 id="goalValue">-</h1>
 								<ui:include src="../util/GoalHeatmap.html"/>
 							</div>
 
 							<!-- Assist Heatmap -->
 							<div class="small-12 medium-6 centered">
-								<h1>Assist: </h1><h1 id="assistValue">-</h1>
+								<h1>Assist: </h1>
+								<h1 id="assistValue">-</h1>
 								<ui:include src="../util/AssistHeatamp.html"/>
 							</div>
 							<script>
-								$( document ).ready(setHeatmapGoals());
-								$( document ).ready(setHeatmapAssist());
+								$(document).ready(setHeatmapGoals());
+								$(document).ready(setHeatmapAssist());
 							</script>
 						</div>
 					</div>

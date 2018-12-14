@@ -17,11 +17,15 @@ import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounE
 import com.coachingeleven.coachingsoftware.application.exception.PlayerNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
+import com.coachingeleven.coachingsoftware.application.service.StatisticsServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
+import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
+import com.coachingeleven.coachingsoftware.util.DateFormatterBean;
 import com.coachingeleven.coachingsoftware.util.TotalPlayerStats;
+import com.coachingeleven.coachingsoftware.util.ZoneCount;
 
 @Named(value = "playerViewBean")
 @RequestScoped
@@ -34,6 +38,10 @@ public class PlayerViewBean {
 	private PlayerServiceRemote playerService;
 	@EJB
 	private CountryServiceRemote countryService;
+	@Inject
+	private DateFormatterBean dateFormatterBean; //TODO: Remove when current season is selected below
+	@EJB
+	private StatisticsServiceRemote statisticsService;
 	
 	private Player currentPlayer;
 	
@@ -43,12 +51,20 @@ public class PlayerViewBean {
 	private String oldEmailAddress;
 
 	private TotalPlayerStats totalPlayerStats;
+	private ZoneCount goalsZones;
+
+
+
 	
 	@PostConstruct
 	public void init() {
 		currentPlayer = currentPlayerBean.getCurrentPlayer();
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 		totalPlayerStats = new TotalPlayerStats(currentPlayer);
+		Season mockupSeason = new Season();
+		mockupSeason.setStartDate(dateFormatterBean.getCalendar("01.01.1900"));
+		mockupSeason.setEndDate(dateFormatterBean.getCalendar("01.01.2100"));
+		goalsZones = new ZoneCount(statisticsService, mockupSeason, currentPlayer); //TODO: currentSeason;
 		// Format date for GUI
 //		if(currentPlayer.getBirthdate() != null) birthdayFormatted = dateFormatter.format(currentPlayer.getBirthdate().getTime());
 //		// Create empty address if player doesn't have one
@@ -149,5 +165,13 @@ public class PlayerViewBean {
 
 	public void setTotalPlayerStats(TotalPlayerStats totalPlayerStats) {
 		this.totalPlayerStats = totalPlayerStats;
+	}
+
+	public ZoneCount getGoalsZones() {
+		return goalsZones;
+	}
+
+	public void setGoalsZones(ZoneCount goalsZones) {
+		this.goalsZones = goalsZones;
 	}
 }
