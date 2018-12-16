@@ -4,7 +4,7 @@ import com.coachingeleven.coachingsoftware.application.service.StatisticsService
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 
-public class ZoneCount {
+public class ZoneCountPlayer {
 
 	//goals
 	private int a1g;
@@ -34,7 +34,7 @@ public class ZoneCount {
 	private int f1a;
 	private int f2a;
 
-	public ZoneCount(StatisticsServiceRemote statisticsService, Season season, Player currentPlayer) {
+	public ZoneCountPlayer(StatisticsServiceRemote statisticsService, Season season, Player currentPlayer) {
 		try {
 			//set goals
 			this.a1g = statisticsService.getPlayerGoalsA1(season, currentPlayer.getID());

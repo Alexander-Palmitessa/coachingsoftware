@@ -1,31 +1,22 @@
 package com.coachingeleven.coachingsoftware;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyExistsException;
-import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
-import com.coachingeleven.coachingsoftware.application.exception.PlayerNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.StatisticsServiceRemote;
-import com.coachingeleven.coachingsoftware.persistence.entity.Address;
-import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
 import com.coachingeleven.coachingsoftware.util.DateFormatterBean;
 import com.coachingeleven.coachingsoftware.util.TotalPlayerStats;
-import com.coachingeleven.coachingsoftware.util.ZoneCount;
+import com.coachingeleven.coachingsoftware.util.ZoneCountPlayer;
 
 @Named(value = "playerViewBean")
 @RequestScoped
@@ -51,8 +42,8 @@ public class PlayerViewBean {
 	private String oldEmailAddress;
 
 	private TotalPlayerStats totalPlayerStats;
-	private ZoneCount goalsZones;
-	private ZoneCount assistZones;
+	private ZoneCountPlayer goalsZones;
+	private ZoneCountPlayer assistZones;
 
 
 
@@ -65,8 +56,8 @@ public class PlayerViewBean {
 		Season mockupSeason = new Season();
 		mockupSeason.setStartDate(dateFormatterBean.getCalendar("01.01.1980"));
 		mockupSeason.setEndDate(dateFormatterBean.getCalendar("01.01.2020"));
-		goalsZones = new ZoneCount(statisticsService, mockupSeason, currentPlayer); //TODO: currentSeason;
-		assistZones = new ZoneCount(statisticsService, mockupSeason, currentPlayer); //TODO: currentSeason;
+		goalsZones = new ZoneCountPlayer(statisticsService, mockupSeason, currentPlayer); //TODO: currentSeason;
+		assistZones = new ZoneCountPlayer(statisticsService, mockupSeason, currentPlayer); //TODO: currentSeason;
 		// Format date for GUI
 //		if(currentPlayer.getBirthdate() != null) birthdayFormatted = dateFormatter.format(currentPlayer.getBirthdate().getTime());
 //		// Create empty address if player doesn't have one
@@ -169,19 +160,19 @@ public class PlayerViewBean {
 		this.totalPlayerStats = totalPlayerStats;
 	}
 
-	public ZoneCount getGoalsZones() {
+	public ZoneCountPlayer getGoalsZones() {
 		return goalsZones;
 	}
 
-	public void setGoalsZones(ZoneCount goalsZones) {
+	public void setGoalsZones(ZoneCountPlayer goalsZones) {
 		this.goalsZones = goalsZones;
 	}
 
-	public ZoneCount getAssistZones() {
+	public ZoneCountPlayer getAssistZones() {
 		return assistZones;
 	}
 
-	public void setAssistZones(ZoneCount assistZones) {
+	public void setAssistZones(ZoneCountPlayer assistZones) {
 		this.assistZones = assistZones;
 	}
 }

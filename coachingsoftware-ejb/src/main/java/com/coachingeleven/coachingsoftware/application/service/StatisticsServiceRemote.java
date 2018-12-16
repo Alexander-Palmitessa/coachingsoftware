@@ -53,4 +53,53 @@ public interface StatisticsServiceRemote {
 	int getPlayerAssistsF1(Season season, int playerID);
 
 	int getPlayerAssistsF2(Season season, int playerID);
+
+	int getTeamGoalsScoredA1(Season season, int teamID);
+
+	int getTeamGoalsScoredA2(Season season, int teamID);
+
+	int getTeamGoalsScoredB1(Season season, int teamID);
+
+	int getTeamGoalsScoredB2(Season season, int teamID);
+
+	int getTeamGoalsScoredC1(Season season, int teamID);
+
+	int getTeamGoalsScoredC2(Season season, int teamID);
+
+	int getTeamGoalsScoredD1(Season season, int teamID);
+
+	int getTeamGoalsScoredD2(Season season, int teamID);
+
+	int getTeamGoalsScoredE1(Season season, int teamID);
+
+	int getTeamGoalsScoredE2(Season season, int teamID);
+
+	int getTeamGoalsScoredF1(Season season, int teamID);
+
+	int getTeamGoalsScoredF2(Season season, int teamID);
+
+	int getTeamGoalsTakenA1(Season season, int teamID);
+
+	int getTeamGoalsTakenA2(Season season, int teamID);
+
+	int getTeamGoalsTakenB1(Season season, int teamID);
+
+	int getTeamGoalsTakenB2(Season season, int teamID);
+
+	int getTeamGoalsTakenC1(Season season, int teamID);
+
+	int getTeamGoalsTakenC2(Season season, int teamID);
+
+	int getTeamGoalsTakenD1(Season season, int teamID);
+
+	int getTeamGoalsTakenD2(Season season, int teamID);
+
+	int getTeamGoalsTakenE1(Season season, int teamID);
+
+	int getTeamGoalsTakenE2(Season season, int teamID);
+
+	int getTeamGoalsTakenF1(Season season, int teamID);
+
+	int getTeamGoalsTakenF2(Season season, int teamID);
+
 }

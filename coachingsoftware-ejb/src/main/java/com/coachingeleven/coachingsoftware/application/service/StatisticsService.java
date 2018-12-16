@@ -143,4 +143,124 @@ public class StatisticsService implements StatisticsServiceRemote {
 		return statisticsRepository.getPlayerAssistsF2(season, playerID);
 	}
 
+	@Override
+	public int getTeamGoalsScoredA1(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsScoredA1(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsScoredA2(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsScoredA2(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsScoredB1(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsScoredB1(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsScoredB2(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsScoredB2(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsScoredC1(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsScoredC1(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsScoredC2(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsScoredC2(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsScoredD1(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsScoredD1(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsScoredD2(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsScoredD2(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsScoredE1(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsScoredE1(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsScoredE2(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsScoredE2(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsScoredF1(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsScoredF1(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsScoredF2(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsScoredF2(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsTakenA1(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsTakenA1(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsTakenA2(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsTakenA2(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsTakenB1(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsTakenB1(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsTakenB2(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsTakenB2(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsTakenC1(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsTakenC1(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsTakenC2(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsTakenC2(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsTakenD1(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsTakenD1(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsTakenD2(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsTakenD2(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsTakenE1(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsTakenE1(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsTakenE2(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsTakenE2(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsTakenF1(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsTakenF1(season, teamID);
+	}
+
+	@Override
+	public int getTeamGoalsTakenF2(Season season, int teamID) {
+		return statisticsRepository.getTeamGoalsTakenF2(season, teamID);
+	}
+
 }

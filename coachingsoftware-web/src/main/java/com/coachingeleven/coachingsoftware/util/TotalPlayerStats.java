@@ -1,7 +1,6 @@
 package com.coachingeleven.coachingsoftware.util;
 
 import com.coachingeleven.coachingsoftware.persistence.entity.Card;
-import com.coachingeleven.coachingsoftware.persistence.entity.Goal;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.PlayerGameStats;
 
@@ -20,8 +19,8 @@ public class TotalPlayerStats {
 	private int totalRed;
 	private double TIPSaverage;
 
-	private ZoneCount goalZones;
-	private ZoneCount assistZones;
+	private ZoneCountPlayer goalZones;
+	private ZoneCountPlayer assistZones;
 
 	//TODO: ONLY CURRENT SEASON
 
