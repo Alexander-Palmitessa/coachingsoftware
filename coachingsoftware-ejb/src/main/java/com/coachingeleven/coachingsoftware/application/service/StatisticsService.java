@@ -83,5 +83,64 @@ public class StatisticsService implements StatisticsServiceRemote {
 		return statisticsRepository.getPlayerGoalsF2(season, playerID);
 	}
 
+	@Override
+	public int getPlayerAssistsA1(Season season, int playerID) {
+		return statisticsRepository.getPlayerAssistsA1(season, playerID);
+	}
+
+	@Override
+	public int getPlayerAssistsA2(Season season, int playerID) {
+		return statisticsRepository.getPlayerAssistsA2(season, playerID);
+	}
+
+	@Override
+	public int getPlayerAssistsB1(Season season, int playerID) {
+		return statisticsRepository.getPlayerAssistsB1(season, playerID);
+	}
+
+	@Override
+	public int getPlayerAssistsB2(Season season, int playerID) {
+		return statisticsRepository.getPlayerAssistsB2(season, playerID);
+	}
+
+	@Override
+	public int getPlayerAssistsC1(Season season, int playerID) {
+		return statisticsRepository.getPlayerAssistsC1(season, playerID);
+	}
+
+	@Override
+	public int getPlayerAssistsC2(Season season, int playerID) {
+		return statisticsRepository.getPlayerAssistsC2(season, playerID);
+	}
+
+	@Override
+	public int getPlayerAssistsD1(Season season, int playerID) {
+		return statisticsRepository.getPlayerAssistsD1(season, playerID);
+	}
+
+	@Override
+	public int getPlayerAssistsD2(Season season, int playerID) {
+		return statisticsRepository.getPlayerAssistsD2(season, playerID);
+	}
+
+	@Override
+	public int getPlayerAssistsE1(Season season, int playerID) {
+		return statisticsRepository.getPlayerAssistsE1(season, playerID);
+	}
+
+	@Override
+	public int getPlayerAssistsE2(Season season, int playerID) {
+		return statisticsRepository.getPlayerAssistsE2(season, playerID);
+	}
+
+	@Override
+	public int getPlayerAssistsF1(Season season, int playerID) {
+		return statisticsRepository.getPlayerAssistsF1(season, playerID);
+	}
+
+	@Override
+	public int getPlayerAssistsF2(Season season, int playerID) {
+		return statisticsRepository.getPlayerAssistsF2(season, playerID);
+	}
 
 }

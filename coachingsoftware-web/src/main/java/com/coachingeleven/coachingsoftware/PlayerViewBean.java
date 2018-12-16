@@ -52,6 +52,7 @@ public class PlayerViewBean {
 
 	private TotalPlayerStats totalPlayerStats;
 	private ZoneCount goalsZones;
+	private ZoneCount assistZones;
 
 
 
@@ -62,9 +63,10 @@ public class PlayerViewBean {
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 		totalPlayerStats = new TotalPlayerStats(currentPlayer);
 		Season mockupSeason = new Season();
-		mockupSeason.setStartDate(dateFormatterBean.getCalendar("01.01.1900"));
-		mockupSeason.setEndDate(dateFormatterBean.getCalendar("01.01.2100"));
+		mockupSeason.setStartDate(dateFormatterBean.getCalendar("01.01.1980"));
+		mockupSeason.setEndDate(dateFormatterBean.getCalendar("01.01.2020"));
 		goalsZones = new ZoneCount(statisticsService, mockupSeason, currentPlayer); //TODO: currentSeason;
+		assistZones = new ZoneCount(statisticsService, mockupSeason, currentPlayer); //TODO: currentSeason;
 		// Format date for GUI
 //		if(currentPlayer.getBirthdate() != null) birthdayFormatted = dateFormatter.format(currentPlayer.getBirthdate().getTime());
 //		// Create empty address if player doesn't have one
@@ -173,5 +175,13 @@ public class PlayerViewBean {
 
 	public void setGoalsZones(ZoneCount goalsZones) {
 		this.goalsZones = goalsZones;
+	}
+
+	public ZoneCount getAssistZones() {
+		return assistZones;
+	}
+
+	public void setAssistZones(ZoneCount assistZones) {
+		this.assistZones = assistZones;
 	}
 }

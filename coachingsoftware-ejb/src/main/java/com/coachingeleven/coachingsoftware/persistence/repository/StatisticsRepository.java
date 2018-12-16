@@ -72,20 +72,79 @@ public class StatisticsRepository extends Repository {
 		return getPlayerGoals(season, playerID, "F2");
 	}
 
+	@TransactionAttribute(SUPPORTS)
+	public int getPlayerAssistsA1(Season season, int playerID) {
+		return getPlayerAssists(season, playerID, "A1");
+	}
 
-	// select count(*) from GOAL join GAME G on GOAL.GAME_ID = G.GAME_ID where cast(DATE as date) between '2018-12-03' and '2018-12-05' and SCORER_ID = 1 and ZONE_SCORE = 'A1'
+	@TransactionAttribute(SUPPORTS)
+	public int getPlayerAssistsA2(Season season, int playerID) {
+		return getPlayerAssists(season, playerID, "A2");
+	}
 
-	//TODO: TEST + ASSIST + METHODS IN SERVICE
+	@TransactionAttribute(SUPPORTS)
+	public int getPlayerAssistsB1(Season season, int playerID) {
+		return getPlayerAssists(season, playerID, "B1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getPlayerAssistsB2(Season season, int playerID) {
+		return getPlayerAssists(season, playerID, "B2");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getPlayerAssistsC1(Season season, int playerID) {
+		return getPlayerAssists(season, playerID, "C1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getPlayerAssistsC2(Season season, int playerID) {
+		return getPlayerAssists(season, playerID, "C2");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getPlayerAssistsD1(Season season, int playerID) {
+		return getPlayerAssists(season, playerID, "D1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getPlayerAssistsD2(Season season, int playerID) {
+		return getPlayerAssists(season, playerID, "D2");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getPlayerAssistsE1(Season season, int playerID) {
+		return getPlayerAssists(season, playerID, "E1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getPlayerAssistsE2(Season season, int playerID) {
+		return getPlayerAssists(season, playerID, "E2");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getPlayerAssistsF1(Season season, int playerID) {
+		return getPlayerAssists(season, playerID, "F1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getPlayerAssistsF2(Season season, int playerID) {
+		return getPlayerAssists(season, playerID, "F2");
+	}
+
 	private int getPlayerGoals(Season season, int playerID, String zone) {
-		/*
-		return entityManager.createQuery("SELECT COUNT(g) FROM Goal g JOIN Game game on g.game.ID = game.ID WHERE game.date BETWEEN :startDate AND :endDate AND LOWER(g.scoreZone) = LOWER(:zone) AND g.scorer = :playerID", Integer.class)
-				.setParameter("startDate", season.getStartDate().get(Calendar.YEAR)+"-"+season.getStartDate().get(Calendar.MONTH)+"-"+season.getStartDate().get(Calendar.DATE))
-				.setParameter("endDate", season.getEndDate().get(Calendar.YEAR)+"-"+season.getEndDate().get(Calendar.MONTH)+"-"+season.getEndDate().get(Calendar.DATE))
-				.setParameter("zone", zone)
-				.setParameter("playerID", playerID)
-				.getSingleResult();
-				*/
-		return entityManager.createQuery("SELECT COUNT(g) FROM Goal g", Integer.class)
-				.getSingleResult();
+		return (int) entityManager.createNativeQuery("select count(*) from GOAL join GAME G on GOAL.GAME_ID = G.GAME_ID where cast(DATE as date) between '" +
+				season.getStartDate().get(Calendar.YEAR) + "-" + season.getStartDate().get(Calendar.MONTH) + 1 + "-" + season.getStartDate().get(Calendar.DATE) +
+				"' and '" +
+				season.getEndDate().get(Calendar.YEAR) + "-" + season.getEndDate().get(Calendar.MONTH) + 1 + "-" + season.getEndDate().get(Calendar.DATE)
+				+ "' and SCORER_ID = 1 and ZONE_SCORE = '" + zone + "'").getSingleResult();
+	}
+
+	private int getPlayerAssists(Season season, int playerID, String zone) {
+		return (int) entityManager.createNativeQuery("select count(*) from GOAL join GAME G on GOAL.GAME_ID = G.GAME_ID where cast(DATE as date) between '" +
+				season.getStartDate().get(Calendar.YEAR) + "-" + season.getStartDate().get(Calendar.MONTH) + 1 + "-" + season.getStartDate().get(Calendar.DATE) +
+				"' and '" +
+				season.getEndDate().get(Calendar.YEAR) + "-" + season.getEndDate().get(Calendar.MONTH) + 1 + "-" + season.getEndDate().get(Calendar.DATE)
+				+ "' and ASSISTANT_ID = 1 and ZONE_ASSIST = '" + zone + "'").getSingleResult();
 	}
 }

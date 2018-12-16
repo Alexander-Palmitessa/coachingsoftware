@@ -29,4 +29,28 @@ public interface StatisticsServiceRemote {
 	int getPlayerGoalsF1(Season season, int playerID);
 
 	int getPlayerGoalsF2(Season season, int playerID);
+
+	int getPlayerAssistsA1(Season season, int playerID);
+
+	int getPlayerAssistsA2(Season season, int playerID);
+
+	int getPlayerAssistsB1(Season season, int playerID);
+
+	int getPlayerAssistsB2(Season season, int playerID);
+
+	int getPlayerAssistsC1(Season season, int playerID);
+
+	int getPlayerAssistsC2(Season season, int playerID);
+
+	int getPlayerAssistsD1(Season season, int playerID);
+
+	int getPlayerAssistsD2(Season season, int playerID);
+
+	int getPlayerAssistsE1(Season season, int playerID);
+
+	int getPlayerAssistsE2(Season season, int playerID);
+
+	int getPlayerAssistsF1(Season season, int playerID);
+
+	int getPlayerAssistsF2(Season season, int playerID);
 }
