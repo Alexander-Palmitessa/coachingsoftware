@@ -35,6 +35,34 @@ public class ZoneCountTeam {
 	private int f1gt;
 	private int f2gt;
 
+	//goals scored home+away
+	private int a1as;
+	private int a2as;
+	private int b1as;
+	private int b2as;
+	private int c1as;
+	private int c2as;
+	private int d1as;
+	private int d2as;
+	private int e1as;
+	private int e2as;
+	private int f1as;
+	private int f2as;
+
+	//goals taken home+away
+	private int a1at;
+	private int a2at;
+	private int b1at;
+	private int b2at;
+	private int c1at;
+	private int c2at;
+	private int d1at;
+	private int d2at;
+	private int e1at;
+	private int e2at;
+	private int f1at;
+	private int f2at;
+
 	public ZoneCountTeam(StatisticsServiceRemote statisticsService, Season season, Team currentTeam) {
 		try {
 			//set goals scored
@@ -64,6 +92,34 @@ public class ZoneCountTeam {
 			this.e2gt = statisticsService.getTeamGoalsTakenE2(season, currentTeam.getID());
 			this.f1gt = statisticsService.getTeamGoalsTakenF1(season, currentTeam.getID());
 			this.f2gt = statisticsService.getTeamGoalsTakenF2(season, currentTeam.getID());
+
+			//set assists scored
+			this.a1as = statisticsService.getTeamAssistsScoredA1(season, currentTeam.getID());
+			this.a2as = statisticsService.getTeamAssistsScoredA2(season, currentTeam.getID());
+			this.b1as = statisticsService.getTeamAssistsScoredB1(season, currentTeam.getID());
+			this.b2as = statisticsService.getTeamAssistsScoredB2(season, currentTeam.getID());
+			this.c1as = statisticsService.getTeamAssistsScoredC1(season, currentTeam.getID());
+			this.c2as = statisticsService.getTeamAssistsScoredC2(season, currentTeam.getID());
+			this.d1as = statisticsService.getTeamAssistsScoredD1(season, currentTeam.getID());
+			this.d2as = statisticsService.getTeamAssistsScoredD2(season, currentTeam.getID());
+			this.e1as = statisticsService.getTeamAssistsScoredE1(season, currentTeam.getID());
+			this.e2as = statisticsService.getTeamAssistsScoredE2(season, currentTeam.getID());
+			this.f1as = statisticsService.getTeamAssistsScoredF1(season, currentTeam.getID());
+			this.f2as = statisticsService.getTeamAssistsScoredF2(season, currentTeam.getID());
+
+			//set assists taken
+			this.a1at = statisticsService.getTeamAssistsTakenA1(season, currentTeam.getID());
+			this.a2at = statisticsService.getTeamAssistsTakenA2(season, currentTeam.getID());
+			this.b1at = statisticsService.getTeamAssistsTakenB1(season, currentTeam.getID());
+			this.b2at = statisticsService.getTeamAssistsTakenB2(season, currentTeam.getID());
+			this.c1at = statisticsService.getTeamAssistsTakenC1(season, currentTeam.getID());
+			this.c2at = statisticsService.getTeamAssistsTakenC2(season, currentTeam.getID());
+			this.d1at = statisticsService.getTeamAssistsTakenD1(season, currentTeam.getID());
+			this.d2at = statisticsService.getTeamAssistsTakenD2(season, currentTeam.getID());
+			this.e1at = statisticsService.getTeamAssistsTakenE1(season, currentTeam.getID());
+			this.e2at = statisticsService.getTeamAssistsTakenE2(season, currentTeam.getID());
+			this.f1at = statisticsService.getTeamAssistsTakenF1(season, currentTeam.getID());
+			this.f2at = statisticsService.getTeamAssistsTakenF2(season, currentTeam.getID());
 
 		} catch (Exception e) {
 			//TODO: ...
@@ -260,5 +316,197 @@ public class ZoneCountTeam {
 
 	public void setF2gt(int f2gt) {
 		this.f2gt = f2gt;
+	}
+
+	public int getA1as() {
+		return a1as;
+	}
+
+	public void setA1as(int a1as) {
+		this.a1as = a1as;
+	}
+
+	public int getA2as() {
+		return a2as;
+	}
+
+	public void setA2as(int a2as) {
+		this.a2as = a2as;
+	}
+
+	public int getB1as() {
+		return b1as;
+	}
+
+	public void setB1as(int b1as) {
+		this.b1as = b1as;
+	}
+
+	public int getB2as() {
+		return b2as;
+	}
+
+	public void setB2as(int b2as) {
+		this.b2as = b2as;
+	}
+
+	public int getC1as() {
+		return c1as;
+	}
+
+	public void setC1as(int c1as) {
+		this.c1as = c1as;
+	}
+
+	public int getC2as() {
+		return c2as;
+	}
+
+	public void setC2as(int c2as) {
+		this.c2as = c2as;
+	}
+
+	public int getD1as() {
+		return d1as;
+	}
+
+	public void setD1as(int d1as) {
+		this.d1as = d1as;
+	}
+
+	public int getD2as() {
+		return d2as;
+	}
+
+	public void setD2as(int d2as) {
+		this.d2as = d2as;
+	}
+
+	public int getE1as() {
+		return e1as;
+	}
+
+	public void setE1as(int e1as) {
+		this.e1as = e1as;
+	}
+
+	public int getE2as() {
+		return e2as;
+	}
+
+	public void setE2as(int e2as) {
+		this.e2as = e2as;
+	}
+
+	public int getF1as() {
+		return f1as;
+	}
+
+	public void setF1as(int f1as) {
+		this.f1as = f1as;
+	}
+
+	public int getF2as() {
+		return f2as;
+	}
+
+	public void setF2as(int f2as) {
+		this.f2as = f2as;
+	}
+
+	public int getA1at() {
+		return a1at;
+	}
+
+	public void setA1at(int a1at) {
+		this.a1at = a1at;
+	}
+
+	public int getA2at() {
+		return a2at;
+	}
+
+	public void setA2at(int a2at) {
+		this.a2at = a2at;
+	}
+
+	public int getB1at() {
+		return b1at;
+	}
+
+	public void setB1at(int b1at) {
+		this.b1at = b1at;
+	}
+
+	public int getB2at() {
+		return b2at;
+	}
+
+	public void setB2at(int b2at) {
+		this.b2at = b2at;
+	}
+
+	public int getC1at() {
+		return c1at;
+	}
+
+	public void setC1at(int c1at) {
+		this.c1at = c1at;
+	}
+
+	public int getC2at() {
+		return c2at;
+	}
+
+	public void setC2at(int c2at) {
+		this.c2at = c2at;
+	}
+
+	public int getD1at() {
+		return d1at;
+	}
+
+	public void setD1at(int d1at) {
+		this.d1at = d1at;
+	}
+
+	public int getD2at() {
+		return d2at;
+	}
+
+	public void setD2at(int d2at) {
+		this.d2at = d2at;
+	}
+
+	public int getE1at() {
+		return e1at;
+	}
+
+	public void setE1at(int e1at) {
+		this.e1at = e1at;
+	}
+
+	public int getE2at() {
+		return e2at;
+	}
+
+	public void setE2at(int e2at) {
+		this.e2at = e2at;
+	}
+
+	public int getF1at() {
+		return f1at;
+	}
+
+	public void setF1at(int f1at) {
+		this.f1at = f1at;
+	}
+
+	public int getF2at() {
+		return f2at;
+	}
+
+	public void setF2at(int f2at) {
+		this.f2at = f2at;
 	}
 }

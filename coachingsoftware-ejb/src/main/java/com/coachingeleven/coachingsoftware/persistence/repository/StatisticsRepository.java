@@ -254,6 +254,127 @@ public class StatisticsRepository extends Repository {
 	}
 
 
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsScoredA1(Season season, int teamID) {
+		return getTeamAssistsScoredHome(season, teamID, "A1") + getTeamAssistsScoredAway(season, teamID, "A1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsScoredA2(Season season, int teamID) {
+		return getTeamAssistsScoredHome(season, teamID, "A2") + getTeamAssistsScoredAway(season, teamID, "A2");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsScoredB1(Season season, int teamID) {
+		return getTeamAssistsScoredHome(season, teamID, "B1") + getTeamAssistsScoredAway(season, teamID, "B1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsScoredB2(Season season, int teamID) {
+		return getTeamAssistsScoredHome(season, teamID, "B2") + getTeamAssistsScoredAway(season, teamID, "B2");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsScoredC1(Season season, int teamID) {
+		return getTeamAssistsScoredHome(season, teamID, "C1") + getTeamAssistsScoredAway(season, teamID, "C1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsScoredC2(Season season, int teamID) {
+		return getTeamAssistsScoredHome(season, teamID, "C2") + getTeamAssistsScoredAway(season, teamID, "C2");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsScoredD1(Season season, int teamID) {
+		return getTeamAssistsScoredHome(season, teamID, "D1") + getTeamAssistsScoredAway(season, teamID, "D1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsScoredD2(Season season, int teamID) {
+		return getTeamAssistsScoredHome(season, teamID, "D2") + getTeamAssistsScoredAway(season, teamID, "D2");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsScoredE1(Season season, int teamID) {
+		return getTeamAssistsScoredHome(season, teamID, "E1") + getTeamAssistsScoredAway(season, teamID, "E1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsScoredE2(Season season, int teamID) {
+		return getTeamAssistsScoredHome(season, teamID, "E2") + getTeamAssistsScoredAway(season, teamID, "E2");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsScoredF1(Season season, int teamID) {
+		return getTeamAssistsScoredHome(season, teamID, "F1") + getTeamAssistsScoredAway(season, teamID, "F1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsScoredF2(Season season, int teamID) {
+		return getTeamAssistsScoredHome(season, teamID, "F2") + getTeamAssistsScoredAway(season, teamID, "F2");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsTakenA1(Season season, int teamID) {
+		return getTeamAssistsTakenHome(season, teamID, "A1") + getTeamAssistsTakenAway(season, teamID, "A1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsTakenA2(Season season, int teamID) {
+		return getTeamAssistsTakenHome(season, teamID, "A2") + getTeamAssistsTakenAway(season, teamID, "A2");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsTakenB1(Season season, int teamID) {
+		return getTeamAssistsTakenHome(season, teamID, "B1") + getTeamAssistsTakenAway(season, teamID, "B1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsTakenB2(Season season, int teamID) {
+		return getTeamAssistsTakenHome(season, teamID, "B2") + getTeamAssistsTakenAway(season, teamID, "B2");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsTakenC1(Season season, int teamID) {
+		return getTeamAssistsTakenHome(season, teamID, "C1") + getTeamAssistsTakenAway(season, teamID, "C1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsTakenC2(Season season, int teamID) {
+		return getTeamAssistsTakenHome(season, teamID, "C2") + getTeamAssistsTakenAway(season, teamID, "C2");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsTakenD1(Season season, int teamID) {
+		return getTeamAssistsTakenHome(season, teamID, "D1") + getTeamAssistsTakenAway(season, teamID, "D1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsTakenD2(Season season, int teamID) {
+		return getTeamAssistsTakenHome(season, teamID, "D2") + getTeamAssistsTakenAway(season, teamID, "D2");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsTakenE1(Season season, int teamID) {
+		return getTeamAssistsTakenHome(season, teamID, "E1") + getTeamAssistsTakenAway(season, teamID, "E1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsTakenE2(Season season, int teamID) {
+		return getTeamAssistsTakenHome(season, teamID, "E2") + getTeamAssistsTakenAway(season, teamID, "E2");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsTakenF1(Season season, int teamID) {
+		return getTeamAssistsTakenHome(season, teamID, "F1") + getTeamAssistsTakenAway(season, teamID, "F1");
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getTeamAssistsTakenF2(Season season, int teamID) {
+		return getTeamAssistsTakenHome(season, teamID, "F2") + getTeamAssistsTakenAway(season, teamID, "F2");
+	}
+
+
 	private int getPlayerGoals(Season season, int playerID, String zone) {
 		return (int) entityManager.createNativeQuery("select count(*) from GOAL join GAME G on GOAL.GAME_ID = G.GAME_ID where cast(DATE as date) between '" +
 				season.getStartDate().get(Calendar.YEAR) + "-" + season.getStartDate().get(Calendar.MONTH) + 1 + "-" + season.getStartDate().get(Calendar.DATE) +
@@ -304,6 +425,39 @@ public class StatisticsRepository extends Repository {
 				"' and '" +
 				season.getEndDate().get(Calendar.YEAR) + "-" + season.getEndDate().get(Calendar.MONTH) + 1 + "-" + season.getEndDate().get(Calendar.DATE)
 				+ "' and ZONE_SCORE = '" + zone + "' and GOALTYPE = 'TAKEN' and TEAM_AWAY_ID = " + teamID).getSingleResult();
+	}
+
+
+	private int getTeamAssistsScoredHome(Season season, int teamID, String zone) {
+		return (int) entityManager.createNativeQuery("select count(*) from GOAL join GAME G on GOAL.GAME_ID = G.GAME_ID where cast(DATE as date) between '" +
+				season.getStartDate().get(Calendar.YEAR) + "-" + season.getStartDate().get(Calendar.MONTH) + 1 + "-" + season.getStartDate().get(Calendar.DATE) +
+				"' and '" +
+				season.getEndDate().get(Calendar.YEAR) + "-" + season.getEndDate().get(Calendar.MONTH) + 1 + "-" + season.getEndDate().get(Calendar.DATE)
+				+ "' and ZONE_ASSIST = '" + zone + "' and GOALTYPE = 'SCORED' and TEAM_HOME_ID = " + teamID).getSingleResult();
+	}
+
+	private int getTeamAssistsScoredAway(Season season, int teamID, String zone) {
+		return (int) entityManager.createNativeQuery("select count(*) from GOAL join GAME G on GOAL.GAME_ID = G.GAME_ID where cast(DATE as date) between '" +
+				season.getStartDate().get(Calendar.YEAR) + "-" + season.getStartDate().get(Calendar.MONTH) + 1 + "-" + season.getStartDate().get(Calendar.DATE) +
+				"' and '" +
+				season.getEndDate().get(Calendar.YEAR) + "-" + season.getEndDate().get(Calendar.MONTH) + 1 + "-" + season.getEndDate().get(Calendar.DATE)
+				+ "' and ZONE_ASSIST = '" + zone + "' and GOALTYPE = 'SCORED' and TEAM_AWAY_ID = " + teamID).getSingleResult();
+	}
+
+	private int getTeamAssistsTakenHome(Season season, int teamID, String zone) {
+		return (int) entityManager.createNativeQuery("select count(*) from GOAL join GAME G on GOAL.GAME_ID = G.GAME_ID where cast(DATE as date) between '" +
+				season.getStartDate().get(Calendar.YEAR) + "-" + season.getStartDate().get(Calendar.MONTH) + 1 + "-" + season.getStartDate().get(Calendar.DATE) +
+				"' and '" +
+				season.getEndDate().get(Calendar.YEAR) + "-" + season.getEndDate().get(Calendar.MONTH) + 1 + "-" + season.getEndDate().get(Calendar.DATE)
+				+ "' and ZONE_ASSIST = '" + zone + "' and GOALTYPE = 'TAKEN' and TEAM_HOME_ID = " + teamID).getSingleResult();
+	}
+
+	private int getTeamAssistsTakenAway(Season season, int teamID, String zone) {
+		return (int) entityManager.createNativeQuery("select count(*) from GOAL join GAME G on GOAL.GAME_ID = G.GAME_ID where cast(DATE as date) between '" +
+				season.getStartDate().get(Calendar.YEAR) + "-" + season.getStartDate().get(Calendar.MONTH) + 1 + "-" + season.getStartDate().get(Calendar.DATE) +
+				"' and '" +
+				season.getEndDate().get(Calendar.YEAR) + "-" + season.getEndDate().get(Calendar.MONTH) + 1 + "-" + season.getEndDate().get(Calendar.DATE)
+				+ "' and ZONE_ASSIST = '" + zone + "' and GOALTYPE = 'TAKEN' and TEAM_AWAY_ID = " + teamID).getSingleResult();
 	}
 
 }

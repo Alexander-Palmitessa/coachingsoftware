@@ -3,6 +3,9 @@ package com.coachingeleven.coachingsoftware.application.service;
 import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 
 import javax.ejb.Remote;
+import javax.ejb.TransactionAttribute;
+
+import static javax.ejb.TransactionAttributeType.SUPPORTS;
 
 @Remote
 public interface StatisticsServiceRemote {
@@ -102,4 +105,51 @@ public interface StatisticsServiceRemote {
 
 	int getTeamGoalsTakenF2(Season season, int teamID);
 
+	int getTeamAssistsScoredA1(Season season, int teamID);
+
+	int getTeamAssistsScoredA2(Season season, int teamID);
+
+	int getTeamAssistsScoredB1(Season season, int teamID);
+
+	int getTeamAssistsScoredB2(Season season, int teamID);
+
+	int getTeamAssistsScoredC1(Season season, int teamID);
+
+	int getTeamAssistsScoredC2(Season season, int teamID);
+
+	int getTeamAssistsScoredD1(Season season, int teamID);
+
+	int getTeamAssistsScoredD2(Season season, int teamID);
+
+	int getTeamAssistsScoredE1(Season season, int teamID);
+
+	int getTeamAssistsScoredE2(Season season, int teamID);
+
+	int getTeamAssistsScoredF1(Season season, int teamID);
+
+	int getTeamAssistsScoredF2(Season season, int teamID);
+
+	int getTeamAssistsTakenA1(Season season, int teamID);
+
+	int getTeamAssistsTakenA2(Season season, int teamID);
+
+	int getTeamAssistsTakenB1(Season season, int teamID);
+
+	int getTeamAssistsTakenB2(Season season, int teamID);
+
+	int getTeamAssistsTakenC1(Season season, int teamID);
+
+	int getTeamAssistsTakenC2(Season season, int teamID);
+
+	int getTeamAssistsTakenD1(Season season, int teamID);
+
+	int getTeamAssistsTakenD2(Season season, int teamID);
+
+	int getTeamAssistsTakenE1(Season season, int teamID);
+
+	int getTeamAssistsTakenE2(Season season, int teamID);
+
+	int getTeamAssistsTakenF1(Season season, int teamID);
+
+	int getTeamAssistsTakenF2(Season season, int teamID);
 }
