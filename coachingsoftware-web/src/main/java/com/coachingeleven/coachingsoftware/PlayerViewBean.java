@@ -24,7 +24,7 @@ public class PlayerViewBean {
 
 	@Inject
 	private CurrentPlayerBean currentPlayerBean;
-	
+
 	@EJB
 	private PlayerServiceRemote playerService;
 	@EJB
@@ -33,11 +33,11 @@ public class PlayerViewBean {
 	private DateFormatterBean dateFormatterBean; //TODO: Remove when current season is selected below
 	@EJB
 	private StatisticsServiceRemote statisticsService;
-	
+
 	private Player currentPlayer;
-	
+
 	private SimpleDateFormat dateFormatter;
-	
+
 	private String birthdayFormatted;
 	private String oldEmailAddress;
 
@@ -46,16 +46,14 @@ public class PlayerViewBean {
 	private ZoneCountPlayer assistZones;
 
 
-
-	
 	@PostConstruct
 	public void init() {
 		currentPlayer = currentPlayerBean.getCurrentPlayer();
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 		totalPlayerStats = new TotalPlayerStats(currentPlayer);
-		Season mockupSeason = new Season();
-		mockupSeason.setStartDate(dateFormatterBean.getCalendar("01.01.1980"));
-		mockupSeason.setEndDate(dateFormatterBean.getCalendar("01.01.2020"));
+		Season mockupSeason = new Season(); //TODO: Remove when currentSeason is selectable
+		mockupSeason.setStartDate(dateFormatterBean.getCalendar("01.01.1980"));//TODO: Remove when currentSeason is selectable
+		mockupSeason.setEndDate(dateFormatterBean.getCalendar("01.01.2020"));//TODO: Remove when currentSeason is selectable
 		goalsZones = new ZoneCountPlayer(statisticsService, mockupSeason, currentPlayer); //TODO: currentSeason;
 		assistZones = new ZoneCountPlayer(statisticsService, mockupSeason, currentPlayer); //TODO: currentSeason;
 		// Format date for GUI
@@ -68,9 +66,9 @@ public class PlayerViewBean {
 //		if(currentPlayer.getEmail() == null) oldEmailAddress = "";
 //		else oldEmailAddress = currentPlayer.getEmail();
 	}
-	
+
 	public void updateCurrentPlayer() {
-		if(checkForDuplicateEmail()) {
+		if (checkForDuplicateEmail()) {
 //			try {
 //				// Set new birthday for current player
 //				if(birthdayFormatted != null && !birthdayFormatted.isEmpty()) {
@@ -113,7 +111,7 @@ public class PlayerViewBean {
 //			}
 		}
 	}
-	
+
 	private boolean checkForDuplicateEmail() {
 		// Check if user has a new email and if that email is already occupied
 //		if(!oldEmailAddress.equals(currentPlayer.getEmail())) {
@@ -139,7 +137,7 @@ public class PlayerViewBean {
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
 	}
-	
+
 	public Position[] getPositions() {
 		return Position.values();
 	}

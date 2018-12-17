@@ -1,13 +1,12 @@
 package com.coachingeleven.coachingsoftware.util;
 
 import com.coachingeleven.coachingsoftware.application.service.StatisticsServiceRemote;
-import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
 public class ZoneCountTeam {
 
-	//goals scored home+away
+	//goals scored home+away xx(zone)g(goal)s(scored)
 	private int a1gs;
 	private int a2gs;
 	private int b1gs;
@@ -21,7 +20,7 @@ public class ZoneCountTeam {
 	private int f1gs;
 	private int f2gs;
 
-	//goals taken home+away
+	//goals taken home+away xx(zone)g(goal)t(taken)
 	private int a1gt;
 	private int a2gt;
 	private int b1gt;
@@ -35,7 +34,7 @@ public class ZoneCountTeam {
 	private int f1gt;
 	private int f2gt;
 
-	//goals scored home+away
+	//goals scored home+away xx(zone)a(assist)s(scored)
 	private int a1as;
 	private int a2as;
 	private int b1as;
@@ -49,7 +48,7 @@ public class ZoneCountTeam {
 	private int f1as;
 	private int f2as;
 
-	//goals taken home+away
+	//goals taken home+away xx(zone)a(assist)t(taken)
 	private int a1at;
 	private int a2at;
 	private int b1at;

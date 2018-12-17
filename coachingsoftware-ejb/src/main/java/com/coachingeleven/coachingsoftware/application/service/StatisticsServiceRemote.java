@@ -3,9 +3,6 @@ package com.coachingeleven.coachingsoftware.application.service;
 import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 
 import javax.ejb.Remote;
-import javax.ejb.TransactionAttribute;
-
-import static javax.ejb.TransactionAttributeType.SUPPORTS;
 
 @Remote
 public interface StatisticsServiceRemote {

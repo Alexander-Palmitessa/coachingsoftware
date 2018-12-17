@@ -15,6 +15,7 @@ import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundExc
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.SeasonServiceRemote;
+import com.coachingeleven.coachingsoftware.application.service.StatisticsServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
@@ -22,6 +23,8 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Club;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
+import com.coachingeleven.coachingsoftware.util.DateFormatterBean;
+import com.coachingeleven.coachingsoftware.util.ZoneCountTeam;
 
 @Named("teamDataBean")
 @RequestScoped
@@ -42,6 +45,11 @@ public class TeamDataBean {
 	private LoginBean loginBean;
 	@Inject
 	private NavigationBean navigationBean;
+
+	@Inject
+	private DateFormatterBean dateFormatterBean; //TODO: Remove when current season is selected below
+	@EJB
+	private StatisticsServiceRemote statisticsService;
 	
 	private Team currentTeam;
 	
@@ -53,6 +61,8 @@ public class TeamDataBean {
     private Club selectedClub;
     
     private Country selectedCountry;
+
+    private ZoneCountTeam zoneStats;
 	
 	@PostConstruct
     public void init() {
@@ -64,6 +74,12 @@ public class TeamDataBean {
 		seasons = seasonService.findAllSeasons();
 		selectedCountry = new Country();
 		if(selectedClub.getAddress().getCountry() != null) selectedCountry.setName(selectedClub.getAddress().getCountry().getName());
+
+
+		Season mockupSeason = new Season(); //TODO: Remove when currentSeason is selectable
+		mockupSeason.setStartDate(dateFormatterBean.getCalendar("01.01.1980")); //TODO: Remove when currentSeason is selectable
+		mockupSeason.setEndDate(dateFormatterBean.getCalendar("01.01.2020")); //TODO: Remove when currentSeason is selectable
+		zoneStats = new ZoneCountTeam(statisticsService, mockupSeason, currentTeam); //TODO: currentSeason
     }
 	
 	public String updateTeam() throws CountryAlreadyExistsException {
@@ -154,4 +170,11 @@ public class TeamDataBean {
 		this.selectedClub = selectedClub;
 	}
 
+	public ZoneCountTeam getZoneStats() {
+		return zoneStats;
+	}
+
+	public void setZoneStats(ZoneCountTeam zoneStats) {
+		this.zoneStats = zoneStats;
+	}
 }
