@@ -12,366 +12,411 @@ import static javax.ejb.TransactionAttributeType.SUPPORTS;
 @Stateless
 public class StatisticsRepository extends Repository {
 
+	final String SCORED = "SCORED";
+	final String TAKEN = "TAKEN";
+	final String T442 = "T442";
+	final String T424 = "T424";
+	final String T343 = "T343";
+	final String T433 = "T433";
+	final String T532 = "T532";
+	final String T352 = "T352";
+	final String T541 = "T541";
+	final String T451 = "T451";
+	final String T4231 = "T4231";
+	final String T4321 = "T4321";
+	final String T4141 = "T4141";
+	final String T334 = "T334";
+	final String T3313 = "T3313";
+	final String T460 = "T460";
+	final String T4222 = "T4222";
+
+
+	final String A1 = "A1";
+	final String A2 = "A2";
+	final String B1 = "B1";
+	final String B2 = "B2";
+	final String C1 = "C1";
+	final String C2 = "C2";
+	final String D1 = "D1";
+	final String D2 = "D2";
+	final String E1 = "E1";
+	final String E2 = "E2";
+	final String F1 = "F1";
+	final String F2 = "F2";
+
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerGoalsA1(Season season, int playerID) {
-		return getPlayerGoals(season, playerID, "A1");
+		return getPlayerGoals(season, playerID, A1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerGoalsA2(Season season, int playerID) {
-		return getPlayerGoals(season, playerID, "A2");
+		return getPlayerGoals(season, playerID, A2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerGoaslB1(Season season, int playerID) {
-		return getPlayerGoals(season, playerID, "B1");
+		return getPlayerGoals(season, playerID, B1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerGoalsB2(Season season, int playerID) {
-		return getPlayerGoals(season, playerID, "B2");
+		return getPlayerGoals(season, playerID, B2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerGoalsC1(Season season, int playerID) {
-		return getPlayerGoals(season, playerID, "C1");
+		return getPlayerGoals(season, playerID, C1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerGoalsC2(Season season, int playerID) {
-		return getPlayerGoals(season, playerID, "C2");
+		return getPlayerGoals(season, playerID, C2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerGoalsD1(Season season, int playerID) {
-		return getPlayerGoals(season, playerID, "D1");
+		return getPlayerGoals(season, playerID, D1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerGoalsD2(Season season, int playerID) {
-		return getPlayerGoals(season, playerID, "D2");
+		return getPlayerGoals(season, playerID, D2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerGoalsE1(Season season, int playerID) {
-		return getPlayerGoals(season, playerID, "E1");
+		return getPlayerGoals(season, playerID, E1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerGoalsE2(Season season, int playerID) {
-		return getPlayerGoals(season, playerID, "E2");
+		return getPlayerGoals(season, playerID, E2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerGoalsF1(Season season, int playerID) {
-		return getPlayerGoals(season, playerID, "F1");
+		return getPlayerGoals(season, playerID, F1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerGoalsF2(Season season, int playerID) {
-		return getPlayerGoals(season, playerID, "F2");
+		return getPlayerGoals(season, playerID, F2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerAssistsA1(Season season, int playerID) {
-		return getPlayerAssists(season, playerID, "A1");
+		return getPlayerAssists(season, playerID, A1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerAssistsA2(Season season, int playerID) {
-		return getPlayerAssists(season, playerID, "A2");
+		return getPlayerAssists(season, playerID, A2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerAssistsB1(Season season, int playerID) {
-		return getPlayerAssists(season, playerID, "B1");
+		return getPlayerAssists(season, playerID, B1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerAssistsB2(Season season, int playerID) {
-		return getPlayerAssists(season, playerID, "B2");
+		return getPlayerAssists(season, playerID, B2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerAssistsC1(Season season, int playerID) {
-		return getPlayerAssists(season, playerID, "C1");
+		return getPlayerAssists(season, playerID, C1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerAssistsC2(Season season, int playerID) {
-		return getPlayerAssists(season, playerID, "C2");
+		return getPlayerAssists(season, playerID, C2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerAssistsD1(Season season, int playerID) {
-		return getPlayerAssists(season, playerID, "D1");
+		return getPlayerAssists(season, playerID, D1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerAssistsD2(Season season, int playerID) {
-		return getPlayerAssists(season, playerID, "D2");
+		return getPlayerAssists(season, playerID, D2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerAssistsE1(Season season, int playerID) {
-		return getPlayerAssists(season, playerID, "E1");
+		return getPlayerAssists(season, playerID, E1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerAssistsE2(Season season, int playerID) {
-		return getPlayerAssists(season, playerID, "E2");
+		return getPlayerAssists(season, playerID, E2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerAssistsF1(Season season, int playerID) {
-		return getPlayerAssists(season, playerID, "F1");
+		return getPlayerAssists(season, playerID, F1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerAssistsF2(Season season, int playerID) {
-		return getPlayerAssists(season, playerID, "F2");
+		return getPlayerAssists(season, playerID, F2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsScoredA1(Season season, int teamID) {
-		return getTeamGoalsScoredHome(season, teamID, "A1") + getTeamGoalsScoredAway(season, teamID, "A1");
+		return getTeamGoalsScoredHome(season, teamID, A1) + getTeamGoalsScoredAway(season, teamID, A1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsScoredA2(Season season, int teamID) {
-		return getTeamGoalsScoredHome(season, teamID, "A2") + getTeamGoalsScoredAway(season, teamID, "A2");
+		return getTeamGoalsScoredHome(season, teamID, A2) + getTeamGoalsScoredAway(season, teamID, A2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsScoredB1(Season season, int teamID) {
-		return getTeamGoalsScoredHome(season, teamID, "B1") + getTeamGoalsScoredAway(season, teamID, "B1");
+		return getTeamGoalsScoredHome(season, teamID, B1) + getTeamGoalsScoredAway(season, teamID, B1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsScoredB2(Season season, int teamID) {
-		return getTeamGoalsScoredHome(season, teamID, "B2") + getTeamGoalsScoredAway(season, teamID, "B2");
+		return getTeamGoalsScoredHome(season, teamID, B2) + getTeamGoalsScoredAway(season, teamID, B2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsScoredC1(Season season, int teamID) {
-		return getTeamGoalsScoredHome(season, teamID, "C1") + getTeamGoalsScoredAway(season, teamID, "C1");
+		return getTeamGoalsScoredHome(season, teamID, C1) + getTeamGoalsScoredAway(season, teamID, C1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsScoredC2(Season season, int teamID) {
-		return getTeamGoalsScoredHome(season, teamID, "C2") + getTeamGoalsScoredAway(season, teamID, "C2");
+		return getTeamGoalsScoredHome(season, teamID, C2) + getTeamGoalsScoredAway(season, teamID, C2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsScoredD1(Season season, int teamID) {
-		return getTeamGoalsScoredHome(season, teamID, "D1") + getTeamGoalsScoredAway(season, teamID, "D1");
+		return getTeamGoalsScoredHome(season, teamID, D1) + getTeamGoalsScoredAway(season, teamID, D1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsScoredD2(Season season, int teamID) {
-		return getTeamGoalsScoredHome(season, teamID, "D2") + getTeamGoalsScoredAway(season, teamID, "D2");
+		return getTeamGoalsScoredHome(season, teamID, D2) + getTeamGoalsScoredAway(season, teamID, D2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsScoredE1(Season season, int teamID) {
-		return getTeamGoalsScoredHome(season, teamID, "E1") + getTeamGoalsScoredAway(season, teamID, "E1");
+		return getTeamGoalsScoredHome(season, teamID, E1) + getTeamGoalsScoredAway(season, teamID, E1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsScoredE2(Season season, int teamID) {
-		return getTeamGoalsScoredHome(season, teamID, "E2") + getTeamGoalsScoredAway(season, teamID, "E2");
+		return getTeamGoalsScoredHome(season, teamID, E2) + getTeamGoalsScoredAway(season, teamID, E2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsScoredF1(Season season, int teamID) {
-		return getTeamGoalsScoredHome(season, teamID, "F1") + getTeamGoalsScoredAway(season, teamID, "F1");
+		return getTeamGoalsScoredHome(season, teamID, F1) + getTeamGoalsScoredAway(season, teamID, F1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsScoredF2(Season season, int teamID) {
-		return getTeamGoalsScoredHome(season, teamID, "F2") + getTeamGoalsScoredAway(season, teamID, "F2");
+		return getTeamGoalsScoredHome(season, teamID, F2) + getTeamGoalsScoredAway(season, teamID, F2);
 	}
 
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsTakenA1(Season season, int teamID) {
-		return getTeamGoalsTakenHome(season, teamID, "A1") + getTeamGoalsTakenAway(season, teamID, "A1");
+		return getTeamGoalsTakenHome(season, teamID, A1) + getTeamGoalsTakenAway(season, teamID, A1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsTakenA2(Season season, int teamID) {
-		return getTeamGoalsTakenHome(season, teamID, "A2") + getTeamGoalsTakenAway(season, teamID, "A2");
+		return getTeamGoalsTakenHome(season, teamID, A2) + getTeamGoalsTakenAway(season, teamID, A2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsTakenB1(Season season, int teamID) {
-		return getTeamGoalsTakenHome(season, teamID, "B1") + getTeamGoalsTakenAway(season, teamID, "B1");
+		return getTeamGoalsTakenHome(season, teamID, B1) + getTeamGoalsTakenAway(season, teamID, B1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsTakenB2(Season season, int teamID) {
-		return getTeamGoalsTakenHome(season, teamID, "B2") + getTeamGoalsTakenAway(season, teamID, "B2");
+		return getTeamGoalsTakenHome(season, teamID, B2) + getTeamGoalsTakenAway(season, teamID, B2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsTakenC1(Season season, int teamID) {
-		return getTeamGoalsTakenHome(season, teamID, "C1") + getTeamGoalsTakenAway(season, teamID, "C1");
+		return getTeamGoalsTakenHome(season, teamID, C1) + getTeamGoalsTakenAway(season, teamID, C1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsTakenC2(Season season, int teamID) {
-		return getTeamGoalsTakenHome(season, teamID, "C2") + getTeamGoalsTakenAway(season, teamID, "C2");
+		return getTeamGoalsTakenHome(season, teamID, C2) + getTeamGoalsTakenAway(season, teamID, C2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsTakenD1(Season season, int teamID) {
-		return getTeamGoalsTakenHome(season, teamID, "D1") + getTeamGoalsTakenAway(season, teamID, "D1");
+		return getTeamGoalsTakenHome(season, teamID, D1) + getTeamGoalsTakenAway(season, teamID, D1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsTakenD2(Season season, int teamID) {
-		return getTeamGoalsTakenHome(season, teamID, "D2") + getTeamGoalsTakenAway(season, teamID, "D2");
+		return getTeamGoalsTakenHome(season, teamID, D2) + getTeamGoalsTakenAway(season, teamID, D2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsTakenE1(Season season, int teamID) {
-		return getTeamGoalsTakenHome(season, teamID, "E1") + getTeamGoalsTakenAway(season, teamID, "E1");
+		return getTeamGoalsTakenHome(season, teamID, E1) + getTeamGoalsTakenAway(season, teamID, E1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsTakenE2(Season season, int teamID) {
-		return getTeamGoalsTakenHome(season, teamID, "E2") + getTeamGoalsTakenAway(season, teamID, "E2");
+		return getTeamGoalsTakenHome(season, teamID, E2) + getTeamGoalsTakenAway(season, teamID, E2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsTakenF1(Season season, int teamID) {
-		return getTeamGoalsTakenHome(season, teamID, "F1") + getTeamGoalsTakenAway(season, teamID, "F1");
+		return getTeamGoalsTakenHome(season, teamID, F1) + getTeamGoalsTakenAway(season, teamID, F1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamGoalsTakenF2(Season season, int teamID) {
-		return getTeamGoalsTakenHome(season, teamID, "F2") + getTeamGoalsTakenAway(season, teamID, "F2");
+		return getTeamGoalsTakenHome(season, teamID, F2) + getTeamGoalsTakenAway(season, teamID, F2);
 	}
 
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsScoredA1(Season season, int teamID) {
-		return getTeamAssistsScoredHome(season, teamID, "A1") + getTeamAssistsScoredAway(season, teamID, "A1");
+		return getTeamAssistsScoredHome(season, teamID, A1) + getTeamAssistsScoredAway(season, teamID, A1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsScoredA2(Season season, int teamID) {
-		return getTeamAssistsScoredHome(season, teamID, "A2") + getTeamAssistsScoredAway(season, teamID, "A2");
+		return getTeamAssistsScoredHome(season, teamID, A2) + getTeamAssistsScoredAway(season, teamID, A2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsScoredB1(Season season, int teamID) {
-		return getTeamAssistsScoredHome(season, teamID, "B1") + getTeamAssistsScoredAway(season, teamID, "B1");
+		return getTeamAssistsScoredHome(season, teamID, B1) + getTeamAssistsScoredAway(season, teamID, B1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsScoredB2(Season season, int teamID) {
-		return getTeamAssistsScoredHome(season, teamID, "B2") + getTeamAssistsScoredAway(season, teamID, "B2");
+		return getTeamAssistsScoredHome(season, teamID, B2) + getTeamAssistsScoredAway(season, teamID, B2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsScoredC1(Season season, int teamID) {
-		return getTeamAssistsScoredHome(season, teamID, "C1") + getTeamAssistsScoredAway(season, teamID, "C1");
+		return getTeamAssistsScoredHome(season, teamID, C1) + getTeamAssistsScoredAway(season, teamID, C1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsScoredC2(Season season, int teamID) {
-		return getTeamAssistsScoredHome(season, teamID, "C2") + getTeamAssistsScoredAway(season, teamID, "C2");
+		return getTeamAssistsScoredHome(season, teamID, C2) + getTeamAssistsScoredAway(season, teamID, C2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsScoredD1(Season season, int teamID) {
-		return getTeamAssistsScoredHome(season, teamID, "D1") + getTeamAssistsScoredAway(season, teamID, "D1");
+		return getTeamAssistsScoredHome(season, teamID, D1) + getTeamAssistsScoredAway(season, teamID, D1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsScoredD2(Season season, int teamID) {
-		return getTeamAssistsScoredHome(season, teamID, "D2") + getTeamAssistsScoredAway(season, teamID, "D2");
+		return getTeamAssistsScoredHome(season, teamID, D2) + getTeamAssistsScoredAway(season, teamID, D2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsScoredE1(Season season, int teamID) {
-		return getTeamAssistsScoredHome(season, teamID, "E1") + getTeamAssistsScoredAway(season, teamID, "E1");
+		return getTeamAssistsScoredHome(season, teamID, E1) + getTeamAssistsScoredAway(season, teamID, E1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsScoredE2(Season season, int teamID) {
-		return getTeamAssistsScoredHome(season, teamID, "E2") + getTeamAssistsScoredAway(season, teamID, "E2");
+		return getTeamAssistsScoredHome(season, teamID, E2) + getTeamAssistsScoredAway(season, teamID, E2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsScoredF1(Season season, int teamID) {
-		return getTeamAssistsScoredHome(season, teamID, "F1") + getTeamAssistsScoredAway(season, teamID, "F1");
+		return getTeamAssistsScoredHome(season, teamID, F1) + getTeamAssistsScoredAway(season, teamID, F1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsScoredF2(Season season, int teamID) {
-		return getTeamAssistsScoredHome(season, teamID, "F2") + getTeamAssistsScoredAway(season, teamID, "F2");
+		return getTeamAssistsScoredHome(season, teamID, F2) + getTeamAssistsScoredAway(season, teamID, F2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsTakenA1(Season season, int teamID) {
-		return getTeamAssistsTakenHome(season, teamID, "A1") + getTeamAssistsTakenAway(season, teamID, "A1");
+		return getTeamAssistsTakenHome(season, teamID, A1) + getTeamAssistsTakenAway(season, teamID, A1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsTakenA2(Season season, int teamID) {
-		return getTeamAssistsTakenHome(season, teamID, "A2") + getTeamAssistsTakenAway(season, teamID, "A2");
+		return getTeamAssistsTakenHome(season, teamID, A2) + getTeamAssistsTakenAway(season, teamID, A2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsTakenB1(Season season, int teamID) {
-		return getTeamAssistsTakenHome(season, teamID, "B1") + getTeamAssistsTakenAway(season, teamID, "B1");
+		return getTeamAssistsTakenHome(season, teamID, B1) + getTeamAssistsTakenAway(season, teamID, B1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsTakenB2(Season season, int teamID) {
-		return getTeamAssistsTakenHome(season, teamID, "B2") + getTeamAssistsTakenAway(season, teamID, "B2");
+		return getTeamAssistsTakenHome(season, teamID, B2) + getTeamAssistsTakenAway(season, teamID, B2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsTakenC1(Season season, int teamID) {
-		return getTeamAssistsTakenHome(season, teamID, "C1") + getTeamAssistsTakenAway(season, teamID, "C1");
+		return getTeamAssistsTakenHome(season, teamID, C1) + getTeamAssistsTakenAway(season, teamID, C1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsTakenC2(Season season, int teamID) {
-		return getTeamAssistsTakenHome(season, teamID, "C2") + getTeamAssistsTakenAway(season, teamID, "C2");
+		return getTeamAssistsTakenHome(season, teamID, C2) + getTeamAssistsTakenAway(season, teamID, C2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsTakenD1(Season season, int teamID) {
-		return getTeamAssistsTakenHome(season, teamID, "D1") + getTeamAssistsTakenAway(season, teamID, "D1");
+		return getTeamAssistsTakenHome(season, teamID, D1) + getTeamAssistsTakenAway(season, teamID, D1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsTakenD2(Season season, int teamID) {
-		return getTeamAssistsTakenHome(season, teamID, "D2") + getTeamAssistsTakenAway(season, teamID, "D2");
+		return getTeamAssistsTakenHome(season, teamID, D2) + getTeamAssistsTakenAway(season, teamID, D2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsTakenE1(Season season, int teamID) {
-		return getTeamAssistsTakenHome(season, teamID, "E1") + getTeamAssistsTakenAway(season, teamID, "E1");
+		return getTeamAssistsTakenHome(season, teamID, E1) + getTeamAssistsTakenAway(season, teamID, E1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsTakenE2(Season season, int teamID) {
-		return getTeamAssistsTakenHome(season, teamID, "E2") + getTeamAssistsTakenAway(season, teamID, "E2");
+		return getTeamAssistsTakenHome(season, teamID, E2) + getTeamAssistsTakenAway(season, teamID, E2);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsTakenF1(Season season, int teamID) {
-		return getTeamAssistsTakenHome(season, teamID, "F1") + getTeamAssistsTakenAway(season, teamID, "F1");
+		return getTeamAssistsTakenHome(season, teamID, F1) + getTeamAssistsTakenAway(season, teamID, F1);
 	}
 
 	@TransactionAttribute(SUPPORTS)
 	public int getTeamAssistsTakenF2(Season season, int teamID) {
-		return getTeamAssistsTakenHome(season, teamID, "F2") + getTeamAssistsTakenAway(season, teamID, "F2");
+		return getTeamAssistsTakenHome(season, teamID, F2) + getTeamAssistsTakenAway(season, teamID, F2);
+	}
+
+
+	//TODO: For the rest of the systems
+	@TransactionAttribute(SUPPORTS)
+	public int get442GoalsScored(Season season, int teamID) {
+		return getSystemGoals(T442, season, SCORED, teamID);
+	}
+
+	//TODO: For the rest of the systems
+	@TransactionAttribute(SUPPORTS)
+	public int get442GoalsTAKEN(Season season, int teamID) {
+		return getSystemGoals(T442, season, TAKEN, teamID);
 	}
 
 
@@ -458,6 +503,14 @@ public class StatisticsRepository extends Repository {
 				"' and '" +
 				season.getEndDate().get(Calendar.YEAR) + "-" + season.getEndDate().get(Calendar.MONTH) + 1 + "-" + season.getEndDate().get(Calendar.DATE)
 				+ "' and ZONE_ASSIST = '" + zone + "' and GOALTYPE = 'TAKEN' and TEAM_AWAY_ID = " + teamID).getSingleResult();
+	}
+
+	//select count(*) from GAME_SYS join GOAL G on GAME_SYS_ID=G.GAME_ID join GAME G2 on G.GAME_ID = G2.GAME_ID where DATE between '1990-01-01' and '2020-01-01' and TEAM_AWAY_ID=1 or TEAM_HOME_ID=1 and GOALTYPE='SCORED' and SYSTEM='X'
+	private int getSystemGoals(String system, Season season, String scoredTaken, int teamID) {
+		return (int) entityManager.createNativeQuery("select count(*) from GAME_SYS join GOAL G on GAME_SYS_ID=G.GAME_ID join GAME G2 on G.GAME_ID = G2.GAME_ID where DATE between '" +
+				season.getStartDate().get(Calendar.YEAR) + "-" + season.getStartDate().get(Calendar.MONTH) + 1 + "-" + season.getStartDate().get(Calendar.DATE) + "' and '" +
+				season.getEndDate().get(Calendar.YEAR) + "-" + season.getEndDate().get(Calendar.MONTH) + 1 + "-" + season.getEndDate().get(Calendar.DATE)
+				+ "' and TEAM_AWAY_ID=" + teamID + " or TEAM_HOME_ID=" + teamID + " and GOALTYPE='" + scoredTaken + "' and SYSTEM='" + system + "'\n").getSingleResult();
 	}
 
 }
