@@ -533,4 +533,64 @@ public class StatisticsService implements StatisticsServiceRemote {
 		return statisticsRepository.get4222GoalsTaken(season, teamID);
 	}
 
+	@Override
+	public int getBlock0To15Scored(Season season, int teamID) {
+		return statisticsRepository.getBlock0To15Scored(season, teamID);
+	}
+
+	@Override
+	public int getBlock0To15Taken(Season season, int teamID) {
+		return statisticsRepository.getBlock0To15Taken(season, teamID);
+	}
+
+	@Override
+	public int getBlock15To30Scored(Season season, int teamID) {
+		return statisticsRepository.getBlock15To30Scored(season, teamID);
+	}
+
+	@Override
+	public int getBlock15To30Taken(Season season, int teamID) {
+		return statisticsRepository.getBlock15To30Taken(season, teamID);
+	}
+
+	@Override
+	public int getBlock30to45Scored(Season season, int teamID) {
+		return statisticsRepository.getBlock30to45Scored(season, teamID);
+	}
+
+	@Override
+	public int getBlock30to45Taken(Season season, int teamID) {
+		return statisticsRepository.getBlock30to45Taken(season, teamID);
+	}
+
+	@Override
+	public int getBlock45to60Scored(Season season, int teamID) {
+		return statisticsRepository.getBlock45to60Scored(season, teamID);
+	}
+
+	@Override
+	public int getBlock45to60Taken(Season season, int teamID) {
+		return statisticsRepository.getBlock45to60Taken(season, teamID);
+	}
+
+	@Override
+	public int getBlock60to75Scored(Season season, int teamID) {
+		return statisticsRepository.getBlock60to75Scored(season, teamID);
+	}
+
+	@Override
+	public int getBlock60to75Taken(Season season, int teamID) {
+		return statisticsRepository.getBlock60to75Taken(season, teamID);
+	}
+
+	@Override
+	public int getBlock75to90Scored(Season season, int teamID) {
+		return statisticsRepository.getBlock75to90Scored(season, teamID);
+	}
+
+	@Override
+	public int getBlock75to90Taken(Season season, int teamID) {
+		return statisticsRepository.getBlock75to90Taken(season, teamID);
+	}
+
 }

@@ -564,6 +564,66 @@ public class StatisticsRepository extends Repository {
 		return getSystemGoals(T4222, season, TAKEN, teamID);
 	}
 
+	@TransactionAttribute(SUPPORTS)
+	public int getBlock0To15Scored(Season season, int teamID) {
+		return getGoalsPerBlock(season, teamID, 0, 15, SCORED);
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getBlock0To15Taken(Season season, int teamID) {
+		return getGoalsPerBlock(season, teamID, 0, 15, TAKEN);
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getBlock15To30Scored(Season season, int teamID) {
+		return getGoalsPerBlock(season, teamID, 15, 30, SCORED);
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getBlock15To30Taken(Season season, int teamID) {
+		return getGoalsPerBlock(season, teamID, 15, 30, TAKEN);
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getBlock30to45Scored(Season season, int teamID) {
+		return getGoalsPerBlock(season, teamID, 30, 45, SCORED);
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getBlock30to45Taken(Season season, int teamID) {
+		return getGoalsPerBlock(season, teamID, 30, 45, TAKEN);
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getBlock45to60Scored(Season season, int teamID) {
+		return getGoalsPerBlock(season, teamID, 45, 60, SCORED);
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getBlock45to60Taken(Season season, int teamID) {
+		return getGoalsPerBlock(season, teamID, 45, 60, TAKEN);
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getBlock60to75Scored(Season season, int teamID) {
+		return getGoalsPerBlock(season, teamID, 60, 75, SCORED);
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getBlock60to75Taken(Season season, int teamID) {
+		return getGoalsPerBlock(season, teamID, 60, 75, TAKEN);
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getBlock75to90Scored(Season season, int teamID) {
+		return getGoalsPerBlock(season, teamID, 75, 90, SCORED);
+	}
+
+	@TransactionAttribute(SUPPORTS)
+	public int getBlock75to90Taken(Season season, int teamID) {
+		return getGoalsPerBlock(season, teamID, 75, 90, TAKEN);
+	}
+
 	public String getStartDate(Season season) {
 		return season.getStartDate().get(Calendar.YEAR) + "-" + season.getStartDate().get(Calendar.MONTH) + 1 + "-" + season.getStartDate().get(Calendar.DATE);
 	}
@@ -636,5 +696,11 @@ public class StatisticsRepository extends Repository {
 		return (int) entityManager.createNativeQuery("select count(distinct GOAL_ID) from GAME_SYS join GOAL G on GAME_SYS.GAME_ID=G.GAME_ID join GAME G2 on G.GAME_ID = G2.GAME_ID where DATE between '" +
 				getStartDate(season) + "' and '" + getEndDate(season)
 				+ "' and TEAM_AWAY_ID=" + teamID + " or TEAM_HOME_ID=" + teamID + " and GOALTYPE='" + scoredTaken + "' and SYSTEM='" + system + "' and g.MINUTE_SCORED between GAME_SYS.START_MINUTE and GAME_SYS.END_MINUTE").getSingleResult();
+	}
+
+	private int getGoalsPerBlock(Season season, int teamID, int startMinute, int endMinute, String scoredTaken) {
+		return (int) entityManager.createNativeQuery("select count(*) from GOAL join GAME G on GOAL.GAME_ID = G.GAME_ID where cast(DATE as date) between '" +
+				getStartDate(season) + "' and '" + getEndDate(season)
+				+ "' and TEAM_AWAY_ID=" + teamID + " or TEAM_HOME_ID=" + teamID + " and GOAL.MINUTE_SCORED >= " + startMinute + " and GOAL.MINUTE_SCORED <" + endMinute + " and GOALTYPE ='" + scoredTaken + "'").getSingleResult();
 	}
 }
