@@ -633,8 +633,8 @@ public class StatisticsRepository extends Repository {
 
 	//select count(*) from GAME_SYS join GOAL G on GAME_SYS_ID=G.GAME_ID join GAME G2 on G.GAME_ID = G2.GAME_ID where DATE between '1990-01-01' and '2020-01-01' and TEAM_AWAY_ID=1 or TEAM_HOME_ID=1 and GOALTYPE='SCORED' and SYSTEM='X'
 	private int getSystemGoals(String system, Season season, String scoredTaken, int teamID) {
-		return (int) entityManager.createNativeQuery("select count(*) from GAME_SYS join GOAL G on GAME_SYS_ID=G.GAME_ID join GAME G2 on G.GAME_ID = G2.GAME_ID where DATE between '" +
+		return (int) entityManager.createNativeQuery("select count(distinct GOAL_ID) from GAME_SYS join GOAL G on GAME_SYS.GAME_ID=G.GAME_ID join GAME G2 on G.GAME_ID = G2.GAME_ID where DATE between '" +
 				getStartDate(season) + "' and '" + getEndDate(season)
-				+ "' and TEAM_AWAY_ID=" + teamID + " or TEAM_HOME_ID=" + teamID + " and GOALTYPE='" + scoredTaken + "' and SYSTEM='" + system + "'\n").getSingleResult();
+				+ "' and TEAM_AWAY_ID=" + teamID + " or TEAM_HOME_ID=" + teamID + " and GOALTYPE='" + scoredTaken + "' and SYSTEM='" + system + "' and g.MINUTE_SCORED between GAME_SYS.START_MINUTE and GAME_SYS.END_MINUTE").getSingleResult();
 	}
 }

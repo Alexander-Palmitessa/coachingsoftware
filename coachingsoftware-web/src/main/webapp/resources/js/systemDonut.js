@@ -1,20 +1,20 @@
 function getDataAndCreateDonuts() {
 	var testArray = [
-		{pos: $('#T442s').val(), neg: $('#T442t').val(), label: "4-4-2"},
-		{pos: $('#T424s').val(), neg: $('#T424t').val(), label: "4-2-4"},
-		{pos: $('#T343s').val(), neg: $('#T343t').val(), label: "3-4-3"},
-		{pos: $('#T433s').val(), neg: $('#T433t').val(), label: "4-3-3"},
-		{pos: $('#T532s').val(), neg: $('#T532t').val(), label: "5-3-2"},
-		{pos: $('#T352s').val(), neg: $('#T352t').val(), label: "3-5-2"},
-		{pos: $('#T451s').val(), neg: $('#T451t').val(), label: "4-5-1"},
-		{pos: $('#T4231s').val(), neg: $('#T4231t').val(), label: "4-2-3-1"},
-		{pos: $('#T4321s').val(), neg: $('#T4321t').val(), label: "4-3-2-1"},
-		{pos: $('#T4141s').val(), neg: $('#T4141t').val(), label: "4-1-4-1"},
-		{pos: $('#T3313s').val(), neg: $('#T3313t').val(), label: "3-3-1-3"},
-		{pos: $('#T4222s').val(), neg: $('#T4222t').val(), label: "4-2-2-2"},
-		{pos: $('#T541s').val(), neg: $('#T541t').val(), label: "5-4-1"},
-		{pos: $('#T334s').val(), neg: $('#T334s').val(), label: "3-3-4"},
-		{pos: $('#T460s').val(), neg: $('#T460t').val(), label: "4-6-0"}
+		{pos: parseInt($('#T442s').val()), neg: parseInt($('#T442t').val()), label: "4-4-2"},
+		{pos: parseInt($('#T424s').val()), neg: parseInt($('#T424t').val()), label: "4-2-4"},
+		{pos: parseInt($('#T343s').val()), neg: parseInt($('#T343t').val()), label: "3-4-3"},
+		{pos: parseInt($('#T433s').val()), neg: parseInt($('#T433t').val()), label: "4-3-3"},
+		{pos: parseInt($('#T532s').val()), neg: parseInt($('#T532t').val()), label: "5-3-2"},
+		{pos: parseInt($('#T352s').val()), neg: parseInt($('#T352t').val()), label: "3-5-2"},
+		{pos: parseInt($('#T451s').val()), neg: parseInt($('#T451t').val()), label: "4-5-1"},
+		{pos: parseInt($('#T4231s').val()), neg: parseInt($('#T4231t').val()), label: "4-2-3-1"},
+		{pos: parseInt($('#T4321s').val()), neg: parseInt($('#T4321t').val()), label: "4-3-2-1"},
+		{pos: parseInt($('#T4141s').val()), neg: parseInt($('#T4141t').val()), label: "4-1-4-1"},
+		{pos: parseInt($('#T3313s').val()), neg: parseInt($('#T3313t').val()), label: "3-3-1-3"},
+		{pos: parseInt($('#T4222s').val()), neg: parseInt($('#T4222t').val()), label: "4-2-2-2"},
+		{pos: parseInt($('#T541s').val()), neg: parseInt($('#T541t').val()), label: "5-4-1"},
+		{pos: parseInt($('#T334s').val()), neg: parseInt($('#T334t').val()), label: "3-3-4"},
+		{pos:  parseInt($('#T460s').val()), neg: parseInt($('#T460t').val()), label: "4-6-0"}
 	];
 
 	testArray.forEach(function (array) {
@@ -34,10 +34,10 @@ function getDataAndCreateDonuts() {
 |pos|neg|label|
  */
 function createDonuts(pos, neg, label) {
-	var percentageRed = Math.round((neg / (pos + neg) * 100));
+	var percentageRed = (neg / (pos + neg) * 100);
 	var percentageGreen = 100 - percentageRed;
 	//todo: div size etc.
-	$('.donut-charts').append('<div><p class="donut-label">' + label + '</p><svg width="100%" height="100%" viewBox="0 0 42 42" class="donut">' +
+	$('.donut-charts').append('<div class="small-12 medium-6"><p class="donut-label">' + label + '</p><svg width="100%" height="100%" viewBox="0 0 42 42" class="donut">' +
 		'<circle cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>' +
 		'<circle class="pos" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#66ff66" stroke-width="3"></circle>' +
 		'<circle class="neg" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#ff5050" stroke-width="3" stroke-dasharray="' + percentageRed + ' ' + percentageGreen + '" stroke-dashoffset="25"></circle>' +
