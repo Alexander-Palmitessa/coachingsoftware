@@ -24,6 +24,7 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.util.DateFormatterBean;
+import com.coachingeleven.coachingsoftware.util.SystemCount;
 import com.coachingeleven.coachingsoftware.util.ZoneCountTeam;
 
 @Named("teamDataBean")
@@ -63,6 +64,8 @@ public class TeamDataBean {
     private Country selectedCountry;
 
     private ZoneCountTeam zoneStats;
+
+    private SystemCount systemCount;
 	
 	@PostConstruct
     public void init() {
@@ -80,6 +83,7 @@ public class TeamDataBean {
 		mockupSeason.setStartDate(dateFormatterBean.getCalendar("01.01.1980")); //TODO: Remove when currentSeason is selectable
 		mockupSeason.setEndDate(dateFormatterBean.getCalendar("01.01.2020")); //TODO: Remove when currentSeason is selectable
 		zoneStats = new ZoneCountTeam(statisticsService, mockupSeason, currentTeam); //TODO: currentSeason
+		systemCount = new SystemCount(statisticsService, mockupSeason, currentTeam); //TODO: currentSeason
     }
 	
 	public String updateTeam() throws CountryAlreadyExistsException {
@@ -176,5 +180,13 @@ public class TeamDataBean {
 
 	public void setZoneStats(ZoneCountTeam zoneStats) {
 		this.zoneStats = zoneStats;
+	}
+
+	public SystemCount getSystemCount() {
+		return systemCount;
+	}
+
+	public void setSystemCount(SystemCount systemCount) {
+		this.systemCount = systemCount;
 	}
 }
