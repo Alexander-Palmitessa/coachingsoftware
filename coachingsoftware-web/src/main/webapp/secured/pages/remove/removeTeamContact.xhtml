@@ -1,0 +1,54 @@
+<ui:composition template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                
+	<ui:define name="title">
+        <h:outputText value="#{msg['removeTeam']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+    </ui:define>
+    
+    <ui:define name="contentTitle">
+		<h:outputText value="#{msg['removeTeam']}"/>
+	</ui:define>
+
+    <ui:define name="content">
+        <h:form class="create-form #{teamContactBean.successClass}">
+	        <div class="row">
+	        	<h:panelGroup rendered="#{not empty teamContactBean.successClass}">
+	        		<div class="small-12 column text-center">
+	        			<label class="information">
+	        				<h:panelGroup rendered="#{teamContactBean.createSuccess}">
+	        					<h:outputText value="#{msg['createSuccess']}"/>
+	        				</h:panelGroup>
+	        				<h:panelGroup rendered="#{!teamContactBean.createSuccess}">
+	        					<h:outputText value="#{msg['createFailure']}"/>
+	        				</h:panelGroup>
+			        	</label>
+			        </div>
+	        	</h:panelGroup>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['team']}"/></label>
+				    <h:selectOneMenu value="#{teamBean.entity.ID}">
+				        <f:selectItems value="#{teamContactBean.getAssignedTeamsByContact(loginBean.loggedInUser.contact.ID)}" var="team" itemValue="#{team.ID}"
+				                       itemLabel="#{team.name}"/>
+						<f:ajax listener="#{teamContactBean.setTmpJoinDateByTeam(teamBean.entity.ID,loginBean.loggedInUser.contact.ID)}" render="joinDate" />
+				    </h:selectOneMenu>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['assignedSince']}"/></label>
+		        	<h:inputText id="joinDate" value="#{teamContactBean.tmpJoinDate}"/>
+		        </div>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['assignedNoLonger']}"/></label>
+		        	<h:inputText id="leaveDate" class="js-datepicker" value="#{teamContactBean.leaveDate}"/>
+		        	<h:message for="leaveDate" style="color: red"/>
+		        </div>
+		        <div class="small-12 column text-center">
+		        	<h:commandButton class="deleteButton" action="#{teamContactBean.updateTeamContact(teamBean.entity.ID,loginBean.loggedInUser.contact.ID,teamContactBean.tmpJoinDate,teamContactBean.leaveDate)}" value="#{msg['removeTeam']}" />
+		        </div>
+	        </div>
+		</h:form>
+    </ui:define>
+                
+</ui:composition>

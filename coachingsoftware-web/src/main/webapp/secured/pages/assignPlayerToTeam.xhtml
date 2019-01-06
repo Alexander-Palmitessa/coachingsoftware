@@ -1,41 +1,44 @@
 <ui:composition template="/templates/main.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-                
+
+
+
 	<ui:define name="title">
-        <h:outputText value="#{msg['addTeam']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
-    </ui:define>
-    
-    <ui:define name="contentTitle">
-		<h:outputText value="#{msg['addTeam']}"/>
+		<h:outputText value="#{msg['assignPlayer']}" /><h:outputText value=" - "/><h:outputText value="#{msg['coachingeleven']}"/>
+	</ui:define>
+
+	<ui:define name="contentTitle">
+		<h:outputText value="#{msg['assignPlayer']}" />
 	</ui:define>
 
     <ui:define name="content">
-        <h:form class="create-form #{teamContactBean.successClass}">
+		<h:form class="create-form #{teamContactBean.successClass}">
 	        <div class="row">
 	        	<h:panelGroup rendered="#{not empty teamContactBean.successClass}">
 	        		<div class="small-12 column text-center">
 	        			<label class="information">
 	        				<h:panelGroup rendered="#{teamContactBean.createSuccess}">
-	        					<h:outputText value="#{msg['createSuccess']}"/>
+	        					<h:outputText value="#{msg['assignSuccess']}"/>
 	        				</h:panelGroup>
 	        				<h:panelGroup rendered="#{!teamContactBean.createSuccess}">
-	        					<h:outputText value="#{msg['createFailure']}"/>
+	        					<h:outputText value="#{msg['assignFailure']}"/>
 	        				</h:panelGroup>
 			        	</label>
 			        </div>
 	        	</h:panelGroup>
-		        <ui:include src="/secured/forms/teamContactForm.xhtml">
+		        <ui:include src="/secured/forms/playerContactForm.xhtml">
 		        	<ui:param name="teamContact" value="#{teamContactBean.entity}" />
-		        	<ui:param name="teams" value="#{teamContactBean.getUnassingnedTeams()}" />
+		        	<ui:param name="players" value="#{teamContactBean.getUnassingnedPlayers()}" />
 		        </ui:include>
 		        <div class="small-12 column text-center">
-		        	<h:commandButton action="#{teamContactBean.create(teamContactBean.entity,loginBean.loggedInUser.contact)}" value="#{msg['addTeam']}" />
+		        	<h:commandButton action="#{teamContactBean.create(teamContactBean.entity,loginBean.loggedInUserTeam,playerBean.entity.contact.ID)}" value="#{msg['assignPlayer']}" />
 		        </div>
 	        </div>
 		</h:form>
     </ui:define>
-                
+
 </ui:composition>

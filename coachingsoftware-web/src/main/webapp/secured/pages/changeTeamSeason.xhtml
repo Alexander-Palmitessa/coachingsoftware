@@ -1,0 +1,35 @@
+<ui:composition template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+
+	<ui:define name="title">
+		<h:outputText value="#{msg['changeSeason']}" /><h:outputText value=" - "/><h:outputText value="#{msg['coachingeleven']}"/>
+	</ui:define>
+
+	<ui:define name="contentTitle">
+		<h:outputText value="#{msg['changeSeason']}" />
+	</ui:define>
+
+    <ui:define name="content">
+        <h:form class="create-form">
+	        <div class="row">
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['season']}"/></label>
+				    <h:selectOneMenu value="#{seasonBean.entity.ID}">
+				        <f:selectItems value="#{seasonBean.getUnselectedSeasonsForTeam(loginBean.loggedInUserTeam.ID,loginBean.loggedInUser.contact.ID)}" var="season" itemValue="#{season.ID}"
+				                       itemLabel="#{season.name}"/>
+				    </h:selectOneMenu>
+		        </div>
+		        <div class="small-12 column text-center">
+		        	<h:commandButton action="#{loginBean.changeLoggedInUserSeason(seasonBean.entity.ID)}" value="#{msg['changeSeason']}" />
+		        </div>
+	        </div>
+		</h:form>
+    </ui:define>
+
+</ui:composition>

@@ -9,6 +9,7 @@ import com.coachingeleven.coachingsoftware.application.service.ArenaServiceRemot
 import com.coachingeleven.coachingsoftware.application.service.GameServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
+import com.coachingeleven.coachingsoftware.application.service.TeamContactServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.Arena;
 import com.coachingeleven.coachingsoftware.persistence.entity.Card;
 import com.coachingeleven.coachingsoftware.persistence.entity.ChangeIn;
@@ -65,6 +66,8 @@ public class GameBean implements Serializable {
 	private ArenaServiceRemote arenaService;
 	@EJB
 	private PlayerServiceRemote playerService;
+	@EJB
+	private TeamContactServiceRemote teamContactService;
 	@Inject
 	private NavigationBean navigationBean;
 	@Inject
@@ -185,10 +188,9 @@ public class GameBean implements Serializable {
 		teams = teamClubService.findAllTeams();
 		arenas = arenaService.findAll();
 		Team currentTeam = loginBean.getLoggedInUserTeam();
-		// TODO: Elias
-//		if (currentTeam.getPlayers() != null)
-//			players = new ArrayList<>(currentTeam.getCurrentPlayers());
-//		else players = new ArrayList<>();
+		if (loginBean.getLoggedInUserTeam() != null && loginBean.getLoggedInUserSeason() != null)
+			players = teamContactService.findPlayersByTeamAndSeason(loginBean.getLoggedInUserTeam().getID(), loginBean.getLoggedInUserSeason());
+		else players = new ArrayList<>();
 		if (currentTeam.getGamesHome() != null)
 			allGames = new ArrayList<>(currentTeam.getGamesHome());
 		else allGames = new ArrayList<>();

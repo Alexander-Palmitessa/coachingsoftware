@@ -14,4 +14,5 @@ public interface SeasonServiceRemote {
 	Season createSeason(Season season) throws SeasonAlreadyExistsException;
 	List<Season> findAllSeasons();
 	Season updateSeason(Season season);
+	List<Season> findSeasonsForAssignedTeam(int teamId, int contactID);
 }

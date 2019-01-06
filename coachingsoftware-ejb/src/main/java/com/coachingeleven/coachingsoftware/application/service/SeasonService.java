@@ -57,4 +57,9 @@ public class SeasonService implements SeasonServiceRemote {
 		return seasonRepository.update(season);
 	}
 
+	@Override
+	public List<Season> findSeasonsForAssignedTeam(int teamId, int contactID) {
+		return seasonRepository.findSeasonsForAssignedTeam(teamId,contactID);
+	}
+
 }
