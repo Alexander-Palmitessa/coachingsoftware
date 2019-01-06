@@ -9,6 +9,8 @@ import javax.inject.Named;
 @SessionScoped
 public class NavigationBean implements Serializable {
 
+	// TODO: Update links
+	
 	private static final long serialVersionUID = -2289682738617915324L;
 
 	public String toLogin() {
@@ -32,19 +34,19 @@ public class NavigationBean implements Serializable {
 	}
 
 	public String toUserSettings() {
-		return "/secured/pages/userSettings.xhtml";
+		return "/secured/pages/update/updateUserContact.xhtml";
 	}
 
 	public String redirectToUserSettings() {
-		return "/secured/pages/userSettings.xhtml?faces-redirect=true";
+		return "/secured/pages/update/updateUserContact.xhtml?faces-redirect=true";
 	}
 
-	public String toClubForm() {
-		return "/secured/forms/clubForm.xhtml";
+	public String toCreateClubPage() {
+		return "/secured/pages/createClub.xhtml";
 	}
 
-	public String redirectToClubForm() {
-		return "/secured/forms/clubForm.xhtml?faces-redirect=true";
+	public String redirectToCreateClubPage() {
+		return "/secured/pages/createClub.xhtml?faces-redirect=true";
 	}
 
 	public String toTeamForm() {
@@ -117,5 +119,37 @@ public class NavigationBean implements Serializable {
 
 	public String toLineUpForm() {
 		return "/secured/forms/lineUpForm.xhtml";
+	}
+
+	public String redirectToEvaluationTalkForm() {
+		return "/secured/pages/playerTalk.xhtml?faces-redirect=true";
+	}
+
+	public String toEvaluationTalkForm() {
+		return "/secured/pages/playerTalk.xhtml";
+	}
+
+	public String redirectToPerformanceDiagnosticsForm() {
+		return "/secured/pages/performanceDiagnostics.xhtml?faces-redirect=true";
+	}
+
+	public String toPerformanceDiagnosticsForm() {
+		return "/secured/pages/performanceDiagnostics.xhtml";
+	}
+
+	public String redirectToAddressOverview() {
+		return "/secured/pages/addressOverview.xhtml?faces-redirect=true";
+	}
+
+	public String toAddressOverview() {
+		return "/secured/pages/addressOverview.xhtml";
+	}
+	
+	public String redirectToAssignCurrentTeam() {
+		return "/secured/pages/assignCurrentTeam.xhtml?faces-redirect=true";
+	}
+
+	public String toAssignCurrentTeam() {
+		return "/secured/pages/assignCurrentTeam.xhtml";
 	}
 }

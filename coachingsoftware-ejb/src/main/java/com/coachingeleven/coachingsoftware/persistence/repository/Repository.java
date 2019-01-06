@@ -10,8 +10,6 @@ package com.coachingeleven.coachingsoftware.persistence.repository;
 
 import javax.ejb.TransactionAttribute;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 
 import java.util.List;

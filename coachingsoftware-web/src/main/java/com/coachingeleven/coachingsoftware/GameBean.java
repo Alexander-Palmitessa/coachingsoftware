@@ -1,6 +1,5 @@
 package com.coachingeleven.coachingsoftware;
 
-
 import com.coachingeleven.coachingsoftware.application.exception.ArenaNotFoundException;
 import com.coachingeleven.coachingsoftware.application.exception.GameAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.GameNotFoundException;
@@ -10,12 +9,14 @@ import com.coachingeleven.coachingsoftware.application.service.ArenaServiceRemot
 import com.coachingeleven.coachingsoftware.application.service.GameServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
+import com.coachingeleven.coachingsoftware.application.service.TeamContactServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.Arena;
+import com.coachingeleven.coachingsoftware.persistence.entity.Card;
 import com.coachingeleven.coachingsoftware.persistence.entity.ChangeIn;
 import com.coachingeleven.coachingsoftware.persistence.entity.ChangeOut;
 import com.coachingeleven.coachingsoftware.persistence.entity.Game;
+import com.coachingeleven.coachingsoftware.persistence.entity.GameSystem;
 import com.coachingeleven.coachingsoftware.persistence.entity.Goal;
-import com.coachingeleven.coachingsoftware.persistence.entity.LineUp;
 import com.coachingeleven.coachingsoftware.persistence.entity.LineUpPlayer;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.PlayerGameStats;
@@ -53,6 +54,8 @@ import java.util.logging.Logger;
 @SessionScoped
 public class GameBean implements Serializable {
 
+	private static final long serialVersionUID = 5882022000372307828L;
+
 	private static final Logger logger = Logger.getLogger(GameBean.class.getName());
 
 	@EJB
@@ -63,6 +66,8 @@ public class GameBean implements Serializable {
 	private ArenaServiceRemote arenaService;
 	@EJB
 	private PlayerServiceRemote playerService;
+	@EJB
+	private TeamContactServiceRemote teamContactService;
 	@Inject
 	private NavigationBean navigationBean;
 	@Inject
@@ -117,23 +122,18 @@ public class GameBean implements Serializable {
 		newGame = new Game();
 
 		//add LineUp to the game and LineUpPlayers to the LineUp
-		if (newGame.getLineUp() == null) {
-			LineUp lineUp = new LineUp();
-			lineUp.setGame(newGame);
-			lineUp.setLineUpPlayers(new LinkedHashSet<LineUpPlayer>());
-			for (Player p : players) {
-				LineUpPlayer lup = new LineUpPlayer();
-				lup.setPlayer(p);
-				lup.setLineUp(lineUp);
-				lineUp.getLineUpPlayers().add(lup);
-			}
-			newGame.setLineUp(lineUp);
+		newGame.setLineUpPlayers(new LinkedHashSet<LineUpPlayer>());
+		for (Player p : players) {
+			LineUpPlayer lup = new LineUpPlayer();
+			lup.setPlayer(p);
+			lup.setGame(newGame);
+			newGame.getLineUpPlayers().add(lup);
 		}
 
 		//add PlayerGameStats to the Game
 		if (newGame.getPlayerGameStats() == null) {
 			newGame.setPlayerGameStats(new LinkedHashSet<PlayerGameStats>());
-			for (LineUpPlayer lineUpPlayer : newGame.getLineUp().getLineUpPlayers()) {
+			for (LineUpPlayer lineUpPlayer : newGame.getLineUpPlayers()) {
 				PlayerGameStats playerGameStats = new PlayerGameStats();
 				playerGameStats.setGame(newGame);
 				playerGameStats.setChangeIn(new ChangeIn());
@@ -172,7 +172,6 @@ public class GameBean implements Serializable {
 			teamAway = currentGame.getTeamAway().getID();
 			teamHome = currentGame.getTeamHome().getID();
 			selectedArena = currentGame.getArena().getID();
-			selectedSystem = currentGame.getLineUp().getSystem();
 			resGoalsHome = currentGame.getResultGoalsHome();
 			resGoalsAway = currentGame.getResultGoalsAway();
 		} catch (GameNotFoundException e) {
@@ -188,20 +187,15 @@ public class GameBean implements Serializable {
 	public void init() {
 		teams = teamClubService.findAllTeams();
 		arenas = arenaService.findAll();
-		try {
-			Team currentTeam = teamClubService.findTeam(loginBean.getUserTeamID());
-			if (currentTeam.getPlayers() != null)
-				players = new ArrayList<>(currentTeam.getCurrentPlayers());
-			else players = new ArrayList<>();
-			if (currentTeam.getGamesHome() != null)
-				allGames = new ArrayList<>(currentTeam.getGamesHome());
-			else allGames = new ArrayList<>();
-			if (currentTeam.getGamesAway() != null)
-				allGames.addAll(currentTeam.getGamesAway());
-		} catch (TeamNotFoundException e) {
-			logger.log(Level.INFO, e.getMessage());
-			//TODO: DISPLAY ERROR PAGE?
-		}
+		Team currentTeam = loginBean.getLoggedInUserTeam();
+		if (loginBean.getLoggedInUserTeam() != null && loginBean.getLoggedInUserSeason() != null)
+			players = teamContactService.findPlayersByTeamAndSeason(loginBean.getLoggedInUserTeam().getID(), loginBean.getLoggedInUserSeason());
+		else players = new ArrayList<>();
+		if (currentTeam.getGamesHome() != null)
+			allGames = new ArrayList<>(currentTeam.getGamesHome());
+		else allGames = new ArrayList<>();
+		if (currentTeam.getGamesAway() != null)
+			allGames.addAll(currentTeam.getGamesAway());
 
 		systems = System.values();
 		lineUpTypes = LineUpType.values();
@@ -235,13 +229,8 @@ public class GameBean implements Serializable {
 		} catch (GameAlreadyExistsException e) {
 			currentGame = gameService.update(newGame);
 		}
-		try {
-			allGames = new ArrayList<>(teamClubService.findTeam(loginBean.getUserTeamID()).getGamesHome());
-			allGames.addAll(teamClubService.findTeam(loginBean.getUserTeamID()).getGamesAway());
-		} catch (TeamNotFoundException e) {
-			logger.log(Level.INFO, e.getMessage());
-			//TODO: DISPLAY ERROR PAGE
-		}
+		allGames = new ArrayList<>(loginBean.getLoggedInUserTeam().getGamesHome());
+		allGames.addAll(loginBean.getLoggedInUserTeam().getGamesAway());
 		reset();
 		return navigationBean.redirectToGameOverview();
 	}
@@ -310,7 +299,7 @@ public class GameBean implements Serializable {
 		//Prepare Goals
 		for (Goal goal : currentGame.getGoals()) {
 			if (goal.getScorer() != null) {
-				if (goal.getScorer().getLastName() == null && goal.getScorer().getID() != 0) {
+				if (goal.getScorer().getContact().getLastName() == null && goal.getScorer().getID() != 0) {
 					try {
 						goal.setScorer(playerService.findPlayer(goal.getScorer().getID()));
 					} catch (PlayerNotFoundException e) {
@@ -320,7 +309,7 @@ public class GameBean implements Serializable {
 				} else if (goal.getScorer().getID() == 0) goal.setScorer(null);
 			}
 			if (goal.getAssistant() != null) {
-				if (goal.getAssistant().getLastName() == null && goal.getAssistant().getID() != 0) {
+				if (goal.getAssistant().getContact().getLastName() == null && goal.getAssistant().getID() != 0) {
 					try {
 						goal.setAssistant(playerService.findPlayer(goal.getAssistant().getID()));
 					} catch (PlayerNotFoundException e) {
@@ -411,6 +400,13 @@ public class GameBean implements Serializable {
 				newGame.setGameType(GameType.TEST);
 				break;
 		}
+	}
+
+
+	public void addAnotherSystem() {
+		GameSystem newGameSystem = new GameSystem();
+		newGameSystem.setGame(currentGame);
+		currentGame.addGameSystem(newGameSystem);
 	}
 
 	/**
@@ -706,5 +702,16 @@ public class GameBean implements Serializable {
 
 	public void setNewHour(int newHour) {
 		this.newHour = newHour;
+	}
+
+	public void addAnotherCard(PlayerGameStats playerGameStats) {
+		Card newCard = new Card();
+		newCard.setPlayerGameStats(playerGameStats);
+		playerGameStats.addCard(newCard);
+	}
+
+	public void removeCard(Card card, PlayerGameStats playerGameStats) {
+		playerGameStats.removeCard(card);
+		gameService.deleteCard(card);
 	}
 }

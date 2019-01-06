@@ -22,15 +22,4 @@ public class UserAccountRepository extends Repository<UserAccount> {
 			return null;
 		}
     }
-
-    @TransactionAttribute(SUPPORTS)
-    public UserAccount findByMail(String email) {
-    	try {
-			TypedQuery<UserAccount> query = entityManager.createNamedQuery("findUserByMail", UserAccount.class);
-			query.setParameter("email", email);
-			return query.getSingleResult();
-		} catch (NoResultException ex) {
-			return null;
-		}
-    }
 }

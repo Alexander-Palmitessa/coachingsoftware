@@ -5,7 +5,6 @@ import com.coachingeleven.coachingsoftware.application.exception.ClubNotFoundExc
 import com.coachingeleven.coachingsoftware.application.exception.TeamAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.TeamNotFoundException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Club;
-import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
 import javax.ejb.Remote;
@@ -36,18 +35,4 @@ public interface TeamClubServiceRemote {
 	Club updateClub(Club club);
 
 	Team updateTeam(Team team);
-
-	List<Team> findTeamsByClubId(int clubId);
-
-	List<Team> findTeamsBySeasonID(int seasonID);
-
-	Team addPlayerToTeam(int teamID, Player player);
-
-	List<Team> getAllPreviousTeams(int teamID);
-
-	List<Team> getAllPreviousTeamsOfSeason(int seasonID);
-
-	List<Player> getCurrentPlayers(int teamID);
-
-	List<Player> getHistoryPlayers(int teamID);
 }
