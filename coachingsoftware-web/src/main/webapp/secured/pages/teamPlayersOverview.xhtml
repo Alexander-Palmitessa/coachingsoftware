@@ -5,16 +5,16 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
                 
 	<ui:define name="title">
-        <h:outputText value="#{loginBean.loggedInUserTeam.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['currentPlayers']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+        <h:outputText value="#{loginBean.loggedInUserTeam.name}"/><h:outputText value=" - "/><h:outputText value="#{loginBean.loggedInUserSeason.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['players']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
     </ui:define>
 	
 	<ui:define name="contentTitle">
-		<h:outputText value="#{loginBean.loggedInUserTeam.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['currentPlayers']}"/>
+		<h:outputText value="#{loginBean.loggedInUserTeam.name}"/><h:outputText value=" - "/><h:outputText value="#{loginBean.loggedInUserSeason.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['players']}"/>
 	</ui:define>
 	
 	<ui:define name="content">
 		<div class="row player-overview-container">
-			<ui:repeat var="player" value="#{loginBean.loggedInUserTeamPlayers}">
+			<ui:repeat var="player" value="#{teamContactBean.findPlayersByTeamAndSeason(loginBean.loggedInUserTeam,loginBean.loggedInUserSeason)}">
 				<div class="small-12 medium-4 column playerOverview">
 					<ui:include src="/secured/cards/playerCard.xhtml" />
 				</div>

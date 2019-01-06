@@ -25,10 +25,6 @@
 	height: 3px;
 }
 
-.top-bar .menu > li:first-child > a {
-	padding-left: 0;
-}
-
 .top-bar a,
 .top-bar a:after,
 .top-bar a:before {

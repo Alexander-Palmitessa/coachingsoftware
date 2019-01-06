@@ -26,6 +26,7 @@ public class Season implements Serializable {
 	private int ID;
 	@Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "{pattern.letter.number.space}")
 	@NotNull
+	@Column(name = "NAME")
 	private String name;
 	@Column(name = "STARTDATE")
     @Temporal(TemporalType.DATE)

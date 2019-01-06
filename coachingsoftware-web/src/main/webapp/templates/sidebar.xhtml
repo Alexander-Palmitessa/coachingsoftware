@@ -6,7 +6,7 @@
 
 	<ul class="vertical menu accordion-menu sidebar-menu" data-accordion-menu="">
 		<li>
-			<a href="#"><h:outputText value="#{msg['accountRole.'.concat(loginBean.loggedInUser.accountRole)]}"/></a>
+			<a href="#"><h:outputText value="#{msg['accountRole.'.concat(loginBean.loggedInUser.accountRole)]}"/><h:outputText value="#{msg['area']}"/></a>
 			<ul class="menu vertical nested">
 				<li>
 					<h:outputLink value="#"><h:outputText value="#{msg['create']}"/></h:outputLink>
@@ -58,33 +58,50 @@
 		</li>
 		
 		<li>
-			<a href="#"><h:outputText value="#{msg['role.'.concat(loginBean.loggedInUser.contact.role)]}"/><h:outputText value=" - "/><h:outputText value="#{loginBean.loggedInUser.contact.firstName}" /><h:outputText value=" " /><h:outputText value="#{loginBean.loggedInUser.contact.lastName}" /></a>
+			<a href="#"><h:outputText value="#{msg['role.'.concat(loginBean.loggedInUser.contact.role)]}"/><h:outputText value="#{msg['area']}"/></a>
 			<ul class="menu vertical nested">
 				<li>
-					<h:outputLink value="#{request.contextPath}/secured/pages/update/updateUserContact.xhtml"><h:outputText value="#{msg['baseData']}"/></h:outputLink>
-				</li>
-				<li>
-					<h:outputLink value="#{request.contextPath}/secured/pages/addressOverview.xhtml"><h:outputText value="#{msg['contactsAddress']}"/></h:outputLink>
-				</li>
-				<li>
-					<a href="#"><h:outputText value="#{msg['trainedTeams']}"/></a>
+					<h:outputLink value="#"><h:outputText value="#{msg['create']}"/></h:outputLink>
 					<ul class="menu vertical nested">
-						<ui:repeat var="team" value="#{teamContactBean.getTeamsByContact(loginBean.loggedInUser.contact)}">
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createSeason.xhtml"><h:outputText value="#{msg['createSeason']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createClub.xhtml"><h:outputText value="#{msg['createClub']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createTeam.xhtml"><h:outputText value="#{msg['createTeam']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createPlayer.xhtml"><h:outputText value="#{msg['createPlayer']}"/></h:outputLink>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#"><h:outputText value="#{msg['teams']}"/></a>
+					<ul class="menu vertical nested">
+						<ui:repeat var="team" value="#{teamContactBean.getAssignedTeamsByContact(loginBean.loggedInUser.contact.ID)}">
 							<li>
 								<a href="#"><h:outputText value="#{team.name}"/></a>
 							</li>
 						</ui:repeat>
 					</ul>
-					<li>
-						<h:outputLink value="#{request.contextPath}/secured/pages/create/createTeamContact.xhtml"><h:outputText value="#{msg['addTeam']}"/></h:outputLink>
-					</li>
+				</li>
+				<li>
+					<h:outputLink value="#{request.contextPath}/secured/pages/create/createTeamContact.xhtml"><h:outputText value="#{msg['addTeam']}"/></h:outputLink>
+				</li>
+				<li>
+					<h:outputLink value="#{request.contextPath}/secured/pages/remove/removeTeamContact.xhtml"><h:outputText value="#{msg['removeTeam']}"/></h:outputLink>
+				</li>
+				<li>
+					<h:outputLink value="#{request.contextPath}/secured/pages/assignCurrentTeam.xhtml"><h:outputText value="#{msg['assignCurrentTeam']}"/></h:outputLink>
 				</li>
 			</ul>
 		</li>
 		
-		<h:panelGroup rendered="#{loginBean.loggedInUserTeam != null}">
+		<h:panelGroup rendered="#{loginBean.loggedInUserTeam != null and loginBean.loggedInUserSeason != null}">
 			<li>
-				<a href="#"><h:outputText value="#{loginBean.loggedInUserTeam.name}"/></a>
+				<a href="#"><h:outputText value="#{loginBean.loggedInUserTeam.name}"/><h:outputText value=" - "/><h:outputText value="#{loginBean.loggedInUserSeason.name}"/></a>
 				<ul class="menu vertical nested">
 					<li>
 						<h:outputLink value="#{request.contextPath}/secured/pages/teamOverview.xhtml"><h:outputText value="#{msg['teamOverview']}"/></h:outputLink>
@@ -99,7 +116,10 @@
 								<h:outputLink value="#{request.contextPath}/secured/pages/teamPlayersOverview.xhtml"><h:outputText value="#{msg['overview']}"/></h:outputLink>
 							</li>
 							<li>
-								<h:outputLink value="#{request.contextPath}/secured/pages/create/createTeamPlayer.xhtml"><h:outputText value="#{msg['createPlayer']}"/></h:outputLink>
+								<h:outputLink value="#{request.contextPath}/secured/pages/assignPlayerToTeam.xhtml"><h:outputText value="#{msg['assignPlayer']}"/></h:outputLink>
+							</li>
+							<li>
+								<h:outputLink value="#{request.contextPath}/secured/pages/remove/removePlayerFromTeam.xhtml"><h:outputText value="#{msg['removePlayer']}"/></h:outputLink>
 							</li>
 						</ul>
 					</li>

@@ -30,6 +30,10 @@
 			        	</label>
 			        </div>
 	        	</h:panelGroup>
+	        	<div class="small-12 medium-6 column">
+					<label><h:outputText value="#{msg['username']}"/></label>
+					<h:inputText id="tc_username" value="#{loginBean.username}" readonly="true"/>
+				</div>
 		        <ui:include src="/secured/forms/contactForm.xhtml">
 		        	<ui:param name="contact" value="#{loginBean.loggedInUser.contact}" />
 		        </ui:include>

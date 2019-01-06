@@ -144,4 +144,12 @@ public class NavigationBean implements Serializable {
 	public String toAddressOverview() {
 		return "/secured/pages/addressOverview.xhtml";
 	}
+	
+	public String redirectToAssignCurrentTeam() {
+		return "/secured/pages/assignCurrentTeam.xhtml?faces-redirect=true";
+	}
+
+	public String toAssignCurrentTeam() {
+		return "/secured/pages/assignCurrentTeam.xhtml";
+	}
 }

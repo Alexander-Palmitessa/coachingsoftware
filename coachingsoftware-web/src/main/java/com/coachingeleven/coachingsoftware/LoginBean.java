@@ -1,7 +1,6 @@
 package com.coachingeleven.coachingsoftware;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,13 +13,15 @@ import javax.inject.Named;
 import com.coachingeleven.coachingsoftware.application.exception.*;
 import com.coachingeleven.coachingsoftware.application.service.ContactService;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
+import com.coachingeleven.coachingsoftware.application.service.SeasonServiceRemote;
+import com.coachingeleven.coachingsoftware.application.service.TeamClubServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.TeamContactServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.UserServiceRemote;
 import com.coachingeleven.coachingsoftware.entity.CountryBean;
 import com.coachingeleven.coachingsoftware.persistence.entity.Address;
 import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
 import com.coachingeleven.coachingsoftware.persistence.entity.Country;
-import com.coachingeleven.coachingsoftware.persistence.entity.Player;
+import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.UserAccount;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.AccountRole;
@@ -38,7 +39,7 @@ public class LoginBean implements Serializable {
 	private String password;
 	private UserAccount loggedInUser;
 	private Team loggedInUserTeam;
-	private List<Player> loggedInUserTeamPlayers;
+	private Season loggedInUserSeason;
 	private boolean loggedIn;
 
 	@Inject
@@ -54,6 +55,10 @@ public class LoginBean implements Serializable {
 	private CountryServiceRemote countryService;
 	@EJB
 	private TeamContactServiceRemote teamContactService;
+	@EJB
+	private TeamClubServiceRemote teamClubService;
+	@EJB
+	private SeasonServiceRemote seasonService;
 	
 	private String userBirthdayFormatted;
 
@@ -99,7 +104,38 @@ public class LoginBean implements Serializable {
 
 	public String doLogout() {
 		loggedIn = false;
+		loggedInUserTeam = null;
+		loggedInUserSeason = null;
 		return navigationBean.toLogin();
+	}
+	
+	public String assignCurrentTeam(Team team, Season season) {
+		if(loggedInUser != null && team != null && season != null) {
+			try {
+				loggedInUserTeam = teamClubService.findTeam(team.getID());
+				loggedInUserSeason = seasonService.findSeason(season.getID());
+				return navigationBean.redirectToTeamDataOverview();
+			} catch (TeamNotFoundException e) {
+				logger.warning("Could not find team with ID (" + team.getID() + "): " + e.getMessage());
+			} catch (SeasonNotFoundException e) {
+				logger.warning("Could not find season with ID (" + season.getID() + "): " + e.getMessage());
+			}
+		}
+		return navigationBean.redirectToAssignCurrentTeam();
+	}
+	
+	public String unassignCurrentTeam() {
+		loggedInUserTeam = null;
+		loggedInUserSeason = null;
+		return navigationBean.redirectToAssignCurrentTeam();
+	}
+	
+	public void changeLoggedInUserSeason(int seasonID) {
+		try {
+			loggedInUserSeason = seasonService.findSeason(seasonID);
+		} catch (SeasonNotFoundException e) {
+			logger.warning("Could not find season with ID (" + seasonID + "): " + e.getMessage());
+		}
 	}
 
 	public boolean isLoggedIn() {
@@ -135,22 +171,19 @@ public class LoginBean implements Serializable {
 	}
 
 	public Team getLoggedInUserTeam() {
-		if(loggedInUser != null && loggedInUserTeam == null) {
-			List<Team> teams = teamContactService.findTeamsByContact(loggedInUser.getContact());
-			if(teams.size() > 0) loggedInUserTeam = teams.get(0);
-		}
 		return loggedInUserTeam;
-	}
-	
-	public List<Player> getLoggedInUserTeamPlayers() {
-		if(loggedInUser != null && loggedInUserTeam != null) {
-			loggedInUserTeamPlayers = teamContactService.findPlayersByTeam(loggedInUserTeam);
-		}
-		return loggedInUserTeamPlayers;
 	}
 
 	public void setLoggedInUserTeam(Team loggedInUserTeam) {
 		this.loggedInUserTeam = loggedInUserTeam;
+	}
+
+	public Season getLoggedInUserSeason() {
+		return loggedInUserSeason;
+	}
+
+	public void setLoggedInUserSeason(Season loggedInUserSeason) {
+		this.loggedInUserSeason = loggedInUserSeason;
 	}
 
 	public String getUserBirthdayFormatted() {

@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 @Table(name = "TEAM_CONTACT")
 @NamedQueries({
 	@NamedQuery(name = "findTeamsByContact",
-			query = "SELECT tc.team FROM TeamContact tc WHERE tc.contact.ID = :contactID"),
+			query = "SELECT tc.team FROM TeamContact tc WHERE tc.contact.ID = :contactID AND tc.leaveDate IS NULL"),
 	@NamedQuery(name = "findContactsByTeam",
 		query = "SELECT tc.contact FROM TeamContact tc WHERE tc.team.ID = :teamID")
 })
@@ -40,7 +40,7 @@ public class TeamContact implements Serializable {
 	private Contact contact;
 	
 	@Id
-	@Column(name = "JOINTDATE")
+	@Column(name = "JOINDATE")
     @Temporal(TemporalType.DATE)
     private Calendar joinDate;
 	

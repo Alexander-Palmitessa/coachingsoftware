@@ -31,5 +31,9 @@ public class DateFormatterBean implements Serializable {
 		}
 		return calendar;
 	}
+	
+	public String getFormattedDate(Calendar calendar) {
+		return calendar != null ? dateFormatter.format(calendar.getTime()) : "";
+	}
 
 }

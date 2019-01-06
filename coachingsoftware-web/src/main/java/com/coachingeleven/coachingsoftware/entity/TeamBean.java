@@ -14,7 +14,6 @@ import com.coachingeleven.coachingsoftware.entity.base.CreateBean;
 import com.coachingeleven.coachingsoftware.entity.base.EntityBean;
 import com.coachingeleven.coachingsoftware.entity.base.UpdateBean;
 import com.coachingeleven.coachingsoftware.persistence.entity.Club;
-import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
 @Named("teamBean")
@@ -101,10 +100,6 @@ public class TeamBean implements EntityBean<Team>, UpdateBean<Team>, CreateBean<
 	@Override
 	public void setEntities(List<Team> entities) {
 		this.entities = entities;
-	}
-	
-	public List<Team> getTeamsForContact(Contact contact) {
-		return null;
 	}
 
 }

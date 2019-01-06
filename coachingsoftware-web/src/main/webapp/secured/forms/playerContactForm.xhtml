@@ -4,10 +4,10 @@
     			xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     			
         <div class="small-12 medium-6 column">
-        	<label><h:outputText value="#{msg['team']}"/></label>
-		    <h:selectOneMenu value="#{teamContact.team.ID}">
-		        <f:selectItems value="#{teams}" var="team" itemValue="#{team.ID}"
-		                       itemLabel="#{team.name}"/>
+        	<label><h:outputText value="#{msg['player']}"/></label>
+		    <h:selectOneMenu value="#{playerBean.entity.contact.ID}">
+		        <f:selectItems value="#{players}" var="player" itemValue="#{player.contact.ID}"
+		                       itemLabel="#{player.contact.firstName} #{player.contact.lastName}"/>
 		    </h:selectOneMenu>
         </div>
         <div class="small-12 medium-6 column">

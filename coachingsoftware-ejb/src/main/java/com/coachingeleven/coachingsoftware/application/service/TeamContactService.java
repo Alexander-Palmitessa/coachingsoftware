@@ -12,8 +12,10 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 
 import com.coachingeleven.coachingsoftware.application.exception.TeamContactAlreadyExistsException;
+import com.coachingeleven.coachingsoftware.application.exception.TeamContactNotFoundException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
+import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.TeamContact;
 import com.coachingeleven.coachingsoftware.persistence.entity.TeamContactId;
@@ -51,8 +53,8 @@ public class TeamContactService implements TeamContactServiceRemote {
 	}
 
 	@Override
-	public List<Team> findUnassingnedTeamsByContact(Contact contact) {
-		return teamContactRepository.findUnassingnedTeamsByContact(contact.getID());
+	public List<Team> findUnassingnedTeams() {
+		return teamContactRepository.findUnassingnedTeams();
 	}
 
 	@Override
@@ -63,6 +65,42 @@ public class TeamContactService implements TeamContactServiceRemote {
 	@Override
 	public List<Player> findPlayersByTeam(Team team) {
 		return teamContactRepository.findPlayersByTeam(team.getID());
+	}
+
+	@Override
+	public TeamContact update(TeamContact teamContact) {
+		return teamContactRepository.update(teamContact);
+	}
+
+	@Override
+	public TeamContact find(TeamContactId id) throws TeamContactNotFoundException {
+		logger.log(Level.INFO, "Finding TeamContact with id " + id);
+		TeamContact teamContact = teamContactRepository.find(TeamContact.class, id);
+        if (teamContact == null) {
+            logger.log(Level.INFO, "TeamContact not found");
+            throw new TeamContactNotFoundException();
+        }
+        return teamContact;
+	}
+
+	@Override
+	public List<Team> findAssignedTeams(int contactID) {
+		return teamContactRepository.findAssignedTeams(contactID);
+	}
+
+	@Override
+	public List<TeamContact> findAssignedTeamContacts(int teamID, int contactID) {
+		return teamContactRepository.findAssignedTeamContacts(teamID,contactID);
+	}
+
+	@Override
+	public List<Player> findUnassingnedPlayers() {
+		return teamContactRepository.findUnassingnedPlayers();
+	}
+
+	@Override
+	public List<Player> findPlayersByTeamAndSeason(int teamID, Season season) {
+		return teamContactRepository.findPlayersByTeamAndSeason(teamID, season);
 	}
 
 }
