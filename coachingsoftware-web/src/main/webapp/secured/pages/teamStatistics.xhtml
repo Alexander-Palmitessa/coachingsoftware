@@ -1,0 +1,114 @@
+<ui:composition template="/templates/main.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<ui:define name="content">
+		<h:panelGroup rendered="#{teamDataBean.currentTeam != null}">
+			<div class="row">
+				<div class="small-12 column card-user-profile">
+					<div class="card-container">
+						<div class="grey-background"></div>
+						<div class="card-user-profile-content card-section">
+
+							<!-- goal shot values for heatmap fields-->
+							<h:inputHidden id="a1gs" value="#{teamDataBean.zoneStats.a1gs}"/>
+							<h:inputHidden id="a2gs" value="#{teamDataBean.zoneStats.a2gs}"/>
+							<h:inputHidden id="b1gs" value="#{teamDataBean.zoneStats.b1gs}"/>
+							<h:inputHidden id="b2gs" value="#{teamDataBean.zoneStats.b2gs}"/>
+							<h:inputHidden id="c1gs" value="#{teamDataBean.zoneStats.c1gs}"/>
+							<h:inputHidden id="c2gs" value="#{teamDataBean.zoneStats.c2gs}"/>
+							<h:inputHidden id="d1gs" value="#{teamDataBean.zoneStats.d1gs}"/>
+							<h:inputHidden id="d2gs" value="#{teamDataBean.zoneStats.d2gs}"/>
+							<h:inputHidden id="e1gs" value="#{teamDataBean.zoneStats.e1gs}"/>
+							<h:inputHidden id="e2gs" value="#{teamDataBean.zoneStats.e2gs}"/>
+							<h:inputHidden id="f1gs" value="#{teamDataBean.zoneStats.f1gs}"/>
+							<h:inputHidden id="f2gs" value="#{teamDataBean.zoneStats.f2gs}"/>
+
+							<!-- assist shot values for heatmap fields-->
+							<h:inputHidden id="a1as" value="#{teamDataBean.zoneStats.a1as}"/>
+							<h:inputHidden id="a2as" value="#{teamDataBean.zoneStats.a2as}"/>
+							<h:inputHidden id="b1as" value="#{teamDataBean.zoneStats.b1as}"/>
+							<h:inputHidden id="b2as" value="#{teamDataBean.zoneStats.b2as}"/>
+							<h:inputHidden id="c1as" value="#{teamDataBean.zoneStats.c1as}"/>
+							<h:inputHidden id="c2as" value="#{teamDataBean.zoneStats.c2as}"/>
+							<h:inputHidden id="d1as" value="#{teamDataBean.zoneStats.d1as}"/>
+							<h:inputHidden id="d2as" value="#{teamDataBean.zoneStats.d2as}"/>
+							<h:inputHidden id="e1as" value="#{teamDataBean.zoneStats.e1as}"/>
+							<h:inputHidden id="e2as" value="#{teamDataBean.zoneStats.e2as}"/>
+							<h:inputHidden id="f1as" value="#{teamDataBean.zoneStats.f1as}"/>
+							<h:inputHidden id="f2as" value="#{teamDataBean.zoneStats.f2as}"/>
+
+							<!-- goal shot values for heatmap fields-->
+							<h:inputHidden id="a1gt" value="#{teamDataBean.zoneStats.a1gt}"/>
+							<h:inputHidden id="a2gt" value="#{teamDataBean.zoneStats.a2gt}"/>
+							<h:inputHidden id="b1gt" value="#{teamDataBean.zoneStats.b1gt}"/>
+							<h:inputHidden id="b2gt" value="#{teamDataBean.zoneStats.b2gt}"/>
+							<h:inputHidden id="c1gt" value="#{teamDataBean.zoneStats.c1gt}"/>
+							<h:inputHidden id="c2gt" value="#{teamDataBean.zoneStats.c2gt}"/>
+							<h:inputHidden id="d1gt" value="#{teamDataBean.zoneStats.d1gt}"/>
+							<h:inputHidden id="d2gt" value="#{teamDataBean.zoneStats.d2gt}"/>
+							<h:inputHidden id="e1gt" value="#{teamDataBean.zoneStats.e1gt}"/>
+							<h:inputHidden id="e2gt" value="#{teamDataBean.zoneStats.e2gt}"/>
+							<h:inputHidden id="f1gt" value="#{teamDataBean.zoneStats.f1gt}"/>
+							<h:inputHidden id="f2gt" value="#{teamDataBean.zoneStats.f2gt}"/>
+
+							<!-- assist shot values for heatmap fields-->
+							<h:inputHidden id="a1at" value="#{teamDataBean.zoneStats.a1at}"/>
+							<h:inputHidden id="a2at" value="#{teamDataBean.zoneStats.a2at}"/>
+							<h:inputHidden id="b1at" value="#{teamDataBean.zoneStats.b1at}"/>
+							<h:inputHidden id="b2at" value="#{teamDataBean.zoneStats.b2at}"/>
+							<h:inputHidden id="c1at" value="#{teamDataBean.zoneStats.c1at}"/>
+							<h:inputHidden id="c2at" value="#{teamDataBean.zoneStats.c2at}"/>
+							<h:inputHidden id="d1at" value="#{teamDataBean.zoneStats.d1at}"/>
+							<h:inputHidden id="d2at" value="#{teamDataBean.zoneStats.d2at}"/>
+							<h:inputHidden id="e1at" value="#{teamDataBean.zoneStats.e1at}"/>
+							<h:inputHidden id="e2at" value="#{teamDataBean.zoneStats.e2at}"/>
+							<h:inputHidden id="f1at" value="#{teamDataBean.zoneStats.f1at}"/>
+							<h:inputHidden id="f2at" value="#{teamDataBean.zoneStats.f2at}"/>
+
+							<!-- Goal Shot Heatmap-->
+							<div class="small-12 medium-6 centered">
+								<h1>Goals: </h1>
+								<h1 id="goalShotValue">-</h1>
+								<ui:include src="../util/TeamGoalShotHeatamp.html"/>
+							</div>
+
+							<!-- Assist Shot Heatmap -->
+							<div class="small-12 medium-6 centered">
+								<h1>Assist: </h1>
+								<h1 id="assistShotValue">-</h1>
+								<ui:include src="../util/TeamAssistShotHeatamp.html"/>
+							</div>
+
+							<!-- Goal Taken Heatmap-->
+							<div class="small-12 medium-6 centered">
+								<h1>Goals: </h1>
+								<h1 id="goalTakenValue">-</h1>
+								<ui:include src="../util/TeamGoalTakenHeatamp.html"/>
+							</div>
+
+							<!-- Assist Taken Heatmap -->
+							<div class="small-12 medium-6 centered">
+								<h1>Assist: </h1>
+								<h1 id="assistTakenValue">-</h1>
+								<ui:include src="../util/TeamAssistTakenHeatamp.html"/>
+							</div>
+							<script>
+								$(document).ready(setTeamHeatmapShotGoals());
+								$(document).ready(setTeamHeatmapShotAssist());
+								$(document).ready(setTeamHeatmapTakenGoals());
+								$(document).ready(setTeamHeatmapTakenAssist());
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</h:panelGroup>
+		<h:panelGroup rendered="#{teamDataBean.currentTeam == null}">
+			<h:outputText value="#{msg['']}"/>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>

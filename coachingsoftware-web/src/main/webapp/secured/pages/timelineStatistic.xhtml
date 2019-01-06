@@ -1,0 +1,48 @@
+<ui:composition template="/templates/main.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<ui:define name="content">
+		<h:panelGroup rendered="#{teamDataBean.currentTeam != null}">
+			<div class="row">
+				<div class="small-12 column card-user-profile">
+					<div class="card-container">
+						<div class="grey-background"></div>
+						<div class="card-user-profile-content card-section">
+
+							<!-- goal shot values for heatmap fields-->
+							<h:inputHidden id="oneS" value="#{teamDataBean.blockCount.b0To15s}"/>
+							<h:inputHidden id="oneG" value="#{teamDataBean.blockCount.b0To15t}"/>
+							<h:inputHidden id="twoS" value="#{teamDataBean.blockCount.b15To30s}"/>
+							<h:inputHidden id="twoG" value="#{teamDataBean.blockCount.b15To30t}"/>
+							<h:inputHidden id="threeS" value="#{teamDataBean.blockCount.b30To45s}"/>
+							<h:inputHidden id="threeG" value="#{teamDataBean.blockCount.b30To45t}"/>
+							<h:inputHidden id="fourS" value="#{teamDataBean.blockCount.b45To60s}"/>
+							<h:inputHidden id="fourG" value="#{teamDataBean.blockCount.b45To60t}"/>
+							<h:inputHidden id="fiveS" value="#{teamDataBean.blockCount.b60To75s}"/>
+							<h:inputHidden id="fiveG" value="#{teamDataBean.blockCount.b60To75t}"/>
+							<h:inputHidden id="sixS" value="#{teamDataBean.blockCount.b75To90s}"/>
+							<h:inputHidden id="sixG" value="#{teamDataBean.blockCount.b75To90t}"/>
+
+							<!-- Goal Shot Heatmap-->
+							<div class="small-12 medium-6 centered">
+								<h1>Goals: </h1>
+								<h1 id="timelineValue">-</h1>
+								<ui:include src="../util/timeline.html"/>
+							</div>
+							<script>
+								$(document).ready(setTimelineGoals());
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</h:panelGroup>
+		<h:panelGroup rendered="#{teamDataBean.currentTeam == null}">
+			<h:outputText value="#{msg['']}"/>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>

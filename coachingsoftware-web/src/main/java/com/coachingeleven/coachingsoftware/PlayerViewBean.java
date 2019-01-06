@@ -1,26 +1,22 @@
 package com.coachingeleven.coachingsoftware;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyExistsException;
-import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
-import com.coachingeleven.coachingsoftware.application.exception.PlayerNotFoundException;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
-import com.coachingeleven.coachingsoftware.persistence.entity.Address;
-import com.coachingeleven.coachingsoftware.persistence.entity.Country;
+import com.coachingeleven.coachingsoftware.application.service.StatisticsServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
+import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
+import com.coachingeleven.coachingsoftware.util.DateFormatterBean;
+import com.coachingeleven.coachingsoftware.util.TotalPlayerStats;
+import com.coachingeleven.coachingsoftware.util.ZoneCountPlayer;
 
 @Named(value = "playerViewBean")
 @RequestScoped
@@ -28,23 +24,38 @@ public class PlayerViewBean {
 
 	@Inject
 	private CurrentPlayerBean currentPlayerBean;
-	
+
 	@EJB
 	private PlayerServiceRemote playerService;
 	@EJB
 	private CountryServiceRemote countryService;
-	
+	@Inject
+	private DateFormatterBean dateFormatterBean; //TODO: Remove when current season is selected below
+	@EJB
+	private StatisticsServiceRemote statisticsService;
+
 	private Player currentPlayer;
-	
+
 	private SimpleDateFormat dateFormatter;
-	
+
 	private String birthdayFormatted;
 	private String oldEmailAddress;
-	
+
+	private TotalPlayerStats totalPlayerStats;
+	private ZoneCountPlayer goalsZones;
+	private ZoneCountPlayer assistZones;
+
+
 	@PostConstruct
 	public void init() {
 		currentPlayer = currentPlayerBean.getCurrentPlayer();
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
+		totalPlayerStats = new TotalPlayerStats(currentPlayer);
+		Season mockupSeason = new Season(); //TODO: Remove when currentSeason is selectable
+		mockupSeason.setStartDate(dateFormatterBean.getCalendar("01.01.1980"));//TODO: Remove when currentSeason is selectable
+		mockupSeason.setEndDate(dateFormatterBean.getCalendar("01.01.2020"));//TODO: Remove when currentSeason is selectable
+		goalsZones = new ZoneCountPlayer(statisticsService, mockupSeason, currentPlayer); //TODO: currentSeason;
+		assistZones = new ZoneCountPlayer(statisticsService, mockupSeason, currentPlayer); //TODO: currentSeason;
 		// Format date for GUI
 //		if(currentPlayer.getBirthdate() != null) birthdayFormatted = dateFormatter.format(currentPlayer.getBirthdate().getTime());
 //		// Create empty address if player doesn't have one
@@ -55,9 +66,9 @@ public class PlayerViewBean {
 //		if(currentPlayer.getEmail() == null) oldEmailAddress = "";
 //		else oldEmailAddress = currentPlayer.getEmail();
 	}
-	
+
 	public void updateCurrentPlayer() {
-		if(checkForDuplicateEmail()) {
+		if (checkForDuplicateEmail()) {
 //			try {
 //				// Set new birthday for current player
 //				if(birthdayFormatted != null && !birthdayFormatted.isEmpty()) {
@@ -100,7 +111,7 @@ public class PlayerViewBean {
 //			}
 		}
 	}
-	
+
 	private boolean checkForDuplicateEmail() {
 		// Check if user has a new email and if that email is already occupied
 //		if(!oldEmailAddress.equals(currentPlayer.getEmail())) {
@@ -126,7 +137,7 @@ public class PlayerViewBean {
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
 	}
-	
+
 	public Position[] getPositions() {
 		return Position.values();
 	}
@@ -139,4 +150,27 @@ public class PlayerViewBean {
 		this.birthdayFormatted = birthdayFormatted;
 	}
 
+	public TotalPlayerStats getTotalPlayerStats() {
+		return totalPlayerStats;
+	}
+
+	public void setTotalPlayerStats(TotalPlayerStats totalPlayerStats) {
+		this.totalPlayerStats = totalPlayerStats;
+	}
+
+	public ZoneCountPlayer getGoalsZones() {
+		return goalsZones;
+	}
+
+	public void setGoalsZones(ZoneCountPlayer goalsZones) {
+		this.goalsZones = goalsZones;
+	}
+
+	public ZoneCountPlayer getAssistZones() {
+		return assistZones;
+	}
+
+	public void setAssistZones(ZoneCountPlayer assistZones) {
+		this.assistZones = assistZones;
+	}
 }

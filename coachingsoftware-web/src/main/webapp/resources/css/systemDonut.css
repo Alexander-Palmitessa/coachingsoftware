@@ -1,0 +1,25 @@
+.donut-label {
+	fill: #6699ff;
+	text-align: center;
+	font-family: "Helvetica Neue",serif;
+	font-size: 4em;
+}
+.chart-text {
+	font-family: "Helvetica Neue",serif;
+	transform: translateY(0.1em);
+}
+
+.chart-number1 {
+	fill: #66ff66;
+	font-size: 0.3em;
+	text-anchor: middle;
+	transform: translateX(-0.8em);
+
+}
+
+.chart-number2 {
+	fill: #ff5050;
+	font-size: 0.3em;
+	text-anchor: middle;
+	transform: translateX(0.8em);
+}
