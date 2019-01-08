@@ -61,7 +61,7 @@
 					<tbody>
 					<ui:repeat value="#{gameBean.currentGame.lineUpPlayers}" var="lup">
 						<tr>
-							<td data-label="#{msg['name']}">#{lup.player.firstName.charAt(0)}. #{lup.player.lastName}</td>
+							<td data-label="#{msg['name']}">#{lup.player.contact.firstName.charAt(0)}. #{lup.player.contact.lastName}</td>
 							<td data-label="#{msg['position']}">
 								<h:selectOneMenu value="#{lup.position}">
 									<f:selectItem value="#{null}" itemLabel="-"/>

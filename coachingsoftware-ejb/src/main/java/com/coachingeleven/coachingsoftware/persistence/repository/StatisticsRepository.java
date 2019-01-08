@@ -51,6 +51,16 @@ public class StatisticsRepository extends Repository {
 	final String TEAM_HOME_ID = "TEAM_HOME_ID";
 	final String TEAM_AWAY_ID = "TEAM_AWAY_ID";
 
+	final String TECHNIQUE = "TECHNIQUE";
+	final String INTELLIGENCE = "INTELLIGENCE";
+	final String PERSONALITY = "PERSONALITY";
+	final String SPEED = "SPEED";
+
+	final String CHANGEIN = "CHANGEIN";
+	final String CHANGEOUT = "CHANGEOUT";
+	final String MINUTE_IN = "MINUTE_IN";
+	final String MINUTE_OUT = "MINUTE_OUT";
+
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerGoalsA1(Season season, int playerID) {
 		return getPlayerZones(season, playerID, A1, SCORER_ID, ZONE_SCORED);
@@ -702,5 +712,55 @@ public class StatisticsRepository extends Repository {
 		return (int) entityManager.createNativeQuery("select count(*) from GOAL join GAME G on GOAL.GAME_ID = G.GAME_ID where cast(DATE as date) between '" +
 				getStartDate(season) + "' and '" + getEndDate(season)
 				+ "' and TEAM_AWAY_ID=" + teamID + " or TEAM_HOME_ID=" + teamID + " and GOAL.MINUTE_SCORED >= " + startMinute + " and GOAL.MINUTE_SCORED <" + endMinute + " and GOALTYPE ='" + scoredTaken + "'").getSingleResult();
+	}
+
+	public double getAverageTIPS(Season season, int playerID) {
+		double numberOfGames = (double) getPlayerNumberOfGames(season, playerID);
+		double t = getSumOfTIPS(season, playerID, TECHNIQUE) / numberOfGames;
+		double i = getSumOfTIPS(season, playerID, INTELLIGENCE) / numberOfGames;
+		double p = getSumOfTIPS(season, playerID, PERSONALITY) / numberOfGames;
+		double s = getSumOfTIPS(season, playerID, SPEED) / numberOfGames;
+		return (t + i + p + s) / 4;
+	}
+
+	public int getPlayerNumberOfGames(Season season, int playerID) {
+		return (int) entityManager.createNativeQuery("select count(*) from PLAYER_GAMESTATS join GAME G on PLAYER_GAMESTATS.GAME_ID = G.GAME_ID where cast(DATE as date) between '" +
+				getStartDate(season) + "' and '" + getEndDate(season) + "' and PLAYER =" + playerID + " and MINUTES_PLAYED > 0 ").getSingleResult();
+	}
+
+	private int getSumOfTIPS(Season season, int playerID, String tips) {
+		return (int) entityManager.createNativeQuery("select sum(" + tips + ") from PLAYER_GAMESTATS join GAME G on PLAYER_GAMESTATS.GAME_ID = G.GAME_ID where cast(DATE as date) between '" +
+				getStartDate(season) + "' and '" + getEndDate(season) + "' and PLAYER =" + playerID).getSingleResult();
+	}
+
+	public int getNumberOfMinutesPlayed(Season season, int playerID) {
+		return (int) entityManager.createNativeQuery("select sum(MINUTES_PLAYED) from PLAYER_GAMESTATS join GAME G on PLAYER_GAMESTATS.GAME_ID = G.GAME_ID where cast(DATE as date) between '" +
+				getStartDate(season) + "' and '" + getEndDate(season) + "' and PLAYER =" + playerID).getSingleResult();
+	}
+
+	private int getNumberOfGoals(Season season, int playerID, String goalAssist) {
+		return (int) entityManager.createNativeQuery("select count(*) from GOAL join GAME G on GOAL.GAME_ID = G.GAME_ID where cast(DATE as date) between '" +
+				getStartDate(season) + "' and '" + getEndDate(season) + "' and " + goalAssist + " =" + playerID).getSingleResult();
+	}
+
+	public int getNumberOfGoals(Season season, int playerID) {
+		return getNumberOfGoals(season, playerID, SCORER_ID);
+	}
+
+	public int getNumberOfAssists(Season season, int playerID) {
+		return getNumberOfGoals(season, playerID, ASSISTANT_ID);
+	}
+
+	private int getNumberOfChanges(Season season, int playerID, String inOut, String minuteInOut) {
+		return (int) entityManager.createNativeQuery("select count(*) from " + inOut + " join GAME G on " + inOut + ".GAME_ID = G.GAME_ID where cast(DATE as date) between '" +
+				getStartDate(season) + "' and '" + getEndDate(season) + "' and  PLAYER_ID=" + playerID + " and " + minuteInOut + "> 0").getSingleResult();
+	}
+
+	public int getNumberOfChangeIns(Season season, int playerID) {
+		return getNumberOfChanges(season, playerID, CHANGEIN, MINUTE_IN);
+	}
+
+	public int getNumberOfChangeOuts(Season season, int playerID) {
+		return getNumberOfChanges(season, playerID, CHANGEOUT, MINUTE_OUT);
 	}
 }

@@ -233,4 +233,24 @@ public interface StatisticsServiceRemote {
 	int getBlock75to90Scored(Season season, int teamID);
 
 	int getBlock75to90Taken(Season season, int teamID);
+
+	double getAverageTIPS(Season season, int playerID);
+
+	int getNumberOfGames(Season season, int playerID);
+
+	int getMinutesPlayed(Season season, int playerID);
+
+	int getNumberOfGoals(Season season, int playerID);
+
+	int getNumberOfAssists(Season season, int playerID);
+
+	int getNumberOfChangeIn(Season season, int playerID);
+
+	int getNumberOfChangeOut(Season season, int playerID);
+
+	int getNumberOfRed(Season season, int playerID);
+
+	int getNumberOfYellow(Season season, int playerID);
+
+	int getNumberOfYellowRed(Season season, int playerID);
 }

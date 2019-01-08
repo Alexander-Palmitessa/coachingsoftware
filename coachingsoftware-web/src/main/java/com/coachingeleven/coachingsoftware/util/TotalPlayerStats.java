@@ -1,8 +1,10 @@
 package com.coachingeleven.coachingsoftware.util;
 
+import com.coachingeleven.coachingsoftware.application.service.StatisticsServiceRemote;
 import com.coachingeleven.coachingsoftware.persistence.entity.Card;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.PlayerGameStats;
+import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 
 public class TotalPlayerStats {
 
@@ -22,48 +24,18 @@ public class TotalPlayerStats {
 	private ZoneCountPlayer goalZones;
 	private ZoneCountPlayer assistZones;
 
-	//TODO: ONLY CURRENT SEASON
-
-	public TotalPlayerStats(Player player) {
+	public TotalPlayerStats(Player player, StatisticsServiceRemote statisticsService, Season season) {
 		this.player = player;
-		createStats();
-		countZones();
-	}
-
-	private void createStats() {
-		totalGames = player.getGameStats().size();
-
-		//get stats from every game
-		for (PlayerGameStats pgs : player.getGameStats()) {
-			totalMinutes += pgs.getMinutesPlayed();
-			if (pgs.getChangeIn() != null) totalIn += 1;
-			if (pgs.getChangeOut() != null) totalOut += 1;
-			totalGoals += pgs.getGoals();
-			totalAssist += pgs.getAssist();
-
-			//get card stats
-			for (Card card : pgs.getCards()) {
-				switch (card.getType()) {
-					case RED:
-						totalRed += 1;
-						break;
-					case YELLOW:
-						totalYellow += 1;
-						break;
-					case YELLOWRED:
-						totalYellowRed += 1;
-						break;
-				}
-			}
-
-			//get averageTIPS
-			TIPSaverage += pgs.getTips().getAverage();
-		}
-		TIPSaverage = (double) Math.round(TIPSaverage / player.getGameStats().size() * 100) / 100;
-	}
-
-	private void countZones(){
-		//TODO: Count zones
+		totalGames = statisticsService.getNumberOfGames(season, player.getID());
+		totalMinutes = statisticsService.getMinutesPlayed(season, player.getID());
+		totalIn = statisticsService.getNumberOfChangeIn(season, player.getID());
+		totalOut = statisticsService.getNumberOfChangeOut(season, player.getID());
+		totalGoals = statisticsService.getNumberOfGoals(season, player.getID());
+		totalAssist = statisticsService.getNumberOfAssists(season, player.getID());
+		totalYellow = 0;
+		totalYellowRed = 0;
+		totalRed = 0;
+		TIPSaverage = statisticsService.getAverageTIPS(season, player.getID());
 	}
 
 	public int getTotalGames() {

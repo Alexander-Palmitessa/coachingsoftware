@@ -41,8 +41,6 @@ public class PlayerViewBean {
 	private PlayerServiceRemote playerService;
 	@EJB
 	private CountryServiceRemote countryService;
-	@Inject
-	private DateFormatterBean dateFormatterBean; //TODO: Remove when current season is selected below
 	@EJB
 	private StatisticsServiceRemote statisticsService;
 	@EJB
@@ -64,8 +62,8 @@ public class PlayerViewBean {
 	public void init() {
 		currentPlayer = currentPlayerBean.getCurrentPlayer();
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
-		totalPlayerStats = new TotalPlayerStats(currentPlayer);
 		Season selectedSeason = loginBean.getLoggedInUserSeason();
+		totalPlayerStats = new TotalPlayerStats(currentPlayer, statisticsService, selectedSeason);
 		goalsZones = new ZoneCountPlayer(statisticsService, selectedSeason, currentPlayer);
 		assistZones = new ZoneCountPlayer(statisticsService, selectedSeason, currentPlayer);
 		// Format date for GUI

@@ -593,4 +593,55 @@ public class StatisticsService implements StatisticsServiceRemote {
 		return statisticsRepository.getBlock75to90Taken(season, teamID);
 	}
 
+	@Override
+	public double getAverageTIPS(Season season, int playerID){
+		return statisticsRepository.getAverageTIPS(season, playerID);
+	}
+
+	@Override
+	public int getNumberOfGames(Season season, int playerID) {
+		return statisticsRepository.getPlayerNumberOfGames(season, playerID);
+	}
+
+	@Override
+	public int getMinutesPlayed(Season season, int playerID) {
+		return statisticsRepository.getNumberOfMinutesPlayed(season, playerID);
+	}
+
+	@Override
+	public int getNumberOfGoals(Season season, int playerID) {
+		return statisticsRepository.getNumberOfGoals(season, playerID);
+	}
+
+	@Override
+	public int getNumberOfAssists(Season season, int playerID) {
+		return statisticsRepository.getNumberOfAssists(season, playerID);
+	}
+
+	@Override
+	public int getNumberOfChangeIn(Season season, int playerID) {
+		return statisticsRepository.getNumberOfChangeIns(season, playerID);
+	}
+
+	@Override
+	public int getNumberOfChangeOut(Season season, int playerID) {
+		return statisticsRepository.getNumberOfChangeOuts(season, playerID);
+	}
+
+	@Override
+	public int getNumberOfRed(Season season, int playerID) {
+		return 0;
+	}
+
+	@Override
+	public int getNumberOfYellow(Season season, int playerID) {
+		return 0;
+	}
+
+	@Override
+	public int getNumberOfYellowRed(Season season, int playerID) {
+		return 0;
+	}
+
+
 }

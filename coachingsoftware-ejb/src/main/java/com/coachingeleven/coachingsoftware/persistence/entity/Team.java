@@ -37,12 +37,6 @@ public class Team implements Serializable {
 	@JoinColumn(name = "CLUB_ID")
 	@ManyToOne
 	private Club club;
-	@ManyToMany
-	@JoinTable(
-			name = "TEAM_GAME",
-			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "TEAM_ID"),
-			inverseJoinColumns = @JoinColumn(name = "GAME_ID", referencedColumnName = "GAME_ID"))
-	private Set<Game> games;
 	@OneToMany(mappedBy = "teamHome", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Game> gamesHome;
 	@OneToMany(mappedBy = "teamAway", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -87,14 +81,6 @@ public class Team implements Serializable {
 	public void setClub(Club club) {
 		this.club = club;
 		club.getTeams().add(this);
-	}
-
-	public Set<Game> getGames() {
-		return games;
-	}
-
-	public void setGames(Set<Game> games) {
-		this.games = games;
 	}
 
 	public String getTeamPictureURL() {

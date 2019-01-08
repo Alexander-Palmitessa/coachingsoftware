@@ -14,6 +14,7 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Arena;
 import com.coachingeleven.coachingsoftware.persistence.entity.Card;
 import com.coachingeleven.coachingsoftware.persistence.entity.ChangeIn;
 import com.coachingeleven.coachingsoftware.persistence.entity.ChangeOut;
+import com.coachingeleven.coachingsoftware.persistence.entity.Contact;
 import com.coachingeleven.coachingsoftware.persistence.entity.Game;
 import com.coachingeleven.coachingsoftware.persistence.entity.GameSystem;
 import com.coachingeleven.coachingsoftware.persistence.entity.Goal;
@@ -136,8 +137,14 @@ public class GameBean implements Serializable {
 			for (LineUpPlayer lineUpPlayer : newGame.getLineUpPlayers()) {
 				PlayerGameStats playerGameStats = new PlayerGameStats();
 				playerGameStats.setGame(newGame);
-				playerGameStats.setChangeIn(new ChangeIn());
-				playerGameStats.setChangeOut(new ChangeOut());
+				ChangeIn newChangeIn =  new ChangeIn();
+				newChangeIn.setPlayer(lineUpPlayer.getPlayer());
+				newChangeIn.setGame(newGame);
+				playerGameStats.setChangeIn(newChangeIn);
+				ChangeOut newChangeOut =  new ChangeOut();
+				newChangeOut.setPlayer(lineUpPlayer.getPlayer());
+				newChangeOut.setGame(newGame);
+				playerGameStats.setChangeOut(newChangeOut);
 				playerGameStats.setTips(new TIPS());
 				playerGameStats.setPlayer(lineUpPlayer.getPlayer());
 				playerGameStats.getPlayer().getGameStats().add(playerGameStats);
@@ -187,7 +194,12 @@ public class GameBean implements Serializable {
 	public void init() {
 		teams = teamClubService.findAllTeams();
 		arenas = arenaService.findAll();
-		Team currentTeam = loginBean.getLoggedInUserTeam();
+		Team currentTeam;
+		try{
+			currentTeam = teamClubService.findTeam(loginBean.getLoggedInUserTeam().getID());
+		} catch (TeamNotFoundException e){
+			currentTeam = loginBean.getLoggedInUserTeam();
+		}
 		if (loginBean.getLoggedInUserTeam() != null && loginBean.getLoggedInUserSeason() != null)
 			players = teamContactService.findPlayersByTeamAndSeason(loginBean.getLoggedInUserTeam().getID(), loginBean.getLoggedInUserSeason());
 		else players = new ArrayList<>();
@@ -294,12 +306,11 @@ public class GameBean implements Serializable {
 	 *
 	 * @return redirect to the same page
 	 */
-	//TODO: Reduce cognitive complexity, --> JSF CONVERTER
 	public String updateGame() {
 		//Prepare Goals
 		for (Goal goal : currentGame.getGoals()) {
 			if (goal.getScorer() != null) {
-				if (goal.getScorer().getContact().getLastName() == null && goal.getScorer().getID() != 0) {
+				if (goal.getScorer().getID() != 0) {
 					try {
 						goal.setScorer(playerService.findPlayer(goal.getScorer().getID()));
 					} catch (PlayerNotFoundException e) {
@@ -309,7 +320,7 @@ public class GameBean implements Serializable {
 				} else if (goal.getScorer().getID() == 0) goal.setScorer(null);
 			}
 			if (goal.getAssistant() != null) {
-				if (goal.getAssistant().getContact().getLastName() == null && goal.getAssistant().getID() != 0) {
+				if (goal.getAssistant().getID() != 0) {
 					try {
 						goal.setAssistant(playerService.findPlayer(goal.getAssistant().getID()));
 					} catch (PlayerNotFoundException e) {

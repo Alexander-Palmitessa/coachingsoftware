@@ -47,9 +47,6 @@ public class TeamDataBean {
 	private LoginBean loginBean;
 	@Inject
 	private NavigationBean navigationBean;
-
-	@Inject
-	private DateFormatterBean dateFormatterBean; //TODO: Remove when current season is selected below
 	@EJB
 	private StatisticsServiceRemote statisticsService;
 
@@ -82,13 +79,10 @@ public class TeamDataBean {
 		if (selectedClub.getAddress().getCountry() != null)
 			selectedCountry.setName(selectedClub.getAddress().getCountry().getName());
 
-
-		Season mockupSeason = new Season(); //TODO: Remove when currentSeason is selectable
-		mockupSeason.setStartDate(dateFormatterBean.getCalendar("01.01.1980")); //TODO: Remove when currentSeason is selectable
-		mockupSeason.setEndDate(dateFormatterBean.getCalendar("01.01.2020")); //TODO: Remove when currentSeason is selectable
-		zoneStats = new ZoneCountTeam(statisticsService, mockupSeason, currentTeam); //TODO: currentSeason
-		systemCount = new SystemCount(statisticsService, mockupSeason, currentTeam); //TODO: currentSeason
-		blockCount = new BlockCount(statisticsService, mockupSeason, currentTeam); //TODO: currentSeason
+		Season selectedSeason = loginBean.getLoggedInUserSeason();
+		zoneStats = new ZoneCountTeam(statisticsService, selectedSeason, currentTeam);
+		systemCount = new SystemCount(statisticsService, selectedSeason, currentTeam);
+		blockCount = new BlockCount(statisticsService, selectedSeason, currentTeam);
 	}
 
 	public String updateTeam() throws CountryAlreadyExistsException {
