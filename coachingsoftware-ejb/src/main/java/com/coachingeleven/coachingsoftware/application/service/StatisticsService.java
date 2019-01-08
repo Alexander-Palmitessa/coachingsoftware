@@ -630,17 +630,17 @@ public class StatisticsService implements StatisticsServiceRemote {
 
 	@Override
 	public int getNumberOfRed(Season season, int playerID) {
-		return 0;
+		return statisticsRepository.getRedCards(season, playerID);
 	}
 
 	@Override
 	public int getNumberOfYellow(Season season, int playerID) {
-		return 0;
+		return statisticsRepository.getYellowCards(season, playerID);
 	}
 
 	@Override
 	public int getNumberOfYellowRed(Season season, int playerID) {
-		return 0;
+		return statisticsRepository.getRedCards(season, playerID);
 	}
 
 

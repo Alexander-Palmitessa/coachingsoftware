@@ -61,6 +61,10 @@ public class StatisticsRepository extends Repository {
 	final String MINUTE_IN = "MINUTE_IN";
 	final String MINUTE_OUT = "MINUTE_OUT";
 
+	final String RED = "RED";
+	final String YELLOW = "YELLOW";
+	final String YELLOWRED = "YELLOWRED";
+
 	@TransactionAttribute(SUPPORTS)
 	public int getPlayerGoalsA1(Season season, int playerID) {
 		return getPlayerZones(season, playerID, A1, SCORER_ID, ZONE_SCORED);
@@ -762,5 +766,22 @@ public class StatisticsRepository extends Repository {
 
 	public int getNumberOfChangeOuts(Season season, int playerID) {
 		return getNumberOfChanges(season, playerID, CHANGEOUT, MINUTE_OUT);
+	}
+
+	private int getCards(Season season, int playerID, String card) {
+		return (int) entityManager.createNativeQuery("select count(*) from CARD C join PLAYER_GAMESTATS PG on C.PLAYER_GAMESTATS_ID = PG.PLAYER_GAMESTATS_ID join GAME G on PG.GAME_ID = G.GAME_ID where C.CARD_TYPE='" + card + "' and cast(DATE as date) between '" +
+				getStartDate(season) + "' and '" + getEndDate(season) + "'and PG.PLAYER=" + playerID).getSingleResult();
+	}
+
+	public int getRedCards(Season season, int playerID){
+		return getCards(season, playerID, RED);
+	}
+
+	public int getYellowCards(Season season, int playerID){
+		return getCards(season, playerID, YELLOW);
+	}
+
+	public int getYellowRedCards(Season season, int playerID){
+		return getCards(season, playerID, YELLOWRED);
 	}
 }
