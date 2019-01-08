@@ -110,3 +110,16 @@ form .divider {
 form .divider h3 {
 	margin: 0;
 }
+
+.season-picker #assignedTeamSeason {
+	border: 1px solid #3D5998;
+	background-color: #F4F4F4 !important;
+	border-radius: 4px;
+	color: #5D82A7;
+}
+
+.season-picker label {
+	font-size: 1rem;
+	color: #5D82A7;
+	font-weight: normal;
+}

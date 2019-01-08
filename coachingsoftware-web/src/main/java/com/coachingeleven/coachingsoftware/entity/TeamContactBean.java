@@ -59,7 +59,7 @@ public class TeamContactBean implements CreateBean<TeamContact>, UpdateBean<Team
 		Team team = new Team();
 		entity = new TeamContact();
 		entity.setTeam(team);
-		if(loginBean.getLoggedInUser() != null) {
+		if(loginBean.getLoggedInUser() != null && loginBean.getLoggedInUser().getContact() != null) {
 			List<Team> teams = getAssignedTeamsByContact(loginBean.getLoggedInUser().getContact().getID());
 			if(teams.size() > 0) {
 				List<TeamContact> contacts = teamContactService.findAssignedTeamContacts(teams.get(0).getID(),loginBean.getLoggedInUser().getContact().getID());
@@ -189,7 +189,9 @@ public class TeamContactBean implements CreateBean<TeamContact>, UpdateBean<Team
 	}
 	
 	public List<Player> findPlayersByTeamAndSeason(Team team, Season season) {
-		return teamContactService.findPlayersByTeamAndSeason(team.getID(), season);
+		List<Player> players = teamContactService.findPlayersByTeamAndSeason(team.getID(), season);
+		logger.warning("PLAYERS FOUND: " + players.size());
+		return players;
 	}
 
 	@Override
@@ -210,8 +212,8 @@ public class TeamContactBean implements CreateBean<TeamContact>, UpdateBean<Team
 		return teamContactService.findAssignedTeams(contactID);
 	}
 	
-	public List<Team> getUnassingnedTeams() {
-		return teamContactService.findUnassingnedTeams();
+	public List<Team> getUntrainedTeams() {
+		return teamContactService.findUntrainedTeams();
 	}
 	
 	public List<Player> getUnassingnedPlayers() {

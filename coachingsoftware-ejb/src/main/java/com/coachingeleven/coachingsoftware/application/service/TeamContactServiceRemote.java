@@ -19,7 +19,7 @@ public interface TeamContactServiceRemote {
 	TeamContact find(TeamContactId id) throws TeamContactNotFoundException;
 	TeamContact createTeamContact(TeamContact teamContact) throws TeamContactAlreadyExistsException;
 	List<Team> findTeamsByContact(Contact contact);
-	List<Team> findUnassingnedTeams();
+	List<Team> findUntrainedTeams();
 	List<Contact> findContactsByTeam(Team team);
 	List<Player> findPlayersByTeam(Team team);
 	TeamContact update(TeamContact teamContact);

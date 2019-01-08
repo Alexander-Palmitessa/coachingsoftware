@@ -17,6 +17,7 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.TeamContact;
+import com.coachingeleven.coachingsoftware.persistence.enumeration.Role;
 
 @Stateless
 public class TeamContactRepository extends Repository<TeamContact> {
@@ -34,7 +35,7 @@ public class TeamContactRepository extends Repository<TeamContact> {
 	
 	@SuppressWarnings("unchecked")
 	@TransactionAttribute(SUPPORTS)
-    public List<Team> findUnassingnedTeams() {
+    public List<Team> findUntrainedTeams() {
     	try {
     		Query query = entityManager.createNativeQuery("SELECT "
 	    				+ "t.TEAM_ID, "
@@ -47,7 +48,10 @@ public class TeamContactRepository extends Repository<TeamContact> {
     				+ "NOT IN "
     					+ "(SELECT tc.TEAM_ID "
     					+ "FROM Team_Contact AS tc "
-    					+ "WHERE tc.LEAVEDATE IS NULL OR tc.LEAVEDATE >= ?)", Team.class);
+    					+ "JOIN Contact AS c "
+    						+ "ON tc.CONTACT_ID = c.CONTACT_ID "
+    					+ "WHERE c.ROLE = ? AND (tc.LEAVEDATE IS NULL OR tc.LEAVEDATE >= ?))", Team.class);
+    		query.setParameter(1, Role.TRAINER.toString());
     		query.setParameter(1, new Date(Calendar.getInstance().getTime().getTime()));
 			return query.getResultList();
 		} catch (NoResultException ex) {
@@ -183,10 +187,10 @@ public class TeamContactRepository extends Repository<TeamContact> {
 				+ "IN "
 					+ "(SELECT tc.CONTACT_ID "
 					+ "FROM Team_Contact AS tc "
-					+ "WHERE tc.TEAM_ID = ? AND tc.JOINDATE >= ? AND (tc.LEAVEDATE IS NULL OR tc.LEAVEDATE <= ?))", Player.class);
+					+ "WHERE tc.TEAM_ID = ? AND tc.JOINDATE <= ? AND (tc.LEAVEDATE IS NULL OR tc.LEAVEDATE >= ?))", Player.class);
     		query.setParameter(1, teamID);
-    		query.setParameter(2, new Date(season.getStartDate().getTime().getTime()));
-    		query.setParameter(3, new Date(season.getEndDate().getTime().getTime()));
+    		query.setParameter(2, new Date(season.getEndDate().getTime().getTime()));
+    		query.setParameter(3, new Date(season.getStartDate().getTime().getTime()));
 			return query.getResultList();
 		} catch (NoResultException ex) {
 			return null;

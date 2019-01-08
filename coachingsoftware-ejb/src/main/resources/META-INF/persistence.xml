@@ -8,7 +8,7 @@
 	<persistence-unit name="coachingeleven" transaction-type="JTA">
 		<jta-data-source>jdbc/coachingeleven</jta-data-source>
 		<properties>
-			<property name="eclipselink.ddl-generation" value="create-tables"/>
+			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
 			<property name="eclipselink.logging.level" value="FINE"/>
 			<property name="eclipselink.logging.parameters" value="true"/>
 			<property name="eclipselink.logging.timestamp" value="false"/>
