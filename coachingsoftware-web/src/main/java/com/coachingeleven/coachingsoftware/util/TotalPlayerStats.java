@@ -32,9 +32,9 @@ public class TotalPlayerStats {
 		totalOut = statisticsService.getNumberOfChangeOut(season, player.getID());
 		totalGoals = statisticsService.getNumberOfGoals(season, player.getID());
 		totalAssist = statisticsService.getNumberOfAssists(season, player.getID());
-		totalYellow = 0;
-		totalYellowRed = 0;
-		totalRed = 0;
+		totalYellow = statisticsService.getNumberOfYellow(season, player.getID());
+		totalYellowRed = statisticsService.getNumberOfYellowRed(season, player.getID());
+		totalRed = statisticsService.getNumberOfRed(season, player.getID());
 		TIPSaverage = statisticsService.getAverageTIPS(season, player.getID());
 	}
 
