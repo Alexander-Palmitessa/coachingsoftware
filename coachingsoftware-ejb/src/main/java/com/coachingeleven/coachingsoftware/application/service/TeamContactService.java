@@ -53,8 +53,8 @@ public class TeamContactService implements TeamContactServiceRemote {
 	}
 
 	@Override
-	public List<Team> findUnassingnedTeams() {
-		return teamContactRepository.findUnassingnedTeams();
+	public List<Team> findUntrainedTeams() {
+		return teamContactRepository.findUntrainedTeams();
 	}
 
 	@Override

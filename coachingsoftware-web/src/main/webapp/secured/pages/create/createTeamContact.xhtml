@@ -29,7 +29,7 @@
 	        	</h:panelGroup>
 		        <ui:include src="/secured/forms/teamContactForm.xhtml">
 		        	<ui:param name="teamContact" value="#{teamContactBean.entity}" />
-		        	<ui:param name="teams" value="#{teamContactBean.getUnassingnedTeams()}" />
+		        	<ui:param name="teams" value="#{teamContactBean.getUntrainedTeams()}" />
 		        </ui:include>
 		        <div class="small-12 column text-center">
 		        	<h:commandButton action="#{teamContactBean.create(teamContactBean.entity,loginBean.loggedInUser.contact)}" value="#{msg['addTeam']}" />

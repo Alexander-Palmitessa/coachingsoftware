@@ -1,6 +1,7 @@
 package com.coachingeleven.coachingsoftware;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -96,7 +97,6 @@ public class LoginBean implements Serializable {
 				return navigationBean.redirectToUserSettings();
 			}
 		} catch (UserNotFoundException e) {
-			// TODO Auto-generated catch block
 			logger.log(Level.INFO, e.getMessage());
 		}
 		return navigationBean.redirectToLogin();
@@ -109,16 +109,15 @@ public class LoginBean implements Serializable {
 		return navigationBean.toLogin();
 	}
 	
-	public String assignCurrentTeam(Team team, Season season) {
-		if(loggedInUser != null && team != null && season != null) {
+	public String assignCurrentTeam(Team team) {
+		if(loggedInUser != null && team != null) {
 			try {
 				loggedInUserTeam = teamClubService.findTeam(team.getID());
-				loggedInUserSeason = seasonService.findSeason(season.getID());
+				List<Season> seasons = seasonService.findSeasonsForAssignedTeam(team.getID(), loggedInUser.getContact().getID());
+				if(seasons.size() > 0) loggedInUserSeason = seasons.get(0);
 				return navigationBean.redirectToTeamDataOverview();
 			} catch (TeamNotFoundException e) {
 				logger.warning("Could not find team with ID (" + team.getID() + "): " + e.getMessage());
-			} catch (SeasonNotFoundException e) {
-				logger.warning("Could not find season with ID (" + season.getID() + "): " + e.getMessage());
 			}
 		}
 		return navigationBean.redirectToAssignCurrentTeam();
@@ -130,7 +129,8 @@ public class LoginBean implements Serializable {
 		return navigationBean.redirectToAssignCurrentTeam();
 	}
 	
-	public void changeLoggedInUserSeason(int seasonID) {
+	public void pullLoggedInUserSeason(int seasonID) {
+		logger.warning("SEASON ID: " + seasonID);
 		try {
 			loggedInUserSeason = seasonService.findSeason(seasonID);
 		} catch (SeasonNotFoundException e) {

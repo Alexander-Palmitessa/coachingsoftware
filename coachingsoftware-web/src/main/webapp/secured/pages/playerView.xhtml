@@ -130,10 +130,9 @@
 									</div>
 									<div class="small-12 medium-6 column">
 										<label><h:outputText value="#{msg['country']}"/></label>
-										<h:selectOneMenu value="#{playerViewBean.currentPlayer.contact.address.country.name}">
-											<f:selectItems value="#{addressBean.countryValue}" var="c"
-														   itemValue="#{c.countryValue}"
-														   itemLabel="#{c.countryLabel}"/>
+										<h:selectOneMenu value="#{playerViewBean.currentPlayer.contact.address.country.ID}">
+											<f:selectItems value="#{countryBean.entities}" var="c" itemValue="#{c.ID}"
+								                       itemLabel="#{c.name}"/>
 										</h:selectOneMenu>
 									</div>
 									<div class="small-12 medium-6 column">
@@ -144,11 +143,10 @@
 									</div>
 									<div class="small-12 medium-6 column">
 										<label><h:outputText value="#{msg['countryPermission']}"/></label>
-										<h:selectOneMenu value="#{playerViewBean.currentPlayer.countryPermission.name}">
-											<f:selectItems value="#{addressBean.countryValue}" var="c"
-														   itemValue="#{c.countryValue}"
-														   itemLabel="#{c.countryLabel}"/>
-										</h:selectOneMenu>
+										<h:selectOneMenu value="#{playerViewBean.currentPlayer.countryPermission.ID}">
+									        <f:selectItems value="#{countryBean.entities}" var="c" itemValue="#{c.ID}"
+								                       itemLabel="#{c.name}"/>
+									    </h:selectOneMenu>
 									</div>
 									<div class="small-12 column text-center">
 										<h:commandButton action="#{playerViewBean.updateCurrentPlayer}"

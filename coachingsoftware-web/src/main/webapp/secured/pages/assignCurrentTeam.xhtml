@@ -23,18 +23,10 @@
 				    <h:selectOneMenu value="#{teamBean.entity.ID}">
 				        <f:selectItems value="#{teamContactBean.getTeamsByContact(loginBean.loggedInUser.contact)}" var="team" itemValue="#{team.ID}"
 				                       itemLabel="#{team.name}"/>
-						<f:ajax listener="#{seasonBean.updateTmpEntities(teamBean.entity.ID,loginBean.loggedInUser.contact.ID)}" render="assignedTeamSeason" />
-				    </h:selectOneMenu>
-		        </div>
-		        <div class="small-12 medium-6 column">
-		        	<label><h:outputText value="#{msg['season']}"/></label>
-				    <h:selectOneMenu id="assignedTeamSeason" value="#{seasonBean.entity.ID}">
-				        <f:selectItems value="#{seasonBean.tmpEntities}" var="season" itemValue="#{season.ID}"
-				                       itemLabel="#{season.name}"/>
 				    </h:selectOneMenu>
 		        </div>
 		        <div class="small-12 column text-center">
-		        	<h:commandButton action="#{loginBean.assignCurrentTeam(teamBean.entity,seasonBean.entity)}" value="#{msg['assignCurrentTeam']}" />
+		        	<h:commandButton action="#{loginBean.assignCurrentTeam(teamBean.entity)}" value="#{msg['assignCurrentTeam']}" />
 		        </div>
 	        </div>
 		</h:form>

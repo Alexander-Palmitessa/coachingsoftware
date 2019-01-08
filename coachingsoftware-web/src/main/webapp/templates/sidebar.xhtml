@@ -99,9 +99,9 @@
 			</ul>
 		</li>
 		
-		<h:panelGroup rendered="#{loginBean.loggedInUserTeam != null and loginBean.loggedInUserSeason != null}">
+		<h:panelGroup rendered="#{loginBean.loggedInUserTeam != null}">
 			<li>
-				<a href="#"><h:outputText value="#{loginBean.loggedInUserTeam.name}"/><h:outputText value=" - "/><h:outputText value="#{loginBean.loggedInUserSeason.name}"/></a>
+				<a href="#"><h:outputText value="#{loginBean.loggedInUserTeam.name}"/></a>
 				<ul class="menu vertical nested">
 					<li>
 						<h:outputLink value="#{request.contextPath}/secured/pages/teamOverview.xhtml"><h:outputText value="#{msg['teamOverview']}"/></h:outputLink>
