@@ -17,7 +17,6 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.entity.TeamContact;
-import com.coachingeleven.coachingsoftware.persistence.enumeration.Role;
 
 @Stateless
 public class TeamContactRepository extends Repository<TeamContact> {
@@ -50,8 +49,7 @@ public class TeamContactRepository extends Repository<TeamContact> {
     					+ "FROM Team_Contact AS tc "
     					+ "JOIN Contact AS c "
     						+ "ON tc.CONTACT_ID = c.CONTACT_ID "
-    					+ "WHERE c.ROLE = ? AND (tc.LEAVEDATE IS NULL OR tc.LEAVEDATE >= ?))", Team.class);
-    		query.setParameter(1, Role.TRAINER.toString());
+    					+ "WHERE tc.LEAVEDATE IS NULL OR tc.LEAVEDATE >= ?)", Team.class);
     		query.setParameter(1, new Date(Calendar.getInstance().getTime().getTime()));
 			return query.getResultList();
 		} catch (NoResultException ex) {

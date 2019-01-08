@@ -3,6 +3,7 @@ package com.coachingeleven.coachingsoftware;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -13,8 +14,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.coachingeleven.coachingsoftware.application.exception.ContactNotFoundException;
-import com.coachingeleven.coachingsoftware.application.exception.CountryAlreadyExistsException;
-import com.coachingeleven.coachingsoftware.application.exception.CountryNotFounException;
 import com.coachingeleven.coachingsoftware.application.service.ContactServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.CountryServiceRemote;
 import com.coachingeleven.coachingsoftware.application.service.PlayerServiceRemote;
@@ -24,13 +23,14 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Country;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
 import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 import com.coachingeleven.coachingsoftware.persistence.enumeration.Position;
-import com.coachingeleven.coachingsoftware.util.DateFormatterBean;
 import com.coachingeleven.coachingsoftware.util.TotalPlayerStats;
 import com.coachingeleven.coachingsoftware.util.ZoneCountPlayer;
 
 @Named(value = "playerViewBean")
 @RequestScoped
 public class PlayerViewBean {
+	
+	private static final Logger logger = Logger.getLogger(PlayerViewBean.class.getName());
 
 	@Inject
 	private CurrentPlayerBean currentPlayerBean;
@@ -63,9 +63,11 @@ public class PlayerViewBean {
 		currentPlayer = currentPlayerBean.getCurrentPlayer();
 		dateFormatter = new SimpleDateFormat("dd.MM.yyyy");
 		Season selectedSeason = loginBean.getLoggedInUserSeason();
-		totalPlayerStats = new TotalPlayerStats(currentPlayer, statisticsService, selectedSeason);
-		goalsZones = new ZoneCountPlayer(statisticsService, selectedSeason, currentPlayer);
-		assistZones = new ZoneCountPlayer(statisticsService, selectedSeason, currentPlayer);
+		if(statisticsService.getNumberOfGames(selectedSeason, currentPlayer.getID()) > 0) {
+			totalPlayerStats = new TotalPlayerStats(currentPlayer, statisticsService, selectedSeason);
+			goalsZones = new ZoneCountPlayer(statisticsService, selectedSeason, currentPlayer);
+			assistZones = new ZoneCountPlayer(statisticsService, selectedSeason, currentPlayer);
+		}
 		// Format date for GUI
 		if(currentPlayer.getContact().getBirthdate() != null) birthdayFormatted = dateFormatter.format(currentPlayer.getContact().getBirthdate().getTime());
 		// Create empty address if player doesn't have one
@@ -76,6 +78,8 @@ public class PlayerViewBean {
 	}
 
 	public void updateCurrentPlayer() {
+		logger.warning("OLDEMAILADDRESS: " + oldEmailAddress);
+		logger.warning("EMAILADDRESS: " + currentPlayer.getContact().getEmail());
 		if (checkForDuplicateEmail()) {
 			try {
 				// Set new birthday for current player
@@ -86,6 +90,7 @@ public class PlayerViewBean {
 					currentPlayer.getContact().setBirthdate(playerBirthdayCalendar);
 				}
 				// Update current player and reset the old email address to the persisted one (used to check for duplicate emails)
+				contactService.update(currentPlayer.getContact());
 				currentPlayer = playerService.update(currentPlayer);
 				oldEmailAddress = currentPlayer.getContact().getEmail();
 			} catch (ParseException e) {

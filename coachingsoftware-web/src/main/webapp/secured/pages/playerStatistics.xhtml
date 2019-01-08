@@ -58,86 +58,93 @@
 					<div class="card-container">
 						<div class="grey-background"></div>
 						<div class="card-user-profile-content card-section">
-
-							<!-- Table of common statistics -->
-							<div class="small-12 column">
-								<table class="responsive-card-table unstriped">
-									<thead>
-									<tr>
-										<th>#{msg['games']}</th>
-										<th>#{msg['minutesTotal']}</th>
-										<th>#{msg['goals2']}</th>
-										<th>#{msg['assists']}</th>
-										<th>#{msg['changeIn']}</th>
-										<th>#{msg['changeOut']}</th>
-										<th>#{msg['cardType.YELLOW']}</th>
-										<th>#{msg['cardType.YELLOWRED']}</th>
-										<th>#{msg['cardType.RED']}</th>
-										<th>#{msg['TIPSavg']}</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr>
-										<td data-label="#{msg['games']}">#{playerViewBean.totalPlayerStats.totalGames}</td>
-										<td data-label="#{msg['minutesTotal']}">#{playerViewBean.totalPlayerStats.totalMinutes}</td>
-										<td data-label="#{msg['goals']}">#{playerViewBean.totalPlayerStats.totalGoals}</td>
-										<td data-label="#{msg['assists']}">#{playerViewBean.totalPlayerStats.totalAssist}</td>
-										<td data-label="#{msg['changeIn']}">#{playerViewBean.totalPlayerStats.totalIn}</td>
-										<td data-label="#{msg['changeOut']}">#{playerViewBean.totalPlayerStats.totalOut}</td>
-										<td data-label="#{msg['cardType.YELLOW']}">#{playerViewBean.totalPlayerStats.totalYellow}</td>
-										<td data-label="#{msg['cardType.YELLOWRED']}">#{playerViewBean.totalPlayerStats.totalYellowRed}</td>
-										<td data-label="#{msg['cardType.RED']}">#{playerViewBean.totalPlayerStats.totalRed}</td>
-										<td data-label="#{msg['TIPSavg']}">#{playerViewBean.totalPlayerStats.TIPSaverage}</td>
-									</tr>
-									</tbody>
-								</table>
+							<div class="card-user-profile-avatar">
+								<h:graphicImage name="images/Default-avatar.jpg" />
 							</div>
-
-							<!-- goal values for heatmap fields-->
-							<h:inputHidden id="a1g" value="#{playerViewBean.goalsZones.a1g}"/>
-							<h:inputHidden id="a2g" value="#{playerViewBean.goalsZones.a2g}"/>
-							<h:inputHidden id="b1g" value="#{playerViewBean.goalsZones.b1g}"/>
-							<h:inputHidden id="b2g" value="#{playerViewBean.goalsZones.b2g}"/>
-							<h:inputHidden id="c1g" value="#{playerViewBean.goalsZones.c1g}"/>
-							<h:inputHidden id="c2g" value="#{playerViewBean.goalsZones.c2g}"/>
-							<h:inputHidden id="d1g" value="#{playerViewBean.goalsZones.d1g}"/>
-							<h:inputHidden id="d2g" value="#{playerViewBean.goalsZones.d2g}"/>
-							<h:inputHidden id="e1g" value="#{playerViewBean.goalsZones.e1g}"/>
-							<h:inputHidden id="e2g" value="#{playerViewBean.goalsZones.e2g}"/>
-							<h:inputHidden id="f1g" value="#{playerViewBean.goalsZones.f1g}"/>
-							<h:inputHidden id="f2g" value="#{playerViewBean.goalsZones.f2g}"/>
-
-							<!-- assist values for heatmap fields-->
-							<h:inputHidden id="a1a" value="#{playerViewBean.assistZones.a1a}"/>
-							<h:inputHidden id="a2a" value="#{playerViewBean.assistZones.a2a}"/>
-							<h:inputHidden id="b1a" value="#{playerViewBean.assistZones.b1a}"/>
-							<h:inputHidden id="b2a" value="#{playerViewBean.assistZones.b2a}"/>
-							<h:inputHidden id="c1a" value="#{playerViewBean.assistZones.c1a}"/>
-							<h:inputHidden id="c2a" value="#{playerViewBean.assistZones.c2a}"/>
-							<h:inputHidden id="d1a" value="#{playerViewBean.assistZones.d1a}"/>
-							<h:inputHidden id="d2a" value="#{playerViewBean.assistZones.d2a}"/>
-							<h:inputHidden id="e1a" value="#{playerViewBean.assistZones.e1a}"/>
-							<h:inputHidden id="e2a" value="#{playerViewBean.assistZones.e2a}"/>
-							<h:inputHidden id="f1a" value="#{playerViewBean.assistZones.f1a}"/>
-							<h:inputHidden id="f2a" value="#{playerViewBean.assistZones.f2a}"/>
-
-							<!-- Goal Heatmap-->
-							<div class="small-12 medium-6 centered">
-								<h1>Goals: </h1>
-								<h1 id="goalValue">-</h1>
-								<ui:include src="../util/GoalHeatmap.html"/>
+							<p class="card-user-profile-name"><h:outputText value="#{playerViewBean.currentPlayer.contact.firstName} #{playerViewBean.currentPlayer.contact.lastName}"/></p>
+							<div class="row">
+								<!-- Table of common statistics -->
+								<div class="small-12 column">
+									<table class="responsive-card-table unstriped">
+										<thead>
+										<tr>
+											<th>#{msg['games']}</th>
+											<th>#{msg['minutesTotal']}</th>
+											<th>#{msg['goals2']}</th>
+											<th>#{msg['assists']}</th>
+											<th>#{msg['changeIn']}</th>
+											<th>#{msg['changeOut']}</th>
+											<th>#{msg['cardType.YELLOW']}</th>
+											<th>#{msg['cardType.YELLOWRED']}</th>
+											<th>#{msg['cardType.RED']}</th>
+											<th>#{msg['TIPSavg']}</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td data-label="#{msg['games']}">#{playerViewBean.totalPlayerStats.totalGames}</td>
+											<td data-label="#{msg['minutesTotal']}">#{playerViewBean.totalPlayerStats.totalMinutes}</td>
+											<td data-label="#{msg['goals']}">#{playerViewBean.totalPlayerStats.totalGoals}</td>
+											<td data-label="#{msg['assists']}">#{playerViewBean.totalPlayerStats.totalAssist}</td>
+											<td data-label="#{msg['changeIn']}">#{playerViewBean.totalPlayerStats.totalIn}</td>
+											<td data-label="#{msg['changeOut']}">#{playerViewBean.totalPlayerStats.totalOut}</td>
+											<td data-label="#{msg['cardType.YELLOW']}">#{playerViewBean.totalPlayerStats.totalYellow}</td>
+											<td data-label="#{msg['cardType.YELLOWRED']}">#{playerViewBean.totalPlayerStats.totalYellowRed}</td>
+											<td data-label="#{msg['cardType.RED']}">#{playerViewBean.totalPlayerStats.totalRed}</td>
+											<td data-label="#{msg['TIPSavg']}">#{playerViewBean.totalPlayerStats.TIPSaverage}</td>
+										</tr>
+										</tbody>
+									</table>
+								</div>
+	
+								<!-- goal values for heatmap fields-->
+								<h:inputHidden id="a1g" value="#{playerViewBean.goalsZones.a1g}"/>
+								<h:inputHidden id="a2g" value="#{playerViewBean.goalsZones.a2g}"/>
+								<h:inputHidden id="b1g" value="#{playerViewBean.goalsZones.b1g}"/>
+								<h:inputHidden id="b2g" value="#{playerViewBean.goalsZones.b2g}"/>
+								<h:inputHidden id="c1g" value="#{playerViewBean.goalsZones.c1g}"/>
+								<h:inputHidden id="c2g" value="#{playerViewBean.goalsZones.c2g}"/>
+								<h:inputHidden id="d1g" value="#{playerViewBean.goalsZones.d1g}"/>
+								<h:inputHidden id="d2g" value="#{playerViewBean.goalsZones.d2g}"/>
+								<h:inputHidden id="e1g" value="#{playerViewBean.goalsZones.e1g}"/>
+								<h:inputHidden id="e2g" value="#{playerViewBean.goalsZones.e2g}"/>
+								<h:inputHidden id="f1g" value="#{playerViewBean.goalsZones.f1g}"/>
+								<h:inputHidden id="f2g" value="#{playerViewBean.goalsZones.f2g}"/>
+	
+								<!-- assist values for heatmap fields-->
+								<h:inputHidden id="a1a" value="#{playerViewBean.assistZones.a1a}"/>
+								<h:inputHidden id="a2a" value="#{playerViewBean.assistZones.a2a}"/>
+								<h:inputHidden id="b1a" value="#{playerViewBean.assistZones.b1a}"/>
+								<h:inputHidden id="b2a" value="#{playerViewBean.assistZones.b2a}"/>
+								<h:inputHidden id="c1a" value="#{playerViewBean.assistZones.c1a}"/>
+								<h:inputHidden id="c2a" value="#{playerViewBean.assistZones.c2a}"/>
+								<h:inputHidden id="d1a" value="#{playerViewBean.assistZones.d1a}"/>
+								<h:inputHidden id="d2a" value="#{playerViewBean.assistZones.d2a}"/>
+								<h:inputHidden id="e1a" value="#{playerViewBean.assistZones.e1a}"/>
+								<h:inputHidden id="e2a" value="#{playerViewBean.assistZones.e2a}"/>
+								<h:inputHidden id="f1a" value="#{playerViewBean.assistZones.f1a}"/>
+								<h:inputHidden id="f2a" value="#{playerViewBean.assistZones.f2a}"/>
+	
+								<!-- Goal Heatmap-->
+								<div class="small-12 column text-center statisticTitle">
+									Goals: <span id="goalValue">-</span>
+								</div>
+								<div class="small-12 column text-center">
+									<ui:include src="../util/GoalHeatmap.html"/>
+								</div>
+	
+								<!-- Assist Heatmap -->
+								<div class="small-12 column text-center statisticTitle">
+									Assist: <span id="assistValue">-</span>
+								</div>
+								<div class="small-12 column text-center">
+									<ui:include src="../util/AssistHeatamp.html"/>
+								</div>
+								<script>
+									$(document).ready(setHeatmapGoals());
+									$(document).ready(setHeatmapAssist());
+								</script>
 							</div>
-
-							<!-- Assist Heatmap -->
-							<div class="small-12 medium-6 centered">
-								<h1>Assist: </h1>
-								<h1 id="assistValue">-</h1>
-								<ui:include src="../util/AssistHeatamp.html"/>
-							</div>
-							<script>
-								$(document).ready(setHeatmapGoals());
-								$(document).ready(setHeatmapAssist());
-							</script>
 						</div>
 					</div>
 				</div>

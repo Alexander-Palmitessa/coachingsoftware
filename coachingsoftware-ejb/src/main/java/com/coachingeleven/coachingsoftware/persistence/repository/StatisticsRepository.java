@@ -5,6 +5,7 @@ import com.coachingeleven.coachingsoftware.persistence.entity.Season;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 
+import java.sql.Date;
 import java.util.Calendar;
 
 import static javax.ejb.TransactionAttributeType.SUPPORTS;
@@ -634,12 +635,12 @@ public class StatisticsRepository extends Repository {
 		return getGoalsPerBlock(season, teamID, 75, 90, TAKEN);
 	}
 
-	public String getStartDate(Season season) {
-		return season.getStartDate().get(Calendar.YEAR) + "-" + season.getStartDate().get(Calendar.MONTH) + 1 + "-" + season.getStartDate().get(Calendar.DATE);
+	public Date getStartDate(Season season) {
+		return new Date(season.getStartDate().getTime().getTime());
 	}
 
-	public String getEndDate(Season season) {
-		return season.getEndDate().get(Calendar.YEAR) + "-" + season.getEndDate().get(Calendar.MONTH) + 1 + "-" + season.getEndDate().get(Calendar.DATE);
+	public Date getEndDate(Season season) {
+		return new Date(season.getEndDate().getTime().getTime());
 	}
 
 	private int getPlayerZones(Season season, int playerID, String zone, String scorerAssistant, String scoreAssistZone) {

@@ -192,10 +192,13 @@
 				<a href="#"><h:outputText value="#{loginBean.loggedInUserTeam.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['statistics']}"/></a>
 				<ul class="menu vertical nested">
 					<li>
-						<a href="#"><h:outputText value="#{msg['player']}"/></a>
+						<a href="#{request.contextPath}/secured/pages/teamStatistics.xhtml"><h:outputText value="#{msg['team']}"/></a>
 					</li>
 					<li>
-						<a href="#"><h:outputText value="#{msg['games']}"/></a>
+						<a href="#{request.contextPath}/secured/pages/systemStatistics.xhtml"><h:outputText value="#{msg['system']}"/></a>
+					</li>
+					<li>
+						<a href="#{request.contextPath}/secured/pages/timelineStatistic.xhtml"><h:outputText value="#{msg['timeline']}"/></a>
 					</li>
 					<!-- 
 					<li>
