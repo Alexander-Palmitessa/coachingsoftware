@@ -8,19 +8,32 @@
 
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 @Embeddable
 public class Address implements Serializable {
-
+	
+	private static final long serialVersionUID = -1351895022038783357L;
+	
 	@Column(name = "CITY")
+	@Pattern(regexp = "[a-zA-Z0-9äöüÄÖÜéÉèÈàÀîÎâÂêÊôÔûÛ\\s]+$", message = "{pattern.letter.space}")
 	private String city;
 	@Column(name = "STREET")
+	@Pattern(regexp = "^[a-zA-Z0-9äöüÄÖÜéÉèÈàÀîÎâÂêÊôÔûÛ.\\s]+$", message = "{pattern.letter.space}")
 	private String street;
 	@Column(name = "STREET_NR")
+	@Pattern(regexp = "^[\\w\\s]+$", message = "{pattern.letter.number.space}")
 	private String streetNr;
 	@Column(name = "ZIP")
+	@Min(value = 1000, message = "{number.zip.range}")
+	@Max(value = 100000, message = "{number.zip.range}")
 	private int zip;
 	@ManyToOne
 	@JoinColumn(name = "COUNTRY")

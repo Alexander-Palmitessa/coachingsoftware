@@ -8,7 +8,19 @@
 
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,14 +32,21 @@ import java.util.Set;
                 query = "SELECT c FROM Club c WHERE LOWER(c.name) = LOWER(:clubname)")
 })
 public class Club implements Serializable {
-    @Id
+	
+	private static final long serialVersionUID = 4581691492524160542L;
+	
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CLUB_ID")
     private int ID;
     @Column(name = "CLUB_NAME", nullable = false, unique = true)
+    @Pattern(regexp = "^[a-zA-Z0-9äöüÄÖÜéÉèÈàÀîÎâÂêÊôÔûÛ.\\s]+$", message = "{pattern.letter.number.space}")
+    @NotNull(message = "{not.null}")
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "club", orphanRemoval = true)
-    private Set<Team> teams;
+    private Set<Team> teams = new HashSet<>();
+    @Embedded
+	private Address address;
 
     /**
      * Class constructor
@@ -36,7 +55,6 @@ public class Club implements Serializable {
      */
     public Club(String name) {
         this.name = name;
-        teams = new HashSet<>();
     }
 
     /**
@@ -48,6 +66,10 @@ public class Club implements Serializable {
 
     public int getID() {
         return ID;
+    }
+    
+    public void setID(int ID) {
+    	this.ID = ID;
     }
 
     public void setName(String name) {
@@ -70,4 +92,12 @@ public class Club implements Serializable {
         teams.add(team);
         team.setClub(this);
     }
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 }

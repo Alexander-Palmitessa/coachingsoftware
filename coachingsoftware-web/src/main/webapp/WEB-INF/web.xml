@@ -15,7 +15,7 @@
 	</servlet-mapping>
 
 	<welcome-file-list>
-		<welcome-file>pages/home.xhtml</welcome-file>
+		<welcome-file>public/pages/home.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<context-param>
@@ -25,12 +25,19 @@
 	
 	<filter>
 		<filter-name>LoginFilter</filter-name>
-		<filter-class>org.example.filter.LoginFilter</filter-class>
+		<filter-class>com.coachingeleven.coachingsoftware.filter.LoginFilter</filter-class>
 	</filter>
 	
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
 		<url-pattern>/secured/*</url-pattern>
 	</filter-mapping>
+
+	<context-param>
+		<param-name>
+			javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL
+		</param-name>
+		<param-value>true</param-value>
+	</context-param>
 
 </web-app>

@@ -1,19 +1,28 @@
-#header, .top-bar, .top-bar ul {
+#header, .top-bar, .top-bar ul, .title-bar {
 	background-color: #5D82A7;
 	color: white;
 }
 
-.top-bar {
-	padding: 0;
+#header li.active-link {
+	font-weight: 700;
 }
 
-.top-bar .menu li {
+.top-bar {
+	padding: 0;
+	text-transform: uppercase;
+}
+
+.top-bar .menu li, .title-bar-title {
 	padding-bottom: 0.5rem;
 	padding-top: 0.5rem;
 }
 
-.top-bar .menu li.menu-text, .top-bar .menu li.menu-text > a {
-	padding-left: 0;
+.title-bar-title {
+	padding-left: 0.5rem;
+}
+
+.menu-icon::after {
+	height: 3px;
 }
 
 .top-bar a,

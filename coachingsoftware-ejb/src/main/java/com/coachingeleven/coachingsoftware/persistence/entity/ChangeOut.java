@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 @Entity
@@ -26,6 +27,7 @@ public class ChangeOut implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 	@Column(name = "MINUTE_OUT")
+	@Min(value = 0, message = "{min.zero}")
 	private int minuteOut;
 	@ManyToOne
 	@JoinColumn(name = "PLAYER_ID")
@@ -35,21 +37,16 @@ public class ChangeOut implements Serializable {
 	private Game game;
 	@Column(name = "COMMENT")
 	private String comment;
-	@ManyToOne
-	@JoinColumn(name = "CARD_ID")
-	private Card causeCard;
 
 	/**
 	 * Class constructor
 	 *
-	 * @param causeCard the card who caused the change
 	 * @param minuteOut the minute the player was taken from the game
 	 * @param player    the player who was taken from the game
 	 * @param game      the game which the change out happened
 	 * @param comment   additional comment
 	 */
-	public ChangeOut(Card causeCard, int minuteOut, Player player, Game game, String comment) {
-		this.causeCard = causeCard;
+	public ChangeOut(int minuteOut, Player player, Game game, String comment) {
 		this.minuteOut = minuteOut;
 		this.player = player;
 		this.game = game;
@@ -97,13 +94,5 @@ public class ChangeOut implements Serializable {
 
 	public void setComment(String comment) {
 		this.comment = comment;
-	}
-
-	public Card getCauseCard() {
-		return causeCard;
-	}
-
-	public void setCauseCard(Card causeCard) {
-		this.causeCard = causeCard;
 	}
 }

@@ -1,0 +1,398 @@
+<ui:composition template="/templates/main.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<ui:define name="title">
+		<h:panelGroup rendered="#{playerViewBean.currentPlayer == null}">
+			<h:outputText value="#{msg['noPlayerFound']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{playerViewBean.currentPlayer != null}">
+			<h:outputText value="#{playerViewBean.currentPlayer.contact.firstName} #{playerViewBean.currentPlayer.contact.lastName}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+		</h:panelGroup>
+	</ui:define>
+
+	<ui:define name="contentTitle">
+		<h:panelGroup rendered="#{playerViewBean.currentPlayer == null}">
+			<h:outputText value="#{msg['noPlayerFound']}"/>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{playerViewBean.currentPlayer != null}">
+			<h:outputText value="#{playerViewBean.currentPlayer.contact.firstName} #{playerViewBean.currentPlayer.contact.lastName}"/>
+		</h:panelGroup>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:panelGroup rendered="#{playerViewBean.currentPlayer != null}">
+			<div class="row">
+				<div class="small-12 column">
+					<ul class="menu menu-hover-lines player-menu">
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/playerView.xhtml"><h:outputText value="#{msg['details']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/playerStatistics.xhtml"><h:outputText value="#{msg['statistic']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/playerRanking.xhtml"><h:outputText value="#{msg['ranking']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/playerTalk.xhtml"><h:outputText value="#{msg['conversation']}"/></h:outputLink>
+						</li>
+						<li class="active">
+							<h:outputLink value="#{request.contextPath}/secured/pages/performanceDiagnostics.xhtml"><h:outputText value="#{msg['perfDiag']}"/></h:outputLink>
+						</li>
+					</ul>
+				</div>
+				<div class="small-12 column card-user-profile">
+					<div class="card-container">
+						<div class="grey-background"></div>
+						<div class="card-user-profile-content card-section">
+							<div class="card-user-profile-avatar">
+								<h:graphicImage name="images/Default-avatar.jpg" />
+							</div>
+							<p class="card-user-profile-name"><h:outputText value="#{playerViewBean.currentPlayer.contact.firstName} #{playerViewBean.currentPlayer.contact.lastName}"/></p>
+							<h:form id="createPerformanceDiagnostics">
+								<div class="row">
+									<div class="small-12 column">
+										<div class="row">
+											<div class="small-12 medium-3 column">
+												<label><h:outputText value="#{msg['dateColumn']}"/></label>
+												<h:inputText id="datePickerPlayerRankingDate" class="js-datepicker" value="#{performanceDiagnosticsBean.newPerfDiagDateFormatted}"/>
+												<h:message for="datePickerPlayerRankingDate" style="color: red"/>
+											</div>
+										</div>
+									</div>
+									<!-- Geschwindigkeit -->
+									<div class="small-12 column">
+										<div class="divider">
+											<h3>#{msg['speed2']}</h3>
+										</div>
+									</div>
+									<div class="small-12 medium-3 column">
+										<label><h:outputText value="#{msg['10m']}"/></label>
+										<h:inputText id="speed10m" value="#{performanceDiagnosticsBean.newSpeedDiag.time10m}"/>
+										<h:message for="speed10m" style="color: red"/>
+									</div>
+									<div class="small-12 medium-3 column">
+										<label><h:outputText value="#{msg['20m']}"/></label>
+										<h:inputText id="speed20m" value="#{performanceDiagnosticsBean.newSpeedDiag.time20m}"/>
+										<h:message for="speed20m" style="color: red"/>
+									</div>
+									<div class="small-12 medium-3 column">
+										<label><h:outputText value="#{msg['30m']}"/></label>
+										<h:inputText id="speed30m" value="#{performanceDiagnosticsBean.newSpeedDiag.time30m}"/>
+										<h:message for="speed30m" style="color: red"/>
+									</div>
+									<div class="small-12 medium-3 column">
+										<label><h:outputText value="#{msg['40m']}"/></label>
+										<h:inputText id="speed40m" value="#{performanceDiagnosticsBean.newSpeedDiag.time40m}"/>
+										<h:message for="speed40m" style="color: red"/>
+									</div>
+									<div class="small-12 medium-3 column">
+										<label><h:outputText value="#{msg['stopgo']}"/></label>
+										<h:inputText id="speedstopgo" value="#{performanceDiagnosticsBean.newSpeedDiag.timeStopGo}"/>
+										<h:message for="speedstopgo" style="color: red"/>
+									</div>
+									<!-- SPRUNGKRAFT -->
+									<div class="small-12 column">
+										<div class="divider">
+											<h3>#{msg['jumpingpower']}</h3>
+										</div>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['squat_jump']}"/></label>
+										<h:inputText id="squat" value="#{performanceDiagnosticsBean.newJumpDiag.squatJump}"/>
+										<h:message for="squat" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['countermove_jump']}"/></label>
+										<h:inputText id="countermove" value="#{performanceDiagnosticsBean.newJumpDiag.counterMovementJump}"/>
+										<h:message for="countermove" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['drop_jump']}"/></label>
+										<h:inputText id="drop" value="#{performanceDiagnosticsBean.newJumpDiag.dropJump}"/>
+										<h:message for="drop" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['explPowerOneLeg']}"/></label>
+										<h:inputText id="explPowerOneLeg" value="#{performanceDiagnosticsBean.newJumpDiag.explosivePowerOneLegged}"/>
+										<h:message for="explPowerOneLeg" style="color: red"/>
+									</div>
+									<!-- TRUNK -->
+									<div class="small-12 column">
+										<div class="divider">
+											<h3>#{msg['trunk_power']}</h3>
+										</div>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['frontTrunk']}"/></label>
+										<h:inputText id="frontTrunk" value="#{performanceDiagnosticsBean.newTrunkDiag.frontTrunk}"/>
+										<h:message for="frontTrunk" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['sideTrunk']}"/></label>
+										<h:inputText id="sideTrunk" value="#{performanceDiagnosticsBean.newTrunkDiag.sideTrunk}"/>
+										<h:message for="sideTrunk" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['backTrunk']}"/></label>
+										<h:inputText id="backTrunk" value="#{performanceDiagnosticsBean.newTrunkDiag.backTrunk}"/>
+										<h:message for="backTrunk" style="color: red"/>
+									</div>
+									<!-- YOYO TEST -->
+									<div class="small-12 column">
+										<div class="divider">
+											<h3>#{msg['yoyoTest']}</h3>
+										</div>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['yoyolevel']}"/></label>
+										<h:inputText id="yoyolevel" value="#{performanceDiagnosticsBean.newYoyoTest.level}"/>
+										<h:message for="yoyolevel" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['yoyometers']}"/></label>
+										<h:inputText id="yoyometers" value="#{performanceDiagnosticsBean.newYoyoTest.meters}"/>
+										<h:message for="yoyometers" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['yoyovma']}"/></label>
+										<h:inputText id="yoyovma" value="#{performanceDiagnosticsBean.newYoyoTest.vma}"/>
+										<h:message for="yoyovma" style="color: red"/>
+									</div>
+									<!-- FUNCTIONAL MOVEMENT SCREEN -->
+									<div class="small-12 column">
+										<div class="divider">
+											<h3>#{msg['functMove']}</h3>
+										</div>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['legraiseR']}"/></label>
+										<h:inputText id="legraiseR" value="#{performanceDiagnosticsBean.newFunctionalMove.legRaiseR}"/>
+										<h:message for="legraiseR" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['legraiseL']}"/></label>
+										<h:inputText id="legraiseL" value="#{performanceDiagnosticsBean.newFunctionalMove.legRaiseL}"/>
+										<h:message for="legraiseL" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['trunkStab']}"/></label>
+										<h:inputText id="trunkStab" value="#{performanceDiagnosticsBean.newFunctionalMove.pushUp}"/>
+										<h:message for="trunkStab" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['rotStabR']}"/></label>
+										<h:inputText id="rotStabR" value="#{performanceDiagnosticsBean.newFunctionalMove.rotaryStabilityR}"/>
+										<h:message for="rotStabR" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['rotStabL']}"/></label>
+										<h:inputText id="rotStabL" value="#{performanceDiagnosticsBean.newFunctionalMove.rotaryStabilityL}"/>
+										<h:message for="rotStabL" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['hurdleStepR']}"/></label>
+										<h:inputText id="hurdleStepR" value="#{performanceDiagnosticsBean.newFunctionalMove.hurdleStepR}"/>
+										<h:message for="hurdleStepR" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['hurdleStepL']}"/></label>
+										<h:inputText id="hurdleStepL" value="#{performanceDiagnosticsBean.newFunctionalMove.hurdleStepL}"/>
+										<h:message for="hurdleStepL" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['shoulderMobR']}"/></label>
+										<h:inputText id="shoulderMobR" value="#{performanceDiagnosticsBean.newFunctionalMove.shoulderMobilityR}"/>
+										<h:message for="shoulderMobR" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['shoulderMobL']}"/></label>
+										<h:inputText id="shoulderMobL" value="#{performanceDiagnosticsBean.newFunctionalMove.shoulderMobilityL}"/>
+										<h:message for="shoulderMobL" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['inLineLungeR']}"/></label>
+										<h:inputText id="inLineLungeR" value="#{performanceDiagnosticsBean.newFunctionalMove.inLineLungeR}"/>
+										<h:message for="inLineLungeR" style="color: red"/>
+									</div>
+									<div class="small-12 medium-4 column">
+										<label><h:outputText value="#{msg['inLineLungeL']}"/></label>
+										<h:inputText id="inLineLungeL" value="#{performanceDiagnosticsBean.newFunctionalMove.inLineLungeL}"/>
+										<h:message for="inLineLungeL" style="color: red"/>
+									</div>
+									<div class="small-12 column text-center">
+										<h:commandButton action="#{performanceDiagnosticsBean.createPlayerPerformanceDiagnostics}" value="#{msg['createPerfDiag']}"/>
+									</div>
+								</div>
+							</h:form>
+						</div>
+					</div>
+				</div>
+
+				<!-- List of all performance diagnostics-->
+				<ui:repeat value="#{currentPlayerBean.currentPlayer.performanceDiagnostics}" var="pd">
+					<div class="small-12 column card-user-profile">
+						<div class="card-container">
+							<div class="card-user-profile-content card-section">
+								<h:form>
+									<div class="row">
+										<div class="small-12 column">
+											<div class="row">
+												<div class="small-12 medium-6 column">
+													<label><h:outputText value="#{msg['dateColumn']}"/></label>
+													<h:outputText value="#{performanceDiagnosticsBean.formatDate(pd.date)}"/>
+												</div>
+											</div>
+										</div>
+										<!-- Geschwindigkeit -->
+										<div class="small-12 column">
+											<div class="divider">
+												<h3>#{msg['speed2']}</h3>
+											</div>
+										</div>
+										<div class="small-12 medium-3 column">
+											<label><h:outputText value="#{msg['10m']}"/></label>
+											<h:outputText value="#{pd.speedDiagnostic.time10m}"/>
+										</div>
+										<div class="small-12 medium-3 column">
+											<label><h:outputText value="#{msg['20m']}"/></label>
+											<h:outputText value="#{pd.speedDiagnostic.time20m}"/>
+										</div>
+										<div class="small-12 medium-3 column">
+											<label><h:outputText value="#{msg['30m']}"/></label>
+											<h:outputText value="#{pd.speedDiagnostic.time30m}"/>
+										</div>
+										<div class="small-12 medium-3 column">
+											<label><h:outputText value="#{msg['40m']}"/></label>
+											<h:outputText value="#{pd.speedDiagnostic.time40m}"/>
+										</div>
+										<div class="small-12 medium-3 column">
+											<label><h:outputText value="#{msg['stopgo']}"/></label>
+											<h:outputText value="#{pd.speedDiagnostic.timeStopGo}"/>
+										</div>
+										<!-- SPRUNGKRAFT -->
+										<div class="small-12 column">
+											<div class="divider">
+												<h3>#{msg['jumpingpower']}</h3>
+											</div>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['squat_jump']}"/></label>
+											<h:outputText value="#{pd.jumpDiagnostic.squatJump}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['countermove_jump']}"/></label>
+											<h:outputText value="#{pd.jumpDiagnostic.counterMovementJump}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['drop_jump']}"/></label>
+											<h:outputText value="#{pd.jumpDiagnostic.dropJump}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['explPowerOneLeg']}"/></label>
+											<h:outputText value="#{pd.jumpDiagnostic.explosivePowerOneLegged}"/>
+										</div>
+										<!-- TRUNK -->
+										<div class="small-12 column">
+											<div class="divider">
+												<h3>#{msg['trunk_power']}</h3>
+											</div>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['frontTrunk']}"/></label>
+											<h:outputText value="#{pd.trunkDiagnostic.frontTrunk}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['sideTrunk']}"/></label>
+											<h:outputText value="#{pd.trunkDiagnostic.sideTrunk}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['backTrunk']}"/></label>
+											<h:outputText value="#{pd.trunkDiagnostic.backTrunk}"/>
+										</div>
+										<!-- YOYO TEST -->
+										<div class="small-12 column">
+											<div class="divider">
+												<h3>#{msg['yoyoTest']}</h3>
+											</div>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['yoyolevel']}"/></label>
+											<h:outputText value="#{pd.yoYoTest.level}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['yoyometers']}"/></label>
+											<h:outputText value="#{pd.yoYoTest.meters}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['yoyovma']}"/></label>
+											<h:outputText value="#{pd.yoYoTest.vma}"/>
+										</div>
+										<!-- FUNCTIONAL MOVEMENT SCREEN -->
+										<div class="small-12 column">
+											<div class="divider">
+												<h3>#{msg['functMove']}</h3>
+											</div>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['legraiseR']}"/></label>
+											<h:outputText value="#{pd.functionalMovementScreen.legRaiseR}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['legraiseL']}"/></label>
+											<h:outputText value="#{pd.functionalMovementScreen.legRaiseL}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['trunkStab']}"/></label>
+											<h:outputText value="#{pd.functionalMovementScreen.pushUp}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['rotStabR']}"/></label>
+											<h:outputText value="#{pd.functionalMovementScreen.rotaryStabilityR}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['rotStabL']}"/></label>
+											<h:outputText value="#{pd.functionalMovementScreen.rotaryStabilityL}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['hurdleStepR']}"/></label>
+											<h:outputText value="#{pd.functionalMovementScreen.hurdleStepR}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['hurdleStepL']}"/></label>
+											<h:outputText value="#{pd.functionalMovementScreen.hurdleStepL}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['shoulderMobR']}"/></label>
+											<h:outputText value="#{pd.functionalMovementScreen.shoulderMobilityR}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['shoulderMobL']}"/></label>
+											<h:outputText value="#{pd.functionalMovementScreen.shoulderMobilityL}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['inLineLungeR']}"/></label>
+											<h:outputText value="#{pd.functionalMovementScreen.inLineLungeR}"/>
+										</div>
+										<div class="small-12 medium-4 column">
+											<label><h:outputText value="#{msg['inLineLungeL']}"/></label>
+											<h:outputText value="#{pd.functionalMovementScreen.inLineLungeL}"/>
+										</div>
+									</div>
+								</h:form>
+
+							</div>
+						</div>
+					</div>
+				</ui:repeat>
+			</div>
+		</h:panelGroup>
+		<h:panelGroup rendered="#{playerViewBean.currentPlayer == null}">
+			<h:outputText value="#{msg['noPlayerFound']}"/>
+		</h:panelGroup>
+	</ui:define>
+
+</ui:composition>

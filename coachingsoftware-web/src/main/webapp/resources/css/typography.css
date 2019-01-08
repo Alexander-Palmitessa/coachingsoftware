@@ -1,0 +1,11 @@
+h1 {
+	font-weight: 500;
+	font-size: 2.1875rem;
+}
+
+h1, h2, h3 {
+	font-family: "Raleway", sans-serif;
+	color: #5D82A7;
+	margin: 0 0 1rem 0;
+	text-transform: uppercase;
+}

@@ -1,0 +1,58 @@
+<ui:composition template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                
+	<ui:define name="title">
+        <h:outputText value="#{loginBean.loggedInUserTeam.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['baseData']}"/><h:outputText value=" - "/><h:outputText value="#{msg['coachingeleven']}"/>
+    </ui:define>
+	
+	<ui:define name="contentTitle">
+		<h:outputText value="#{loginBean.loggedInUserTeam.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['baseData']}"/>
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:form enctype="multipart/form-data" class="create-form">
+			<div class="row">
+				<div class="small-12 column">
+					<h:graphicImage id="teamPicture" name="#{loginBean.loggedInUserTeam.teamPictureURL}" />
+				</div>
+				<div class="small-12 medium-6 column">
+					<h:outputLabel for="uploadTeamPicture" value="#{msg['chooseFile']}" styleClass="secondary-button upload" />
+				    <h:inputFile id="uploadTeamPicture" value="#{uploadBean.file}" styleClass="upload">
+				        <f:ajax listener="#{uploadBean.saveTeamPicture}" render="teamPicture" />
+				    </h:inputFile>
+				</div>
+			</div>
+		</h:form>
+        <h:form class="create-form #{clubBean.successClass}">
+	        <div class="row">
+	        	<h:panelGroup rendered="#{not empty clubBean.successClass}">
+	        		<div class="small-12 column text-center">
+	        			<label class="information">
+	        				<h:panelGroup rendered="#{clubBean.createSuccess}">
+	        					<h:outputText value="#{msg['createSuccess']}"/>
+	        				</h:panelGroup>
+	        				<h:panelGroup rendered="#{!clubBean.createSuccess}">
+	        					<h:outputText value="#{msg['createFailure']}"/>
+	        				</h:panelGroup>
+			        	</label>
+			        </div>
+	        	</h:panelGroup>
+		        <div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['name']}"/></label>
+				    <h:inputText id="team_name" value="#{loginBean.loggedInUserTeam.name}"/>
+					<h:message for="team_name" style="color: red"/>
+		        </div>
+		        <ui:include src="/secured/forms/clubForm.xhtml">
+		        	<ui:param name="club" value="#{loginBean.loggedInUserTeam.club}" />
+		        </ui:include>
+				<div class="small-12 column text-center">
+		        	<h:commandButton action="#{teamBean.updateTeamClub(loginBean.loggedInUserTeam,loginBean.loggedInUserTeam.club)}" value="#{msg['save']}" />
+		        </div>
+	        </div>
+		</h:form>
+    </ui:define>
+
+</ui:composition>

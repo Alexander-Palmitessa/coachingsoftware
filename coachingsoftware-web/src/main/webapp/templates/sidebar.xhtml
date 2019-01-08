@@ -1,0 +1,211 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<ul class="vertical menu accordion-menu sidebar-menu" data-accordion-menu="">
+		<li>
+			<a href="#"><h:outputText value="#{msg['accountRole.'.concat(loginBean.loggedInUser.accountRole)]}"/><h:outputText value="#{msg['area']}"/></a>
+			<ul class="menu vertical nested">
+				<li>
+					<h:outputLink value="#"><h:outputText value="#{msg['create']}"/></h:outputLink>
+					<ul class="menu vertical nested">
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createClub.xhtml"><h:outputText value="#{msg['createClub']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createTeam.xhtml"><h:outputText value="#{msg['createTeam']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createSeason.xhtml"><h:outputText value="#{msg['createSeason']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createArena.xhtml"><h:outputText value="#{msg['createArena']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createPlayer.xhtml"><h:outputText value="#{msg['createPlayer']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createContact.xhtml"><h:outputText value="#{msg['createContact']}"/></h:outputLink>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<h:outputLink value="#"><h:outputText value="#{msg['overview']}"/></h:outputLink>
+					<ul class="menu vertical nested">
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/list/clubList.xhtml"><h:outputText value="#{msg['club']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/list/teamList.xhtml"><h:outputText value="#{msg['team']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/list/seasonList.xhtml"><h:outputText value="#{msg['season']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/list/arenaList.xhtml"><h:outputText value="#{msg['arena']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/list/playerList.xhtml"><h:outputText value="#{msg['player']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/list/contactList.xhtml"><h:outputText value="#{msg['contact']}"/></h:outputLink>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</li>
+		
+		<li>
+			<a href="#"><h:outputText value="#{msg['role.'.concat(loginBean.loggedInUser.contact.role)]}"/><h:outputText value="#{msg['area']}"/></a>
+			<ul class="menu vertical nested">
+				<li>
+					<h:outputLink value="#"><h:outputText value="#{msg['create']}"/></h:outputLink>
+					<ul class="menu vertical nested">
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createSeason.xhtml"><h:outputText value="#{msg['createSeason']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createClub.xhtml"><h:outputText value="#{msg['createClub']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createTeam.xhtml"><h:outputText value="#{msg['createTeam']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/create/createPlayer.xhtml"><h:outputText value="#{msg['createPlayer']}"/></h:outputLink>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#"><h:outputText value="#{msg['teams']}"/></a>
+					<ul class="menu vertical nested">
+						<ui:repeat var="team" value="#{teamContactBean.getAssignedTeamsByContact(loginBean.loggedInUser.contact.ID)}">
+							<li>
+								<a href="#"><h:outputText value="#{team.name}"/></a>
+							</li>
+						</ui:repeat>
+					</ul>
+				</li>
+				<li>
+					<h:outputLink value="#{request.contextPath}/secured/pages/create/createTeamContact.xhtml"><h:outputText value="#{msg['addTeam']}"/></h:outputLink>
+				</li>
+				<li>
+					<h:outputLink value="#{request.contextPath}/secured/pages/remove/removeTeamContact.xhtml"><h:outputText value="#{msg['removeTeam']}"/></h:outputLink>
+				</li>
+				<li>
+					<h:outputLink value="#{request.contextPath}/secured/pages/assignCurrentTeam.xhtml"><h:outputText value="#{msg['assignCurrentTeam']}"/></h:outputLink>
+				</li>
+			</ul>
+		</li>
+		
+		<h:panelGroup rendered="#{loginBean.loggedInUserTeam != null}">
+			<li>
+				<a href="#"><h:outputText value="#{loginBean.loggedInUserTeam.name}"/></a>
+				<ul class="menu vertical nested">
+					<li>
+						<h:outputLink value="#{request.contextPath}/secured/pages/teamOverview.xhtml"><h:outputText value="#{msg['teamOverview']}"/></h:outputLink>
+					</li>
+					<li>
+						<h:outputLink value="#{request.contextPath}/secured/pages/teamOverviewData.xhtml"><h:outputText value="#{msg['baseData']}"/></h:outputLink>
+					</li>
+					<li>
+						<a href="#"><h:outputText value="#{msg['player']}"/></a>
+						<ul class="menu vertical nested">
+							<li>
+								<h:outputLink value="#{request.contextPath}/secured/pages/teamPlayersOverview.xhtml"><h:outputText value="#{msg['overview']}"/></h:outputLink>
+							</li>
+							<li>
+								<h:outputLink value="#{request.contextPath}/secured/pages/assignPlayerToTeam.xhtml"><h:outputText value="#{msg['assignPlayer']}"/></h:outputLink>
+							</li>
+							<li>
+								<h:outputLink value="#{request.contextPath}/secured/pages/remove/removePlayerFromTeam.xhtml"><h:outputText value="#{msg['removePlayer']}"/></h:outputLink>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#"><h:outputText value="#{msg['games']}"/></a>
+						<ul class="menu vertical nested">
+							<li>
+								<h:outputLink value="#{request.contextPath}/secured/pages/gameList.xhtml"><h:outputText value="#{msg['overview']}"/></h:outputLink>
+							</li>
+							<li>
+								<a href="#"><h:outputText value="#{msg['createGame']}"/></a>
+								<ul class="menu vertical nested">
+									<li>
+										<h:outputLink value="#{request.contextPath}/secured/forms/newGameForm.xhtml?gameType=0"><h:outputText value="#{msg['championshipGame']}"/></h:outputLink>
+									</li>
+									<li>
+										<h:outputLink value="#{request.contextPath}/secured/forms/newGameForm.xhtml?gameType=1"><h:outputText value="#{msg['cupGame']}"/></h:outputLink>
+									</li>
+									<li>
+										<h:outputLink value="#{request.contextPath}/secured/forms/newGameForm.xhtml?gameType=2"><h:outputText value="#{msg['testGame']}"/></h:outputLink>
+									</li>
+									<li>
+										<h:outputLink value="#{request.contextPath}/secured/forms/newGameForm.xhtml?gameType=3"><h:outputText value="#{msg['countryGame']}"/></h:outputLink>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<!-- 
+					<li>
+						<a href="#"><h:outputText value="#{msg['training']}"/></a>
+						<ul class="menu vertical nested">
+							<li>
+								<a href="#"><h:outputText value="#{msg['overview']}"/></a>
+							</li>
+							<li>
+								<a href="#"><h:outputText value="#{msg['createTraining']}"/></a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#"><h:outputText value="#{msg['enemy']}"/></a>
+						<ul class="menu vertical nested">
+							<li>
+								<a href="#"><h:outputText value="#{msg['overview']}"/></a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#"><h:outputText value="#{msg['newEnemy']}"/></a>
+						<ul class="menu vertical nested">
+							<li>
+								<a href="#"><h:outputText value="#{msg['championshipGame']}"/></a>
+							</li>
+							<li>
+								<a href="#"><h:outputText value="#{msg['cupGame']}"/></a>
+							</li>
+							<li>
+								<a href="#"><h:outputText value="#{msg['testGame']}"/></a>
+							</li>
+							<li>
+								<a href="#"><h:outputText value="#{msg['countryGame']}"/></a>
+							</li>
+						</ul>
+					</li> -->
+				</ul>
+			</li>
+			
+			<li>
+				<a href="#"><h:outputText value="#{loginBean.loggedInUserTeam.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['statistics']}"/></a>
+				<ul class="menu vertical nested">
+					<li>
+						<a href="#{request.contextPath}/secured/pages/teamStatistics.xhtml"><h:outputText value="#{msg['team']}"/></a>
+					</li>
+					<li>
+						<a href="#{request.contextPath}/secured/pages/systemStatistics.xhtml"><h:outputText value="#{msg['system']}"/></a>
+					</li>
+					<li>
+						<a href="#{request.contextPath}/secured/pages/timelineStatistic.xhtml"><h:outputText value="#{msg['timeline']}"/></a>
+					</li>
+					<!-- 
+					<li>
+						<a href="#"><h:outputText value="#{msg['training']}"/></a>
+					</li> -->
+				</ul>
+			</li>
+		</h:panelGroup>
+	</ul>
+</ui:composition>

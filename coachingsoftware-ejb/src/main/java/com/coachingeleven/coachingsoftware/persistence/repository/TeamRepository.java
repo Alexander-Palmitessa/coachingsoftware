@@ -30,4 +30,5 @@ public class TeamRepository extends Repository<Team> {
 			return null;
 		}
     }
+    
 }

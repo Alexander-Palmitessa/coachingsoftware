@@ -32,13 +32,15 @@ public class TeamClubService implements TeamClubServiceRemote {
     @EJB
     private TeamRepository teamRepository;
 
-
     @Override
     public Team createTeam(Team team) throws TeamAlreadyExistsException {
         logger.log(Level.INFO, "Creating team with id ''{0}''", team.getID());
         if(teamRepository.find(Team.class, team.getID()) != null){
             logger.log(Level.INFO, "Team with id " + team.getID()+ " already exists");
             throw new TeamAlreadyExistsException();
+        } else if(teamRepository.find(team.getName()) != null) {
+        	 logger.log(Level.INFO, "Team with name " + team.getName() + " already exists");
+             throw new TeamAlreadyExistsException();
         }
         return teamRepository.persist(team);
     }
@@ -114,4 +116,14 @@ public class TeamClubService implements TeamClubServiceRemote {
     public Club updateClub(Club club) {
         return clubRepository.update(club);
     }
+
+	@Override
+	public Team updateTeam(Team team) {
+		return teamRepository.update(team);
+	}
+
+	@Override
+	public Club findClub(int id) throws ClubNotFoundException {
+		return clubRepository.find(Club.class, id);
+	}
 }

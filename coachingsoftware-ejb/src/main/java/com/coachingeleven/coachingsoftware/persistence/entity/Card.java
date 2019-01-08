@@ -12,38 +12,35 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "CARD")
 public class Card implements Serializable {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CARD_ID")
 	private int ID;
-	
+
 	@Column(name = "CARD_TYPE")
 	@Enumerated(EnumType.STRING)
+	@NotNull(message = "{not.null}")
 	private CardType type;
-	
-	@Column(name = "DESCRIPTION")
-	private String description;
-	
-	@OneToMany(mappedBy = "causeCard")
-	private Set<ChangeOut> changeOuts;
-	
-	public Card() {}
+	@ManyToOne
+	@JoinColumn(name = "PLAYER_GAMESTATS_ID", nullable = false)
+	private PlayerGameStats playerGameStats;
+	@Min(value = 0, message = "{min.zero}")
+	@Column(name = "CARD_MINUTE")
+	private int minute;
 
-	/**
-	 * Class constructor
-	 * @param type The type of the card, either yellow or red
-	 * @param description
-	 */
-	public Card(CardType type, String description) {
-		this.type = type;
-		this.description = description;
+
+	public Card() {
 	}
 
 
@@ -61,14 +58,19 @@ public class Card implements Serializable {
 		this.type = type;
 	}
 
-
-	public String getDescription() {
-		return description;
+	public PlayerGameStats getPlayerGameStats() {
+		return playerGameStats;
 	}
 
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setPlayerGameStats(PlayerGameStats playerGameStats) {
+		this.playerGameStats = playerGameStats;
 	}
-	
+
+	public int getMinute() {
+		return minute;
+	}
+
+	public void setMinute(int minute) {
+		this.minute = minute;
+	}
 }

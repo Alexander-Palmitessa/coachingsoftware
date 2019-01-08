@@ -8,6 +8,7 @@
 
 package com.coachingeleven.coachingsoftware.application.service;
 
+import com.coachingeleven.coachingsoftware.application.exception.ArenaAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.ArenaNotFoundException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Arena;
 import com.coachingeleven.coachingsoftware.persistence.repository.ArenaRepository;
@@ -34,7 +35,13 @@ public class ArenaService implements ArenaServiceRemote {
 	private ArenaRepository arenaRepository;
 
 	@Override
-	public Arena createArena(Arena arena) { return arenaRepository.persist(arena);
+	public Arena createArena(Arena arena) throws ArenaAlreadyExistsException {
+		logger.log(Level.INFO, "Creating arena with name " + arena.getName());
+		if(arenaRepository.find(arena.getName()) != null){
+			logger.log(Level.INFO, "Arena with name " + arena.getName() + " already exists");
+			throw new ArenaAlreadyExistsException();
+		}
+		return arenaRepository.persist(arena);
 	}
 
 	@Override
@@ -78,5 +85,10 @@ public class ArenaService implements ArenaServiceRemote {
 	@Override
 	public List<Arena> findAll() {
 		return arenaRepository.findAll(Arena.class);
+	}
+
+	@Override
+	public Arena update(Arena arena) {
+		return arenaRepository.update(arena);
 	}
 }

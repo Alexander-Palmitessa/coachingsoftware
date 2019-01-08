@@ -1,0 +1,74 @@
+<ui:composition template="/templates/main.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{gameBean.gameTypeNumber}"/>
+		<f:viewAction action="#{gameBean.newGameInit}" onPostback="true"/>
+	</f:metadata>
+
+	<ui:define name="title">
+		#{msg['createGame']} - Coaching Eleven
+	</ui:define>
+
+	<script type="text/javascript">
+
+	</script>
+
+	<ui:define name="content">
+		<h:form>
+		<div class="row">
+				<div class="row">
+					<!-- DATE & TIME -->
+					<div class="medium-1 small-3 columns">
+						<label><h:outputText value="#{msg['day']}"/></label>
+						<h:inputText class="numericIn" value="#{gameBean.newDay}" maxlength="2"/>
+					</div>
+					<div class="medium-1 small-3 columns">
+						<label><h:outputText value="#{msg['month']}"/></label>
+						<h:inputText class="numericIn" value="#{gameBean.newMonth}" maxlength="2"/>
+					</div>
+					<div class="medium-2 small-6 columns">
+						<label><h:outputText value="#{msg['year']}"/></label>
+						<h:inputText class="numericIn" value="#{gameBean.newYear}" maxlength="4"/>
+					</div>
+					<div class="medium-1 small-6 columns">
+						<label><h:outputText value="#{msg['hour']}"/></label>
+						<h:inputText class="numericIn" value="#{gameBean.newHour}" maxlength="2"/>
+					</div>
+					<div class="medium-1 small-6 columns">
+						<label><h:outputText value="#{msg['minute']}"/></label>
+						<h:inputText class="numericIn" value="#{gameBean.newMinute}" maxlength="2"/>
+					</div>
+					<!-- TEAMS & ARENA -->
+					<div class="medium-6 small-12 columns">
+						<label><h:outputText value="#{msg['arena']}"/></label>
+						<h:selectOneMenu value="#{gameBean.selectedArena}">
+							<f:selectItems value="#{gameBean.arenas}" var="a" itemValue="#{a.ID}"
+										   itemLabel="#{a.name}"/>
+						</h:selectOneMenu>
+					</div>
+					<div class="medium-6 small-12 columns">
+						<label><h:outputText value="#{msg['teamHome']}"/></label>
+						<h:selectOneMenu value="#{gameBean.teamHome}">
+							<f:selectItems value="#{gameBean.teams}" var="t" itemValue="#{t.ID}"
+										   itemLabel="#{t.name}"/>
+						</h:selectOneMenu>
+					</div>
+					<div class="medium-6 small-12 columns">
+						<label><h:outputText value="#{msg['teamAway']}"/></label>
+						<h:selectOneMenu value="#{gameBean.teamAway}">
+							<f:selectItems value="#{gameBean.teams}" var="t" itemValue="#{t.ID}"
+										   itemLabel="#{t.name}"/>
+						</h:selectOneMenu>
+					</div>
+					<div class="small-12 columns text-center">
+						<h:commandButton action="#{gameBean.createGame}" value="submit"/>
+					</div>
+				</div>
+		</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

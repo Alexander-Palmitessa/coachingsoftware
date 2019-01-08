@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 @Entity
@@ -26,9 +27,10 @@ public class Objective implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ID;
 	@ManyToOne
-	@JoinColumn(name = "GAME_ID")
+	@JoinColumn(name = "GAME_ID", nullable = false)
 	private Game game;
 	@Column(name = "NAME")
+	@Pattern(regexp = "^[a-zA-Z0-9äöüÄÖÜéèêâà.\\s]+$", message = "{pattern.letter.number.space}")
 	private String name;
 	@Column(name = "GOALS")
 	private String goals;

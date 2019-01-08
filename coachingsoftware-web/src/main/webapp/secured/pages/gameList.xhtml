@@ -1,0 +1,65 @@
+<ui:composition template="/templates/main.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<f:metadata>
+		<f:viewAction action="#{gameBean.init}" onPostback="true" immediate="true"/>
+	</f:metadata>
+	
+	<ui:define name="title">
+        <h:outputText value="#{loginBean.loggedInUserTeam.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['gameOverview']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+    </ui:define>
+	
+	<ui:define name="contentTitle">
+		<h:outputText value="#{loginBean.loggedInUserTeam.name}"/><h:outputText value=" - "/><h:outputText value="#{msg['gameOverview']}"/>
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="row">
+			<div class="small-12 column">
+				<div class="row">
+					<div class="small-6 column season-picker">
+						<label><h:outputText value="#{msg['changeSeason']}:"/></label>
+						<h:form>
+							<h:selectOneMenu id="assignedTeamSeason" value="#{loginBean.loggedInUserSeason.ID}">
+						        <f:selectItems value="#{seasonBean.findSeasonsForTeam(loginBean.loggedInUserTeam.ID,loginBean.loggedInUser.contact.ID)}" var="season" itemValue="#{season.ID}"
+						                       itemLabel="#{season.name}"/>
+								<f:ajax listener="#{loginBean.pullLoggedInUserSeason(loginBean.loggedInUserSeason.ID)}" render="gameList" />
+						    </h:selectOneMenu>
+					    </h:form>
+					</div>
+				</div>
+	        </div>
+	        <h:panelGroup id="gameList" class="small-12 column">
+				<table class="responsive-card-table unstriped">
+					<thead>
+					<tr>
+						<th>#{msg['dateColumn']}</th>
+						<th>#{msg['timeColumn']}</th>
+						<th>#{msg['score']}</th>
+						<th>#{msg['teamHome']}</th>
+						<th>#{msg['teamAway']}</th>
+						<th>Link</th>
+					</tr>
+					</thead>
+					<tbody>
+					<ui:repeat value="#{gameBean.allGames}" var="game">
+						<tr>
+							<td data-label="#{msg['dateColumn']}">#{gameBean.dateToString(game.date)}</td>
+							<td data-label="#{msg['timeColumn']}">#{gameBean.timeToString(game.time)}</td>
+							<td data-label="#{msg['score']}">#{game.resultGoalsHome} - #{game.resultGoalsAway}</td>
+							<td data-label="#{msg['teamHome']}">#{game.teamHome.name}</td>
+							<td data-label="#{msg['teamAway']}">#{game.teamAway.name}</td>
+							<td data-label="Link"><h:outputLink
+									value="#{request.contextPath}/secured/forms/updateGameForm.xhtml?id=#{game.ID}">></h:outputLink>
+							</td>
+						</tr>
+					</ui:repeat>
+					</tbody>
+				</table>
+			</h:panelGroup>
+		</div>
+	</ui:define>
+</ui:composition>

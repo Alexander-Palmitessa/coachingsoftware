@@ -1,42 +1,55 @@
 package com.coachingeleven.coachingsoftware.persistence.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import com.coachingeleven.coachingsoftware.persistence.enumeration.AccountRole;
+
 import java.io.Serializable;
 
 @Entity
 @Table(name = "USERACCOUNT")
 @NamedQueries({
-	@NamedQuery(name = "findUser",
-		query = "SELECT c FROM UserAccount c WHERE LOWER(c.username) = LOWER(:username)")
+        @NamedQuery(name = "findUserByUsername",
+                query = "SELECT u FROM UserAccount u WHERE LOWER(u.username) = LOWER(:username)")
 })
 public class UserAccount implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = -8514552901525533422L;
+	
+	@Id
     @Column(name = "USERNAME")
-    String username;
+    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "{pattern.letter.number.underscore}")
+    private String username;
     @Column(name = "PASSWORD", nullable = false)
-    String password;
-    @Column(name = "USER_EMAIL", nullable = false, unique = true)
-    String email;
-    @OneToOne
-    @JoinColumn(name="TEAM_ID")
-    private Team team;
+    @NotNull(message = "{not.null}")
+    private String password;
+    @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "CONTACT_ID")
+    private Contact contact;
+    @Column(name = "ACCOUNTROLE")
+	@Enumerated(value = EnumType.STRING)
+	private AccountRole accountRole;
 
-    public UserAccount(){
+    public UserAccount() {
 
     }
 
-    public UserAccount(String username, String password, String email) {
+    public UserAccount(String username, String password) {
         this.username = username;
         this.password = password;
-        this.email = email;
     }
 
     public String getUsername() {
@@ -55,19 +68,19 @@ public class UserAccount implements Serializable {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-	public Team getTeam() {
-		return team;
+	public Contact getContact() {
+		return contact;
 	}
 
-	public void setTeam(Team team) {
-		this.team = team;
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+
+	public AccountRole getAccountRole() {
+		return accountRole;
+	}
+
+	public void setAccountRole(AccountRole accountRole) {
+		this.accountRole = accountRole;
 	}
 }

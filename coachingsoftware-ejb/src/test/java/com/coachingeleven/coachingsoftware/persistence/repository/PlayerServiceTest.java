@@ -1,6 +1,5 @@
 package com.coachingeleven.coachingsoftware.persistence.repository;
 
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
 import javax.naming.Context;
@@ -33,21 +32,19 @@ public class PlayerServiceTest {
 	
 	@BeforeClass
 	public void initPlayers() {
-		player = new Player("Elias","Schildknecht","eliasschildknecht@hotmail.com");
-		duplicatePlayerEmail = new Player("Hans","Muster","eliasschildknecht@hotmail.com");
+		player = new Player();
+		duplicatePlayerEmail = new Player();
 	}
 	
 	@Test
 	public void createPlayerTest() throws Exception {
 		player = playerService.createPlayer(player);
 		assertNotNull(playerService.findPlayer(player.getID()));
-		assertNotNull(playerService.findPlayer(player.getFirstEmail()));
 	}
 	
 	@Test(dependsOnMethods = "createPlayerTest",  expectedExceptions = {PlayerAlreadyExistsException.class})
 	public void createDuplicatePlayerTest() throws Exception {
 		duplicatePlayerEmail = playerService.createPlayer(duplicatePlayerEmail);
-		assertEquals(playerService.findPlayer(duplicatePlayerEmail.getFirstEmail()).getID(), player.getID());
 	}
 	
 	@Test(dependsOnMethods = "createDuplicatePlayerTest")

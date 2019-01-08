@@ -10,8 +10,8 @@ import javax.ejb.Remote;
 public interface UserServiceRemote {
     UserAccount createUser(UserAccount userAccount) throws UserAlreadyExistsException;
     UserAccount findUser(String username) throws UserNotFoundException;
-    boolean checkPassword(String username, String password);
+    boolean authenticate(String password, String token);
     UserAccount changePassword(String username, String oldPassword, String newPassword);
     String hashPassword(String plainPassword);
-    public void updateUser(UserAccount user);
+    void updateUser(UserAccount user);
 }

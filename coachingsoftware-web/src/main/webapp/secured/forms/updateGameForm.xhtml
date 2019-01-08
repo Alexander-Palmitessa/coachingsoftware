@@ -1,0 +1,116 @@
+<ui:composition template="/templates/main.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<f:metadata>
+		<f:viewParam name="id" value="#{gameBean.gameID}"/>
+		<f:viewAction action="#{gameBean.getGameInit}"/>
+	</f:metadata>
+
+	<ui:define name="title">
+		#{msg['updateGame']} - Coaching Eleven
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="row">
+			<div class="small-12 column">
+				<ul class="menu menu-hover-lines player-menu">
+					<li class="active">
+						<h:outputLink
+								value="#{request.contextPath}/secured/forms/updateGameForm.xhtml?id=#{gameBean.currentGame.ID}">
+							<h:outputText value="#{msg['overview']}"/></h:outputLink>
+					</li>
+					<li>
+						<h:outputLink
+								value="#{request.contextPath}/secured/forms/lineUpForm.xhtml?id=#{gameBean.currentGame.ID}">
+							<h:outputText value="#{msg['lineUp']}"/></h:outputLink>
+					</li>
+					<li>
+						<h:outputLink value="#{request.contextPath}/secured/forms/preGameReportForm.xhtml"><h:outputText
+								value="#{msg['preGameReport']}"/></h:outputLink>
+					</li>
+					<li>
+						<h:outputLink
+								value="#{request.contextPath}/secured/forms/postGameReportForm.xhtml"><h:outputText
+								value="#{msg['postGameReport']}"/></h:outputLink>
+					</li>
+					<li>
+						<h:outputLink
+								value="#{request.contextPath}/secured/forms/playerGameStatsForm.xhtml"><h:outputText
+								value="#{msg['playerGameStats']}"/></h:outputLink>
+					</li>
+					<li>
+						<h:outputLink value="#{request.contextPath}/secured/forms/goalForm.xhtml"><h:outputText
+								value="#{msg['goals']}"/></h:outputLink>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<h:form>
+			<div class="row">
+				<!-- GOALS -->
+				<div class="medium-2 small-6 columns">
+					<label><h:outputText value="#{msg['goalsHome']}"/></label>
+					<h:inputText class="numericIn" value="#{gameBean.currentGame.resultGoalsHome}" maxlength="2"/>
+				</div>
+				<div class="medium-2 small-6 columns">
+					<label><h:outputText value="#{msg['goalsAway']}"/></label>
+					<h:inputText class="numericIn" value="#{gameBean.currentGame.resultGoalsAway}" maxlength="2"/>
+				</div>
+				<!-- DATE & TIME -->
+				<div class="medium-1 small-3 columns">
+					<label><h:outputText value="#{msg['day']}"/></label>
+					<h:inputText class="numericIn" value="#{gameBean.day}" maxlength="2"/>
+				</div>
+				<div class="medium-1 small-3 columns">
+					<label><h:outputText value="#{msg['month']}"/></label>
+					<h:inputText class="numericIn" value="#{gameBean.month}" maxlength="2"/>
+				</div>
+				<div class="medium-2 small-6 columns">
+					<label><h:outputText value="#{msg['year']}"/></label>
+					<h:inputText class="numericIn" value="#{gameBean.year}" maxlength="4"/>
+				</div>
+				<div class="medium-2 small-6 columns">
+					<label><h:outputText value="#{msg['hour']}"/></label>
+					<h:inputText class="numericIn" value="#{gameBean.hour}" maxlength="2"/>
+				</div>
+				<div class="medium-2 small-6 columns">
+					<label><h:outputText value="#{msg['minute']}"/></label>
+					<h:inputText class="numericIn" value="#{gameBean.minute}" maxlength="2"/>
+				</div>
+				<!-- TEAMS & ARENA -->
+				<div class="medium-4 small-12 columns">
+					<label><h:outputText value="#{msg['arena']}"/></label>
+					<h:selectOneMenu value="#{gameBean.selectedArena}">
+						<f:selectItems value="#{gameBean.arenas}" var="a" itemValue="#{a.ID}"
+									   itemLabel="#{a.name}"/>
+					</h:selectOneMenu>
+				</div>
+				<div class="medium-4 small-12 columns">
+					<label><h:outputText value="#{msg['teamHome']}"/></label>
+					<h:selectOneMenu value="#{gameBean.teamHome}">
+						<f:selectItems value="#{gameBean.teams}" var="t" itemValue="#{t.ID}"
+									   itemLabel="#{t.name}"/>
+					</h:selectOneMenu>
+				</div>
+				<div class="medium-4 small-12 columns">
+					<label><h:outputText value="#{msg['teamAway']}"/></label>
+					<h:selectOneMenu value="#{gameBean.teamAway}">
+						<f:selectItems value="#{gameBean.teams}" var="t" itemValue="#{t.ID}"
+									   itemLabel="#{t.name}"/>
+					</h:selectOneMenu>
+				</div>
+				<!-- BUTTONS -->
+				<div class="medium-6 small-6 columns text-center deletebutton">
+					<h:commandButton action="#{gameBean.deleteGame}" value="delete"
+									 onclick="return confirm('Are you sure?')"/>
+				</div>
+				<div class="medium-6 small-6 columns text-center">
+					<h:commandButton action="#{gameBean.updateGame}" value="submit"/>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
