@@ -1,6 +1,7 @@
 package com.coachingeleven.coachingsoftware.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -209,7 +210,10 @@ public class TeamContactBean implements CreateBean<TeamContact>, UpdateBean<Team
 	}
 	
 	public List<Team> getAssignedTeamsByContact(int contactID) {
-		return teamContactService.findAssignedTeams(contactID);
+		if(loginBean.getLoggedInUserTeam() != null) {
+			return teamContactService.findAssignedTeams(contactID);
+		}
+		return new ArrayList<Team>();
 	}
 	
 	public List<Team> getUntrainedTeams() {

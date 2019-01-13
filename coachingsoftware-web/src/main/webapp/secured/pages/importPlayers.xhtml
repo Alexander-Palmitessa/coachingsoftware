@@ -1,0 +1,32 @@
+<ui:composition template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+
+	<ui:define name="title">
+		<h:outputText value="#{msg['importPlayers']}" /><h:outputText value=" - "/><h:outputText value="#{msg['coachingeleven']}"/>
+	</ui:define>
+
+	<ui:define name="contentTitle">
+		<h:outputText value="#{msg['importPlayers']}" />
+	</ui:define>
+
+    <ui:define name="content">
+        <h:form class="create-form" enctype="multipart/form-data">
+	        <div class="row">
+	        	<div class="small-12 medium-4 column">
+					<h:outputLabel for="uploadTeamPicture" value="#{msg['chooseFile']}" styleClass="secondary-button upload" />
+				    <h:inputFile id="uploadTeamPicture" value="#{uploadBean.file}" styleClass="upload"></h:inputFile>
+				</div>
+				<div class="small-6 column text-center">
+		        	<h:commandButton action="#{uploadBean.importPlayers}" value="#{msg['importPlayers']}" />
+		        </div>
+	        </div>
+		</h:form>
+    </ui:define>
+
+</ui:composition>
