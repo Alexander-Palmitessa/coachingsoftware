@@ -88,7 +88,7 @@ form label.upload {
     appearance: button;
     padding: 0.2375rem 0.55rem;
     cursor: pointer;
-    margin-top: 1rem;
+    margin-top: 0.3rem;
 }
 
 form input.upload {
@@ -122,4 +122,8 @@ form .divider h3 {
 	font-size: 1rem;
 	color: #5D82A7;
 	font-weight: normal;
+}
+
+form .select-file {
+	margin-bottom: 1rem;
 }

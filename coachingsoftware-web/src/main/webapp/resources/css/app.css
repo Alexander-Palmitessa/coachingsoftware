@@ -42,3 +42,7 @@ body {
 #offCanvasLeft {
 	background-color: white;
 }
+
+.justify-center {
+	justify-content: center;
+}
