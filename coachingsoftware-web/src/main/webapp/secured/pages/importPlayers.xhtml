@@ -17,12 +17,12 @@
 
     <ui:define name="content">
         <h:form class="create-form" enctype="multipart/form-data">
-	        <div class="row">
-	        	<div class="small-12 medium-4 column">
-					<h:outputLabel for="uploadTeamPicture" value="#{msg['chooseFile']}" styleClass="secondary-button upload" />
-				    <h:inputFile id="uploadTeamPicture" value="#{uploadBean.file}" styleClass="upload"></h:inputFile>
+	        <div class="row justify-center">
+	        	<div class="small-12 medium-4 column text-center">
+					<h:outputLabel for="importPlayers" value="#{msg['chooseFile']}" styleClass="secondary-button upload select-file" />
+				    <h:inputFile id="importPlayers" value="#{uploadBean.file}" styleClass="upload"></h:inputFile>
 				</div>
-				<div class="small-6 column text-center">
+				<div class="small-12 column text-center">
 		        	<h:commandButton action="#{uploadBean.importPlayers}" value="#{msg['importPlayers']}" />
 		        </div>
 	        </div>

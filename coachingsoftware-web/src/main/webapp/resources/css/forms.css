@@ -123,3 +123,7 @@ form .divider h3 {
 	color: #5D82A7;
 	font-weight: normal;
 }
+
+form .select-file {
+	margin-bottom: 1rem;
+}
