@@ -210,10 +210,7 @@ public class TeamContactBean implements CreateBean<TeamContact>, UpdateBean<Team
 	}
 	
 	public List<Team> getAssignedTeamsByContact(int contactID) {
-		if(loginBean.getLoggedInUserTeam() != null) {
-			return teamContactService.findAssignedTeams(contactID);
-		}
-		return new ArrayList<Team>();
+		return teamContactService.findAssignedTeams(contactID);
 	}
 	
 	public List<Team> getUntrainedTeams() {
