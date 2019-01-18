@@ -1,0 +1,35 @@
+<ui:composition template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+
+	<ui:define name="title">
+		<h:outputText value="#{msg['assignCurrentTeam']}" /><h:outputText value=" - "/><h:outputText value="#{msg['coachingeleven']}"/>
+	</ui:define>
+
+	<ui:define name="contentTitle">
+		<h:outputText value="#{msg['assignCurrentTeam']}" />
+	</ui:define>
+
+    <ui:define name="content">
+        <h:form class="create-form">
+	        <div class="row">
+	        	<div class="small-12 medium-6 column">
+		        	<label><h:outputText value="#{msg['team']}"/></label>
+				    <h:selectOneMenu value="#{teamBean.entity.ID}">
+				        <f:selectItems value="#{teamContactBean.getTeamsByContact(loginBean.loggedInUser.contact)}" var="team" itemValue="#{team.ID}"
+				                       itemLabel="#{team.name}"/>
+				    </h:selectOneMenu>
+		        </div>
+		        <div class="small-12 column text-center">
+		        	<h:commandButton action="#{loginBean.assignCurrentTeam(teamBean.entity)}" value="#{msg['assignCurrentTeam']}" />
+		        </div>
+	        </div>
+		</h:form>
+    </ui:define>
+
+</ui:composition>

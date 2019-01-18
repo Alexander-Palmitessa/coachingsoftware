@@ -14,7 +14,6 @@ import javax.ejb.TransactionAttribute;
 import com.coachingeleven.coachingsoftware.application.exception.PlayerAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.PlayerNotFoundException;
 import com.coachingeleven.coachingsoftware.persistence.entity.Player;
-import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 import com.coachingeleven.coachingsoftware.persistence.repository.PlayerRepository;
 
 @LocalBean
@@ -33,9 +32,6 @@ public class PlayerService implements PlayerServiceRemote {
 		if (playerRepository.find(Player.class, player.getID()) != null) {
 			logger.log(Level.INFO, "Player with same id already exists");
 			throw new PlayerAlreadyExistsException();
-		} else if(playerRepository.find(player.getEmail()) != null) {
-			logger.log(Level.INFO, "Player with same email already exists");
-			throw new PlayerAlreadyExistsException();
 		}
 		return playerRepository.persist(player);
 	}
@@ -44,17 +40,6 @@ public class PlayerService implements PlayerServiceRemote {
 	public Player findPlayer(int id) throws PlayerNotFoundException {
 		logger.log(Level.INFO, "Finding player with ID ''{0}''", id);
 		Player player = playerRepository.find(id);
-		if (player == null) {
-			logger.log(Level.INFO, "Player not found");
-			throw new PlayerNotFoundException();
-		}
-		return player;
-	}
-
-	@Override
-	public Player findPlayer(String email) throws PlayerNotFoundException {
-		logger.log(Level.INFO, "Finding player with email ''{0}''", email);
-		Player player = playerRepository.find(email);
 		if (player == null) {
 			logger.log(Level.INFO, "Player not found");
 			throw new PlayerNotFoundException();
@@ -75,21 +60,6 @@ public class PlayerService implements PlayerServiceRemote {
 	@Override
 	public List<Player> findAllPlayers() {
 		return playerRepository.findAll(Player.class);
-	}
-
-	@Override
-	public List<Player> findCurrentPlayersByTeam(int teamId) {
-		return playerRepository.findCurrentPlayersByTeam(teamId);
-	}
-
-	@Override
-	public List<Player> findHistoryPlayersByTeam(int teamId) {
-		return playerRepository.findHistoryPlayersByTeam(teamId);
-	}
-
-	@Override
-	public Player addHistoryTeamToPlayer(int playerID, Team team) {
-		return playerRepository.addHistoryTeamToPlayer(playerID, team);
 	}
 
 }

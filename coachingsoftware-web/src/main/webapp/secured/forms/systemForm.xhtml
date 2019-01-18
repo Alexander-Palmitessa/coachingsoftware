@@ -1,0 +1,75 @@
+<ui:composition template="/templates/main.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:f="http://xmlns.jcp.org/jsf/core"
+				xmlns:h="http://xmlns.jcp.org/jsf/html"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<ui:define name="title">
+		#{msg['createLineUp']} - Coaching Eleven
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="row">
+			<div class="small-12 column">
+				<ul class="menu menu-hover-lines player-menu">
+					<li>
+						<h:outputLink
+								value="#{request.contextPath}/secured/forms/updateGameForm.xhtml?id=#{gameBean.currentGame.ID}"><h:outputText
+								value="#{msg['overview']}"/></h:outputLink>
+					</li>
+					<li class="active">
+						<h:outputLink
+								value="#{request.contextPath}/secured/forms/lineUpForm.xhtml"><h:outputText
+								value="#{msg['lineUp']}"/></h:outputLink>
+					</li>
+					<li>
+						<h:outputLink value="#{request.contextPath}/secured/forms/preGameReportForm.xhtml"><h:outputText
+								value="#{msg['preGameReport']}"/></h:outputLink>
+					</li>
+					<li>
+						<h:outputLink
+								value="#{request.contextPath}/secured/forms/postGameReportForm.xhtml"><h:outputText
+								value="#{msg['postGameReport']}"/></h:outputLink>
+					</li>
+					<li>
+						<h:outputLink
+								value="#{request.contextPath}/secured/forms/playerGameStatsForm.xhtml"><h:outputText
+								value="#{msg['playerGameStats']}"/></h:outputLink>
+					</li>
+					<li>
+						<h:outputLink value="#{request.contextPath}/secured/forms/goalForm.xhtml"><h:outputText
+								value="#{msg['goals']}"/></h:outputLink>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<h:form class="create-form">
+			<div class="row">
+				<ui:repeat value="#{gameBean.currentGame.gameSystems}" var="gsys">
+					<label><h:outputText value="#{msg['system']}"/></label>
+					<h:selectOneMenu value="#{gsys.system}">
+						<f:selectItems value="#{gameBean.systems}" var="s" itemValue="#{s}"
+									   itemLabel="#{msg['systemType.'.concat(s)]}"/>
+					</h:selectOneMenu>
+					<div class="small-12 medium-6 column">
+						<label><h:outputText value="#{msg['startMinute']}"/></label>
+						<h:inputText id="gsys_startmin" class="numericIn" value="#{gsys.startMinute}"/>
+						<h:message for="gsys_startmin" style="color: red"/>
+					</div>
+					<div class="small-12 medium-6 column">
+						<label><h:outputText value="#{msg['endMinute']}"/></label>
+						<h:inputText id="gsys_endmin" class="numericIn" value="#{gsys.endMinute}"/>
+						<h:message for="gsys_endmin" style="color: red"/>
+					</div>
+				</ui:repeat>
+				<div class="small-12 column text-center">
+					<h:commandButton action="#{gameBean.addAnotherSystem}" value="#{msg['addAnotherSystem']}"/>
+				</div>
+				<div class="small-12 column text-center">
+					<h:commandButton action="#{gameBean.updateGame}" value="Submit"/>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

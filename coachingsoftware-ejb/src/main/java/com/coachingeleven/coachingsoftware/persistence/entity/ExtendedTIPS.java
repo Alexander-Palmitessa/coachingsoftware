@@ -12,11 +12,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 import java.util.Calendar;
 
 @Entity
 @Table(name = "EXTENDED_TIPS")
-public class ExtendedTIPS {
+public class ExtendedTIPS implements Serializable {
 
     @Id
     @Column(name = "EXTENDED_TIPS_ID")
@@ -24,125 +25,125 @@ public class ExtendedTIPS {
     private int ID;
 
     @Column(name = "T_PASSES_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int techPassesGrade;
     @Column(name = "T_PASSES_C")
     private String techPassesComment;
     @Column(name = "T_BALL_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int techBallGrade;
     @Column(name = "T_BALL_C")
     private String techBallComment;
     @Column(name = "T_PRESSURE_G")
-    private int techPressureGrade;
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
+    private int techPressureGrade;
     @Column(name = "T_PRESSURE_C")
     private String techPressureComment;
 
     @Column(name = "I_ORIENTATION_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int intellOrientationGrade;
     @Column(name = "I_ORIENTATION_C")
     private String intellOrientationComment;
     @Column(name = "I_OFF_DEF_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int intellOffToDefGrade;
     @Column(name = "I_OFF_DEF_C")
     private String intellOffToDefComment;
     @Column(name = "I_DEF_OFF_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
-    private int intellDefToOfGrade;
+    private int intellDefToOffGrade;
     @Column(name = "I_DEF_OFF_C")
-    private String intellDefToOfComment;
+    private String intellDefToOffComment;
     @Column(name = "I_OFF_DUELS_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int intellOffDuelsGrade;
     @Column(name = "I_OFF_DUELS_C")
     private String intellOffDuelsComment;
     @Column(name = "I_DEF_DUELS_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int intellDefDuelsGrade;
     @Column(name = "I_DEF_DUELS_C")
     private String intellDefDuelsComment;
     @Column(name = "I_OFF_BEHAVE_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int intellOffBehaviorGrade;
     @Column(name = "I_OFF_BEHAVE_C")
     private String intellOffBehaviorComment;
     @Column(name = "I_DEF_BEHAVE_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int intellDefBehaviorGrade;
     @Column(name = "I_DEF_BEHAVE_C")
     private String intellDefBehaviorComment;
 
     @Column(name = "S_SPEED_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int speedSpeedGrade;
     @Column(name = "S_SPEED_C")
     private String speedSpeedComment;
     @Column(name = "S_POWER_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int speedPowerGrade;
     @Column(name = "S_POWER_C")
     private String speedPowerComment;
     @Column(name = "S_ENDURANCE_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int speedEnduranceGrade;
     @Column(name = "S_ENDURANCE_C")
     private String speedEnduranceComment;
 
     @Column(name = "P_EMOTIONS_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int persEmotionsGrade;
     @Column(name = "P_EMOTIONS_C")
     private String persEmotionsComment;
     @Column(name = "P_CONFIDENCE_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int persConfidenceGrade;
     @Column(name = "P_CONFIDENCE_C")
     private String persConfidenceComment;
     @Column(name = "P_ENGAGEMENT_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int persEngagementGrade;
     @Column(name = "P_ENGAGEMENT_C")
     private String persEngagementComment;
     @Column(name = "P_CONCENTRATION_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int persConcentrationGrade;
     @Column(name = "P_CONCENTRATION_C")
     private String persConcentrationComment;
     @Column(name = "P_COMMUNICATION_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int persCommunicationGrade;
     @Column(name = "P_COMMUNICATION_C")
     private String persCommunicationComment;
     @Column(name = "P_ADAPT_G")
-    @Min(value = 1, message = "{tips.grade}")
+    @Min(value = 0, message = "{tips.grade}")
     @Max(value = 5, message = "{tips.grade}")
     private int persAdaptGrade;
     @Column(name = "P_ADAPT_C")
     private String persAdaptComment;
 
     @Column(name = "STRENGTHS")
-    private String strenghts;
+    private String strengths;
     @Column(name = "WEAKNESSES")
     private String weaknesses;
 
@@ -153,8 +154,6 @@ public class ExtendedTIPS {
     @ManyToOne
     @JoinColumn(name = "PLAYER_ID")
     private Player player;
-
-    //TODO: PLAYER -> SET OF EXTENDED TIPS
 
     /**
      * JPA required default constructor
@@ -251,20 +250,20 @@ public class ExtendedTIPS {
         this.intellOffToDefComment = intellOffToDefComment;
     }
 
-    public int getIntellDefToOfGrade() {
-        return intellDefToOfGrade;
+    public int getIntellDefToOffGrade() {
+        return intellDefToOffGrade;
     }
 
-    public void setIntellDefToOfGrade(int intellDefToOfGrade) {
-        this.intellDefToOfGrade = intellDefToOfGrade;
+    public void setIntellDefToOffGrade(int intellDefToOfGrade) {
+        this.intellDefToOffGrade = intellDefToOfGrade;
     }
 
-    public String getIntellDefToOfComment() {
-        return intellDefToOfComment;
+    public String getIntellDefToOffComment() {
+        return intellDefToOffComment;
     }
 
-    public void setIntellDefToOfComment(String intellDefToOfComment) {
-        this.intellDefToOfComment = intellDefToOfComment;
+    public void setIntellDefToOffComment(String intellDefToOfComment) {
+        this.intellDefToOffComment = intellDefToOfComment;
     }
 
     public int getIntellOffDuelsGrade() {
@@ -475,12 +474,12 @@ public class ExtendedTIPS {
         this.persAdaptComment = persAdaptComment;
     }
 
-    public String getStrenghts() {
-        return strenghts;
+    public String getStrengths() {
+        return strengths;
     }
 
-    public void setStrenghts(String strenghts) {
-        this.strenghts = strenghts;
+    public void setStrengths(String strenghts) {
+        this.strengths = strenghts;
     }
 
     public String getWeaknesses() {

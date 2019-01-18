@@ -17,7 +17,7 @@ public class League {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "LEAGUE_ID")
 	private int ID;
-	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "{pattern.letter.space}")
+	@Pattern(regexp = "^[a-zA-ZäöüÄÖÜéèêâà.\\s]+$", message = "{pattern.letter.space}")
 	@NotNull
 	private String name;
 	

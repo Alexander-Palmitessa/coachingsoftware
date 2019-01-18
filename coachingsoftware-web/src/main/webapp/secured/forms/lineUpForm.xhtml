@@ -44,14 +44,36 @@
 				</ul>
 			</div>
 		</div>
-		<h:form>
+		<h:form class="create-form">
 			<div class="row">
-				<div class="small-12 medium-6 column">
+				<ui:repeat value="#{gameBean.currentGame.gameSystems}" var="gsys">
 					<label><h:outputText value="#{msg['system']}"/></label>
-					<h:selectOneMenu value="#{gameBean.selectedSystem}">
+					<h:selectOneMenu value="#{gsys.system}">
 						<f:selectItems value="#{gameBean.systems}" var="s" itemValue="#{s}"
 									   itemLabel="#{msg['systemType.'.concat(s)]}"/>
 					</h:selectOneMenu>
+					<div class="small-12 medium-6 column">
+						<label><h:outputText value="#{msg['startMinute']}"/></label>
+						<h:inputText id="gsys_startmin" class="numericIn" value="#{gsys.startMinute}"/>
+						<h:message for="gsys_startmin" style="color: red"/>
+					</div>
+					<div class="small-12 medium-6 column">
+						<label><h:outputText value="#{msg['endMinute']}"/></label>
+						<h:inputText id="gsys_endmin" class="numericIn" value="#{gsys.endMinute}"/>
+						<h:message for="gsys_endmin" style="color: red"/>
+					</div>
+				</ui:repeat>
+				<div class="small-12 column text-center">
+					<h:commandButton action="#{gameBean.addAnotherSystem}" value="#{msg['addAnotherSystem']}"/>
+				</div>
+				<div class="small-12 column text-center">
+					<h:commandButton action="#{gameBean.updateGame}" value="Submit"/>
+				</div>
+			</div>
+		</h:form>
+		<h:form>
+			<div class="row">
+				<div class="small-12 medium-6 column">
 					<label><h:outputText value="#{msg['players']}"/></label>
 				</div>
 				<table class="responsive-card-table unstriped">
@@ -64,9 +86,9 @@
 					</tr>
 					</thead>
 					<tbody>
-					<ui:repeat value="#{gameBean.currentGame.lineUp.lineUpPlayers}" var="lup">
+					<ui:repeat value="#{gameBean.currentGame.lineUpPlayers}" var="lup">
 						<tr>
-							<td data-label="#{msg['name']}">#{lup.player.firstName.charAt(0)}. #{lup.player.lastName}</td>
+							<td data-label="#{msg['name']}">#{lup.player.contact.firstName.charAt(0)}. #{lup.player.contact.lastName}</td>
 							<td data-label="#{msg['position']}">
 								<h:selectOneMenu value="#{lup.position}">
 									<f:selectItem value="#{null}" itemLabel="-"/>

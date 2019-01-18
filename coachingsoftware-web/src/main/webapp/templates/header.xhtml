@@ -12,14 +12,14 @@
 	<div class="top-bar show-for-medium row">
 		<div class="top-bar-left small-12 medium-8 column">
 			<ul class="menu">
-				<h:panelGroup rendered="#{!loginBean.hasUserAssignedTeam or !loginBean.loggedIn}">
+				<h:panelGroup rendered="#{loginBean.loggedInUser == null or loginBean.loggedInUserTeam == null}">
 					<li>
 						<h:outputText value="#{msg['coachingeleven']}"/>
 					</li>
 				</h:panelGroup>
-				<h:panelGroup rendered="#{loginBean.hasUserAssignedTeam and loginBean.loggedIn}">
+				<h:panelGroup rendered="#{loginBean.loggedInUser != null and loginBean.loggedInUserTeam != null}">
 					<li>
-						<h:outputText value="#{loginBean.loggedInUser.team.name}"/>
+						<h:outputText value="#{loginBean.loggedInUserTeam.name}"/>
 					</li>
 				</h:panelGroup>
 			</ul>
@@ -36,12 +36,20 @@
 				</h:panelGroup>
 				<h:panelGroup rendered="#{loginBean.loggedIn}">
 					<li class="#{view.viewId eq '/secured/pages/userSettings.xhtml' ? 'active-link' : ''}">
-						<h:outputLink value="#{request.contextPath}/secured/pages/userSettings.xhtml"><h:outputText value="#{loginBean.username}" /></h:outputLink>
-					</li>
-					<li>
-						<h:form>
-							<h:commandLink action="#{loginBean.doLogout}" value="#{msg['logout']}" />
-						</h:form>
+						<h:outputLink value="#"><h:outputText value="#{loginBean.username}" /></h:outputLink>
+						<ul class="menu">
+							<li>
+								<h:outputLink value="#{request.contextPath}/secured/pages/update/updateUserContact.xhtml"><h:outputText value="#{msg['baseData']}"/></h:outputLink>
+							</li>
+							<li>
+								<h:outputLink value="#{request.contextPath}/secured/pages/addressOverview.xhtml"><h:outputText value="#{msg['contactsAddress']}"/></h:outputLink>
+							</li>
+							<li>
+								<h:form>
+									<h:commandLink action="#{loginBean.doLogout}" value="#{msg['logout']}" />
+								</h:form>
+							</li>
+						</ul>
 					</li>
 				</h:panelGroup>
 				<li>

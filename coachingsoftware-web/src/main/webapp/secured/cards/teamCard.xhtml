@@ -7,13 +7,13 @@
     <div class="card-team card-user-profile">
 		<div class="card-container">
 			<div class="image-container">
-				<h:graphicImage id="teamPicture" name="#{loginBean.loggedInUser.team.teamPictureURL}" />
+				<h:graphicImage id="teamPicture" name="#{team.teamPictureURL}" />
 			</div>
 			<div class="card-user-profile-content card-section">
 				<h:outputLabel class="card-user-profile-name" value="#{msg['myTeamInformations']}" />
 				<h:outputLabel class="card-user-profile-info">
-					<p><h:outputText value="#{loginBean.loggedInUser.team.club.address.street} #{loginBean.loggedInUser.team.club.address.streetNr}"/></p>
-					<p><h:outputText value="#{loginBean.loggedInUser.team.club.address.zip} #{loginBean.loggedInUser.team.club.address.city}"/></p>
+					<p><h:outputText value="#{team.club.address.street} #{team.club.address.streetNr}"/></p>
+					<p><h:outputText value="#{team.club.address.zip} #{team.club.address.city}"/></p>
 				</h:outputLabel>
 			</div>
 			

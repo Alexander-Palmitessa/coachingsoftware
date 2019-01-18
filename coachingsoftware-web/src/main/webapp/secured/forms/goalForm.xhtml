@@ -74,7 +74,7 @@
 							<h:selectOneMenu value="#{goal.scorer.ID}">
 								<f:selectItem itemValue="#{0}" itemLabel="-"/>
 								<f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
-											   itemLabel="#{p.firstName} #{p.lastName}"/>
+											   itemLabel="#{p.contact.firstName} #{p.contact.lastName}"/>
 							</h:selectOneMenu>
 						</div>
 						<div class="medium-6 small-12 columns">
@@ -83,7 +83,7 @@
 							<h:selectOneMenu value="#{goal.assistant.ID}">
 								<f:selectItem itemValue="#{0}" itemLabel="-"/>
 								<f:selectItems value="#{gameBean.players}" var="p" itemValue="#{p.ID}"
-											   itemLabel="#{p.firstName} #{p.lastName}"/>
+											   itemLabel="#{p.contact.firstName} #{p.contact.lastName}"/>
 							</h:selectOneMenu>
 						</div>
 					</div>

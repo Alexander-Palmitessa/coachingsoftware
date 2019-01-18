@@ -7,10 +7,9 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
+import javax.persistence.Query;
 
 import com.coachingeleven.coachingsoftware.persistence.entity.Season;
-import com.coachingeleven.coachingsoftware.persistence.entity.Team;
 
 @Stateless
 public class SeasonRepository extends Repository<Season> {
@@ -20,21 +19,25 @@ public class SeasonRepository extends Repository<Season> {
 		return super.find(Season.class, id);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@TransactionAttribute(SUPPORTS)
-	public List<Season> findSeasonsByTeam(int teamId) {
+	public List<Season> findSeasonsForAssignedTeam(int teamID, int contactID) {
 		try {
-			TypedQuery<Season> query = entityManager.createNamedQuery("findSeasonByTeamID", Season.class);
-			query.setParameter("teamId", teamId);
+    		Query query = entityManager.createNativeQuery("SELECT "
+	    				+ "s.SEASON_ID, "
+	    				+ "s.NAME, "
+	    				+ "s.STARTDATE, "
+	    				+ "s.ENDDATE "
+    				+ "FROM Season AS s "
+    				+ "WHERE s.ENDDATE >= "
+	    				+ "(SELECT tc.JOINDATE "
+						+ "FROM Team_Contact AS tc "
+						+ "WHERE tc.TEAM_ID = ? AND tc.LEAVEDATE IS NULL AND tc.CONTACT_ID = ?) ", Season.class);
+    		query.setParameter(1, teamID);
+    		query.setParameter(2, contactID);
 			return query.getResultList();
 		} catch (NoResultException ex) {
 			return null;
 		}
-	}
-	
-	@TransactionAttribute(SUPPORTS)
-	public Season addTeamToSeason(int seasonID, Team team) {
-		Season season = entityManager.find(Season.class, seasonID);
-		season.getTeams().add(team);
-		return entityManager.merge(season);
 	}
 }

@@ -4,7 +4,6 @@ import javax.ejb.Remote;
 
 import com.coachingeleven.coachingsoftware.application.exception.GameAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.GameNotFoundException;
-import com.coachingeleven.coachingsoftware.application.exception.LineUpAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.application.exception.LineUpPlayerAlreadyExistsException;
 import com.coachingeleven.coachingsoftware.persistence.entity.*;
 
@@ -30,11 +29,7 @@ public interface GameServiceRemote {
 
     PostGameReport createGameReport(PostGameReport postGameReport);
 
-    LineUp createLineUp(LineUp lineUp) throws LineUpAlreadyExistsException;
-
     Game update(Game game);
-
-    LineUp update(LineUp lineUp);
 
     LineUpPlayer createLineUpPlayer(LineUpPlayer lineUpPlayer) throws LineUpPlayerAlreadyExistsException;
 
@@ -49,4 +44,10 @@ public interface GameServiceRemote {
 	void update(Goal goal);
 
 	void delete(Goal goal);
+
+	GameSystem createGameSystem(GameSystem gameSystem) throws GameAlreadyExistsException;
+
+	GameSystem updateGameSystem(GameSystem gameSystem);
+
+	void deleteCard(Card card);
 }

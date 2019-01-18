@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    			xmlns:f="http://xmlns.jcp.org/jsf/core"
+    			xmlns:h="http://xmlns.jcp.org/jsf/html"
+    			xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    			
+        <div class="small-12 medium-6 column">
+        	<label><h:outputText value="#{msg['team']}"/></label>
+		    <h:selectOneMenu value="#{teamContact.team.ID}">
+		        <f:selectItems value="#{teams}" var="team" itemValue="#{team.ID}"
+		                       itemLabel="#{team.name}"/>
+		    </h:selectOneMenu>
+        </div>
+        <div class="small-12 medium-6 column">
+        	<label><h:outputText value="#{msg['assignedSince']}"/></label>
+        	<h:inputText id="joinDate" class="js-datepicker" value="#{teamContactBean.joinDate}"/>
+        	<h:message for="joinDate" style="color: red"/>
+        </div>
+        
+</ui:composition>

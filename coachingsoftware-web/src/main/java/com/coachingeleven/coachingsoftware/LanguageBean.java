@@ -21,7 +21,7 @@ public class LanguageBean implements Serializable {
 	private Locale locale;
 	
 	static{
-		countries = new LinkedHashMap<String,Object>();
+		countries = new LinkedHashMap<>();
 		countries.put("English", Locale.ENGLISH);
 		countries.put("German", Locale.GERMAN);
 	}

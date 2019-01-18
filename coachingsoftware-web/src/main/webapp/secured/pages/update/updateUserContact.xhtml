@@ -1,0 +1,47 @@
+<ui:composition template="/templates/main.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+
+	<ui:define name="title">
+		<c:if test="#{loginBean.loggedIn}"><h:outputText value="#{loginBean.loggedInUser.contact.firstName}" /><h:outputText value=" " /><h:outputText value="#{loginBean.loggedInUser.contact.lastName} - " /></c:if><h:outputText value="#{msg['baseData']}"/><h:outputText value=" - "/><h:outputText value="#{msg['coachingeleven']}"/>
+	</ui:define>
+
+	<ui:define name="contentTitle">
+		<c:if test="#{loginBean.loggedIn}"><h:outputText value="#{loginBean.loggedInUser.contact.firstName}" /><h:outputText value=" " /><h:outputText value="#{loginBean.loggedInUser.contact.lastName} - " /></c:if><h:outputText value="#{msg['baseData']}"/>
+	</ui:define>
+
+    <ui:define name="content">
+        <h:form class="create-form #{contactBean.successClass}">
+	        <div class="row">
+	        	<h:panelGroup rendered="#{not empty contactBean.successClass}">
+	        		<div class="small-12 column text-center">
+	        			<label class="information">
+	        				<h:panelGroup rendered="#{contactBean.createSuccess}">
+	        					<h:outputText value="#{msg['updateSuccess']}"/><h:outputText value=" : '"/><h:outputText value="#{loginBean.loggedInUser.contact.firstName}"/><h:outputText value=" "/><h:outputText value="#{loginBean.loggedInUser.contact.lastName}"/><h:outputText value="'"/>
+	        				</h:panelGroup>
+	        				<h:panelGroup rendered="#{!contactBean.createSuccess}">
+	        					<h:outputText value="#{msg['updateFailure']}"/><h:outputText value=" : '"/><h:outputText value="#{loginBean.loggedInUser.contact.firstName}"/><h:outputText value=" "/><h:outputText value="#{loginBean.loggedInUser.contact.lastName}"/><h:outputText value="'"/>
+	        				</h:panelGroup>
+			        	</label>
+			        </div>
+	        	</h:panelGroup>
+	        	<div class="small-12 medium-6 column">
+					<label><h:outputText value="#{msg['username']}"/></label>
+					<h:inputText id="tc_username" value="#{loginBean.username}" readonly="true"/>
+				</div>
+		        <ui:include src="/secured/forms/contactForm.xhtml">
+		        	<ui:param name="contact" value="#{loginBean.loggedInUser.contact}" />
+		        </ui:include>
+		        <div class="small-12 column text-center">
+		        	<h:commandButton action="#{contactBean.update(loginBean.loggedInUser.contact)}" value="#{msg['updateContact']}"/>
+		        </div>
+	        </div>
+		</h:form>
+    </ui:define>
+
+</ui:composition>

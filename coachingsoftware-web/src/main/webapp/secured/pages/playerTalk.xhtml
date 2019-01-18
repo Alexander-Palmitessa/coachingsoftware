@@ -9,7 +9,7 @@
 			<h:outputText value="#{msg['noPlayerFound']}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
 		</h:panelGroup>
 		<h:panelGroup rendered="#{playerViewBean.currentPlayer != null}">
-			<h:outputText value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
+			<h:outputText value="#{playerViewBean.currentPlayer.contact.firstName} #{playerViewBean.currentPlayer.contact.lastName}"/> - <h:outputText value="#{msg['coachingeleven']}"/>
 		</h:panelGroup>
     </ui:define>
 	
@@ -18,7 +18,7 @@
 			<h:outputText value="#{msg['noPlayerFound']}"/>
 		</h:panelGroup>
 		<h:panelGroup rendered="#{playerViewBean.currentPlayer != null}">
-			<h:outputText value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/>
+			<h:outputText value="#{playerViewBean.currentPlayer.contact.firstName} #{playerViewBean.currentPlayer.contact.lastName}"/>
 		</h:panelGroup>
 	</ui:define>
 		
@@ -31,13 +31,16 @@
 							<h:outputLink value="#{request.contextPath}/secured/pages/playerView.xhtml"><h:outputText value="#{msg['details']}"/></h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#"><h:outputText value="#{msg['statistic']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/playerStatistics.xhtml"><h:outputText value="#{msg['statistic']}"/></h:outputLink>
 						</li>
 						<li>
-							<h:outputLink value="#"><h:outputText value="#{msg['ranking']}"/></h:outputLink>
+							<h:outputLink value="#{request.contextPath}/secured/pages/playerRanking.xhtml"><h:outputText value="#{msg['ranking']}"/></h:outputLink>
 						</li>
 						<li class="active">
 							<h:outputLink value="#{request.contextPath}/secured/pages/playerTalk.xhtml"><h:outputText value="#{msg['conversation']}"/></h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#{request.contextPath}/secured/pages/performanceDiagnostics.xhtml"><h:outputText value="#{msg['perfDiag']}"/></h:outputLink>
 						</li>
 					</ul>
 				</div>
@@ -48,7 +51,7 @@
 							<div class="card-user-profile-avatar">
 								<h:graphicImage name="images/Default-avatar.jpg" />
 							</div>
-							<p class="card-user-profile-name"><h:outputText value="#{playerViewBean.currentPlayer.firstName} #{playerViewBean.currentPlayer.lastName}"/></p>
+							<p class="card-user-profile-name"><h:outputText value="#{playerViewBean.currentPlayer.contact.firstName} #{playerViewBean.currentPlayer.contact.lastName}"/></p>
 							<h:form id="createPlayerTalk">
 					        	<div class="row">
 							        <div class="small-12 medium-6 column">
@@ -71,6 +74,11 @@
 									    <h:inputTextarea id="playerTalkGoals" value="#{evaluationTalkBean.newTalk.goals}"/>
 										<h:message for="playerTalkGoals" style="color: red"/>
 							        </div>
+									<div class="small-12 column">
+										<label><h:outputText value="#{msg['measures']}"/></label>
+										<h:inputTextarea id="playerTalkMeasures" value="#{evaluationTalkBean.newTalk.measures}"/>
+										<h:message for="playerTalkMeasures" style="color: red"/>
+									</div>
 								    <div class="small-12 column text-center">
 							        	<h:commandButton action="#{evaluationTalkBean.createPlayerTalk}" value="#{msg['createTalk']}"/>
 							        </div>
@@ -79,6 +87,41 @@
 						</div>
 					</div>
 				</div>
+
+				<!-- List of all evaluation talks-->
+				<ui:repeat value="#{currentPlayerBean.currentPlayer.evaluationTalks}" var="eval_talk">
+					<div class="small-12 column card-user-profile">
+						<div class="card-container">
+							<div class="card-user-profile-content card-section">
+								<h:form>
+									<div class="row">
+										<div class="small-12 medium-6 column">
+											<label><h:outputText value="#{msg['dateColumn']}"/></label>
+											<h:outputText value="#{evaluationTalkBean.formatDate(eval_talk.date)}"/>
+										</div>
+										<div class="small-12 medium-6 column">
+											<label><h:outputText value="#{msg['timeHorizon']}"/></label>
+											<h:outputText value="#{eval_talk.timeHorizon}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['situationalAnalysis']}"/></label>
+											<h:outputText value="#{eval_talk.situationalAnalysis}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['goals']}"/></label>
+											<h:outputText value="#{eval_talk.goals}"/>
+										</div>
+										<div class="small-12 column">
+											<label><h:outputText value="#{msg['measures']}"/></label>
+											<h:outputText value="#{eval_talk.measures}"/>
+										</div>
+									</div>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</ui:repeat>
+
 			</div>
 		</h:panelGroup>
 		<h:panelGroup rendered="#{playerViewBean.currentPlayer == null}">

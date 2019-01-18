@@ -41,6 +41,9 @@ public class EvaluationTalk implements Serializable {
 	private String goals;
 	@Column(name = "TIME_HORIZON")
 	private String timeHorizon;
+	@Column(name = "MEASURES")
+	private String measures;
+
 
 	/**
 	 * Class constructor
@@ -50,13 +53,15 @@ public class EvaluationTalk implements Serializable {
 	 * @param situationalAnalysis the situational analysis
 	 * @param goals               the goals which were set during the talk
 	 * @param timeHorizon         the time horizon which the goals should be reached
+	 * @param measures            the measures which were discussed
 	 */
-	public EvaluationTalk(Player player, Calendar date, String situationalAnalysis, String goals, String timeHorizon) {
+	public EvaluationTalk(Player player, Calendar date, String situationalAnalysis, String goals, String timeHorizon, String measures) {
 		this.player = player;
 		this.date = date;
 		this.situationalAnalysis = situationalAnalysis;
 		this.goals = goals;
 		this.timeHorizon = timeHorizon;
+		this.measures = measures;
 	}
 
 	/**
@@ -108,5 +113,13 @@ public class EvaluationTalk implements Serializable {
 
 	public void setTimeHorizon(String timeHorizon) {
 		this.timeHorizon = timeHorizon;
+	}
+
+	public String getMeasures() {
+		return measures;
+	}
+
+	public void setMeasures(String measures) {
+		this.measures = measures;
 	}
 }

@@ -38,3 +38,11 @@ body {
 .image-container img {
 	width: 100%;
 }
+
+#offCanvasLeft {
+	background-color: white;
+}
+
+.justify-center {
+	justify-content: center;
+}

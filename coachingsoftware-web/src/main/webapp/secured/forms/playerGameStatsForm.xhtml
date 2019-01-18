@@ -48,7 +48,7 @@
 				<div class="block blockcontainer margintop-05">
 					<div class="row">
 						<div class="small-12 medium-12 column">
-							<h4><h:outputText value="#{pgs.player.firstName} #{pgs.player.lastName}"/></h4>
+							<h4><h:outputText value="#{pgs.player.contact.firstName} #{pgs.player.contact.lastName}"/></h4>
 						</div>
 						<div class="small-6 medium-2 column">
 							<label><h:outputText value="#{msg['minutesPlayed']}"/></label>
@@ -202,19 +202,26 @@
 							<h:inputText id="changeOutComment" class="numericIn" value="#{pgs.changeOut.comment}"/>
 							<h:message for="changeOutComment" style="color: red"/>
 						</div>
-						<!--
-						<div class="small-12 medium-6 column">
-							<label><h:outputText value="#{msg['cardType']}"/></label>
-							<h:selectOneMenu value="#{pgs.changeOut.causeCard.type}">
-								<f:selectItems value="#{gameBean.cardTypes}" var="ct" itemValue="#{ct}"
-											   itemLabel="#{msg['cardType.'.concat(ct)]}"/>
-							</h:selectOneMenu>
+						<ui:repeat value="#{pgs.cards}" var="card">
+							<div class="small-12 medium-6 column">
+								<label><h:outputText value="#{msg['cardType']}"/></label>
+								<h:selectOneMenu value="#{card.type}">
+									<f:selectItems value="#{gameBean.cardTypes}" var="ct" itemValue="#{ct}"
+												   itemLabel="#{msg['cardType.'.concat(ct)]}"/>
+								</h:selectOneMenu>
+							</div>
+							<div class="small-12 medium-3 column">
+								<label><h:outputText value="#{msg['minute']}"/></label>
+								<h:inputText id="card_min" class="numericIn" value="#{card.minute}"/>
+								<h:message for="card_min" style="color: red"/>
+							</div>
+							<div class="small-12 medium-3 column text-center">
+								<h:commandButton action="#{gameBean.removeCard(card, pgs)}" value="#{msg['delete']}"/>
+							</div>
+						</ui:repeat>
+						<div class="small-12 medium-3 column text-center margintop-05">
+							<h:commandButton action="#{gameBean.addAnotherCard(pgs)}" value="#{msg['addCard']}"/>
 						</div>
-						<div class="small-12 medium-6 column">
-							<label><h:outputText value="#{msg['comment']}"/></label>
-							<h:inputText value="#{pgs.changeOut.causeCard.description}"/>
-						</div>
-						-->
 					</div>
 				</div>
 			</ui:repeat>

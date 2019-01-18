@@ -33,17 +33,6 @@ public class CurrentPlayerBean implements Serializable {
 			return navigationBean.redirectToCurrentPlayersOverview();
 		}
 	}
-	
-	public String deletePlayer(int playerID) {
-		try {
-			Player playerToDelete = playerService.findPlayer(playerID);
-			// TODO: Which related data should also be removed? -> Discuss with Francesco (currently the delete wont work because there will be foreign key constraint violations)
-			//playerService.deletePlayer(playerToDelete);
-			return navigationBean.redirectToCurrentPlayersOverview();
-		} catch (PlayerNotFoundException e) {
-			return navigationBean.redirectToCurrentPlayersOverview();
-		}
-	}
 
 	public Player getCurrentPlayer() {
 		return currentPlayer;

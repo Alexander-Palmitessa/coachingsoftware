@@ -40,11 +40,11 @@ public class Club implements Serializable {
     @Column(name = "CLUB_ID")
     private int ID;
     @Column(name = "CLUB_NAME", nullable = false, unique = true)
-    @Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "{pattern.letter.number.space}")
+    @Pattern(regexp = "^[a-zA-Z0-9äöüÄÖÜéÉèÈàÀîÎâÂêÊôÔûÛ.\\s]+$", message = "{pattern.letter.number.space}")
     @NotNull(message = "{not.null}")
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "club", orphanRemoval = true)
-    private Set<Team> teams;
+    private Set<Team> teams = new HashSet<>();
     @Embedded
 	private Address address;
 
@@ -55,7 +55,6 @@ public class Club implements Serializable {
      */
     public Club(String name) {
         this.name = name;
-        teams = new HashSet<>();
     }
 
     /**
@@ -67,6 +66,10 @@ public class Club implements Serializable {
 
     public int getID() {
         return ID;
+    }
+    
+    public void setID(int ID) {
+    	this.ID = ID;
     }
 
     public void setName(String name) {
